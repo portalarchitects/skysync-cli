@@ -14,6 +14,11 @@ export interface Connection extends IEntityIdentifier<string> {
 	name?: string;
 	features?: ConnectionFeatures;
 	platform?: StoragePlatform;
+	account?: Account;
+};
+
+export interface Account extends IEntityIdentifier<string> {
+	email?: string;
 };
 
 export interface ConnectionAuthorizeRequest {

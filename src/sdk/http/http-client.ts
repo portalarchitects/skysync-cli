@@ -146,7 +146,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body
+			body: body && JSON.stringify(body) || ''
 		});
 	}
 
@@ -156,7 +156,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body
+			body: body && JSON.stringify(body) || ''
 		});
 	}
 
@@ -166,7 +166,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body
+			body: body && JSON.stringify(body) || ''
 		});
 	}
 

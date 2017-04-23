@@ -48,17 +48,17 @@ export class EditableResource<TResource extends IEntityIdentifier<any>> extends 
 	}
 
 	async add(body: TResource, params?: any): Promise<TResource> {
-		const result = await this.httpClient.post(`${this.resourcePath}`, this.mergeDefaultParams(params));
+		const result = await this.httpClient.post(`${this.resourcePath}`, body, this.mergeDefaultParams(params));
 		return result && <TResource>result[this.singularName];
 	}
 
 	async update(body: TResource, params?: any): Promise<TResource> {
-		const result = await this.httpClient.put(`${this.resourcePath}/${body.id}`, this.mergeDefaultParams(params));
+		const result = await this.httpClient.put(`${this.resourcePath}/${body.id}`, body, this.mergeDefaultParams(params));
 		return result && <TResource>result[this.singularName];
 	}
 
 	async patch(body: TResource, params?: any): Promise<TResource> {
-		const result = await this.httpClient.patch(`${this.resourcePath}/${body.id}`, this.mergeDefaultParams(params));
+		const result = await this.httpClient.patch(`${this.resourcePath}/${body.id}`, body, this.mergeDefaultParams(params));
 		return result && <TResource>result[this.singularName];
 	}
 
