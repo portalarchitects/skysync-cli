@@ -19,6 +19,12 @@ export = {
 				group: 'Search'
 			},
 
+			'active': {
+				desc: 'Only retrieve active jobs',
+				type: 'boolean',
+				group: 'Search'
+			},
+
 			'offset': {
 				default: 0,
 				desc: 'Search offset',
@@ -39,6 +45,7 @@ export = {
 			const jobs = await client.jobs.list({
 				kind: argv.kind,
 				q: argv.search,
+				active: argv.active,
 				offset: argv.offset,
 				limit: argv.limit,
 				fields: [
