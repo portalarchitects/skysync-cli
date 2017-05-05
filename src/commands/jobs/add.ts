@@ -59,7 +59,7 @@ export = {
 				job.options = JSON.parse(fs.readFileSync(argv.optionsFile, 'utf-8'));
 			}
 
-			if (argv.wizard) {
+			if (!job.options && argv.wizard) {
 				job = await new JobWizard(client).run(job);
 			}
 
