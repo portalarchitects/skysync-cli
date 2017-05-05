@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import * as process from 'process';
 import * as yargs from 'yargs';
 import { DEFAULT_SERVER_URI } from './sdk';
@@ -11,11 +12,20 @@ process.env.INIT_CWD = process.cwd();
 
 const cli = new Liftoff({
 	name: mypackage.name,
+	configName: 'skysync-cli',
+	extensions: {
+		'.json': null
+	},
 	v8flags: require('v8flags')
 });
 
 export function run() {
 	cli.launch({}, function(env) {
+		const configPath = env.configPath;
+		if (configPath) {
+			yargs.config(JSON.parse(fs.readFileSync(configPath, 'utf-8')));
+		}
+
 		return yargs
 			.env('SKYSYNC')
 			.config()
@@ -66,7 +76,7 @@ export function run() {
 				'Connection'
 			])
 			.demandCommand(1, 'You must provide a command')
-			.strict()
+			// .strict()
 			.argv;
 	});
 }

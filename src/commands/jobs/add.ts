@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { runCommand } from '../../util/command';
+import { runCommand, readJsonInput } from '../../util/command';
 import { detailOutputFormat } from './util';
 import { JobWizard } from './wizard';
 
@@ -37,13 +37,6 @@ export = {
 				type: 'boolean'
 			},
 
-			'options-json': {
-				alias: 'options',
-				desc: 'The options JSON',
-				type: 'string',
-				coerce: JSON.parse
-			},
-
 			'options-file': {
 				alias: 'file',
 				desc: 'The options JSON file',
@@ -58,11 +51,11 @@ export = {
 				name: argv.name,
 				schedule: {
 					mode: argv.manual ? 'manual' : 'auto'
-				}
+				},
+				options: await readJsonInput()
 			};
-			if (argv.optionsJson) {
-				job.options = argv.optionsJson;
-			} else if (argv.optionsFile) {
+
+			if (!job.options && argv.optionsFile) {
 				job.options = JSON.parse(fs.readFileSync(argv.optionsFile, 'utf-8'));
 			}
 
