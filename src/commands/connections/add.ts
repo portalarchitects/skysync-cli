@@ -44,6 +44,12 @@ export = {
 				type: 'string'
 			},
 
+			'auth-input': {
+				alias: 'in',
+				desc: 'Read authentication JSON from stdin',
+				type: 'boolean'
+			},
+
 			'auth-file': {
 				alias: 'file',
 				desc: 'The authentication JSON file',
@@ -53,7 +59,7 @@ export = {
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			let authJson = await readJsonInput();
+			let authJson = argv.authInput ? await readJsonInput() : undefined;
 			if (!authJson && argv.authFile) {
 				authJson = JSON.parse(fs.readFileSync(argv.authFile, 'utf-8'));
 			}

@@ -9,6 +9,7 @@ export interface Job extends IEntityIdentifier<string> {
 	name?: string;
 	kind?: string;
 	schedule?: JobSchedule;
+	transfer?: TransferOptions;
 	disabled?: boolean;
 };
 

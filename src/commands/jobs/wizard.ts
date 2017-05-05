@@ -127,7 +127,9 @@ async function JobWelcomeStep(state: Job): Promise<Job> {
 }
 
 async function JobNameStep(state: Job): Promise<Job> {
-	await promptProperty(state, 'name', 'Enter the job name: [default]');
+	if (!state.name) {
+		await promptProperty(state, 'name', 'Enter the job name: [default]');
+	}
 	return state;
 }
 
@@ -233,12 +235,17 @@ function TransferPathJobStep(client: SkySyncClient): WizardStep<Job> {
 			console.log();
 
 			const path = await promptInput('path', `What is the ${name} path?`);
-			state[name] = {
+			if (!state.transfer) {
+				state.transfer = {};
+			}
+
+			state.transfer[name] = {
 				connection,
 				target: {
 					path
 				}
 			};
+
 			return state;
 		};
 	};

@@ -37,6 +37,12 @@ export = {
 				type: 'boolean'
 			},
 
+			'options-input': {
+				alias: 'in',
+				desc: 'Read JSON options from stdin',
+				type: 'boolean'
+			},
+
 			'options-file': {
 				alias: 'file',
 				desc: 'The options JSON file',
@@ -51,15 +57,16 @@ export = {
 				name: argv.name,
 				schedule: {
 					mode: argv.manual ? 'manual' : 'auto'
-				},
-				options: await readJsonInput()
+				}
 			};
 
-			if (!job.options && argv.optionsFile) {
-				job.options = JSON.parse(fs.readFileSync(argv.optionsFile, 'utf-8'));
+			let options = argv.optionsInput ? await readJsonInput() : undefined;
+			if (!options && argv.optionsFile) {
+				options = JSON.parse(fs.readFileSync(argv.optionsFile, 'utf-8'));
 			}
+			job[job.kind] = options;
 
-			if (!job.options && argv.wizard) {
+			if (!options && !argv.optionsInput && job.kind === 'transfer' && argv.wizard) {
 				job = await new JobWizard(client).run(job);
 			}
 
