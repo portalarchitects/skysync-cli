@@ -78,23 +78,14 @@ export class OutputFormatter {
 			return JSON.stringify(json, null, this.formatOptions.tabSize);
 		} else if (!asTable) {
 			const data = options && options.table.map(col => {
-				let val = dot.pick(col.property, obj[0]);
-				if (col.transform) {
-					val = col.transform(val);
-				}
-				return [(col.header as any).grey, val || ''];
+				const val = formatToString(col, obj[0]);
+				return [(col.header as any).grey, val];
 			})
 
 			return cliff.stringifyRows(data);
 		} else {
 			const data = options && obj.map(x => {
-				return options.table.map(col => {
-					let val = dot.pick(col.property, x);
-					if (col.transform) {
-						val = col.transform(val);
-					}
-					return val || '';
-				});
+				return options.table.map(col => formatToString(col, x));
 			}) || [];
 
 			if (options) {
@@ -104,6 +95,19 @@ export class OutputFormatter {
 			return cliff.stringifyRows(data, ['gray']);
 		}
 	}
+}
+
+function formatToString(col: { property?: string, transform?: (val: any) => any; }, obj: any): string {
+	let val = dot.pick(col.property, obj);
+	if (col.transform) {
+		val = col.transform(val);
+	}
+	if (typeof (val) === 'undefined') {
+		val = '';
+	} else if (typeof (val) !== 'string') {
+		val = val.toString();
+	}
+	return val;
 }
 
 function copyJson(obj: any, options?: OutputOptions): any {

@@ -63,6 +63,13 @@ export function run() {
 					desc: 'The password',
 					global: true,
 					group: 'Connection'
+				},
+
+				'site': {
+					type: 'string',
+					desc: 'The remote site context',
+					global: true,
+					group: 'Connection'
 				}
 			})
 			.commandDir('./commands')

@@ -7,7 +7,7 @@
   "author": "Portal Architects",
   "scripts": {
     "build": "tsc -p ./src",
-    "start": "bin/skysync.js",
+    "start": "node bin/skysync.js",
     "postinstall": "npm run build"
   },
   "bin": {

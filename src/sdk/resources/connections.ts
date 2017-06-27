@@ -10,7 +10,7 @@ function getAuthorizeRequest(body: any): ConnectionAuthorizeRequest {
 export class StoragePlatformsResource extends Resource<StoragePlatform> {
 	constructor(httpClient: IHttpClient) {
 		super(httpClient, 'platform');
-		this.resourcePath = `${Resource.VERSION}/connections/platforms`;
+		this.resourcePath = 'connections/platforms';
 	}
 
 	async authorize(platform: string, params?: any): Promise<ConnectionAuthorizeRequest> {

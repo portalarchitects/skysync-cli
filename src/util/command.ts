@@ -19,7 +19,6 @@ export async function runCommand(argv: any, handler: (client: SkySyncClient, out
 export async function readJsonInput(): Promise<string> {
 	return new Promise<string>((resolve, reject) => {
 		if (stdin.isTTY) {
-			console.log('isTTY');
 			return resolve(undefined);
 		}
 

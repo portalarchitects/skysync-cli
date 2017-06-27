@@ -1,5 +1,7 @@
 import { appendQuery } from './query-string';
 
+const API_VERSION = 'v1';
+
 export interface IHttpClient {
 	get(path: string, params?: any): Promise<any>;
 
@@ -14,16 +16,24 @@ export interface IHttpClient {
 
 export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	private accessToken: string;
-	private isAuthRequired: boolean;
+	private readonly apiUrl: string;
+	private readonly isAuthRequired: boolean;
 
 	constructor(
 		protected baseAddress: string,
 		private username: string,
-		private password: string) {
+		private password: string,
+		site: string = null) {
 		if (this.baseAddress[this.baseAddress.length - 1] !== '/') {
 			this.baseAddress += '/';
 		}
 		this.isAuthRequired = Boolean(this.username && this.password);
+
+		if (site && site.length > 0) {
+			this.apiUrl = `${this.baseAddress}${API_VERSION}/sites/${site}/api/`;
+		} else {
+			this.apiUrl = `${this.baseAddress}${API_VERSION}/`;
+		}
 	}
 
 	protected async getAccessToken(): Promise<string> {
@@ -34,6 +44,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 				}
 
 				this.makeRequest(<any>{
+					baseUrl: this.baseAddress,
 					url: 'connect/token',
 					method: 'POST',
 					form: {
@@ -76,7 +87,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		return new Error(error);
 	}
 
-	private async executeRequest(path: string, params: any, options: any = {}): Promise<any> {
+	private async apiRequest(path: string, params: any, options: any = {}): Promise<any> {
 		return await new Promise(async (resolve, reject) => {
 			try {
 				if (this.isAuthRequired) {
@@ -86,7 +97,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 				}
 
 				options.url = appendQuery(path, params);
-				options.baseUrl = this.baseAddress;
+				options.baseUrl = this.apiUrl;
 
 				let attempted = false;
 				this.makeRequest(options, async (err, response, body) => {
@@ -135,13 +146,13 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	}
 
 	get(path: string, params?: any): Promise<any> {
-		return this.executeRequest(path, params, {
+		return this.apiRequest(path, params, {
 			method: 'GET'
 		});
 	}
 
 	post(path: string, body: any, params?: any): Promise<any> {
-		return this.executeRequest(path, params, {
+		return this.apiRequest(path, params, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -151,7 +162,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	}
 
 	put(path: string, body: any, params?: any): Promise<any> {
-		return this.executeRequest(path, params, {
+		return this.apiRequest(path, params, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json'
@@ -161,7 +172,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	}
 
 	patch(path: string, body: any, params?: any): Promise<any> {
-		return this.executeRequest(path, params, {
+		return this.apiRequest(path, params, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json'
@@ -171,7 +182,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	}
 
 	async delete(path: string, params?: any): Promise<boolean> {
-		const result = await this.executeRequest(path, params, {
+		const result = await this.apiRequest(path, params, {
 			method: 'DELETE'
 		});
 		return result !== null;

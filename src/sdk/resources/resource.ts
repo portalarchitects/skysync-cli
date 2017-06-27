@@ -2,16 +2,14 @@ import { IEntityIdentifier } from '../models';
 import { IHttpClient } from '../http';
 
 export class Resource<TResource> {
-	protected static readonly VERSION = 'v1';
-
 	protected resourcePath: string;
 	public defaultParams: any;
 
 	constructor(protected httpClient: IHttpClient, protected singularName: string, protected pluralName: string = undefined) {
 		if (!this.pluralName) {
-			 this.pluralName = `${this.singularName}s`;
+			this.pluralName = `${this.singularName}s`;
 		}
-		this.resourcePath = `${Resource.VERSION}/${this.pluralName}`;
+		this.resourcePath = this.pluralName;
 	}
 
 	protected mergeDefaultParams(params: any): any {
