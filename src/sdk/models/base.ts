@@ -1,3 +1,3 @@
 export interface IEntityIdentifier<TID> {
-	id: TID;
-};
+	id?: TID;
+}

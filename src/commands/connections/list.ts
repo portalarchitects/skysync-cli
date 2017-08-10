@@ -44,6 +44,13 @@ export = {
 				group: 'Search'
 			},
 
+			'active': {
+				desc: 'Only retrieve active jobs',
+				type: 'boolean',
+				group: 'Search',
+				default: undefined
+			},
+
 			'offset': {
 				default: 0,
 				desc: 'Search offset',
@@ -64,6 +71,7 @@ export = {
 			const connections = await client.connections.list({
 				platform: argv.platform,
 				q: argv.search,
+				active: argv.active,
 				offset: argv.offset,
 				limit: argv.limit
 			});

@@ -22,7 +22,8 @@ export = {
 			'active': {
 				desc: 'Only retrieve active jobs',
 				type: 'boolean',
-				group: 'Search'
+				group: 'Search',
+				default: undefined
 			},
 
 			'offset': {

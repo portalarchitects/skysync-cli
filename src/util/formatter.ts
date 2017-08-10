@@ -1,12 +1,12 @@
 import * as cliff from 'cliff';
 import * as dot from 'dot-object';
 
-interface OutputFormatterOptions {
+export interface OutputFormatterOptions {
 	outputJson?: boolean;
 	tabSize?: string | number;
 };
 
-interface OutputOptions {
+export interface OutputOptions {
 	table?: {
 		property: string;
 		header: string;
@@ -51,16 +51,13 @@ export class OutputFormatter {
 			if (this.formatOptions.outputJson) {
 				console.log("null");
 				return;
+			} else {
+				obj = [];
 			}
-			return;
 		}
 		if (!Array.isArray(obj)) {
 			obj = [obj];
 		}
-		if (obj.length == 0 && !this.formatOptions.outputJson) {
-			return;
-		}
-
 		console.log(this.toString(obj, options, asTable));
 	}
 

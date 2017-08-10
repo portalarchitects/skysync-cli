@@ -25,7 +25,6 @@ export class JobsResource extends EditableResource<Job> {
 		params = this.mergeParams(statusParams, params);
 
 		const job = await this.httpClient.patch(`${this.resourcePath}/${id}`, undefined, params);
-		return job && job[this.singularName];
-
+		return this.getSingle(job);
 	}
 }

@@ -1,6 +1,5 @@
 import { IHttpClient, RequestHttpClient } from './http';
 import {
-	Resource,
 	ConnectionsResource,
 	StoragePlatformsResource,
 	JobsResource,
@@ -8,25 +7,26 @@ import {
 } from './resources';
 import * as models from './models';
 
-export const DEFAULT_SERVER_URI = 'http://localhost:9090/';
-
-interface SkySyncConfig {
-	server: string;
-	username: string;
-	password: string;
-	site: string;
-}
-
 export class SkySyncClient {
+	static readonly DEFAULT_SERVER_URI: string = 'http://localhost:9090/';
+
 	private httpClient: IHttpClient;
 
-	constructor(config: SkySyncConfig);
+	constructor(config?: {
+		server: string;
+		username: string;
+		password: string;
+		site: string;
+	});
 	constructor(httpClient: IHttpClient);
 	constructor(options: any) {
+		if (!options) {
+			options = {};
+		}
 		if (typeof(options.get) === 'function') {
 			this.httpClient = options;
 		} else {
-			this.httpClient = new RequestHttpClient(options.server || DEFAULT_SERVER_URI, options.username, options.password, options.site);
+			this.httpClient = new RequestHttpClient(options.server || SkySyncClient.DEFAULT_SERVER_URI, options.username, options.password, options.site);
 		}
 	}
 

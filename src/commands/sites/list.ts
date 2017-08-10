@@ -1,27 +1,5 @@
 import { runCommand } from '../../util/command';
-
-const outputFormat = {
-	table: [
-		{
-			header: 'ID',
-			property: 'id'
-		},
-		{
-			header: 'Name',
-			property: 'name'
-		},
-		{
-			header: 'Connected',
-			property: 'connected',
-			transform: val => Boolean(val)
-		},
-		{
-			header: 'Enabled',
-			property: 'disabled',
-			transform: val => !Boolean(val)
-		}
-	]
-};
+import { outputFormat } from './util';
 
 export = {
 	command: 'list',
@@ -31,7 +9,8 @@ export = {
 			'connected': {
 				desc: 'Only retrieve connected sites',
 				type: 'boolean',
-				group: 'Search'
+				group: 'Search',
+				default: undefined
 			},
 
 			'search': {
@@ -44,7 +23,8 @@ export = {
 			'active': {
 				desc: 'Only retrieve active sites',
 				type: 'boolean',
-				group: 'Search'
+				group: 'Search',
+				default: undefined
 			},
 
 			'offset': {

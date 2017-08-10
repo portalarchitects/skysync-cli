@@ -1,5 +1,7 @@
 export = {
 	command: 'sites',
 	desc: 'Manage SkySync Remote Sites',
-	builder: yargs => yargs.commandDir('./sites').demandCommand(1)
+	builder: yargs => yargs.commandDir('./sites', {
+		exclude: /util/
+	}).demandCommand(1)
 };

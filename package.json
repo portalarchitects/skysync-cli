@@ -1,14 +1,44 @@
 {
   "name": "skysync-cli",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "SkySync Command Line Interface",
-  "private": true,
-  "main": "lib/sdk/index.js",
-  "author": "Portal Architects",
+  "homepage": "http://www.skysync.com",
+  "license": "MIT",
+  "keywords": [
+    "SkySync",
+    "Sync",
+    "Copy"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/portalarchitects/skysync-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/portalarchitects/skysync-cli/issues",
+    "email": "support@skysync.com"
+  },
+  "main": "./dist/sdk/index.js",
+  "author": {
+    "name": "Portal Architects",
+    "email": "developers@skysync.com"
+  },
+  "contributors": [
+    {
+      "name": "Shaun Becker",
+      "email": "sbecker@skysync.com"
+    }
+  ],
+  "files": [
+    "dist/",
+    "bin/"
+  ],
   "scripts": {
+    "clean": "rimraf dist",
     "build": "tsc -p ./src",
+    "rebuild": "npm run clean && npm run build",
     "start": "node bin/skysync.js",
-    "postinstall": "npm run build"
+    "test": "cross-env TS_NODE_PROJECT=./src mocha --compilers ts:ts-node/register src/**/*.test.ts",
+    "prepublishOnly": "npm run rebuild"
   },
   "bin": {
     "skysync-cli": "bin/skysync.js"
@@ -24,7 +54,14 @@
     "yargs": "^7.1.0"
   },
   "devDependencies": {
-    "@types/node": "^7.0.13",
-    "typescript": "^2.2.2"
+    "@types/expect.js": "^0.3.29",
+    "@types/mocha": "^2.2.41",
+    "@types/node": "^8.0.20",
+    "cross-env": "^5.0.5",
+    "expect.js": "^0.3.1",
+    "mocha": "^3.5.0",
+    "rimraf": "^2.6.1",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.4.2"
   }
 }

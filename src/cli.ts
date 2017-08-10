@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as process from 'process';
 import * as yargs from 'yargs';
-import { DEFAULT_SERVER_URI } from './sdk';
+import { SkySyncClient } from './sdk';
 
 const Liftoff = require('liftoff');
 const mypackage = require('../package');
@@ -12,7 +12,7 @@ process.env.INIT_CWD = process.cwd();
 
 const cli = new Liftoff({
 	name: mypackage.name,
-	configName: 'skysync-cli',
+	configName: mypackage.name,
 	extensions: {
 		'.json': null
 	},
@@ -43,7 +43,7 @@ export function run() {
 
 				'server': {
 					desc: 'The SkySync server URI',
-					default: DEFAULT_SERVER_URI,
+					default: SkySyncClient.DEFAULT_SERVER_URI,
 					type: 'string',
 					global: true,
 					group: 'Connection'

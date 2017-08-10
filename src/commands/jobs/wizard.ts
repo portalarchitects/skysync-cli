@@ -2,13 +2,14 @@ import * as prompt from 'prompt';
 import { 
 	Job,
 	JobSchedule,
+	JobScheduleMode,
 	StoragePlatform,
 	Connection,
 	SkySyncClient
 } from '../../sdk';
 const open = require('open')
 
-type WizardStep<T> = (obj: T) => Promise<T>;
+export type WizardStep<T> = (obj: T) => Promise<T>;
 
 async function runSteps<T>(obj: T, steps: WizardStep<T>[]): Promise<T> {
 	for (let i = 0, count = steps.length; i < count; i++) {
@@ -20,7 +21,7 @@ async function runSteps<T>(obj: T, steps: WizardStep<T>[]): Promise<T> {
 	return obj;
 }
 
-class Wizard<T> {
+export class Wizard<T> {
 	private readonly steps: WizardStep<T>[];
 
 	constructor(...steps: WizardStep<T>[]) {
@@ -144,7 +145,7 @@ async function JobCustomScheduleStep(state: Job): Promise<Job> {
 		]);
 	} else if (!state.schedule) {
 		state.schedule = {
-			mode: 'auto'
+			mode: JobScheduleMode.Automatic
 		};
 	}
 	return state;
@@ -162,9 +163,9 @@ async function JobScheduleModeStep(state: Job): Promise<Job> {
 		state.schedule = {};
 	}
 	if (index === 0 || index === 2) {
-		state.schedule.mode = 'auto';
+		state.schedule.mode = JobScheduleMode.Automatic;
 	} else {
-		state.schedule.mode = 'manual';
+		state.schedule.mode = JobScheduleMode.Manual;
 	}
 	if (index === 2) {
 		state = await runSteps(state, []);

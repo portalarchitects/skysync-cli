@@ -1,9 +1,14 @@
 import { IEntityIdentifier } from './base';
-import { Connection, Account } from './connections';
+import { Connection, Account, PlatformItem } from './connections';
+
+export enum JobScheduleMode {
+	Automatic = "auto",
+	Manual = "manual"
+}
 
 export interface JobSchedule {
-	mode?: 'auto' | 'manual';
-};
+	mode?: JobScheduleMode;
+}
 
 export interface Job extends IEntityIdentifier<string> {
 	name?: string;
@@ -11,27 +16,30 @@ export interface Job extends IEntityIdentifier<string> {
 	schedule?: JobSchedule;
 	transfer?: TransferOptions;
 	disabled?: boolean;
-};
-
-export interface TransferItem {
-	id?: string;
-	name?: string;
-	caption?: string;
-	parent?: TransferItem;
-};
+}
 
 export interface TransferTarget {
-	item?: TransferItem;
+	item?: PlatformItem;
 	path?: string;
-};
+}
 
 export interface TransferPath {
 	connection?: Connection;
 	impersonate_as?: Account;
 	target?: TransferTarget;
-};
+}
+
+export enum TransferType {
+	Synchronize = "sync",
+	Publish = "publish",
+	Move = "move",
+	Migrate = "migrate",
+	Copy = "copy",
+	Taxonomy = "taxonomy"
+}
 
 export interface TransferOptions {
+	transfer_type?: TransferType;
 	source?: TransferPath;
 	destination?: TransferPath;
-};
+}
