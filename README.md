@@ -28,7 +28,7 @@ Any command line option that can be passed in to the SkySync CLI can also be pic
 
 ```json
 {
-	"url": "https://1.2.3.4:9090/",
+	"server": "https://1.2.3.4:9090/",
 	"username": "admin",
 	"password": "my crazy secret password"
 }
