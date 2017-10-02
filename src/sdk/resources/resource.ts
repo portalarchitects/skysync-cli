@@ -12,9 +12,14 @@ export class Resource<TResource> {
 	protected resourcePath: string;
 	public defaultParams: any;
 
-	constructor(protected httpClient: IHttpClient, protected singularName: string, protected pluralName: string = undefined) {
+	constructor(protected httpClient: IHttpClient, protected singularName: string, protected pluralName: string = undefined, 
+				protected singularType?: string, protected pluralType: string = undefined) {
 		if (!this.pluralName) {
 			this.pluralName = `${this.singularName}s`;
+		}
+		
+		if (this.singularType && !this.pluralType) {
+			this.pluralType = `${this.singularType}s`; 
 		}
 		this.resourcePath = this.pluralName;
 	}
@@ -36,11 +41,11 @@ export class Resource<TResource> {
 	}
 
 	protected getList(result: any): TResource[] {
-		return getTypedResponse<TResource[]>(result, this.pluralName);
+		return getTypedResponse<TResource[]>(result, this.pluralType || this.pluralName);
 	}
 	
 	protected getSingle(result: any): TResource {
-		return getTypedResponse<TResource>(result, this.singularName);
+		return getTypedResponse<TResource>(result, this.singularType || this.singularName);
 	}
 
 	async list(params?: any): Promise<TResource[]> {
@@ -55,11 +60,12 @@ export class Resource<TResource> {
 }
 
 export class EditableResource<TResource extends IEntityIdentifier<string>> extends Resource<TResource> {
-	constructor(httpClient: IHttpClient, name: string);
-	constructor(httpClient: IHttpClient, singularName: string, pluralName: string = undefined) {
-		super(httpClient, singularName, pluralName);
+	constructor(httpClient: IHttpClient, name: string, type?: string);
+	constructor(httpClient: IHttpClient, singularName: string, singularType?: string, 
+				pluralName: string = undefined, pluralType: string = undefined) {
+		super(httpClient, singularName, pluralName, singularType, pluralType);
 	}
-
+	
 	async add(body: TResource, params?: any): Promise<TResource> {
 		const result = await this.httpClient.post(`${this.resourcePath}`, body, this.mergeDefaultParams(params));
 		return this.getSingle(result);

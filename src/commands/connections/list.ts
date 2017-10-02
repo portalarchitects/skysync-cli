@@ -45,7 +45,7 @@ export = {
 			},
 
 			'active': {
-				desc: 'Only retrieve active jobs',
+				desc: 'Only retrieve active connections',
 				type: 'boolean',
 				group: 'Search',
 				default: undefined

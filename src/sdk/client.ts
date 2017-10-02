@@ -3,7 +3,9 @@ import {
 	ConnectionsResource,
 	StoragePlatformsResource,
 	JobsResource,
-	SitesResource
+	SitesResource,
+	UsersResource,
+	GroupsResource
 } from './resources';
 import * as models from './models';
 
@@ -44,5 +46,13 @@ export class SkySyncClient {
 
 	get sites(): SitesResource {
 		return new SitesResource(this.httpClient);
+	}
+	
+	get users(): UsersResource {
+		return new UsersResource(this.httpClient);
+	}
+	
+	get groups(): GroupsResource {
+		return new GroupsResource(this.httpClient);
 	}
 }
