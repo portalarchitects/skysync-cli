@@ -1,8 +1,8 @@
 import { IHttpClient } from '../http';
 import { EditableResource } from './resource';
-import { Group } from '../models';
+import { OwnershipGroup } from '../models';
 
-export class GroupsResource extends EditableResource<Group> {
+export class OwnershipGroupsResource extends EditableResource<OwnershipGroup> {
 	constructor(httpClient: IHttpClient) {
 		super(httpClient, 'group', 'owner');
 	}

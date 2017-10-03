@@ -1,11 +1,11 @@
 import { IEntityIdentifier } from './base';
-import { Group } from './groups'; 
+import { OwnershipGroup } from './groups'; 
 
 export interface User extends IEntityIdentifier<string> {
 	login?: string;
 	password?: string;
 	name?: string;
+	email?: string;
 	disabled?: boolean;
-	type?: string;	
-	group?: Group;
+	group?: OwnershipGroup;
 };

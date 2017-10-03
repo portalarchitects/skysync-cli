@@ -1,5 +1,6 @@
 import { runCommand } from '../../util/command';
 import { outputFormat } from './util';
+import { listArgumentsBasic } from '../util';
 
 export = {
 	command: 'list',
@@ -11,21 +12,7 @@ export = {
 				type: 'boolean',
 				group: 'Search',
 				default: undefined
-			},
-
-			'offset': {
-				default: 0,
-				desc: 'Search offset',
-				type: 'number',
-				group: 'Search'
-			},
-
-			'limit': {
-				default: 20,
-				desc: 'Search page size',
-				type: 'number',
-				group: 'Search'
-			}
+			}, ...listArgumentsBasic
 		})
 	},
 	handler: argv => {
@@ -33,7 +20,8 @@ export = {
 			const users = await client.users.list({
 				active: argv.active,
 				offset: argv.offset,
-				limit: argv.limit
+				limit: argv.limit,
+				fields: 'all'
 			});
 			output.writeTable(users, outputFormat);
 		});

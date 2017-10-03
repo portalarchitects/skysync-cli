@@ -1,41 +1,27 @@
 import { runCommand } from '../../util/command';
 import { outputFormat } from './util';
+import { listArgumentsDefault } from '../util';
 
 export = {
 	command: 'list',
 	desc: 'List all groups',
 	builder: yargs => {
 		yargs.options({
-			'search': {
-				alias: 'q',
-				desc: 'Search text',
+			'parent': {
+				desc: 'Only retrieve ownership groups that belong to the specified ownership group',
 				type: 'string',
 				group: 'Search'
-			},
-
-			'offset': {
-				default: 0,
-				desc: 'Search offset',
-				type: 'number',
-				group: 'Search'
-			},
-
-			'limit': {
-				default: 20,
-				desc: 'Search page size',
-				type: 'number',
-				group: 'Search'
-			}
+			}, ...listArgumentsDefault
 		})
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
 			const groups = await client.groups.list({
-				connected: argv.connected,
-				active: argv.active,
+				parent: argv.parent,
 				q: argv.search,
 				offset: argv.offset,
-				limit: argv.limit
+				limit: argv.limit,
+				fields: 'all'
 			});
 			output.writeTable(groups, outputFormat);
 		});

@@ -1,6 +1,8 @@
 import { IEntityIdentifier } from './base';
 
-export interface Group extends IEntityIdentifier<string> {
+export interface OwnershipGroup extends IEntityIdentifier<string> {
 	name?: string;
-	type?: string;	
+	parent?: {
+		id: string;
+	}
 };

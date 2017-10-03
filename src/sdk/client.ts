@@ -5,7 +5,7 @@ import {
 	JobsResource,
 	SitesResource,
 	UsersResource,
-	GroupsResource
+	OwnershipGroupsResource
 } from './resources';
 import * as models from './models';
 
@@ -52,7 +52,7 @@ export class SkySyncClient {
 		return new UsersResource(this.httpClient);
 	}
 	
-	get groups(): GroupsResource {
-		return new GroupsResource(this.httpClient);
+	get groups(): OwnershipGroupsResource {
+		return new OwnershipGroupsResource(this.httpClient);
 	}
 }

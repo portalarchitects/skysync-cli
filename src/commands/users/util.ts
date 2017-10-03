@@ -13,13 +13,20 @@ export const outputFormat = {
 			property: 'name'
 		},
 		{
+			header: 'E-Mail',
+			property: 'email'
+		},
+		{
 			header: 'Enabled',
 			property: 'disabled',
 			transform: val => !Boolean(val)
 		},
 		{
-			header: 'Type',
-			property: 'type'
+			header: 'Group',
+			property: 'group.name'
 		}
+	],
+	json: [
+		'group.id'
 	]
 };

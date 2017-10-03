@@ -9,8 +9,11 @@ export const outputFormat = {
 			property: 'name'
 		},
 		{
-			header: 'Type',
-			property: 'type'
+			header: 'Parent',
+			property: 'parent.name'
 		}
+	],
+	json: [
+		'parent.id'
 	]
 };
