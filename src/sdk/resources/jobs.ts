@@ -20,13 +20,27 @@ export class JobsResource extends EditableResource<Job> {
 		return this.changeStatus(id, 'cancel', params);
 	}
 	
-	async getHistory(id: string, params?: any): Promise<JobExecution[]> {
+	async getHistoryList(id: string, params?: any): Promise<JobExecution[]> {
 		const idPath = id ? `/${id}` : '';
 		const jobExecutions = await this.httpClient.get(`${this.resourcePath}${idPath}/history`, params);
 		return getTypedResponse<JobExecution[]>(jobExecutions, 'job_executions');
 	}
 	
-	async getHistoryCsv(id: string, params?: any): Promise<string> {
+	async getHistory(id: string, modifier: string, params?: any): Promise<JobExecution> {
+		const idPath = id ? `/${id}` : '';
+		const modifierPath = modifier ? `${modifier}` : '';
+		const jobExecution = await this.httpClient.get(`${this.resourcePath}${idPath}/history/${modifierPath}`, params);
+		return getTypedResponse<JobExecution>(jobExecution, 'job_execution');
+	}	
+	
+	
+	async getHistoryCsv(id: string, modifier: string, params?: any): Promise<string> {
+		const idPath = id ? `/${id}` : '';
+		const modifierPath = modifier ? `/${modifier}` : '';
+		return await this.httpClient.get(`${this.resourcePath}${idPath}/history${modifierPath}.csv`, params, true);
+	}
+	
+	async getHistoryCsvList(id: string, params?: any): Promise<string> {
 		const idPath = id ? `/${id}` : '';
 		return await this.httpClient.get(`${this.resourcePath}${idPath}/history.csv`, params, true);
 	}

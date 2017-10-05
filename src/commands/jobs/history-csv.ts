@@ -1,15 +1,12 @@
 import {runCommand} from '../../util/command';
 
 export = {
-	command: 'history-csv [id]',
-	desc: 'Show job history in comma-delimited value format',
+	command: 'history-csv',
+	desc: 'Show job history for all jobs in comma-delimited value (CSV) format',
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			const result = await client.jobs.getHistoryCsv(argv.id, {
-				fields: [
-					'all',
-				]
-			});
+			console.log('history-csv');
+			const result = await client.jobs.getHistoryCsvList(null, { fields: [ 'all' ]});
 			output.writeCsv(result);
 		});
 	}
