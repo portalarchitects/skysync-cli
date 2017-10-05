@@ -1,10 +1,9 @@
 import { URL } from 'url';
-import { Readable } from 'stream';
 
 const API_VERSION = 'v1';
 
 export interface IHttpClient {
-	get(path: string, params?: any): Promise<any>;
+	get(path: string, params?: any, csvResponse?: boolean): Promise<any>;
 
 	post(path: string, body: any, params?: any): Promise<any>;
 
@@ -104,7 +103,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		return new Error(error);
 	}
 
-	private async executeApiRequest(path: string, params: any, options: any = {}): Promise<any> {
+	private async executeApiRequest(path: string, params: any, options: any = {}, csvResponse: boolean = false): Promise<any> {
 		return await new Promise(async (resolve, reject) => {
 			try {
 				if (this.isAuthRequired) {
@@ -124,9 +123,9 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 						return resolve(null);
 					}
 					if (!body || body.length === 0) {
-						return resolve({});
+						return resolve(csvResponse ? '' : {});
 					}
-					return resolve(JSON.parse(body));
+					return resolve(csvResponse ? body : JSON.parse(body));
 				};
 
 				let attempted = false;
@@ -153,11 +152,11 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		});
 	}
 
-	get(path: string, params?: any): Promise<any> {
+	get(path: string, params?: any, csvResponse?: boolean): Promise<any> {
 		return this.executeApiRequest(path, params, {
 			method: 'GET',
 			encoding: 'utf-8'
-		});
+		}, csvResponse);
 	}
 
 	private executePost(method: string, path: string, body: any, params?: any): Promise<any> {

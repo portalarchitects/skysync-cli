@@ -57,4 +57,43 @@ const detailOutputFormat = {
 	]
 };
 
-export { listOutputFormat, detailOutputFormat };
+const historyOutputFormat = {
+	table: [
+		{
+			header: 'JobID',
+			property: 'job_id'
+		},
+		{
+			header: 'Progress',
+			property: 'progress'
+		},
+		{
+			header: 'Phase',
+			property: 'phase'
+		},
+		{
+			header: 'StartTime',
+			property: 'start_time',
+			transform: value => new Date(value)
+		},
+		{
+			header: 'EndTime',
+			property: 'end_time',
+			transform: value => new Date(value)
+		},
+		{	
+			header: 'Status',
+			property: 'status'
+		},
+		{	
+			header: 'NodeAddress',
+			property: 'node_address'
+		}
+	],
+	json: [
+		'stats',
+		'duration'
+	]
+};
+
+export { listOutputFormat, detailOutputFormat, historyOutputFormat };

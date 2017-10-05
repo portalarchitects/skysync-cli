@@ -4,7 +4,7 @@ import * as dot from 'dot-object';
 export interface OutputFormatterOptions {
 	outputJson?: boolean;
 	tabSize?: string | number;
-};
+}
 
 export interface OutputOptions {
 	table?: {
@@ -13,7 +13,7 @@ export interface OutputOptions {
 		transform?: (val: any) => any;
 	}[];
 	json?: string[];
-};
+}
 
 export class OutputFormatter {
 	constructor(private formatOptions: OutputFormatterOptions) {
@@ -44,6 +44,10 @@ export class OutputFormatter {
 		if (!this.outputJson || force) {
 			console.error((message as any).red);
 		}
+	}
+	
+	writeCsv(output: string): void {
+		console.log(output);
 	}
 
 	private write(obj: any, options?: OutputOptions, asTable?: boolean): void {
@@ -77,7 +81,7 @@ export class OutputFormatter {
 			const data = options && options.table.map(col => {
 				const val = formatToString(col, obj[0]);
 				return [(col.header as any).grey, val];
-			})
+			});
 
 			return cliff.stringifyRows(data);
 		} else {
