@@ -46,6 +46,12 @@ export class OutputFormatter {
 		}
 	}
 	
+	writeWarning(message: string, force: boolean = false): void {
+		if (!this.outputJson || force) {
+			console.warn((message as any).yellow);
+		}
+	}
+	
 	writeCsv(output: string): void {
 		console.log(output);
 	}
