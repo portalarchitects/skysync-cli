@@ -75,3 +75,17 @@ export interface JobExecution {
 	node_address?: string;
 	stats?: JobExecutionStatisticsSet;
 }
+
+export interface TransferAuditEntry {
+	job_id?: string;
+	execution_id?: number;
+	source?: Connection;
+	destination?: Connection;
+	from_source?: boolean;
+	to_destination?: boolean;
+	bytes?: number;
+	event?: string;
+	id?: number;
+	level?: string;
+	recorded_on?: number;
+}

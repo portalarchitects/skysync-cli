@@ -1,7 +1,7 @@
 import { IHttpClient } from '../http';
 import {EditableResource, getTypedResponse} from './resource';
 import { Job } from '../models';
-import {JobExecution} from "../models/jobs";
+import {JobExecution, TransferAuditEntry} from "../models/jobs";
 
 export class JobsResource extends EditableResource<Job> {
 	constructor(httpClient: IHttpClient) {
@@ -31,8 +31,7 @@ export class JobsResource extends EditableResource<Job> {
 		const modifierPath = modifier ? `${modifier}` : '';
 		const jobExecution = await this.httpClient.get(`${this.resourcePath}${idPath}/history/${modifierPath}`, params);
 		return getTypedResponse<JobExecution>(jobExecution, 'job_execution');
-	}	
-	
+	}
 	
 	async getHistoryCsv(id: string, modifier: string, params?: any): Promise<string> {
 		const idPath = id ? `/${id}` : '';
@@ -43,6 +42,30 @@ export class JobsResource extends EditableResource<Job> {
 	async getHistoryCsvList(id: string, params?: any): Promise<string> {
 		const idPath = (id && id !== 'all') ? `/${id}` : '';
 		return await this.httpClient.get(`${this.resourcePath}${idPath}/history.csv`, params, true);
+	}	
+	
+	async getAuditList(id: string, params?: any): Promise<TransferAuditEntry[]> {
+		const idPath = id ? `${this.resourcePath}/${id}/` : '';
+		const entries = await this.httpClient.get(`${idPath}auditing`, params);
+		return getTypedResponse<TransferAuditEntry[]>(entries, 'item');
+	}
+	
+	async getAudit(id: string, execution: string, params?: any): Promise<TransferAuditEntry> {
+		const idPath = id ? `/${id}/` : '';
+		const executionPath = execution ? `/executions/${execution}` : '';
+		const entry = await this.httpClient.get(`${this.resourcePath}${idPath}${executionPath}/auditing`, params);
+		return getTypedResponse<TransferAuditEntry>(entry, 'item');
+	}	
+	
+	async getAuditCsv(id: string, execution: string, params?: any): Promise<string> {
+		const idPath = id ? `/${id}/` : '';
+		const executionPath = execution ? `/executions/${execution}` : '';
+		return await this.httpClient.get(`${this.resourcePath}${idPath}${executionPath}/auditing.csv`, params, true);
+	}
+	
+	async getAuditCsvList(id: string, params?: any): Promise<string> {
+		const idPath = id ? `${this.resourcePath}/${id}/` : '';
+		return await this.httpClient.get(`${idPath}auditing.csv`, params, true);
 	}
 
 	private async changeStatus(id: string, status: string, params?: any): Promise<Job> {
