@@ -92,7 +92,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		}
 		
 		const statusCode = response && this.getStatusCode(response);
-		if (statusCode === 404) {
+		if (statusCode === 404 || statusCode === 406) {
 			return null;
 		}
 		if (statusCode >= 200 && statusCode <= 299) {
@@ -113,6 +113,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 				}
 
 				options.url = getUrl(path, this.apiUrl, params);
+				console.log(`url: ${options.url}`);
 
 				const processResponse = (err, response, body) => {
 					err = this.getError(err, response, body);
