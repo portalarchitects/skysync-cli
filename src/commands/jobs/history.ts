@@ -2,37 +2,58 @@ import {runCommand} from '../../util/command';
 import {historyOutputFormat} from './util';
 
 export = {
-	command: 'history <id>',
-	desc: 'Show history for a specific job',
+	command: 'history <id|all>',
+	desc: 'Show execution history for a specific job',
 	builder: yargs => {
 		yargs.options({
-			'current': {
+			'execution': {
 				default: undefined,
-				type: 'boolean'
+				type: 'boolean',
+				group: 'History'
 			},
 			'last': {
 				default: undefined,
-				type: 'boolean'
+				type: 'boolean',
+				group: 'History'
 			},
-			'format': {
-				default: 'json',
-				desc: 'output format',
-				type: 'string'
+			'csv': {
+				default: 'undefined',
+				desc: 'Output results as CSV',
+				type: 'boolean',
+				group: 'History'
 			}
 		})
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
 			let result;
-
+			let modifier;
+			
 			if (argv.current) {
-				result = await client.jobs.getHistory(argv.id, 'current', { include: [ 'all']});
+				modifier = 'current'
 			} else if (argv.last) {
-				result = await client.jobs.getHistory(argv.id, 'last',{ fields: [ 'all' ]});
-			} else {
-				result = await client.jobs.getHistoryList(argv.id, { fields: [ 'all' ]});
+				modifier = 'last';
 			}
-			output.writeItem(result, historyOutputFormat);
+			
+			if (argv.id === 'all') {
+				modifier = undefined;
+			}
+ 			
+			if (argv.csv) {
+				if (modifier) {
+					result = await client.jobs.getHistoryCsv(argv.id, modifier, {include: ['all']});
+				} else {
+					result = await client.jobs.getHistoryCsvList(argv.id, {fields: ['all']});
+				}
+				output.writeCsv(result);				
+			} else {
+				if (modifier) {
+					result = await client.jobs.getHistory(argv.id, modifier, {include: ['all']});
+				} else {
+					result = await client.jobs.getHistoryList(argv.id, {fields: ['all']});
+				}
+				output.writeItem(result, historyOutputFormat);
+			}
 		});
 	}
 }

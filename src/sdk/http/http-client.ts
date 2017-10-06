@@ -113,7 +113,6 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 				}
 
 				options.url = getUrl(path, this.apiUrl, params);
-				console.log(`url: ${options.url}`);
 
 				const processResponse = (err, response, body) => {
 					err = this.getError(err, response, body);

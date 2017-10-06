@@ -21,7 +21,7 @@ export class JobsResource extends EditableResource<Job> {
 	}
 	
 	async getHistoryList(id: string, params?: any): Promise<JobExecution[]> {
-		const idPath = id ? `/${id}` : '';
+		const idPath = (id && id !== 'all') ? `/${id}` : '';
 		const jobExecutions = await this.httpClient.get(`${this.resourcePath}${idPath}/history`, params);
 		return getTypedResponse<JobExecution[]>(jobExecutions, 'job_executions');
 	}
@@ -41,7 +41,7 @@ export class JobsResource extends EditableResource<Job> {
 	}
 	
 	async getHistoryCsvList(id: string, params?: any): Promise<string> {
-		const idPath = id ? `/${id}` : '';
+		const idPath = (id && id !== 'all') ? `/${id}` : '';
 		return await this.httpClient.get(`${this.resourcePath}${idPath}/history.csv`, params, true);
 	}
 
