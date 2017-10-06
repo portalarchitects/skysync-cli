@@ -96,4 +96,44 @@ const historyOutputFormat = {
 	]
 };
 
-export { listOutputFormat, detailOutputFormat, historyOutputFormat };
+const auditOutputFormat = {
+	table: [
+		{
+			header: 'JobID',
+			property: 'job_id'
+		},
+		{
+			header: 'ExecutionID',
+			property: 'execution_id'
+		},
+		{
+			header: 'FromSource',
+			property: 'from_source'
+		},
+		{
+			header: 'ToDestination',
+			property: 'to_destination',
+			transform: value => new Date(value)
+		},
+		{
+			header: 'RecordedOn',
+			property: 'recorded_on',
+			transform: value => new Date(value)
+		},
+		{	
+			header: 'Level',
+			property: 'level'
+		},
+		{	
+			header: 'Event',
+			property: 'event'
+		}
+	],
+	json: [
+		'source',
+		'destination'
+	]
+};
+
+export { listOutputFormat, detailOutputFormat, historyOutputFormat, auditOutputFormat };
+
