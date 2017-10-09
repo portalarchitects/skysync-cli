@@ -24,7 +24,7 @@ export = {
 		runCommand(argv, async (client, output) => {
 			let result;
 
-			if (!argv.id && argv.execution.length > 0) {
+			if (!argv.id && argv.execution && argv.execution.length > 0) {
 				output.writeWarning('Execution parameter ignored.', true);
 				argv.execution = undefined;
 			}
