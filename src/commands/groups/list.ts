@@ -1,5 +1,5 @@
 import { runCommand } from '../../util/command';
-import { outputFormat } from './util';
+import { outputFormatWithParent } from './util';
 import { listArgumentsDefault } from '../util';
 
 export = {
@@ -23,7 +23,7 @@ export = {
 				limit: argv.limit,
 				fields: 'all'
 			});
-			output.writeTable(groups, outputFormat);
+			output.writeTable(groups, outputFormatWithParent);
 		});
 	}
 }

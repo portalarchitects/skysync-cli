@@ -1,5 +1,5 @@
 import { runCommand } from '../../util/command';
-import { outputFormat } from './util';
+import { outputFormatWithGroupAndRoles } from './util';
 
 export = {
 	command: 'show <id>',
@@ -11,7 +11,7 @@ export = {
 					'all'
 				]
 			});
-			output.writeItem(user, outputFormat);
+			output.writeItem(user, outputFormatWithGroupAndRoles);
 		});
 	}
 }

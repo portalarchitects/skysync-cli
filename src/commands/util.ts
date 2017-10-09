@@ -1,3 +1,12 @@
+export const listArgumentsSearch = {
+	'search': {
+		alias: 'q',
+		desc: 'Search text',
+		type: 'string',
+		group: 'Search'
+	}
+}
+
 export const listArgumentsBasic = {
 	'offset': {
 		default: 0,
@@ -15,11 +24,7 @@ export const listArgumentsBasic = {
 };
 
 export const listArgumentsDefault = {
-	'search': {
-		alias: 'q',
-		desc: 'Search text',
-		type: 'string',
-		group: 'Search'
-	}, ...listArgumentsBasic
+	...listArgumentsSearch, 
+	...listArgumentsBasic
 };
 

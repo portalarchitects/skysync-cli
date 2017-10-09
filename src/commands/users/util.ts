@@ -20,7 +20,13 @@ export const outputFormat = {
 			header: 'Enabled',
 			property: 'disabled',
 			transform: val => !Boolean(val)
-		},
+		}
+	]
+};
+
+export const outputFormatWithGroup = {
+	table: [
+		...outputFormat.table,
 		{
 			header: 'Group',
 			property: 'group.name'
@@ -30,3 +36,24 @@ export const outputFormat = {
 		'group.id'
 	]
 };
+
+export const outputFormatWithGroupAndRoles = {
+	table: [
+		...outputFormatWithGroup.table,
+		{
+			header: 'Roles',
+			property: 'roles[].name'
+		},
+		{
+			header: 'Permissions',
+			property: 'permissions[].name'
+		}
+	],
+	json: [
+		...outputFormatWithGroup.json,
+		'roles[].id',
+		'permissions[].id'
+	]
+}
+
+

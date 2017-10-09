@@ -1,11 +1,13 @@
 import { IHttpClient, RequestHttpClient } from './http';
 import {
 	ConnectionsResource,
-	StoragePlatformsResource,
 	JobsResource,
+	OwnershipGroupsResource,
+	PermissionsResource,
+	RolesResource,
 	SitesResource,
-	UsersResource,
-	OwnershipGroupsResource
+	StoragePlatformsResource,
+	UsersResource
 } from './resources';
 import * as models from './models';
 
@@ -36,23 +38,31 @@ export class SkySyncClient {
 		return new ConnectionsResource(this.httpClient);
 	}
 
-	get storagePlatforms(): StoragePlatformsResource {
-		return new StoragePlatformsResource(this.httpClient);
+	get groups(): OwnershipGroupsResource {
+		return new OwnershipGroupsResource(this.httpClient);
 	}
 
 	get jobs(): JobsResource {
 		return new JobsResource(this.httpClient);
 	}
 
+	get permissions(): PermissionsResource {
+		return new PermissionsResource(this.httpClient);
+	}
+
+	get roles(): RolesResource {
+		return new RolesResource(this.httpClient);
+	}
+
 	get sites(): SitesResource {
 		return new SitesResource(this.httpClient);
 	}
-	
+
+	get storagePlatforms(): StoragePlatformsResource {
+		return new StoragePlatformsResource(this.httpClient);
+	}
+
 	get users(): UsersResource {
 		return new UsersResource(this.httpClient);
-	}
-	
-	get groups(): OwnershipGroupsResource {
-		return new OwnershipGroupsResource(this.httpClient);
-	}
+	}	
 }

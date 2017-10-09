@@ -1,17 +1,17 @@
 import { runCommand } from '../../util/command';
-import { outputFormatWithParent } from './util';
+import { detailedOutputFormat } from './util';
 
 export = {
 	command: 'show <id>',
-	desc: 'Show group',
+	desc: 'Show role',
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			const group = await client.groups.get(argv.id, {
+			const role = await client.roles.get(argv.id, {
 				fields: [
 					'all'
 				]
 			});
-			output.writeItem(group, outputFormatWithParent);
+			output.writeItem(role, detailedOutputFormat);
 		});
 	}
 }

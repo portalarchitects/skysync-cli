@@ -11,15 +11,15 @@ export const outputFormat = {
 	]
 };
 
-export const outputFormatWithParent = {
+export const detailedOutputFormat = {
 	table: [
 		...outputFormat.table,
 		{
-			header: 'Parent',
-			property: 'parent.name'
+			header: 'Permissions',
+			property: 'permissions[].name'
 		}
 	],
 	json: [
-		'parent.id'
+		'permissions[].id'
 	]
-};
+}

@@ -1,5 +1,5 @@
 import { runCommand } from '../../util/command';
-import { outputFormat } from './util';
+import { outputFormatWithGroup } from './util';
 import { listArgumentsBasic } from '../util';
 
 export = {
@@ -23,7 +23,7 @@ export = {
 				limit: argv.limit,
 				fields: 'all'
 			});
-			output.writeTable(users, outputFormat);
+			output.writeTable(users, outputFormatWithGroup);
 		});
 	}
 }

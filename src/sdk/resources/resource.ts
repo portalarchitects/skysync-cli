@@ -60,10 +60,8 @@ export class Resource<TResource> {
 }
 
 export class EditableResource<TResource extends IEntityIdentifier<string>> extends Resource<TResource> {
-	constructor(httpClient: IHttpClient, name: string, type?: string);
-	constructor(httpClient: IHttpClient, singularName: string, singularType?: string, 
-				pluralName: string = undefined, pluralType: string = undefined) {
-		super(httpClient, singularName, pluralName, singularType, pluralType);
+	constructor(httpClient: IHttpClient, name: string, type?: string, pluralName?: string, pluralType?: string) {
+		super(httpClient, name, pluralName, type, pluralType);
 	}
 	
 	async add(body: TResource, params?: any): Promise<TResource> {
