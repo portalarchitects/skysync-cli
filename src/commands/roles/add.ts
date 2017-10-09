@@ -17,7 +17,7 @@ export = {
 		runCommand(argv, async (client, output) => {
 			let newRoleRequestBody = {
 				name: argv.name,
-				permissions: argv.permissions.split(',')
+				permissions: argv.permissions ? argv.permissions.split(',') : undefined
 			};
 
 			const role = await client.roles.add(newRoleRequestBody);
