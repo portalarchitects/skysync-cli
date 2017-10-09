@@ -122,7 +122,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 					if (response && this.getStatusCode(response) === 404) {
 						return resolve(null);
 					}
-					const jsonResponse = response.headers['content-type'].indexOf('application/json') !== -1;
+					const jsonResponse = response.headers && response.headers['content-type'].indexOf('application/json') !== -1;
 					if (!body || body.length === 0) {
 						return resolve(jsonResponse ? {} : '');
 					}
