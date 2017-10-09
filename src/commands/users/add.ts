@@ -30,26 +30,16 @@ export = {
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			let newUserRequestBody = {
-				login: argv.newUserUsername,
-				name: argv.newUserDisplayName,
-				password: argv.newUserPassword,
-				email: argv.newUserEmail,
-				group: {
-					id: argv.newUserGroup
-				},
-				roles: []
-			};
-
-			if(argv.newUserRoles) {
-				let newUserRolesSplit = argv.newUserRoles.split(',');
-				let newUserRoles = [];
-				newUserRolesSplit.forEach(x => {
-					newUserRoles.push({ id: x });
-				});
-				newUserRequestBody.roles = newUserRoles;
-			}
-			const user = await client.users.add(newUserRequestBody);
+			const user = await client.users.add({
+					login: argv.newUserUsername,
+					name: argv.newUserDisplayName,
+					password: argv.newUserPassword,
+					email: argv.newUserEmail,
+					group: {
+						id: argv.newUserGroup
+					},
+					roles: argv.newUserRoles ? argv.newUserRoles.split(',').map(id => ({id})) : undefined
+			});
 			output.writeItem(user, outputFormat);
 		});
 	}
