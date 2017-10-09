@@ -56,7 +56,7 @@ export interface JobExecutionStatistics {
 	rate_limits?: number;
 	versions?: number;
 	versions_pending?: number;
-	[name: string]: any;
+	[name: string]: number;
 }
 
 export interface JobExecutionStatisticsSet {
