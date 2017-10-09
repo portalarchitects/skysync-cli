@@ -112,8 +112,7 @@ const auditOutputFormat = {
 		},
 		{
 			header: 'ToDestination',
-			property: 'to_destination',
-			transform: value => new Date(value)
+			property: 'to_destination'
 		},
 		{
 			header: 'RecordedOn',
@@ -127,6 +126,10 @@ const auditOutputFormat = {
 		{	
 			header: 'Event',
 			property: 'event'
+		},
+		{	
+			header: 'Reason',
+			property: 'reason'
 		}
 	],
 	json: [

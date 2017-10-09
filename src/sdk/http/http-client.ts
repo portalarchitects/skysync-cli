@@ -3,14 +3,14 @@ import { URL } from 'url';
 const API_VERSION = 'v1';
 
 export interface IHttpClient {
-	get(path: string, params?: any, csvResponse?: boolean): Promise<any>;
+	get(path: string, params?: any): Promise<any>;
 
 	post(path: string, body: any, params?: any): Promise<any>;
 
 	put(path: string, body: any, params?: any): Promise<any>;
 
 	patch(path: string, body: any, params?: any): Promise<any>;
-
+	
 	delete(path: string, params?: any): Promise<boolean>;
 }
 
@@ -103,7 +103,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		return new Error(error);
 	}
 
-	private async executeApiRequest(path: string, params: any, options: any = {}, csvResponse: boolean = false): Promise<any> {
+	private async executeApiRequest(path: string, params: any, options: any = {}): Promise<any> {
 		return await new Promise(async (resolve, reject) => {
 			try {
 				if (this.isAuthRequired) {
@@ -122,10 +122,11 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 					if (response && this.getStatusCode(response) === 404) {
 						return resolve(null);
 					}
+					const jsonResponse = response.headers['content-type'].indexOf('application/json') !== -1;
 					if (!body || body.length === 0) {
-						return resolve(csvResponse ? '' : {});
+						return resolve(jsonResponse ? {} : '');
 					}
-					return resolve(csvResponse ? body : JSON.parse(body));
+					return resolve(jsonResponse ? JSON.parse(body) : body);
 				};
 
 				let attempted = false;
@@ -156,7 +157,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		return this.executeApiRequest(path, params, {
 			method: 'GET',
 			encoding: 'utf-8'
-		}, csvResponse);
+		});
 	}
 
 	private executePost(method: string, path: string, body: any, params?: any): Promise<any> {

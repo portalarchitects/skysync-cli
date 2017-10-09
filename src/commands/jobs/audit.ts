@@ -8,7 +8,7 @@ export = {
 		yargs.options({
 			'execution': {
 				default: undefined,
-				description: 'An execution index',
+				description: 'An execution ID',
 				type: 'number',
 				group: 'Audit'
 			},
@@ -35,14 +35,14 @@ export = {
 				} else {
 					result = await client.jobs.getAuditCsvList(argv.id, {include: ['all']});
 				}
-				output.writeCsv(result);
+				output.writeText(result);
 			} else {
 				if (argv.execution) {
 					result = await client.jobs.getAudit(argv.id, argv.execution, {include: ['all']});
 				} else {
 					result = await client.jobs.getAuditList(argv.id, {include: ['all']});
 				}
-				output.writeItem(result, auditOutputFormat);
+				output.writeTable(result, auditOutputFormat);
 			}
 		});
 	}

@@ -52,7 +52,7 @@ export class OutputFormatter {
 		}
 	}
 	
-	writeCsv(output: string): void {
+	writeText(output: string): void {
 		console.log(output);
 	}
 

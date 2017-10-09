@@ -8,7 +8,7 @@ export = {
 		yargs.options({
 			'execution': {
 				default: undefined,
-				description: 'An execution index, last or current',
+				description: 'An execution ID, last or current',
 				type: 'string',
 				group: 'History'
 			},
@@ -35,14 +35,14 @@ export = {
 				} else {
 					result = await client.jobs.getHistoryCsvList(argv.id, {fields: ['all']});
 				}
-				output.writeCsv(result);
+				output.writeText(result);
 			} else {
 				if (argv.execution) {
 					result = await client.jobs.getHistory(argv.id, argv.execution, {include: ['all']});
 				} else {
 					result = await client.jobs.getHistoryList(argv.id, {fields: ['all']});
 				}
-				output.writeItem(result, historyOutputFormat);
+				output.writeTable(result, historyOutputFormat);
 			}
 		});
 	}
