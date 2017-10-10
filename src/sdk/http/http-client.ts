@@ -153,7 +153,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		});
 	}
 
-	get(path: string, params?: any, csvResponse?: boolean): Promise<any> {
+	get(path: string, params?: any): Promise<any> {
 		return this.executeApiRequest(path, params, {
 			method: 'GET',
 			encoding: 'utf-8'
