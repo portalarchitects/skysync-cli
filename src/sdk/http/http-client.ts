@@ -1,5 +1,4 @@
 import { URL } from 'url';
-import { Readable } from 'stream';
 
 const API_VERSION = 'v1';
 
@@ -11,7 +10,7 @@ export interface IHttpClient {
 	put(path: string, body: any, params?: any): Promise<any>;
 
 	patch(path: string, body: any, params?: any): Promise<any>;
-
+	
 	delete(path: string, params?: any): Promise<boolean>;
 }
 
@@ -93,7 +92,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		}
 		
 		const statusCode = response && this.getStatusCode(response);
-		if (statusCode === 404) {
+		if (statusCode === 404 || statusCode === 406) {
 			return null;
 		}
 		if (statusCode >= 200 && statusCode <= 299) {
@@ -123,10 +122,11 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 					if (response && this.getStatusCode(response) === 404) {
 						return resolve(null);
 					}
+					const jsonResponse = !response.headers || response.headers['content-type'].indexOf('application/json') >= 0;
 					if (!body || body.length === 0) {
-						return resolve({});
+						return resolve(jsonResponse ? {} : '');
 					}
-					return resolve(JSON.parse(body));
+					return resolve(jsonResponse ? JSON.parse(body) : body);
 				};
 
 				let attempted = false;
