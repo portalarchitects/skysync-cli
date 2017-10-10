@@ -57,6 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
+# dev environment files
+.idea/
+
 # build output
 dist
 

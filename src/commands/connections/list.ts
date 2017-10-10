@@ -1,4 +1,5 @@
 import { runCommand } from '../../util/command';
+import { listArgumentsDefault } from '../util';
 
 const outputFormat = {
 	table: [
@@ -29,7 +30,7 @@ export = {
 	command: 'list',
 	desc: 'List all connections',
 	builder: yargs => {
-		yargs.options({
+		yargs.options({ 
 			'platform': {
 				alias: 'p',
 				desc: 'Storage platform',
@@ -37,33 +38,12 @@ export = {
 				group: 'Search'
 			},
 
-			'search': {
-				alias: 'q',
-				desc: 'Search text',
-				type: 'string',
-				group: 'Search'
-			},
-
 			'active': {
-				desc: 'Only retrieve active jobs',
+				desc: 'Only retrieve active connections',
 				type: 'boolean',
 				group: 'Search',
 				default: undefined
-			},
-
-			'offset': {
-				default: 0,
-				desc: 'Search offset',
-				type: 'number',
-				group: 'Search'
-			},
-
-			'limit': {
-				default: 20,
-				desc: 'Search page size',
-				type: 'number',
-				group: 'Search'
-			}
+			}, ...listArgumentsDefault
 		})
 	},
 	handler: argv => {

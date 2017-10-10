@@ -1,6 +1,8 @@
 import * as cliff from 'cliff';
 import * as dot from 'dot-object';
 
+const arrayIndicator = '[]';
+
 export interface OutputFormatterOptions {
 	outputJson?: boolean;
 	tabSize?: string | number;
@@ -95,7 +97,14 @@ export class OutputFormatter {
 }
 
 function formatToString(col: { property?: string, transform?: (val: any) => any; }, obj: any): string {
-	let val = dot.pick(col.property, obj);
+	let val = undefined;
+	
+	if (col.property && col.property.indexOf('[]') != -1) {
+		val = formatArrayToString(col.property, obj);
+	} else {
+		val = dot.pick(col.property, obj)
+	}
+	
 	if (col.transform) {
 		val = col.transform(val);
 	}
@@ -107,15 +116,82 @@ function formatToString(col: { property?: string, transform?: (val: any) => any;
 	return val;
 }
 
+function formatArrayToString(property: string, obj: any): string {
+	let valueArray = [];
+	if (property) {
+		let arrayIndicatorIndex = property.indexOf(arrayIndicator);
+		if (arrayIndicatorIndex !== -1) {
+			let parentKey = property.substr(0, property.indexOf(arrayIndicator));
+			let childKey = property.substr(property.indexOf(arrayIndicator + '.') + 3);
+			let parent = dot.pick(parentKey, obj);
+			if (Array.isArray(parent)) {
+				parent.forEach(function(arrayItem) {
+					if (childKey.indexOf(arrayIndicator) !== -1) {
+						valueArray.push(formatArrayToString(childKey, arrayItem));
+					} else {
+						valueArray.push(dot.pick(childKey, arrayItem));
+					}
+				});
+			}
+		}	
+	}
+	return (valueArray.length > 0? valueArray.join(', ') : undefined);
+}
+
 function copyJson(obj: any, options?: OutputOptions): any {
 	if (options) {
 		const copy = {};
-		options.table.forEach(x => dot.copy(x.property, x.property, obj, copy));
+		
+		options.table.forEach(x => {
+			copyJsonProperty(x.property, obj, copy);
+		});
+
 		if (options.json) {
-			options.json.forEach(x => dot.copy(x, x, obj, copy));
+			options.json.forEach(x => {
+				copyJsonProperty(x, obj, copy);
+			});
 		}
 		obj = copy;
 	}
-
 	return obj;
+}
+
+function copyJsonProperty(property: string, source: any, target: any): any {
+	if (property.indexOf(arrayIndicator) !== -1) {
+		copyJsonArray(property, source, target);
+	} else {
+		dot.copy(property, property, source, target);
+	}
+}
+
+function copyJsonArray(property:string, source: any, target?: any): any {
+	let parentKey = property.substr(0, property.indexOf(arrayIndicator));
+	let childKey = property.substr(property.indexOf(arrayIndicator + '.') + 3);
+	let parentKeys = [];
+	
+	let parent = dot.pick(parentKey, source);
+	
+	if (Array.isArray(parent)) {
+		if (childKey.indexOf(arrayIndicator) !== -1) {
+			let childKeys = copyJsonArray(childKey, parent);
+			childKeys.forEach(function (resolvedChildKey, index) {
+				let resolvedKey = parentKey + '[' + index + '].' + resolvedChildKey;
+				if (target) {
+					dot.copy(resolvedKey, resolvedKey, source, target);
+				} else {
+					parentKeys.push(resolvedKey);
+				}
+			})
+		} else {
+			parent.forEach(function (value, index) {
+				let resolvedKey = parentKey + '[' + index + '].' + childKey;
+				if (target) {
+					dot.copy(resolvedKey, resolvedKey, source, target);
+				} else {
+					parentKeys.push(resolvedKey);
+				}
+			})
+		}
+	}
+	return parentKeys;
 }

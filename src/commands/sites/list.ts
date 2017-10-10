@@ -1,5 +1,6 @@
 import { runCommand } from '../../util/command';
 import { outputFormat } from './util';
+import { listArgumentsDefault } from '../util';
 
 export = {
 	command: 'list',
@@ -13,33 +14,12 @@ export = {
 				default: undefined
 			},
 
-			'search': {
-				alias: 'q',
-				desc: 'Search text',
-				type: 'string',
-				group: 'Search'
-			},
-
 			'active': {
 				desc: 'Only retrieve active sites',
 				type: 'boolean',
 				group: 'Search',
 				default: undefined
-			},
-
-			'offset': {
-				default: 0,
-				desc: 'Search offset',
-				type: 'number',
-				group: 'Search'
-			},
-
-			'limit': {
-				default: 20,
-				desc: 'Search page size',
-				type: 'number',
-				group: 'Search'
-			}
+			}, ...listArgumentsDefault
 		})
 	},
 	handler: argv => {
