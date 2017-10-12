@@ -1,9 +1,15 @@
-export const outputFormat = {
+export const outputFormatID = {
 	table: [
 		{
 			header: 'ID',
 			property: 'id'
-		},
+		}
+	]
+}
+
+export const outputFormat = {
+	table: [
+		...outputFormatID.table,
 		{
 			header: 'Login',
 			property: 'login'
