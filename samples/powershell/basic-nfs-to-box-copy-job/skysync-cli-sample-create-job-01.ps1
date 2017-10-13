@@ -32,10 +32,10 @@ $destinationBoxPath = '/Tests/CLI_Sample_01'
 $sampleJobName = 'cli-sample-job-02'
 
 # create connections, output responses to Json, and convert Json to a typed PSObject
-$nfsConn01 = skysync-cli connections add --name $nfsConnName --platform 'nfs' --auth-file 'nfs-auth-01.json' --output-json true | ConvertFrom-Json
-$boxConn01 = skysync-cli connections add --name $boxConnName --platform 'box' --auth-file 'box-auth-01.json' --output-json true | ConvertFrom-Json
+$nfsConn01 = skysync-cli connections add --name $nfsConnName --platform 'nfs' --auth-file 'nfs-auth-01.json' --json true | ConvertFrom-Json
+$boxConn01 = skysync-cli connections add --name $boxConnName --platform 'box' --auth-file 'box-auth-01.json' --json true | ConvertFrom-Json
 
-skysync-cli connections list --output-json true | ConvertFrom-Json | Format-Table 
+skysync-cli connections list --json true | ConvertFrom-Json | Format-Table 
 
 # set job configuration (copy job from NFS -> Box)
 $jobConfig = '{"transfer_type": "copy","source":{"connection": {"id": "<source_id>"},"target": {"path": "<source_path>"}}, "destination":{"connection": {"id": "<destination_id>"}, "target": {"path": "<destination_path>"}}}' | ConvertFrom-Json
@@ -49,7 +49,7 @@ $jobConfig.destination.target.path = $destinationBoxPath
 $jobConfig = $jobConfig | ConvertTo-Json 
 
 # grab job config json block, pipe it in, create job and start it
-$job = $jobConfig | skysync-cli jobs add --name $sampleJobName --manual --in --output-json true | ConvertFrom-Json
+$job = $jobConfig | skysync-cli jobs add --name $sampleJobName --manual --in --json true | ConvertFrom-Json
 
-skysync-cli jobs start $job.id --output-json true | ConvertFrom-Json | Format-Table 
+skysync-cli jobs start $job.id --json true | ConvertFrom-Json | Format-Table 
 
