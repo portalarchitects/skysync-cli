@@ -51,14 +51,14 @@ export class JobsResource extends EditableResource<Job> {
 	}
 	
 	async getAudit(id: string, execution: string, params?: any): Promise<TransferAuditEntry> {
-		const idPath = id ? `/${id}/` : '';
+		const idPath = id ? `/${id}` : '';
 		const executionPath = execution ? `/executions/${execution}` : '';
 		const entry = await this.httpClient.get(`${this.resourcePath}${idPath}${executionPath}/auditing`, params);
 		return getTypedResponse<TransferAuditEntry>(entry, 'item');
 	}	
 	
 	async getAuditCsv(id: string, execution: string, params?: any): Promise<string> {
-		const idPath = id ? `/${id}/` : '';
+		const idPath = id ? `/${id}` : '';
 		const executionPath = execution ? `/executions/${execution}` : '';
 		return await this.httpClient.get(`${this.resourcePath}${idPath}${executionPath}/auditing.csv`, params);
 	}
