@@ -19,7 +19,7 @@
                     a. Path Format Example for NFS: '/TestFolder1'  -start folder under configured connection share
 					b. Path Format Example for Box: '/Tests/CLI_Sample_01' -folder under root of configured Box account
     Execution:
-        Run script from samples dir (cd .\~\skysync-cli\samples\skysync-cli-sample-script.ps1)
+        Run script from samples dir (cd .\~\skysync-cli\samples\powershell\basic-nfs-to-box-copy-job\skysync-cli-sample-script.ps1)
 #>
 
 $ErrorActionPreference = 'Stop'
