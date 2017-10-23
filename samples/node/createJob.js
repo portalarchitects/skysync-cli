@@ -1,22 +1,22 @@
-const credentials = require('./credentials').credentials;
+const credentials = require('./credentials');
 const SkySyncClient = require('skysync-cli').SkySyncClient;
 
 const client = new SkySyncClient(credentials);
 
-var nfsConnection;
-var o365Connection;
+let nfsConnection;
+let o365Connection;
 
-var nfsConnectionPromise = client.connections.add({
+let nfsConnectionPromise = client.connections.add({
 	name: 'Sample NFS Connection',
 	platform: { id: 'nfs' },
 	auth: {
-		uri: '//test-server',
+		uri: '\\\\test-server',
 		username: 'localhost/admin',
 		password: 'secret'
 	}
 }).then(connection => { nfsConnection = connection });
 
-var o365ConnectionPromise = client.connections.add({
+let o365ConnectionPromise = client.connections.add({
 	name: 'Sample Office 365 Connection',
 	platform: { id: 'office365' },
 	auth: {
