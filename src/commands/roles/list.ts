@@ -11,6 +11,7 @@ export = {
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
 			const roles = await client.roles.list({
+				q: argv.search,
 				offset: argv.offset,
 				limit: argv.limit,
 				fields: 'all'
