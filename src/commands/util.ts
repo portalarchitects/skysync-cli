@@ -7,7 +7,8 @@ export const listArgumentsSearch = {
 	}
 }
 
-export const listArgumentsBasic = {
+export const listArgumentsDefault = {
+	...listArgumentsSearch,
 	'offset': {
 		default: 0,
 		desc: 'Search offset',
@@ -21,10 +22,5 @@ export const listArgumentsBasic = {
 		type: 'number',
 		group: 'Search'
 	}
-};
-
-export const listArgumentsDefault = {
-	...listArgumentsSearch, 
-	...listArgumentsBasic
 };
 

@@ -1,6 +1,6 @@
 import { runCommand } from '../../util/command';
 import { outputFormatWithGroup } from './util';
-import { listArgumentsBasic } from '../util';
+import { listArgumentsDefault } from '../util';
 
 export = {
 	command: 'list',
@@ -12,13 +12,14 @@ export = {
 				type: 'boolean',
 				group: 'Search',
 				default: undefined
-			}, ...listArgumentsBasic
+			}, ...listArgumentsDefault
 		})
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
 			const users = await client.users.list({
 				active: argv.active,
+				q: argv.search,
 				offset: argv.offset,
 				limit: argv.limit,
 				fields: 'all'
