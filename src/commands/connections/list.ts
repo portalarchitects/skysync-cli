@@ -1,30 +1,6 @@
 import { runCommand } from '../../util/command';
 import { listArgumentsDefault } from '../util';
-
-const outputFormat = {
-	table: [
-		{
-			header: 'ID',
-			property: 'id'
-		},
-		{
-			header: 'Name',
-			property: 'name'
-		},
-		{
-			header: 'Platform',
-			property: 'platform.name'
-		},
-		{
-			header: 'Enabled',
-			property: 'disabled',
-			transform: val => !val
-		}
-	],
-	json: [
-		'platform.id'
-	]
-};
+import { outputFormat } from './util';
 
 export = {
 	command: 'list',
@@ -37,13 +13,18 @@ export = {
 				type: 'string',
 				group: 'Search'
 			},
-
 			'active': {
 				desc: 'Only retrieve active connections',
 				type: 'boolean',
 				group: 'Search',
 				default: undefined
-			}, ...listArgumentsDefault
+			},
+			'pools': {
+				desc: 'Only retrieve connection pools',
+				type: 'boolean',
+				group: 'Search',
+				default: undefined
+			},...listArgumentsDefault
 		})
 	},
 	handler: argv => {
@@ -52,8 +33,13 @@ export = {
 				platform: argv.platform,
 				q: argv.search,
 				active: argv.active,
+				pools: argv.pools,
 				offset: argv.offset,
-				limit: argv.limit
+				limit: argv.limit,
+				fields: ['name', 
+					'platform',
+					'group',
+					'pool']
 			});
 			output.writeTable(connections, outputFormat);
 		});

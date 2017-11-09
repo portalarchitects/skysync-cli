@@ -15,6 +15,7 @@ export interface Connection extends IEntityIdentifier<string> {
 	features?: ConnectionFeatures;
 	platform?: StoragePlatform;
 	account?: Account;
+	poolId?: string;
 }
 
 export interface Account extends IEntityIdentifier<string> {

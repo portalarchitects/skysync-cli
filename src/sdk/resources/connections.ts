@@ -28,4 +28,14 @@ export class ConnectionsResource extends EditableResource<Connection> {
 		const response = this.httpClient.get(`${this.resourcePath}/${id}/edit`, this.mergeDefaultParams(params));
 		return getTypedResponse<ConnectionAuthorizeRequest>(response);
 	}
+
+	async setPool(id: string, body: any, params?: any): Promise<Connection> {
+		const response = this.httpClient.patch(`${this.resourcePath}/${id}/pool`, body, params);
+		return <Connection>response;
+	}
+
+	async clearPool(id: string, params?: any): Promise<Connection> {
+		const response = this.httpClient.delete(`${this.resourcePath}/${id}/pool`, this.mergeDefaultParams(params));
+		return <Connection>response;
+	}
 }
