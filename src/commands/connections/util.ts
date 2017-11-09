@@ -23,10 +23,11 @@ export const outputFormat = {
 		},
 		{
 			header: 'ParentPool',
-			property: 'pool.id'
+			property: 'pool.name',
 		}
 	],
 	json: [
-		'platform.id'
+		'platform.id',
+		'pool.id'
 	]
 };

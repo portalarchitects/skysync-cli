@@ -15,11 +15,16 @@ export interface Connection extends IEntityIdentifier<string> {
 	features?: ConnectionFeatures;
 	platform?: StoragePlatform;
 	account?: Account;
-	poolId?: string;
+	pool?: ConnectionPool;
 }
 
 export interface Account extends IEntityIdentifier<string> {
 	email?: string;
+}
+
+export interface ConnectionPool extends IEntityIdentifier<string> {
+	id?: string;
+	name?: string;
 }
 
 export interface ConnectionAuthorizeRequest {
