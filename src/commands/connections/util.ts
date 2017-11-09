@@ -22,7 +22,7 @@ export const outputFormat = {
 			property: 'group'
 		},
 		{
-			header: 'ParentPool',
+			header: 'PoolName',
 			property: 'pool.name',
 		}
 	],

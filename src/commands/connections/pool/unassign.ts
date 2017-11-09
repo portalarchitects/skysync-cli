@@ -3,11 +3,11 @@ import { outputFormat } from '../util';
 const open = require('open')
 
 export = {
-	command: 'clear <id>',
+	command: 'unassign <id>',
 	desc: 'Remove a connection from connection pools',
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			const wasCleared = await client.connections.clearPool(argv.id);
+			const wasCleared = await client.connections.unassignPool(argv.id);
 			if (wasCleared) {
 				output.writeSuccess('The connection was successfully removed from a connection pool.');
 			} else {
