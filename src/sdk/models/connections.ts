@@ -23,7 +23,6 @@ export interface Account extends IEntityIdentifier<string> {
 }
 
 export interface ConnectionPool extends IEntityIdentifier<string> {
-	id?: string;
 	name?: string;
 }
 

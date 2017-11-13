@@ -17,7 +17,7 @@ const outputFormat = {
 			transform: val => !val
 		},
 		{
-			header: 'PoolId',
+			header: 'PoolID',
 			property: 'pool.id'
 		},
 		{
@@ -32,11 +32,11 @@ export = {
 	desc: 'Assign a connection to an existing connection pool, or create one if it does not exist.',
 	builder: yargs => {
 		yargs.options({
-			'poolId': {
+			'pool': {
 				desc: 'Existing Connection Pool ID',
 				type: 'string',
 			},
-			'poolName': {
+			'name': {
 				desc: 'New or Existing Connection Pool Name',
 				type: 'string'
 			}
@@ -46,8 +46,8 @@ export = {
 		runCommand(argv, async (client, output) => {
 			const connection = await client.connections.assignPool(argv.id,
 				{
-					id: argv.poolId,
-					name: argv.poolName
+					id: argv.pool,
+					name: argv.name
 				},
 				{
 					fields: 'all'
