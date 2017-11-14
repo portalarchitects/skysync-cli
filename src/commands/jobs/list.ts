@@ -1,24 +1,13 @@
 import { runCommand } from '../../util/command';
 import { listOutputFormat } from './util';
-import { listArgumentsDefault } from '../util';
+import { jobsSearchArgumentsDefault } from './util';
 
 export = {
 	command: 'list',
 	desc: 'List all jobs',
 	builder: yargs => {
 		yargs.options({
-			'kind': {
-				desc: 'Job Kind',
-				type: 'string',
-				group: 'Search'
-			},
-
-			'active': {
-				desc: 'Only retrieve active jobs',
-				type: 'boolean',
-				group: 'Search',
-				default: undefined
-			}, ...listArgumentsDefault
+			...jobsSearchArgumentsDefault
 		})
 	},
 	handler: argv => {

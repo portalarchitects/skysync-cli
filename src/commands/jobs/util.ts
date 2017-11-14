@@ -1,3 +1,20 @@
+import { listArgumentsDefault } from "../util";
+
+const jobsSearchArgumentsDefault = {
+	'kind': {
+		desc: 'Job Kind',
+		type: 'string',
+		group: 'Search'
+	},
+
+	'active': {
+		desc: 'Only retrieve active jobs',
+		type: 'boolean',
+		group: 'Search',
+		default: undefined
+	}, ...listArgumentsDefault
+};
+
 const listOutputFormat = {
 	table: [
 		{
@@ -81,11 +98,11 @@ const historyOutputFormat = {
 			property: 'end_time',
 			transform: value => new Date(value)
 		},
-		{	
+		{
 			header: 'Status',
 			property: 'status'
 		},
-		{	
+		{
 			header: 'NodeAddress',
 			property: 'node_address'
 		}
@@ -119,15 +136,15 @@ const auditOutputFormat = {
 			property: 'recorded_on',
 			transform: value => new Date(value)
 		},
-		{	
+		{
 			header: 'Level',
 			property: 'level'
 		},
-		{	
+		{
 			header: 'Event',
 			property: 'event'
 		},
-		{	
+		{
 			header: 'Reason',
 			property: 'reason'
 		}
@@ -138,5 +155,5 @@ const auditOutputFormat = {
 	]
 };
 
-export { listOutputFormat, detailOutputFormat, historyOutputFormat, auditOutputFormat };
+export { jobsSearchArgumentsDefault, listOutputFormat, detailOutputFormat, historyOutputFormat, auditOutputFormat };
 
