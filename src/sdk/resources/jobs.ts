@@ -12,10 +12,18 @@ export class JobsResource extends EditableResource<Job> {
 		return this.changeStatus(id, 'start', params);
 	}
 
+	startMultiple(params?: any): Promise<any> {
+		return this.changeStatusMultiple('start', params);
+	}
+	
 	pause(id: string, params?: any): Promise<Job> {
 		return this.changeStatus(id, 'pause', params);
 	}
 
+	pauseMultiple(params?: any): Promise<any> {
+		return this.changeStatusMultiple('pause', params);
+	}
+	
 	cancel(id: string, params?: any): Promise<Job> {
 		return this.changeStatus(id, 'cancel', params);
 	}
@@ -75,5 +83,14 @@ export class JobsResource extends EditableResource<Job> {
 
 		const job = await this.httpClient.patch(`${this.resourcePath}/${id}`, undefined, params);
 		return this.getSingle(job);
+	}
+
+	private async changeStatusMultiple(status: string, params?: any): Promise<any> {
+		const statusParams = {};
+		statusParams[status] = 1;
+		params = this.mergeParams(statusParams, params);
+
+		const result = await this.httpClient.patch(`${this.resourcePath}`, undefined, params);
+		return result;
 	}
 }
