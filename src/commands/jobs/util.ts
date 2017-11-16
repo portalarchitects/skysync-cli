@@ -160,6 +160,18 @@ const auditOutputFormat = {
 	]
 };
 
+function getSearchArgs(argv):any{
+	if (argv.all !== undefined) {
+		return {};
+	}
+	return {kind: argv.kind,
+		q: argv.search,
+		active: argv.active,
+		parent: argv.parent,
+		offset: argv.offset,
+		limit: argv.limit};
+}
+
 function searchCriteriaIsMissing(argv):boolean {
 	return	argv.all === undefined
 		&& argv.parent === undefined
@@ -168,5 +180,5 @@ function searchCriteriaIsMissing(argv):boolean {
 		&& argv.active === undefined;
 }
 
-export { jobsSearchArgumentsDefault, listOutputFormat, detailOutputFormat, historyOutputFormat, auditOutputFormat, searchCriteriaIsMissing };
+export { jobsSearchArgumentsDefault, listOutputFormat, detailOutputFormat, historyOutputFormat, auditOutputFormat, searchCriteriaIsMissing, getSearchArgs };
 

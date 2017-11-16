@@ -1,5 +1,5 @@
 import { runCommand } from '../../util/command';
-import { detailOutputFormat, jobsSearchArgumentsDefault, searchCriteriaIsMissing } from './util';
+import { detailOutputFormat, jobsSearchArgumentsDefault, searchCriteriaIsMissing, getSearchArgs } from './util';
 
 export = {
 	command: 'pause [id]',
@@ -23,12 +23,7 @@ export = {
 			else {
 				runCommand(argv, async (client, output) => {
 					const result = await client.jobs.pauseMultiple({
-						parent: argv.parent,
-						kind: argv.kind,
-						q: argv.search,
-						active: argv.active,
-						offset: argv.offset,
-						limit: argv.limit
+						...getSearchArgs(argv)
 					});
 					const totalCount = result.meta.total_count;
 					if (totalCount === undefined || totalCount == 0) {

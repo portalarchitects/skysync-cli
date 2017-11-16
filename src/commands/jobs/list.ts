@@ -1,6 +1,6 @@
 import { runCommand } from '../../util/command';
 import { listOutputFormat } from './util';
-import { jobsSearchArgumentsDefault } from './util';
+import { jobsSearchArgumentsDefault, getSearchArgs } from './util';
 
 export = {
 	command: 'list',
@@ -12,13 +12,9 @@ export = {
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
+			
 			const jobs = await client.jobs.list({
-				kind: argv.kind,
-				q: argv.search,
-				active: argv.active,
-				parent: argv.parent,
-				offset: argv.offset,
-				limit: argv.limit,
+				...getSearchArgs(argv),
 				fields: [
 					'name',
 					'status',
