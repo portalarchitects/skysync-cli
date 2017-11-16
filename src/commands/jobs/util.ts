@@ -1,3 +1,25 @@
+import { listArgumentsDefault } from "../util";
+
+const jobsSearchArgumentsDefault = {
+	'kind': {
+		desc: 'Job Kind',
+		type: 'string',
+		group: 'Search'
+	},
+	'active': {
+		desc: 'Only retrieve active jobs',
+		type: 'boolean',
+		group: 'Search',
+		default: undefined
+	},
+	'parent': {
+		desc: 'Search by the parent job ID',
+		type: 'string',
+		group: 'Search'
+	},
+	...listArgumentsDefault
+};
+
 const listOutputFormat = {
 	table: [
 		{
@@ -81,11 +103,11 @@ const historyOutputFormat = {
 			property: 'end_time',
 			transform: value => new Date(value)
 		},
-		{	
+		{
 			header: 'Status',
 			property: 'status'
 		},
-		{	
+		{
 			header: 'NodeAddress',
 			property: 'node_address'
 		}
@@ -119,15 +141,15 @@ const auditOutputFormat = {
 			property: 'recorded_on',
 			transform: value => new Date(value)
 		},
-		{	
+		{
 			header: 'Level',
 			property: 'level'
 		},
-		{	
+		{
 			header: 'Event',
 			property: 'event'
 		},
-		{	
+		{
 			header: 'Reason',
 			property: 'reason'
 		}
@@ -138,5 +160,25 @@ const auditOutputFormat = {
 	]
 };
 
-export { listOutputFormat, detailOutputFormat, historyOutputFormat, auditOutputFormat };
+function getSearchArgs(argv):any{
+	if (argv.all !== undefined) {
+		return {};
+	}
+	return {kind: argv.kind,
+		q: argv.search,
+		active: argv.active,
+		parent: argv.parent,
+		offset: argv.offset,
+		limit: argv.limit};
+}
+
+function searchCriteriaIsMissing(argv):boolean {
+	return	argv.all === undefined
+		&& argv.parent === undefined
+		&& argv.kind === undefined
+		&& argv.q === undefined
+		&& argv.active === undefined;
+}
+
+export { jobsSearchArgumentsDefault, listOutputFormat, detailOutputFormat, historyOutputFormat, auditOutputFormat, searchCriteriaIsMissing, getSearchArgs };
 
