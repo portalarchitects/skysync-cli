@@ -1,5 +1,5 @@
 import { runCommand } from '../../util/command';
-import { detailOutputFormat, jobsSearchArgumentsDefault, searchCriteriaIsMissing, getSearchArgs } from './util';
+import { detailOutputFormat, jobsSearchArgumentsDefault, searchCriteriaIsMissing, getSearchArgs, logTotalCount } from './util';
 
 export = {
 	command: 'pause [id]',
@@ -18,16 +18,17 @@ export = {
 	handler: argv => {
 		if (argv.id === undefined) {
 			if (searchCriteriaIsMissing(argv)) {
-				console.error(('Search criteria must be specified. To pause all jobs, use --all parameter' as any).red);
 			} else {
 				runCommand(argv, async (client, output) => {
 					const result = await client.jobs.pauseMultiple({
 						...getSearchArgs(argv)
 					});
 					const totalCount = result.meta.total_count;
-					if (totalCount === undefined || totalCount === 0) {
-						output.writeWarning('Warning: 0 jobs were paused because no jobs matched the specified filter');
-					} else if (totalCount === 1) {
+					if (argv.json){
+						logTotalCount(totalCount);
+					} else if (totalCount === undefined || totalCount == 0) {
+						output.writeWarning("Warning: 0 jobs were paused because no jobs matched the specified filter");
+					} else if (totalCount == 1) {
 						output.writeSuccess(`1 job paused`);
 					} else {
 						output.writeSuccess(`${totalCount} jobs paused`);
