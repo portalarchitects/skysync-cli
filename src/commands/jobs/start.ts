@@ -18,9 +18,8 @@ export = {
 	handler: argv => {
 		if (argv.id === undefined) {
 			if (searchCriteriaIsMissing(argv)) {
-				console.error("Search criteria must be specified. To start all jobs, use --all parameter");
-			}
-			else {
+				console.error(("Search criteria must be specified. To start all jobs, use --all parameter" as any).red);
+			} else {
 				runCommand(argv, async (client, output) => {
 					const result = await client.jobs.startMultiple({
 						...getSearchArgs(argv)
@@ -28,17 +27,14 @@ export = {
 					const totalCount = result.meta.total_count;
 					if (totalCount === undefined || totalCount == 0) {
 						output.writeWarning("Warning: 0 jobs were started because no jobs matched the specified filter");
-					}
-					else if (totalCount == 1) {
+					} else if (totalCount == 1) {
 						output.writeSuccess(`1 job started`);
-					}
-					else {
+					} else {
 						output.writeSuccess(`${totalCount} jobs started`);
 					}
 				});
 			}
-		}
-		else {
+		} else {
 			runCommand(argv, async (client, output) => {
 				const job = await client.jobs.start(argv.id, {
 					fields: [
@@ -49,8 +45,7 @@ export = {
 				});
 				if (job == null) {
 					output.writeFailure(`Job with ID=${argv.id} was not found`)
-				}
-				else {
+				} else {
 					output.writeItem(job, detailOutputFormat);
 				}
 			});
