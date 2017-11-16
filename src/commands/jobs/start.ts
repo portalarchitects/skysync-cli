@@ -16,7 +16,7 @@ export = {
 		})
 	},
 	handler: argv => {
-		if (argv.id == undefined) {
+		if (argv.id === undefined) {
 			if (searchCriteriaIsMissing(argv)) {
 				console.error("Search criteria must be specified. To start all jobs, use --all parameter");
 			}
