@@ -16,6 +16,7 @@ export = {
 				kind: argv.kind,
 				q: argv.search,
 				active: argv.active,
+				parent: argv.parent,
 				offset: argv.offset,
 				limit: argv.limit,
 				fields: [

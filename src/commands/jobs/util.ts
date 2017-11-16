@@ -6,13 +6,18 @@ const jobsSearchArgumentsDefault = {
 		type: 'string',
 		group: 'Search'
 	},
-
 	'active': {
 		desc: 'Only retrieve active jobs',
 		type: 'boolean',
 		group: 'Search',
 		default: undefined
-	}, ...listArgumentsDefault
+	},
+	'parent': {
+		desc: 'Search by the parent job ID',
+		type: 'string',
+		group: 'Search'
+	},
+	...listArgumentsDefault
 };
 
 const listOutputFormat = {
@@ -156,11 +161,11 @@ const auditOutputFormat = {
 };
 
 function searchCriteriaIsMissing(argv):boolean {
-	return	argv.all == undefined
-		&& argv.parent == undefined
-		&& argv.kind == undefined
-		&& argv.q == undefined
-		&& argv.active == undefined;
+	return	argv.all === undefined
+		&& argv.parent === undefined
+		&& argv.kind === undefined
+		&& argv.q === undefined
+		&& argv.active === undefined;
 }
 
 export { jobsSearchArgumentsDefault, listOutputFormat, detailOutputFormat, historyOutputFormat, auditOutputFormat, searchCriteriaIsMissing };
