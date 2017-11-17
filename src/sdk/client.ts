@@ -15,7 +15,7 @@ export class SkySyncClient {
 	/* tslint:disable:no-http-string */
 	static readonly DEFAULT_SERVER_URI: string = 'http://localhost:9090/';
 
-	private httpClient: IHttpClient;
+	private _httpClient: IHttpClient;
 
 	constructor(config?: {
 		server: string;
@@ -23,47 +23,51 @@ export class SkySyncClient {
 		password: string;
 		site: string;
 	});
-	constructor(httpClient: IHttpClient);
+	constructor(_httpClient: IHttpClient);
 	constructor(options: any) {
 		if (!options) {
 			options = {};
 		}
 		if (typeof(options.get) === 'function') {
-			this.httpClient = options;
+			this._httpClient = options;
 		} else {
-			this.httpClient = new RequestHttpClient(options.server || SkySyncClient.DEFAULT_SERVER_URI, options.username, options.password, options.site);
+			this._httpClient = new RequestHttpClient(options.server || SkySyncClient.DEFAULT_SERVER_URI, options.username, options.password, options.site);
 		}
 	}
 
+	get httpClient(): IHttpClient {
+		return this._httpClient;
+	}
+
 	get connections(): ConnectionsResource {
-		return new ConnectionsResource(this.httpClient);
+		return new ConnectionsResource(this._httpClient);
 	}
 
 	get groups(): OwnershipGroupsResource {
-		return new OwnershipGroupsResource(this.httpClient);
+		return new OwnershipGroupsResource(this._httpClient);
 	}
 
 	get jobs(): JobsResource {
-		return new JobsResource(this.httpClient);
+		return new JobsResource(this._httpClient);
 	}
 
 	get permissions(): PermissionsResource {
-		return new PermissionsResource(this.httpClient);
+		return new PermissionsResource(this._httpClient);
 	}
 
 	get roles(): RolesResource {
-		return new RolesResource(this.httpClient);
+		return new RolesResource(this._httpClient);
 	}
 
 	get sites(): SitesResource {
-		return new SitesResource(this.httpClient);
+		return new SitesResource(this._httpClient);
 	}
 
 	get storagePlatforms(): StoragePlatformsResource {
-		return new StoragePlatformsResource(this.httpClient);
+		return new StoragePlatformsResource(this._httpClient);
 	}
 
 	get users(): UsersResource {
-		return new UsersResource(this.httpClient);
+		return new UsersResource(this._httpClient);
 	}
 }
