@@ -1,6 +1,8 @@
 import * as cliff from 'cliff';
 import * as dot from 'dot-object';
 
+/* tslint:disable:no-console */
+
 const arrayIndicator = '[]';
 
 export interface OutputFormatterOptions {
@@ -47,13 +49,13 @@ export class OutputFormatter {
 			console.error((message as any).red);
 		}
 	}
-	
+
 	writeWarning(message: string, force: boolean = false): void {
 		if (!this.outputJson || force) {
 			console.warn((message as any).yellow);
 		}
 	}
-	
+
 	writeText(output: string): void {
 		console.log(output);
 	}
@@ -61,7 +63,7 @@ export class OutputFormatter {
 	private write(obj: any, options?: OutputOptions, asTable?: boolean): void {
 		if (!obj) {
 			if (this.formatOptions.outputJson) {
-				console.log("null");
+				console.log('null');
 				return;
 			} else {
 				obj = [];
@@ -108,13 +110,13 @@ export class OutputFormatter {
 
 function formatToString(col: { property?: string, transform?: (val: any) => any; }, obj: any): string {
 	let val = undefined;
-	
-	if (col.property && col.property.indexOf('[]') != -1) {
+
+	if (col.property && col.property.indexOf('[]') !== -1) {
 		val = formatArrayToString(col.property, obj);
 	} else {
 		val = dot.pick(col.property, obj)
 	}
-	
+
 	if (col.transform) {
 		val = col.transform(val);
 	}
@@ -143,15 +145,15 @@ function formatArrayToString(property: string, obj: any): string {
 					}
 				});
 			}
-		}	
+		}
 	}
-	return (valueArray.length > 0? valueArray.join(', ') : undefined);
+	return (valueArray.length > 0 ? valueArray.join(', ') : undefined);
 }
 
 function copyJson(obj: any, options?: OutputOptions): any {
 	if (options) {
 		const copy = {};
-		
+
 		options.table.forEach(x => {
 			copyJsonProperty(x.property, obj, copy);
 		});
@@ -174,13 +176,13 @@ function copyJsonProperty(property: string, source: any, target: any): any {
 	}
 }
 
-function copyJsonArray(property:string, source: any, target?: any): any {
+function copyJsonArray(property: string, source: any, target?: any): any {
 	let parentKey = property.substr(0, property.indexOf(arrayIndicator));
 	let childKey = property.substr(property.indexOf(arrayIndicator + '.') + 3);
 	let parentKeys = [];
-	
+
 	let parent = dot.pick(parentKey, source);
-	
+
 	if (Array.isArray(parent)) {
 		if (childKey.indexOf(arrayIndicator) !== -1) {
 			let childKeys = copyJsonArray(childKey, parent);

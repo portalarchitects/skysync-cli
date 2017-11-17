@@ -32,12 +32,17 @@
     "dist/",
     "bin/"
   ],
+  "engineStrict": true,
+  "engines": {
+    "node": ">=8.3.0"
+  },
   "scripts": {
     "clean": "rimraf dist",
     "build": "tsc -p ./src",
+    "lint": "tslint --config tslint.json 'src/**/*.ts' --exclude '**/node_modules/**'",
     "rebuild": "npm run clean && npm run build",
     "start": "node bin/skysync.js",
-    "test": "cross-env TS_NODE_PROJECT=./src mocha --compilers ts:ts-node/register src/**/*.test.ts",
+    "test": "cross-env TS_NODE_PROJECT=./src mocha --compilers ts:ts-node/register src/**/*.test.ts && npm run lint",
     "prepublishOnly": "npm run rebuild"
   },
   "bin": {
@@ -50,6 +55,8 @@
     "open": "0.0.5",
     "prompt": "^1.0.0",
     "request": "^2.81.0",
+    "semver": "^5.4.1",
+    "tslint": "^5.8.0",
     "v8flags": "^2.1.1",
     "yargs": "^7.1.0"
   },
@@ -62,6 +69,7 @@
     "mocha": "^3.5.0",
     "rimraf": "^2.6.1",
     "ts-node": "^3.3.0",
+    "tslint-microsoft-contrib": "^5.0.1",
     "typescript": "^2.4.2"
   }
 }

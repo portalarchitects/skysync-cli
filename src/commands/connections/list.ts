@@ -6,7 +6,7 @@ export = {
 	command: 'list',
 	desc: 'List all connections',
 	builder: yargs => {
-		yargs.options({ 
+		yargs.options({
 			'platform': {
 				alias: 'p',
 				desc: 'Storage platform',
@@ -24,7 +24,7 @@ export = {
 				type: 'boolean',
 				group: 'Search',
 				default: undefined
-			},...listArgumentsDefault
+			}, ...listArgumentsDefault
 		})
 	},
 	handler: argv => {
@@ -36,7 +36,7 @@ export = {
 				pools: argv.pools,
 				offset: argv.offset,
 				limit: argv.limit,
-				fields: ['name', 
+				fields: ['name',
 					'platform',
 					'group',
 					'pool']

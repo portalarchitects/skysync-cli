@@ -52,7 +52,7 @@ export = {
 				{
 					fields: 'all'
 				});
-			output.writeItem(connection["connection"], outputFormat);
+			output.writeItem(connection, outputFormat);
 		});
 	}
 }

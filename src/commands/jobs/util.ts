@@ -1,4 +1,4 @@
-import { listArgumentsDefault } from "../util";
+import { listArgumentsDefault } from '../util';
 
 const jobsSearchArgumentsDefault = {
 	'kind': {
@@ -160,7 +160,7 @@ const auditOutputFormat = {
 	]
 };
 
-function getSearchArgs(argv):any{
+function getSearchArgs(argv): any {
 	if (argv.all !== undefined) {
 		return {};
 	}
@@ -172,8 +172,8 @@ function getSearchArgs(argv):any{
 		limit: argv.limit};
 }
 
-function searchCriteriaIsMissing(argv):boolean {
-	return	argv.all === undefined
+function searchCriteriaIsMissing(argv): boolean {
+	return argv.all === undefined
 		&& argv.parent === undefined
 		&& argv.kind === undefined
 		&& argv.q === undefined
@@ -181,4 +181,3 @@ function searchCriteriaIsMissing(argv):boolean {
 }
 
 export { jobsSearchArgumentsDefault, listOutputFormat, detailOutputFormat, historyOutputFormat, auditOutputFormat, searchCriteriaIsMissing, getSearchArgs };
-
