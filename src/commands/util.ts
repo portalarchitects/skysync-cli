@@ -5,7 +5,7 @@ export const listArgumentsSearch = {
 		type: 'string',
 		group: 'Search'
 	}
-}
+};
 
 export const listArgumentsDefault = {
 	...listArgumentsSearch,

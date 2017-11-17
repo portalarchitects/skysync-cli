@@ -3,6 +3,8 @@ import { URL } from 'url';
 const API_VERSION = 'v1';
 
 export interface IHttpClient {
+	getAccessToken(): Promise<string>;
+
 	get(path: string, params?: any): Promise<any>;
 
 	post(path: string, body: any, params?: any): Promise<any>;
@@ -53,7 +55,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		}
 	}
 
-	protected async getAccessToken(): Promise<string> {
+	async getAccessToken(): Promise<string> {
 		if (this.isAuthRequired && !this.accessToken) {
 			return await new Promise<string>((resolve, reject) => {
 				if (this.accessToken) {
