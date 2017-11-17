@@ -2,8 +2,8 @@ import { IEntityIdentifier } from './base';
 import { Connection, Account, PlatformItem } from './connections';
 
 export enum JobScheduleMode {
-	Automatic = "auto",
-	Manual = "manual"
+	Automatic = 'auto',
+	Manual = 'manual'
 }
 
 export interface JobSchedule {
@@ -30,12 +30,12 @@ export interface TransferPath {
 }
 
 export enum TransferType {
-	Synchronize = "sync",
-	Publish = "publish",
-	Move = "move",
-	Migrate = "migrate",
-	Copy = "copy",
-	Taxonomy = "taxonomy"
+	Synchronize = 'sync',
+	Publish = 'publish',
+	Move = 'move',
+	Migrate = 'migrate',
+	Copy = 'copy',
+	Taxonomy = 'taxonomy'
 }
 
 export interface TransferOptions {
@@ -62,7 +62,7 @@ export interface JobExecutionStatistics {
 export interface JobExecutionStatisticsSet {
 	destination?: JobExecutionStatistics;
 	source?: JobExecutionStatistics;
-} 
+}
 
 export interface JobExecution {
 	job_id?: string;

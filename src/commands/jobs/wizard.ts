@@ -1,5 +1,5 @@
 import * as prompt from 'prompt';
-import { 
+import {
 	Job,
 	JobSchedule,
 	JobScheduleMode,
@@ -8,6 +8,8 @@ import {
 	SkySyncClient
 } from '../../sdk';
 const open = require('open')
+
+/* tslint:disable:no-console */
 
 export type WizardStep<T> = (obj: T) => Promise<T>;
 
@@ -107,7 +109,7 @@ async function promptChoice(values: string[], params: any = {}): Promise<number>
 	params.description = message;
 
 	while (true) {
-		var result = await promptInput('choice', params);
+		const result = await promptInput('choice', params);
 		const selection = parseInt(result, 10) - 1;
 		if (!(values[selection])) {
 			continue;
@@ -250,7 +252,7 @@ function TransferPathJobStep(client: SkySyncClient): WizardStep<Job> {
 			return state;
 		};
 	};
-	
+
 	const sourceStep = factory('source');
 	const destinationStep = factory('destination');
 

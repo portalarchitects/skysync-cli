@@ -12,6 +12,7 @@ import {
 import * as models from './models';
 
 export class SkySyncClient {
+	/* tslint:disable:no-http-string */
 	static readonly DEFAULT_SERVER_URI: string = 'http://localhost:9090/';
 
 	private httpClient: IHttpClient;
@@ -64,5 +65,5 @@ export class SkySyncClient {
 
 	get users(): UsersResource {
 		return new UsersResource(this.httpClient);
-	}	
+	}
 }

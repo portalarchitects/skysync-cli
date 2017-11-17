@@ -2,6 +2,7 @@ import { RequestHttpClient } from './request-client';
 import expect = require('expect.js');
 
 export class TestHttpClient extends RequestHttpClient {
+	/* tslint:disable:no-http-string */
 	static readonly BASE_ADDRESS = 'http://localhost:9090';
 
 	private readonly _executedRequests = [];
