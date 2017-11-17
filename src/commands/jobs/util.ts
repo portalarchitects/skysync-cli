@@ -180,9 +180,9 @@ function searchCriteriaIsMissing(argv): boolean {
 		&& argv.active === undefined;
 }
 
-function logTotalCount(totalCount){
-	console.log({total_count: totalCount})
+function formatTotalCount(totalCount): any {
+	return {total_count: totalCount};
 }
 
-export { jobsSearchArgumentsDefault, listOutputFormat, detailOutputFormat, historyOutputFormat, auditOutputFormat, searchCriteriaIsMissing, getSearchArgs, logTotalCount };
+export { jobsSearchArgumentsDefault, listOutputFormat, detailOutputFormat, historyOutputFormat, auditOutputFormat, searchCriteriaIsMissing, getSearchArgs, formatTotalCount };
 
