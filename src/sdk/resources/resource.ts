@@ -9,19 +9,21 @@ export function getTypedResponse<T>(result: any, type?: string): T {
 }
 
 export class Resource<TResource> {
-	protected resourcePath: string;
 	public defaultParams: any;
 
 	constructor(protected httpClient: IHttpClient, protected singularName: string, protected pluralName: string = undefined, 
-				protected singularType?: string, protected pluralType: string = undefined) {
+				protected singularType?: string, protected pluralType: string = undefined, protected resourcePath: string = undefined) {
 		if (!this.pluralName) {
 			this.pluralName = `${this.singularName}s`;
 		}
-		
+
 		if (this.singularType && !this.pluralType) {
-			this.pluralType = `${this.singularType}s`; 
+			this.pluralType = `${this.singularType}s`;
 		}
-		this.resourcePath = this.pluralName;
+
+		if (!this.resourcePath) {
+			this.resourcePath = this.pluralName;
+		}
 	}
 
 	protected mergeDefaultParams(params: any): any {
@@ -60,8 +62,8 @@ export class Resource<TResource> {
 }
 
 export class EditableResource<TResource extends IEntityIdentifier<string>> extends Resource<TResource> {
-	constructor(httpClient: IHttpClient, name: string, type?: string, pluralName?: string, pluralType?: string) {
-		super(httpClient, name, pluralName, type, pluralType);
+	constructor(httpClient: IHttpClient, name: string, type?: string, pluralName?: string, pluralType?: string, resourcePath?: string) {
+		super(httpClient, name, pluralName, type, pluralType, resourcePath);
 	}
 	
 	async add(body: TResource, params?: any): Promise<TResource> {
