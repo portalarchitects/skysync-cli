@@ -1,5 +1,5 @@
 export = {
 	command: 'categories',
-	desc: 'Manage SkySync Connections',
+	desc: 'Manage Audit Categories',
 	builder: yargs => yargs.commandDir('./categories').demandCommand(1)
 };
