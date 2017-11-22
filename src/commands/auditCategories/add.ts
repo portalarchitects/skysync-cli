@@ -40,14 +40,14 @@ export = {
 
 			'auditType': {
 				alias: 'type',
-				desc: 'Audit Type code to which this category applies',
+				desc: 'Audit Type code to which this audit category applies',
 				type: 'number'
 			}
 		})
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			let category: any = {
+			let auditCategory: any = {
 				name: argv.name,
 				description: argv.description,
 				action: argv.action,
@@ -67,12 +67,12 @@ export = {
 			};
 
 			if (argv.optionsInput) {
-				category = await readJsonInput();
+				auditCategory = await readJsonInput();
 			}
-			category = await client.categories.add(category, {
+			auditCategory = await client.auditCategories.add(auditCategory, {
 				fields: 'all'
 			});
-			output.writeItem(category, outputFormat);
+			output.writeItem(auditCategory, outputFormat);
 		});
 	}
 }

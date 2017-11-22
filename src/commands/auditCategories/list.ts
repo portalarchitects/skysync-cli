@@ -12,13 +12,13 @@ export = {
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			const categories = await client.categories.list({
+			const auditCategories = await client.auditCategories.list({
 				q: argv.search,
 				offset: argv.offset,
 				limit: argv.limit,
 				fields: 'all'
 			});
-			output.writeItem(categories, outputFormat);
+			output.writeItem(auditCategories, outputFormat);
 		});
 	}
 }

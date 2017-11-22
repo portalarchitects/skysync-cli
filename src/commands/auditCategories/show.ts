@@ -6,12 +6,12 @@ export = {
 	desc: 'Show Audit Category details',
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			const category = await client.categories.get(argv.id, {fields: 'all'});
+			const auditCategory = await client.auditCategories.get(argv.id, {fields: 'all'});
 			outputFormat.table.push({
 				header: 'Description',
 				property: 'description'
 			});
-			output.writeItem(category, outputFormat);
+			output.writeItem(auditCategory, outputFormat);
 		});
 	}
 }
