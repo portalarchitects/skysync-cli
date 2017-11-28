@@ -1,6 +1,7 @@
 import { IHttpClient, RequestHttpClient } from './http';
 import {
 	ConnectionsResource,
+	DiagnosticMetricsResource,
 	JobsResource,
 	OwnershipGroupsResource,
 	PermissionsResource,
@@ -43,6 +44,10 @@ export class SkySyncClient {
 		return new ConnectionsResource(this._httpClient);
 	}
 
+	get diagnosticMetrics(): DiagnosticMetricsResource {
+		return new DiagnosticMetricsResource(this._httpClient);
+	}
+	
 	get groups(): OwnershipGroupsResource {
 		return new OwnershipGroupsResource(this._httpClient);
 	}
