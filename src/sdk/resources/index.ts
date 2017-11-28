@@ -6,3 +6,4 @@ export * from './permissions';
 export * from './roles';
 export * from './sites';
 export * from './users';
+export * from './auditCategories';

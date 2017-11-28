@@ -8,7 +8,8 @@ import {
 	RolesResource,
 	SitesResource,
 	StoragePlatformsResource,
-	UsersResource
+	UsersResource,
+	AuditCategoriesResource
 } from './resources';
 import * as models from './models';
 
@@ -74,5 +75,9 @@ export class SkySyncClient {
 
 	get users(): UsersResource {
 		return new UsersResource(this._httpClient);
+	}
+
+	get auditCategories(): AuditCategoriesResource {
+		return new AuditCategoriesResource(this._httpClient);
 	}
 }
