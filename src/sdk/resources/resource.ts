@@ -59,6 +59,13 @@ export class Resource<TResource> {
 		const result = await this.httpClient.get(`${this.resourcePath}/${id}`, this.mergeDefaultParams(params));
 		return this.getSingle(result);
 	}
+	
+	async getFile(id: any, params?: any): Promise<any> {
+		return new Promise(async (resolve, reject) => {
+			var resp = await this.httpClient.download(`${this.resourcePath}/${id}/download`, this.mergeDefaultParams(params));
+			return resolve(resp);
+		});
+	}
 }
 
 export class EditableResource<TResource extends IEntityIdentifier<string>> extends Resource<TResource> {

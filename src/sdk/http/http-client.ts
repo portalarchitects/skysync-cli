@@ -7,6 +7,8 @@ export interface IHttpClient {
 
 	get(path: string, params?: any): Promise<any>;
 
+	download(path: string, params?: any): Promise<any>;
+
 	post(path: string, body: any, params?: any): Promise<any>;
 
 	put(path: string, body: any, params?: any): Promise<any>;
@@ -124,7 +126,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 					if (response && this.getStatusCode(response) === 404) {
 						return resolve(null);
 					}
-					
+
 					const jsonResponse = !response.headers || !response.headers['content-type'] || response.headers['content-type'].indexOf('application/json') >= 0;
 
 					if (!body || body.length === 0) {
@@ -156,7 +158,29 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 			}
 		});
 	}
-
+	
+	download(path: string, params?: any): Promise<any> {
+		return this.executeApiFileRequest(path, params, {
+			method: 'GET'//, encoding: 'utf-8'
+		});
+	}
+	
+	async executeApiFileRequest(path: string, params: any, options: any = {}): Promise<any> {
+		return await new Promise(async (resolve, reject) => {
+			try {
+				if (this.isAuthRequired) {
+					const token = await this.getAccessToken();
+					options.headers = options.headers || {};
+					options.headers['Authorization'] = `Bearer ${token}`;
+				}
+				options.url = getUrl(path, this.apiUrl, params);
+				return resolve(require('request').get(options));
+			} catch (e) {
+				reject(e);
+			}
+		});
+	}
+	
 	get(path: string, params?: any): Promise<any> {
 		return this.executeApiRequest(path, params, {
 			method: 'GET',
