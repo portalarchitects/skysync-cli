@@ -4,8 +4,8 @@ import { DiagnosticMetric } from '../models';
 
 export class DiagnosticMetricsResource extends EditableResource<DiagnosticMetric> {
 	constructor(httpClient: IHttpClient) {
-		super(httpClient, 'diagnostic_metrics');
-		this.resourcePath = 'diagnostics/metrics'
+		super(httpClient, 'metric');
+		this.resourcePath = 'diagnostics/metrics';
 	}
 }
 
