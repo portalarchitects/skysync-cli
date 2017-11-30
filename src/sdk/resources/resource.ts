@@ -111,5 +111,3 @@ export class EditableResource<TResource extends IEntityIdentifier<string>> exten
 		return this.httpClient.delete(`${this.resourcePath}`, this.mergeDefaultParams(params));
 	}
 }
-
-
