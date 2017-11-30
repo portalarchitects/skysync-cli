@@ -1,5 +1,5 @@
-import { IEntityIdentifier } from './base';
-
-export interface DiagnosticMetric extends IEntityIdentifier<string> {
-	metrics: any;
+export interface DiagnosticMetric  {
+	name: string;
+	value: string;
+	type: string;
 }

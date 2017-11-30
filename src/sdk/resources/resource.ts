@@ -8,6 +8,28 @@ export function getTypedResponse<T>(result: any, type?: string): T {
 	return result && <T>result[type];
 }
 
+export class BaseResource{
+	public defaultParams: any;
+
+	constructor(protected httpClient: IHttpClient) {}
+
+	protected mergeDefaultParams(params: any): any {
+		return this.mergeParams(this.defaultParams, params);
+	}
+
+	protected mergeParams(lhs: any, rhs: any): any {
+		if (!lhs) {
+			return rhs;
+		}
+
+		if (!rhs) {
+			return lhs;
+		}
+
+		return Object.assign({}, lhs, rhs);
+	}
+}
+
 export class Resource<TResource> {
 	public defaultParams: any;
 
@@ -89,3 +111,5 @@ export class EditableResource<TResource extends IEntityIdentifier<string>> exten
 		return this.httpClient.delete(`${this.resourcePath}`, this.mergeDefaultParams(params));
 	}
 }
+
+

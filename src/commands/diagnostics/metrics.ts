@@ -14,8 +14,6 @@ const outputFormat = {
 			header: 'Type',
 			property: 'type'
 		}
-	],
-	json: [
 	]
 };
 
@@ -57,11 +55,11 @@ export = {
 					const metric = metrics[name];
 					return {
 						name: name,
-						value: metrics[name].value,
-						type: metrics[name].type
+						value: metric.value,
+						type: metric.type
 					};
 				});
-			output.writeItem(mappedMetrics, outputFormat);
+			output.writeTable(mappedMetrics, outputFormat);
 		});
 	}
 }

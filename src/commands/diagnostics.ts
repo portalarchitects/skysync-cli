@@ -1,5 +1,5 @@
 export = {
 	command: 'diagnostics',
-	desc: 'Manage SkySync Diagnostics',
+	desc: 'View SkySync Diagnostics',
 	builder: yargs => yargs.commandDir('./diagnostics').demandCommand(1)
 };
