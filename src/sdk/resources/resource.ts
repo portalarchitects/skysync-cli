@@ -31,7 +31,7 @@ export class BaseResource {
 }
 
 export class Resource<TResource> extends BaseResource {
-	constructor(protected httpClient: IHttpClient, protected singularName: string, protected pluralName: string = undefined, 
+	constructor(httpClient: IHttpClient, protected singularName: string, protected pluralName: string = undefined, 
 				protected singularType?: string, protected pluralType: string = undefined, protected resourcePath: string = undefined) {
 		super(httpClient);
 		
