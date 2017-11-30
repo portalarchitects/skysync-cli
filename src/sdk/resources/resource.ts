@@ -8,23 +8,10 @@ export function getTypedResponse<T>(result: any, type?: string): T {
 	return result && <T>result[type];
 }
 
-export class Resource<TResource> {
+export class BaseResource {
 	public defaultParams: any;
 
-	constructor(protected httpClient: IHttpClient, protected singularName: string, protected pluralName: string = undefined, 
-				protected singularType?: string, protected pluralType: string = undefined, protected resourcePath: string = undefined) {
-		if (!this.pluralName) {
-			this.pluralName = `${this.singularName}s`;
-		}
-
-		if (this.singularType && !this.pluralType) {
-			this.pluralType = `${this.singularType}s`;
-		}
-
-		if (!this.resourcePath) {
-			this.resourcePath = this.pluralName;
-		}
-	}
+	constructor(protected httpClient: IHttpClient) {}
 
 	protected mergeDefaultParams(params: any): any {
 		return this.mergeParams(this.defaultParams, params);
@@ -40,6 +27,25 @@ export class Resource<TResource> {
 		}
 
 		return Object.assign({}, lhs, rhs);
+	}
+}
+
+export class Resource<TResource> extends BaseResource {
+	constructor(httpClient: IHttpClient, protected singularName: string, protected pluralName: string = undefined, 
+				protected singularType?: string, protected pluralType: string = undefined, protected resourcePath: string = undefined) {
+		super(httpClient);
+		
+		if (!this.pluralName) {
+			this.pluralName = `${this.singularName}s`;
+		}
+
+		if (this.singularType && !this.pluralType) {
+			this.pluralType = `${this.singularType}s`;
+		}
+
+		if (!this.resourcePath) {
+			this.resourcePath = this.pluralName;
+		}
 	}
 
 	protected getList(result: any): TResource[] {
