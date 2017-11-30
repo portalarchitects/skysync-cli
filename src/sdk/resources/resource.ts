@@ -8,7 +8,7 @@ export function getTypedResponse<T>(result: any, type?: string): T {
 	return result && <T>result[type];
 }
 
-export class BaseResource{
+export class BaseResource {
 	public defaultParams: any;
 
 	constructor(protected httpClient: IHttpClient) {}
@@ -21,11 +21,11 @@ export class BaseResource{
 		if (!lhs) {
 			return rhs;
 		}
-
+		
 		if (!rhs) {
 			return lhs;
 		}
-
+		
 		return Object.assign({}, lhs, rhs);
 	}
 }
