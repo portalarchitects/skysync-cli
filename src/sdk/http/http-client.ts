@@ -161,7 +161,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	
 	download(path: string, params?: any): Promise<any> {
 		return this.executeApiFileRequest(path, params, {
-			method: 'GET'//, encoding: 'utf-8'
+			method: 'GET'
 		});
 	}
 	

@@ -61,10 +61,7 @@ export class Resource<TResource> {
 	}
 	
 	async getFile(id: any, params?: any): Promise<any> {
-		return new Promise(async (resolve, reject) => {
-			var resp = await this.httpClient.download(`${this.resourcePath}/${id}/download`, this.mergeDefaultParams(params));
-			return resolve(resp);
-		});
+		return await this.httpClient.download(`${this.resourcePath}/${id}/download`, this.mergeDefaultParams(params));
 	}
 }
 
