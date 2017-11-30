@@ -21,20 +21,20 @@ export class BaseResource {
 		if (!lhs) {
 			return rhs;
 		}
-		
+
 		if (!rhs) {
 			return lhs;
 		}
-		
+
 		return Object.assign({}, lhs, rhs);
 	}
 }
 
-export class Resource<TResource> {
-	public defaultParams: any;
-
+export class Resource<TResource> extends BaseResource {
 	constructor(protected httpClient: IHttpClient, protected singularName: string, protected pluralName: string = undefined, 
 				protected singularType?: string, protected pluralType: string = undefined, protected resourcePath: string = undefined) {
+		super(httpClient);
+		
 		if (!this.pluralName) {
 			this.pluralName = `${this.singularName}s`;
 		}
@@ -46,22 +46,6 @@ export class Resource<TResource> {
 		if (!this.resourcePath) {
 			this.resourcePath = this.pluralName;
 		}
-	}
-
-	protected mergeDefaultParams(params: any): any {
-		return this.mergeParams(this.defaultParams, params);
-	}
-
-	protected mergeParams(lhs: any, rhs: any): any {
-		if (!lhs) {
-			return rhs;
-		}
-
-		if (!rhs) {
-			return lhs;
-		}
-
-		return Object.assign({}, lhs, rhs);
 	}
 
 	protected getList(result: any): TResource[] {
