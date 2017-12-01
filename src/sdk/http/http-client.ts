@@ -7,7 +7,7 @@ export interface IHttpClient {
 
 	get(path: string, params?: any): Promise<any>;
 
-	getResponse(path: string, params?: any): Promise<any>;
+	download(path: string, handler: any): Promise<any>;
 
 	post(path: string, body: any, params?: any): Promise<any>;
 
@@ -159,10 +159,15 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		});
 	}
 	
-	getResponse(path: string, params?: any): Promise<any> {
-		return this.executeRequest(path, params, {
+	async download(path, handler): Promise<any> {
+		let response = await this.executeRequest(path, undefined, {
 			method: 'GET'
 		});
+		return response.on('response',
+			async function (response) {
+				return await handler(response);
+			}
+		);
 	}
 	
 	async executeRequest(path: string, params: any, options: any = {}): Promise<any> {
