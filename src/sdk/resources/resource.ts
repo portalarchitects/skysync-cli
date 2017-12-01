@@ -59,10 +59,6 @@ export class Resource<TResource> {
 		const result = await this.httpClient.get(`${this.resourcePath}/${id}`, this.mergeDefaultParams(params));
 		return this.getSingle(result);
 	}
-	
-	async getFile(id: any, params?: any): Promise<any> {
-		return await this.httpClient.download(`${this.resourcePath}/${id}/download`, this.mergeDefaultParams(params));
-	}
 }
 
 export class EditableResource<TResource extends IEntityIdentifier<string>> extends Resource<TResource> {
@@ -92,4 +88,8 @@ export class EditableResource<TResource extends IEntityIdentifier<string>> exten
 	deleteAll(params?: any): Promise<boolean> {
 		return this.httpClient.delete(`${this.resourcePath}`, this.mergeDefaultParams(params));
 	}
+}
+
+export interface IDownloadFileProvider {
+	getDownloadRequestPath(id: string): string;
 }

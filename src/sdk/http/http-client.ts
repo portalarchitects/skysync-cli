@@ -7,7 +7,7 @@ export interface IHttpClient {
 
 	get(path: string, params?: any): Promise<any>;
 
-	download(path: string, params?: any): Promise<any>;
+	getResponse(path: string, params?: any): Promise<any>;
 
 	post(path: string, body: any, params?: any): Promise<any>;
 
@@ -159,13 +159,13 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		});
 	}
 	
-	download(path: string, params?: any): Promise<any> {
-		return this.executeApiFileRequest(path, params, {
+	getResponse(path: string, params?: any): Promise<any> {
+		return this.executeRequest(path, params, {
 			method: 'GET'
 		});
 	}
 	
-	async executeApiFileRequest(path: string, params: any, options: any = {}): Promise<any> {
+	async executeRequest(path: string, params: any, options: any = {}): Promise<any> {
 		return await new Promise(async (resolve, reject) => {
 			try {
 				if (this.isAuthRequired) {
