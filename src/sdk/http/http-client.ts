@@ -159,7 +159,28 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		});
 	}
 	
-	async download(path, handler): Promise<any> {
+	async download(path, pathResolver): Promise<any> {
+		return await new Promise(async (resolve, reject) => {
+			try {
+				let options: any = {};
+				if (this.isAuthRequired) {
+					const token = await this.getAccessToken();
+					options.headers = options.headers || {};
+					options.headers['Authorization'] = `Bearer ${token}`;
+				}
+				options.url = getUrl(path, this.apiUrl);
+				
+				console.log('executing code');
+				console.log(options.url);
+				return resolve(this.executeDownloadRequest(options, pathResolver));
+			} catch (e) {
+				console.log('httpClient.download exception');
+				console.log(e);
+				reject(e);
+			}
+
+		});
+		/*
 		let response = await this.executeRequest(path, undefined, {
 			method: 'GET'
 		});
@@ -167,9 +188,24 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 			async function (response) {
 				return await handler(response);
 			}
-		);
+		);*/
 	}
-	
+	protected abstract executeDownloadRequest(req: TRequest, handler: any);
+/*
+	async executeDownloadRequest2(options:any, handler:any) {
+		var response = await new Promise<any>(async (resolve, reject) => {
+			console.log('getting response');
+			return resolve(require('request').get(options));
+
+		});
+		console.log('got response');
+		return response.on('response',
+			async function (response) {
+				return await handler(response);
+			}
+		);
+	}*/
+	/*
 	async executeRequest(path: string, params: any, options: any = {}): Promise<any> {
 		return await new Promise(async (resolve, reject) => {
 			try {
@@ -184,7 +220,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 				reject(e);
 			}
 		});
-	}
+	}*/
 	
 	get(path: string, params?: any): Promise<any> {
 		return this.executeApiRequest(path, params, {

@@ -15,22 +15,15 @@ export class FileDownloader {
 				this.createDirectory(outputDirectory);
 				let requestPath = this.fileProvider.getDownloadRequestPath(id);
 
-				return await this.httpClient.download(requestPath, async (response) => {
-					if (response.statusCode === 404) {
-						return reject('The requested file could not be found.');
-					}
+				return await this.httpClient.download(requestPath, (response) => {
 					const fileName = _this.parseFileName(response);
 					if (!fileName) {
 						return reject('The server did not return a file.');
 					}
-					const outputPath = path.join(outputDirectory, fileName);
-					await response.pipe(fs.createWriteStream(outputPath))
-						.on('finish', () => {
-							resolve(outputPath);
-						})
-						.on('error', reject);
+					return path.join(outputDirectory, fileName);
 				});
 			} catch (e) {
+				console.log('file-downloader exception caught');
 				reject(e.message);
 			}
 		});

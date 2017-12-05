@@ -16,7 +16,7 @@ export = {
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
 			try {
-				const downloader = new FileDownloader(client.sites.getHttpClient(), client.sites);
+				const downloader = new FileDownloader(client.httpClient, client.sites);
 				let path = await downloader.download(argv.id, argv.targetDirectory);
 				output.writeSuccess(`File saved to ${path}`);
 			} catch (err) {

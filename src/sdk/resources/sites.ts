@@ -7,10 +7,6 @@ export class SitesResource extends EditableResource<RemoteSite> implements IDown
 		super(httpClient, 'site');
 	}
 
-	getHttpClient(): any {
-		return this.httpClient;
-	}
-
 	getDownloadRequestPath(id: string): string {
 		return `${this.resourcePath}/${id}/download`;
 	}
