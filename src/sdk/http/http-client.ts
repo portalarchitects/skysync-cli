@@ -158,97 +158,19 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 			}
 		});
 	}
-	private async executeGenericRequest(path: string, handler:any, params: any, options: any = {}): Promise<any> {
-		return await new Promise(async (resolve, reject) => {
-			try {
-				if (this.isAuthRequired) {
-					const token = await this.getAccessToken();
-					options.headers = options.headers || {};
-					options.headers['Authorization'] = `Bearer ${token}`;
-				}
 
-				options.url = getUrl(path, this.apiUrl, params);
-
-				var response = this.executeDownloadRequest(options);
-				response.on('response', function(response){
-					console.log('handler running...');
-					return resolve(handler(response));
-				});
-			} catch (e) {
-				reject(e);
-			}
-		});
-	}
-	/*
-	async download(path, pathResolver): Promise<any> {
-		return await new Promise(async (resolve, reject) => {
-			try {
-				let options: any = {};
-				if (this.isAuthRequired) {
-					const token = await this.getAccessToken();
-					options.headers = options.headers || {};
-					options.headers['Authorization'] = `Bearer ${token}`;
-				}
-				options.url = getUrl(path, this.apiUrl);
-				
-				console.log('executing code');
-				console.log(options.url);
-				return resolve(this.executeDownloadRequest(options, pathResolver));
-			} catch (e) {
-				console.log('httpClient.download exception');
-				console.log(e);
-				reject(e);
-			}
-
-		});
-		
-		let response = await this.executeRequest(path, undefined, {
-			method: 'GET'
-		});
-		return response.on('response',
-			async function (response) {
-				return await handler(response);
-			}
-		);
-	}*/
+	abstract async download(path:string, handler:any);
 	
-	download(path:string, handler:any){
-		return this.executeGenericRequest(path, handler, {}, {
-			method: 'GET',
-		});
-	}
-	
-	protected abstract executeDownloadRequest(req: TRequest);
-/*
-	async executeDownloadRequest2(options:any, handler:any) {
-		var response = await new Promise<any>(async (resolve, reject) => {
-			console.log('getting response');
-			return resolve(require('request').get(options));
+	protected async getOptions(path:string, options:any) {
+		if (this.isAuthRequired) {
+			const token = await this.getAccessToken();
+			options.headers = options.headers || {};
+			options.headers['Authorization'] = `Bearer ${token}`;
+		}
 
-		});
-		console.log('got response');
-		return response.on('response',
-			async function (response) {
-				return await handler(response);
-			}
-		);
-	}*/
-	/*
-	async executeRequest(path: string, params: any, options: any = {}): Promise<any> {
-		return await new Promise(async (resolve, reject) => {
-			try {
-				if (this.isAuthRequired) {
-					const token = await this.getAccessToken();
-					options.headers = options.headers || {};
-					options.headers['Authorization'] = `Bearer ${token}`;
-				}
-				options.url = getUrl(path, this.apiUrl, params);
-				return resolve(require('request').get(options));
-			} catch (e) {
-				reject(e);
-			}
-		});
-	}*/
+		options.url = getUrl(path, this.apiUrl);
+		return options;
+	}
 	
 	get(path: string, params?: any): Promise<any> {
 		return this.executeApiRequest(path, params, {

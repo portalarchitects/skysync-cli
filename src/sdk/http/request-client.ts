@@ -15,11 +15,21 @@ export class RequestHttpClient extends HttpClient<any, any> {
 		request(req, callback);
 	}
 	
-	protected executeDownloadRequest(options:any): Promise<any> {
-		return request.get(options);
-	}
-	
 	protected getStatusCode(response: any): number {
 		return response.statusCode;
+	}
+	
+	async download(path:string, handler:any) {
+		return await new Promise(async (resolve, reject) => {
+			try {
+				let options: any = await this.getOptions(path, {method: 'GET'});
+				var response = await request.get(options);
+				response.on('response', function (response) {
+					return resolve(handler(response));
+				});
+			} catch (e) {
+				reject(e);
+			}
+		});
 	}
 }
