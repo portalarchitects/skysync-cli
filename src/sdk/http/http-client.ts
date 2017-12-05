@@ -159,9 +159,9 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		});
 	}
 
-	abstract async download(path:string, handler:any);
+	abstract async download(path: string, handler: any);
 	
-	protected async getOptions(path:string, options:any) {
+	protected async getOptions(path: string, options: any) {
 		if (this.isAuthRequired) {
 			const token = await this.getAccessToken();
 			options.headers = options.headers || {};

@@ -19,11 +19,11 @@ export class RequestHttpClient extends HttpClient<any, any> {
 		return response.statusCode;
 	}
 	
-	async download(path:string, handler:any) {
+	async download(path: string, handler: any) {
 		return await new Promise(async (resolve, reject) => {
 			try {
 				let options: any = await this.getOptions(path, {method: 'GET'});
-				var response = await request.get(options);
+				let response = await request.get(options);
 				response.on('response', function (response) {
 					return resolve(handler(response));
 				});
