@@ -16,9 +16,7 @@ export class FileDownloader {
 				let requestPath = this.fileProvider.getDownloadRequestPath(id);
 
 				return this.httpClient.download(requestPath, async (response) => {
-					console.log('in handler');
 					const fileName = _this.parseFileName(response);
-					console.log(fileName);
 					if (!fileName) {
 						return reject('The server did not return a file.');
 					}
@@ -30,7 +28,6 @@ export class FileDownloader {
 						.on('error', reject);
 				});
 			} catch (e) {
-				console.log('file-downloader exception caught');
 				reject(e.message);
 			}
 		});
