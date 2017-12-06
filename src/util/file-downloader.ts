@@ -46,16 +46,4 @@ export class FileDownloader {
 			return pathSegment;
 		}, path.isAbsolute(targetDirectory) ? path.sep : '');
 	}
-
-	private parseFileName(response: any): string {
-		let contentDisposition = response.headers['content-disposition'];
-		if (!contentDisposition) {
-			return undefined;
-		}
-		let fileNameItem = contentDisposition.split(';').filter(item => item.trim().toLowerCase().startsWith('filename=')).shift();
-		if (!fileNameItem) {
-			return undefined;
-		}
-		return fileNameItem.split('=').pop();
-	}
 }
