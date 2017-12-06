@@ -11,12 +11,10 @@ export class FileDownloader {
 	download(id: string, outputDirectory: string): Promise<string> {
 		return new Promise<any>(async (resolve, reject) => {
 			try {
-				let _this = this;
 				this.createDirectory(outputDirectory);
 				let requestPath = this.fileProvider.getDownloadRequestPath(id);
 
-				return this.httpClient.download(requestPath, async (response) => {
-					const fileName = _this.parseFileName(response);
+				return this.httpClient.download(requestPath, async (fileName, response) => {
 					if (!fileName) {
 						return reject('The server did not return a file.');
 					}

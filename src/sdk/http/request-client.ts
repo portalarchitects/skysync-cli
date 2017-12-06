@@ -1,5 +1,6 @@
 import { HttpClient } from './http-client';
 import * as request from 'request';
+import { Readable } from 'stream';
 
 export class RequestHttpClient extends HttpClient<any, any> {
 	constructor(baseAddress: string, username: string, password: string, site: string = null) {
@@ -19,13 +20,19 @@ export class RequestHttpClient extends HttpClient<any, any> {
 		return response.statusCode;
 	}
 	
-	async download(path: string, handler: any) {
+	async download(path: string, handler: (fileName: string, output: Readable) => Promise<any>) {
 		return await new Promise(async (resolve, reject) => {
 			try {
-				let options: any = await this.getOptions(path, {method: 'GET'});
-				let response = await request.get(options);
+				const options: any = await this.getOptions(path, {method: 'GET'});
+				const response = await request.get(options);
+				let __this = this;
+				
 				response.on('response', function (response) {
-					return resolve(handler(response));
+					if (response.statusCode >= 400) {
+						reject(new Error('The requested path could not be retrieved from the server.'));
+						return;
+					}
+					return resolve(handler(__this.parseContentDispositionHeader(response.headers), response));
 				});
 			} catch (e) {
 				reject(e);
