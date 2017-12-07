@@ -1,4 +1,5 @@
 import { URL } from 'url';
+import { Readable } from 'stream';
 
 const API_VERSION = 'v1';
 
@@ -7,12 +8,14 @@ export interface IHttpClient {
 
 	get(path: string, params?: any): Promise<any>;
 
+	download(path: string, handler: (fileName: string, output: Readable) => Promise<any>): Promise<any>;
+	
 	post(path: string, body: any, params?: any): Promise<any>;
 
 	put(path: string, body: any, params?: any): Promise<any>;
 
 	patch(path: string, body: any, params?: any): Promise<any>;
-	
+
 	delete(path: string, params?: any): Promise<boolean>;
 }
 
@@ -157,6 +160,31 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		});
 	}
 
+	abstract async download(path: string, handler: (fileName: string, output: Readable) => Promise<any>);
+	
+	protected async getOptions(path: string, options: any) {
+		if (this.isAuthRequired) {
+			const token = await this.getAccessToken();
+			options.headers = options.headers || {};
+			options.headers['Authorization'] = `Bearer ${token}`;
+		}
+
+		options.url = getUrl(path, this.apiUrl);
+		return options;
+	}
+	
+	protected parseContentDispositionHeader(headers: any): string {
+		let contentDisposition = headers['content-disposition'];
+		if (!contentDisposition) {
+			return undefined;
+		}
+		let fileNameItem = contentDisposition.split(';').filter(item => item.trim().toLowerCase().startsWith('filename=')).shift();
+		if (!fileNameItem) {
+			return undefined;
+		}
+		return fileNameItem.split('=').pop();
+	}
+	
 	get(path: string, params?: any): Promise<any> {
 		return this.executeApiRequest(path, params, {
 			method: 'GET',
