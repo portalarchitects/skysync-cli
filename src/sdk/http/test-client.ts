@@ -9,7 +9,7 @@ export class TestHttpClient extends RequestHttpClient {
 	private readonly _pendingResponses = [];
 
 	constructor() {
-		super(TestHttpClient.BASE_ADDRESS, null, null);
+		super(TestHttpClient.BASE_ADDRESS, null);
 	}
 
 	get executedRequests() {
