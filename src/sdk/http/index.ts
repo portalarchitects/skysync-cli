@@ -7,4 +7,5 @@ export namespace http {
 	export const appendQuery = qs.appendQuery;
 	export const encodeQuery = qs.encodeQuery;
 	export const stripQuery = qs.stripQuery;
+	export const parseQuery = qs.parseQuery;
 }

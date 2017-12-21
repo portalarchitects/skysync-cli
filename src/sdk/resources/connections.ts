@@ -1,5 +1,5 @@
 import { IHttpClient } from '../http';
-import { getTypedResponse, Resource, EditableResource } from './resource';
+import { getTypedResponse, Resource, PagedResource } from './resource';
 import { StoragePlatform, Connection, ConnectionAuthorizeRequest } from '../models';
 
 export class StoragePlatformsResource extends Resource<StoragePlatform> {
@@ -14,7 +14,7 @@ export class StoragePlatformsResource extends Resource<StoragePlatform> {
 	}
 }
 
-export class ConnectionsResource extends EditableResource<Connection> {
+export class ConnectionsResource extends PagedResource<Connection> {
 	constructor(httpClient: IHttpClient) {
 		super(httpClient, 'connection');
 	}

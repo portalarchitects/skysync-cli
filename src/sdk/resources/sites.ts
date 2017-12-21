@@ -1,8 +1,8 @@
 import { IHttpClient } from '../http';
-import { EditableResource, IDownloadFileProvider } from './resource';
+import { PagedResource, IDownloadFileProvider } from './resource';
 import { RemoteSite } from '../models';
 
-export class SitesResource extends EditableResource<RemoteSite> implements IDownloadFileProvider {
+export class SitesResource extends PagedResource<RemoteSite> implements IDownloadFileProvider {
 	constructor(httpClient: IHttpClient) {
 		super(httpClient, 'site');
 	}

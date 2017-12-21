@@ -37,10 +37,8 @@ export interface IHttpClient {
 }
 
 function getUrl(requestPath: string, baseUrl: string, params?: any): string {
-	if (baseUrl && baseUrl.length > 0 && baseUrl !== '/') {
-		const URL = require('url').URL;
-		const url = new URL(requestPath, baseUrl);
-		requestPath = url.toString();
+	if (baseUrl && baseUrl.length > 0) {
+		requestPath = baseUrl + requestPath;
 	}
 	return appendQuery(requestPath, params);
 }

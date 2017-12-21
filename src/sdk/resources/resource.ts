@@ -1,4 +1,4 @@
-import { IHttpClient } from '../http';
+import { IHttpClient, http } from '../http';
 import { IEntityIdentifier } from '../models/base';
 
 export function getTypedResponse<T>(result: any, type?: string): T {
@@ -93,6 +93,37 @@ export class EditableResource<TResource extends IEntityIdentifier<string>> exten
 
 	deleteAll(params?: any): Promise<boolean> {
 		return this.httpClient.delete(`${this.resourcePath}`, this.mergeDefaultParams(params));
+	}
+}
+
+export interface PagedResult<TResource> {
+	offset?: number;
+	limit?: number;
+	totalCount?: number;
+	hasMore?: boolean;
+	next?: any;
+	previous?: any;
+	items: TResource[];
+}
+
+export class PagedResource<TResource> extends EditableResource<TResource> {
+	constructor(httpClient: IHttpClient, name: string, type?: string, pluralName?: string, pluralType?: string, resourcePath?: string) {
+		super(httpClient, name, pluralName, type, pluralType, resourcePath);
+	}
+
+	async page(params?: any): Promise<PagedResult<TResource>> {
+		const result = await this.httpClient.get(this.resourcePath, this.mergeDefaultParams(params));
+		const items = this.getList(result);
+		const meta = result && result.meta;
+		return <PagedResult<TResource>>{
+			offset: meta && meta.offset,
+			limit: meta && meta.limit,
+			totalCount: meta && meta.total_count,
+			hasMore: Boolean(meta && meta.has_more),
+			next: http.parseQuery(meta && meta.links && meta.links.next),
+			previous: http.parseQuery(meta && meta.links && meta.links.previous),
+			items
+		};
 	}
 }
 

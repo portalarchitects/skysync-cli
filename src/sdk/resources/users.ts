@@ -1,8 +1,8 @@
 import { IHttpClient } from '../http';
-import { EditableResource } from './resource';
+import { PagedResource } from './resource';
 import { User } from '../models';
 
-export class UsersResource extends EditableResource<User> {
+export class UsersResource extends PagedResource<User> {
 	constructor(httpClient: IHttpClient) {
 		super(httpClient, 'user');
 	}

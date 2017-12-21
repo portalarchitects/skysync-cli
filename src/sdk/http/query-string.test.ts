@@ -1,6 +1,11 @@
 /* tslint:disable:no-http-string */
 
-import { appendQuery, stripQuery } from './query-string';
+import {
+	appendQuery,
+	stripQuery,
+	encodeQuery,
+	parseQuery
+} from './query-string';
 import expect = require('expect.js');
 
 describe('QueryString', () => {
@@ -71,6 +76,40 @@ describe('QueryString', () => {
 		it('can handle null of undefined', () => {
 			expect(stripQuery(null)).to.eql(null);
 			expect(stripQuery(undefined)).to.eql(undefined);
+		});
+	});
+
+	describe('encodeQuery', () => {
+		it('can encode query', () => {
+			expect(encodeQuery('key', 'val')).to.eql('key=val');
+		});
+	});
+
+	describe('parseQuery', () => {
+		it('can parse query from qualified URL', () => {
+			expect(parseQuery('http://localhost/?key1=val1&key2=val2')).to.eql({
+				key1: 'val1',
+				key2: 'val2'
+			});
+		});
+
+		it('can parse query from unqualified URL', () => {
+			expect(parseQuery('key1=val1&key2=val2')).to.eql({
+				key1: 'val1',
+				key2: 'val2'
+			});
+		});
+
+		it('can filter parsed query', () => {
+			expect(parseQuery('http://localhost/?key1=val1&key2=val2', name => name === 'key1')).to.eql({
+				key1: 'val1'
+			});
+		});
+
+		it('can return undefined when no href', () => {
+			expect(parseQuery(undefined)).to.eql(undefined);
+			expect(parseQuery(null)).to.eql(undefined);
+			expect(parseQuery('')).to.eql(undefined);
 		});
 	});
 });

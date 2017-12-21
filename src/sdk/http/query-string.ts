@@ -1,3 +1,5 @@
+import { URL } from 'url';
+
 export function stripQuery(href: string): string {
 	if (href) {
 		const index = href.indexOf('?');
@@ -38,6 +40,27 @@ function replaceExistingQuery(href: string, key: string, val: string | string[])
 	}
 
 	return !val ? href : null;
+}
+
+export function parseQuery(href: string, filter?: (name: string) => boolean): any {
+	if (!href || href.length === 0) {
+		return undefined;
+	}
+	if (href.indexOf('://') === -1) {
+		if (href.charAt(0) !== '?') {
+			href = '?' + href;
+		}
+		// tslint:disable-next-line:no-http-string
+		href = 'http://localhost/' + href;
+	}
+
+	const result = {};
+	new URL(href).searchParams.forEach((value: string, name: string) => {
+		if (!filter || filter(name)) {
+			result[name] = value;
+		}
+	});
+	return result;
 }
 
 export interface AppendQuery {
