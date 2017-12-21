@@ -134,13 +134,23 @@ describe('PagedResource', () => {
 			const body: any = {
 				name: 'Test'
 			};
+			const payload = Object.assign({}, body);
 
 			if (id) {
-				body.id = id;
+				payload.id = id;
+
+				it(`can ${method} empty body with id`, async () => {
+					await objectUnderTest[op](id);
+		
+					client.expectLastRequest({
+						url,
+						method
+					});
+				});
 			}
 
 			it(`should ${method} body`, async () => {
-				await objectUnderTest[op](body);
+				await objectUnderTest[op](payload);
 	
 				client.expectLastRequest({
 					url,
@@ -154,19 +164,19 @@ describe('PagedResource', () => {
 					statusCode: 200,
 					body: JSON.stringify({
 						type: 'connection',
-						connection: body
+						connection: payload
 					})
 				});
-				expect(await objectUnderTest[op](body)).to.eql(body);
+				expect(await objectUnderTest[op](payload)).to.eql(payload);
 			});
 	
 			it('should append additional parameters', async () => {
-				await objectUnderTest[op](body, { active: true });
+				await objectUnderTest[op](payload, { active: true });
 				
 				client.expectLastRequest({
 					url: `${url}?active=true`,
 					method,
-					body
+					payload
 				});
 			});
 		});
@@ -175,6 +185,15 @@ describe('PagedResource', () => {
 	describe('delete', () => {
 		it('should DELETE by id', async () => {
 			await objectUnderTest.delete('123');
+
+			client.expectLastRequest({
+				url: 'v1/connections/123',
+				method: 'DELETE'
+			});
+		});
+
+		it('should DELETE by parameter.id', async () => {
+			await objectUnderTest.delete({id: '123'});
 
 			client.expectLastRequest({
 				url: 'v1/connections/123',

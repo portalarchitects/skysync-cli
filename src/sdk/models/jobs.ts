@@ -1,52 +1,52 @@
 import { IEntityIdentifier } from './base';
-import { Connection, Account, PlatformItem } from './connections';
+import { TimeOfDay, TimeInterval } from './time';
+import { JobScheduler } from './scheduler';
+import { JobCategory } from './jobCategories';
 
 export enum JobScheduleMode {
 	Automatic = 'auto',
 	Manual = 'manual'
 }
 
+export interface RetentionDuration {
+	type?: string;
+	count?: number;
+}
+
+export interface RetentionOptions {
+	duration?: RetentionDuration;
+	purge_empty?: boolean;
+}
+
 export interface JobSchedule {
 	mode?: JobScheduleMode;
+	start_date?: number;
+	end_date?: number;
+	start_window?: TimeOfDay;
+	end_window?: TimeOfDay;
+	repeat_count?: number;
+	repeat_interval?: TimeInterval;
+	days?: string[];
+	run_at?: TimeOfDay;
+	max_execution?: TimeInterval;
 }
 
 export interface Job extends IEntityIdentifier<string> {
-	name?: string;
+	parent_id?: string;
 	kind?: string;
+	name?: string;
+	description?: string;
+	category?: JobCategory;
+	scheduler?: JobScheduler;
 	schedule?: JobSchedule;
-	transfer?: TransferOptions;
+	stop_policy?: string;
+	priority?: number;
+	status?: string;
+	execute_on?: number;
+	previous_execution: JobExecution;
+	execution: JobExecution;
+	retention?: RetentionOptions;
 	disabled?: boolean;
-}
-
-export interface TransferTarget {
-	item?: PlatformItem;
-	path?: string;
-}
-
-export interface TransferPath {
-	connection?: Connection;
-	impersonate_as?: Account;
-	target?: TransferTarget;
-}
-
-export enum TransferType {
-	Synchronize = 'sync',
-	Publish = 'publish',
-	Move = 'move',
-	Migrate = 'migrate',
-	Copy = 'copy',
-	Taxonomy = 'taxonomy'
-}
-
-export interface TransferOptions {
-	transfer_type?: TransferType;
-	source?: TransferPath;
-	destination?: TransferPath;
-}
-
-export interface Duration {
-	value?: number;
-	units?: string;
 }
 
 export interface JobExecutionStatistics {
@@ -59,9 +59,16 @@ export interface JobExecutionStatistics {
 	[name: string]: number;
 }
 
+export interface JobFailureStatistics {
+	failure?: number;
+	critical?: number;
+	[name: string]: number;
+}
+
 export interface JobExecutionStatisticsSet {
 	destination?: JobExecutionStatistics;
 	source?: JobExecutionStatistics;
+	failures?: JobFailureStatistics;
 }
 
 export interface JobExecution {
@@ -71,22 +78,8 @@ export interface JobExecution {
 	id?: number;
 	start_time?: number;
 	end_time?: number;
-	duration?: Duration;
+	duration?: TimeInterval;
 	status?: string;
 	node_address?: string;
 	stats?: JobExecutionStatisticsSet;
-}
-
-export interface TransferAuditEntry {
-	job_id?: string;
-	execution_id?: number;
-	source?: Connection;
-	destination?: Connection;
-	from_source?: boolean;
-	to_destination?: boolean;
-	bytes?: number;
-	event?: string;
-	id?: number;
-	level?: string;
-	recorded_on?: number;
 }

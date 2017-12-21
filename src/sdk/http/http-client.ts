@@ -69,7 +69,7 @@ function getTokenRequestParameters(token: IAuthorizationToken): any {
 			password: token.password
 		};
 	}
-	throw invalidTokenError();
+	return null;
 }
 
 function invalidTokenError() {
@@ -146,6 +146,12 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 
 				const offlineScope = Boolean(this.token.offline) ? ' offline_access' : '';
 				const tokenParameters = getTokenRequestParameters(this.token);
+				if (!tokenParameters) {
+					if (Boolean(this.token.onTokenInvalid)) {
+						this.token.onTokenInvalid();
+					}
+					return reject(invalidTokenError());
+				}
 
 				this.executeJsonRequest(<any>{
 					url: getUrl('connect/token', this.baseAddress),
@@ -241,7 +247,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 				this.executeJsonRequest(options, async (err, response, body) => {
 					try {
 						if (response && this.getStatusCode(response) === 401 && this.isAuthRequired) {
-							if (attempted) {
+							if (!attempted) {
 								attempted = true;
 
 								this.accessToken = null;

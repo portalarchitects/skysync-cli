@@ -1,6 +1,6 @@
 import { IHttpClient } from '../http';
 import { getTypedResponse, Resource, PagedResource } from './resource';
-import { StoragePlatform, Connection, ConnectionAuthorizeRequest } from '../models';
+import { StoragePlatform, Connection, ConnectionAuthorizePrompt } from '../models';
 
 export class StoragePlatformsResource extends Resource<StoragePlatform> {
 	constructor(httpClient: IHttpClient) {
@@ -8,9 +8,9 @@ export class StoragePlatformsResource extends Resource<StoragePlatform> {
 		this.resourcePath = 'connections/platforms';
 	}
 
-	async authorize(platform: string, params?: any): Promise<ConnectionAuthorizeRequest> {
+	async authorize(platform: string, params?: any): Promise<ConnectionAuthorizePrompt> {
 		const response = await this.httpClient.get(`${this.resourcePath}/${platform}/new`, params);
-		return getTypedResponse<ConnectionAuthorizeRequest>(response);
+		return getTypedResponse<ConnectionAuthorizePrompt>(response);
 	}
 }
 
@@ -19,14 +19,14 @@ export class ConnectionsResource extends PagedResource<Connection> {
 		super(httpClient, 'connection');
 	}
 
-	async authorize(platform: string, params?: any): Promise<ConnectionAuthorizeRequest> {
+	async authorize(platform: string, params?: any): Promise<ConnectionAuthorizePrompt> {
 		const response = await this.httpClient.get(`${this.resourcePath}/platforms/${platform}/new`, params);
-		return getTypedResponse<ConnectionAuthorizeRequest>(response);
+		return getTypedResponse<ConnectionAuthorizePrompt>(response);
 	}
 
-	async edit(id: string, params?: any): Promise<ConnectionAuthorizeRequest> {
+	async edit(id: string, params?: any): Promise<ConnectionAuthorizePrompt> {
 		const response = this.httpClient.get(`${this.resourcePath}/${id}/edit`, this.mergeDefaultParams(params));
-		return getTypedResponse<ConnectionAuthorizeRequest>(response);
+		return getTypedResponse<ConnectionAuthorizePrompt>(response);
 	}
 
 	async assignPool(id: string, body: any, params?: any): Promise<Connection> {

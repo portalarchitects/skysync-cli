@@ -27,11 +27,12 @@ export class FetchHttpClient extends HttpClient<any, any> {
 			req.headers = {};
 		}
 		req.headers['Accept'] = 'application/json';
-		req.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+		req.headers['Content-Type'] = 'application/json';
 
 		const form = req.form;
 		if (form) {
 			delete req.form;
+			req.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 			req.body = toFormData(form);
 		}
 
