@@ -1,6 +1,7 @@
 import * as prompt from 'prompt';
 import {
 	Job,
+	TransferJob,
 	JobSchedule,
 	JobScheduleMode,
 	StoragePlatform,
@@ -200,8 +201,8 @@ function TransferPathJobStep(client: SkySyncClient): WizardStep<Job> {
 		return connectionCache;
 	}
 
-	const factory = (name: string): WizardStep<Job> => {
-		return async (state: Job): Promise<Job> => {
+	const factory = (name: string): WizardStep<TransferJob> => {
+		return async (state: TransferJob): Promise<TransferJob> => {
 			const platforms = await getPlatforms();
 			const platform = platforms[
 				await promptChoice(

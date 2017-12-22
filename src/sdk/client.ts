@@ -1,4 +1,4 @@
-import { IHttpClient, RequestHttpClient } from './http';
+import { IHttpClient, createHttpClient } from './http';
 import {
 	ConnectionsResource,
 	DiagnosticMetricsResource,
@@ -14,16 +14,13 @@ import {
 import * as models from './models';
 
 export class SkySyncClient {
-	/* tslint:disable:no-http-string */
-	static readonly DEFAULT_SERVER_URI: string = 'http://localhost:9090/';
-
 	private _httpClient: IHttpClient;
 
 	constructor(config?: {
-		server: string;
-		username: string;
-		password: string;
-		site: string;
+		server?: string;
+		username?: string;
+		password?: string;
+		site?: string;
 	});
 	constructor(_httpClient: IHttpClient);
 	constructor(options: any) {
@@ -33,7 +30,12 @@ export class SkySyncClient {
 		if (typeof(options.get) === 'function') {
 			this._httpClient = options;
 		} else {
-			this._httpClient = new RequestHttpClient(options.server || SkySyncClient.DEFAULT_SERVER_URI, options.username, options.password, options.site);
+			const {
+				server,
+				site,
+				...token
+			} = options;
+			this._httpClient = createHttpClient(server, token, site);
 		}
 	}
 

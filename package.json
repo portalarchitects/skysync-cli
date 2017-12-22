@@ -18,6 +18,7 @@
     "email": "support@skysync.com"
   },
   "main": "./dist/sdk/index.js",
+  "types": "./dist/sdk/index.d.ts",
   "author": {
     "name": "Portal Architects",
     "email": "developers@skysync.com"
@@ -39,6 +40,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "tsc -p ./src",
+    "prepare": "npm run build",
     "lint": "tslint --config tslint.json 'src/**/*.ts' --exclude '**/node_modules/**'",
     "rebuild": "npm run clean && npm run build",
     "start": "node bin/skysync.js",

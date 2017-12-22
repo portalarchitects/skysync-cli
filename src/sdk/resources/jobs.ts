@@ -1,8 +1,8 @@
 import { IHttpClient } from '../http';
-import { EditableResource, getTypedResponse } from './resource';
+import { PagedResource, getTypedResponse } from './resource';
 import { Job, JobExecution, TransferAuditEntry } from '../models';
 
-export class JobsResource extends EditableResource<Job> {
+export class JobsResource extends PagedResource<Job> {
 	constructor(httpClient: IHttpClient) {
 		super(httpClient, 'job');
 	}

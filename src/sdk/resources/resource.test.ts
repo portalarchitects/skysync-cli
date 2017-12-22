@@ -3,13 +3,12 @@ import expect = require('expect.js');
 import { URL } from 'url';
 import { TestHttpClient } from '../http/test-client';
 import {
-	Resource,
-	EditableResource
+	PagedResource
 } from './resource';
 
-describe('EditableResource', () => {
+describe('PagedResource', () => {
 	const client = new TestHttpClient();
-	const objectUnderTest = new EditableResource(client, 'connection');
+	const objectUnderTest = new PagedResource(client, 'connection');
 
 	describe('list', () => {
 		it('should list all', async () => {
@@ -71,7 +70,7 @@ describe('EditableResource', () => {
 		});
 		
 		it('should merge default parameters', async () => {
-			const resource = new EditableResource(client, 'connection');
+			const resource = new PagedResource(client, 'connection');
 			resource.defaultParams = {
 				limit: 10
 			};
@@ -101,7 +100,7 @@ describe('EditableResource', () => {
 		});
 		
 		it('additional parameters should override defaults', async () => {
-			const resource = new EditableResource(client, 'connection');
+			const resource = new PagedResource(client, 'connection');
 			resource.defaultParams = {
 				limit: 10
 			};
@@ -135,13 +134,23 @@ describe('EditableResource', () => {
 			const body: any = {
 				name: 'Test'
 			};
+			const payload = Object.assign({}, body);
 
 			if (id) {
-				body.id = id;
+				payload.id = id;
+
+				it(`can ${method} empty body with id`, async () => {
+					await objectUnderTest[op](id);
+		
+					client.expectLastRequest({
+						url,
+						method
+					});
+				});
 			}
 
 			it(`should ${method} body`, async () => {
-				await objectUnderTest[op](body);
+				await objectUnderTest[op](payload);
 	
 				client.expectLastRequest({
 					url,
@@ -155,19 +164,19 @@ describe('EditableResource', () => {
 					statusCode: 200,
 					body: JSON.stringify({
 						type: 'connection',
-						connection: body
+						connection: payload
 					})
 				});
-				expect(await objectUnderTest[op](body)).to.eql(body);
+				expect(await objectUnderTest[op](payload)).to.eql(payload);
 			});
 	
 			it('should append additional parameters', async () => {
-				await objectUnderTest[op](body, { active: true });
+				await objectUnderTest[op](payload, { active: true });
 				
 				client.expectLastRequest({
 					url: `${url}?active=true`,
 					method,
-					body
+					payload
 				});
 			});
 		});
@@ -176,6 +185,15 @@ describe('EditableResource', () => {
 	describe('delete', () => {
 		it('should DELETE by id', async () => {
 			await objectUnderTest.delete('123');
+
+			client.expectLastRequest({
+				url: 'v1/connections/123',
+				method: 'DELETE'
+			});
+		});
+
+		it('should DELETE by parameter.id', async () => {
+			await objectUnderTest.delete({id: '123'});
 
 			client.expectLastRequest({
 				url: 'v1/connections/123',
@@ -228,6 +246,36 @@ describe('EditableResource', () => {
 		it('should return false when not found', async () => {
 			client.addPendingResponse({statusCode: 404});
 			expect(await objectUnderTest.deleteAll()).to.be(false);
+		});
+	});
+
+	describe('page', () => {
+		it('should process meta', async () => {
+			const expectedResponses = [
+				{ name: 'Test1' },
+				{ name: 'Test2' }
+			];
+
+			client.addPendingResponse({
+				statusCode: 200,
+				body: JSON.stringify({
+					type: 'connections',
+					meta: {
+						has_more: true,
+						offset: 10,
+						limit: 100,
+						total_count: 1000
+					},
+					connections: expectedResponses
+				})
+			});
+
+			const result = await objectUnderTest.page();
+			expect(result.hasMore).to.eql(true);
+			expect(result.offset).to.eql(10);
+			expect(result.limit).to.eql(100);
+			expect(result.totalCount).to.eql(1000);
+			expect(result.items).to.eql(expectedResponses);
 		});
 	});
 });

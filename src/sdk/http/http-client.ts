@@ -1,9 +1,26 @@
-import { URL } from 'url';
 import { Readable } from 'stream';
+import { appendQuery } from './query-string';
 
 const API_VERSION = 'v1';
 
+export interface IAuthorizationToken {
+	resource?: string;
+	offline?: boolean;
+	username?: string;
+	password?: string;
+	accessToken?: string;
+	refreshToken?: string;
+	onTokenUpdated?: (rawToken: any) => void;
+	onTokenInvalid?: () => void;
+}
+
 export interface IHttpClient {
+	isLoggedIn: boolean;
+
+	authenticate(): Promise<any>;
+
+	logout(): Promise<any>;
+
 	getAccessToken(): Promise<string>;
 
 	get(path: string, params?: any): Promise<any>;
@@ -19,43 +36,105 @@ export interface IHttpClient {
 	delete(path: string, params?: any): Promise<boolean>;
 }
 
-function appendParams(url: URL, params: any) {
-	if (params) {
-		Object.keys(params).forEach(prop => {
-			const val = params[prop];
-			if (typeof(val) !== 'undefined' && val !== null) {
-				url.searchParams.set(prop, params[prop]);
-			}
-		});
+function getUrl(requestPath: string, baseUrl: string, params?: any): string {
+	if (baseUrl && baseUrl.length > 0) {
+		requestPath = baseUrl + requestPath;
 	}
+	return appendQuery(requestPath, params);
 }
 
-function getUrl(requestPath: string, baseUrl: string, params?: any): URL {
-	const url = new URL(requestPath, baseUrl);
-	appendParams(url, params);
-	return url;
+function isValidToken(token: IAuthorizationToken): boolean {
+	if (Boolean(token)) {
+		if (Boolean(token.username && token.password)) {
+			return true;
+		}
+		if (Boolean(token.accessToken) || Boolean(token.refreshToken)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+function getTokenRequestParameters(token: IAuthorizationToken): any {
+	if (Boolean(token.refreshToken)) {
+		return {
+			grant_type: 'refresh_token',
+			refresh_token: token.refreshToken
+		}
+	}
+	if (Boolean(token.username)) {
+		return {
+			grant_type: 'password',
+			username: token.username,
+			password: token.password
+		};
+	}
+	return null;
+}
+
+function invalidTokenError() {
+	return new Error('Could not acquire a valid access token.');
 }
 
 export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	private accessToken: string;
+	private resourceUri: string;
+	private lastAccessToken: any;
 	private readonly apiUrl: string;
 	private readonly isAuthRequired: boolean;
 
 	constructor(
 		protected baseAddress: string,
-		private username: string,
-		private password: string,
+		private token: IAuthorizationToken,
 		site: string = null) {
+		if (!this.isAllowCustomBaseAddress() || !this.baseAddress || this.baseAddress.length === 0) {
+			this.baseAddress = this.getDefaultBaseAddress();
+		}
+
 		if (this.baseAddress[this.baseAddress.length - 1] !== '/') {
 			this.baseAddress += '/';
 		}
-		this.isAuthRequired = Boolean(this.username && this.password);
+		this.isAuthRequired = isValidToken(this.token);
+		this.accessToken = this.isAuthRequired ? (this.token && this.token.accessToken) : null;
+		this.lastAccessToken = null;
+		this.resourceUri = (this.token && this.token.resource) || this.baseAddress;
 
 		if (site && site.length > 0) {
 			this.apiUrl = `${this.baseAddress}${API_VERSION}/sites/${site}/api/`;
 		} else {
 			this.apiUrl = `${this.baseAddress}${API_VERSION}/`;
 		}
+	}
+
+	get isLoggedIn(): boolean {
+		return !this.isAuthRequired || Boolean(this.accessToken)
+	}
+
+	async authenticate(): Promise<any> {
+		const last = this.lastAccessToken;
+		await this.getAccessToken();
+		if (last === this.lastAccessToken && this.lastAccessToken !== null && Boolean(this.token && this.token.onTokenUpdated)) {
+			// if we didn't have to update the token, then just notify any listeners
+			this.token.onTokenUpdated(last);
+		}
+	}
+
+	async logout(): Promise<any> {
+		return await new Promise<any>((resolve, reject) => {
+			if (this.isLoggedIn) {
+				this.executeJsonRequest(<any>{
+					url: getUrl('connect/token', this.baseAddress),
+					method: 'GET',
+					headers: {
+						'Accept': 'application/json'
+					}
+				}, (err, respose, body) => {
+					resolve();
+				});
+			} else {
+				resolve();
+			}
+		});
 	}
 
 	async getAccessToken(): Promise<string> {
@@ -65,27 +144,47 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 					return resolve(this.accessToken);
 				}
 
+				const offlineScope = Boolean(this.token.offline) ? ' offline_access' : '';
+				const tokenParameters = getTokenRequestParameters(this.token);
+				if (!tokenParameters) {
+					if (Boolean(this.token.onTokenInvalid)) {
+						this.token.onTokenInvalid();
+					}
+					return reject(invalidTokenError());
+				}
+
 				this.executeJsonRequest(<any>{
 					url: getUrl('connect/token', this.baseAddress),
 					method: 'POST',
 					form: {
-						grant_type: 'password',
-						username: this.username,
-						password: this.password,
-						scope: 'profile roles',
-						resource: this.baseAddress
+						...tokenParameters,
+						scope: `profile roles${offlineScope}`,
+						resource: this.resourceUri
 					}
 				}, (err, respose, body) => {
 					if (err) {
+						this.lastAccessToken = null;
+						if (Boolean(this.token.onTokenInvalid)) {
+							this.token.onTokenInvalid();
+						}
 						return reject(err);
 					}
-					this.accessToken = JSON.parse(body).access_token;
+					const rawToken = JSON.parse(body);
+					this.accessToken = rawToken.access_token;
+					this.lastAccessToken = rawToken;
+					if (Boolean(this.token.onTokenUpdated)) {
+						this.token.onTokenUpdated(rawToken);
+					}
 					resolve(this.accessToken);
 				});
 			});
 		}
 		return Promise.resolve(this.accessToken);
 	}
+
+	protected abstract isAllowCustomBaseAddress(): boolean;
+
+	protected abstract getDefaultBaseAddress(): string;
 
 	protected abstract executeJsonRequest(req: TRequest, callback: (err: any, response: TResponse, body: string) => void);
 
@@ -124,12 +223,20 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 					if (err) {
 						return reject(err);
 					}
+
+					if (response && this.getStatusCode(response) === 401) {
+						this.lastAccessToken = null;
+						if (Boolean(this.token.onTokenInvalid)) {
+							this.token.onTokenInvalid();
+						}
+						return reject(invalidTokenError());
+					}
+
 					if (response && this.getStatusCode(response) === 404) {
 						return resolve(null);
 					}
-					
-					const jsonResponse = !response.headers || !response.headers['content-type'] || response.headers['content-type'].indexOf('application/json') >= 0;
 
+					const jsonResponse = !response.headers || !response.headers['content-type'] || response.headers['content-type'].indexOf('application/json') >= 0;
 					if (!body || body.length === 0) {
 						return resolve(jsonResponse ? {} : '');
 					}
@@ -139,14 +246,15 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 				let attempted = false;
 				this.executeJsonRequest(options, async (err, response, body) => {
 					try {
-						if (response && this.getStatusCode(response) === 401 && !attempted && this.isAuthRequired) {
-							attempted = true;
+						if (response && this.getStatusCode(response) === 401 && this.isAuthRequired) {
+							if (!attempted) {
+								attempted = true;
 
-							this.accessToken = null;
-							const token = await this.getAccessToken();
-							options.headers['Authorization'] = `Bearer ${token}`;
-
-							return this.executeJsonRequest(options, processResponse);
+								this.accessToken = null;
+								const token = await this.getAccessToken();
+								options.headers['Authorization'] = `Bearer ${token}`;
+								return this.executeJsonRequest(options, processResponse);
+							}
 						}
 
 						return processResponse(err, response, body);

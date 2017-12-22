@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import * as process from 'process';
 import * as yargs from 'yargs';
-import { SkySyncClient } from './sdk';
 
 const Liftoff = require('liftoff');
 const mypackage = require('../package');
@@ -43,7 +42,6 @@ export function run() {
 
 				'server': {
 					desc: 'The SkySync server URI',
-					default: SkySyncClient.DEFAULT_SERVER_URI,
 					type: 'string',
 					global: true,
 					group: 'Connection'

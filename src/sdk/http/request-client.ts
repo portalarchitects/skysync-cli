@@ -1,15 +1,24 @@
-import { HttpClient } from './http-client';
+import { HttpClient, IAuthorizationToken } from './http-client';
 import * as request from 'request';
 import { Readable } from 'stream';
 
 export class RequestHttpClient extends HttpClient<any, any> {
-	constructor(baseAddress: string, username: string, password: string, site: string = null) {
-		super(baseAddress, username, password, site);
+	constructor(baseAddress: string, token: IAuthorizationToken, site: string = null) {
+		super(baseAddress, token, site);
 		request.defaults({
 			headers: {
 				'Accept': 'application/json'
 			}
 		});
+	}
+
+	protected isAllowCustomBaseAddress(): boolean {
+		return true;
+	}
+
+	protected getDefaultBaseAddress(): string {
+		// tslint:disable-next-line:no-http-string
+		return 'http://localhost:9090/';
 	}
 
 	protected executeJsonRequest(req: any, callback: (err: any, response: any, body: string) => void) {
