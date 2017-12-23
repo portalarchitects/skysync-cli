@@ -1,5 +1,7 @@
 import { Job } from './jobs';
 import { Connection, Account, PlatformItem } from './connections';
+import { IEntityIdentifier } from './base';
+import { AuditCategory } from './auditCategories';
 
 export interface TransferJob extends Job {
 	transfer?: TransferOptions;
@@ -53,16 +55,39 @@ export interface TransferOptions {
 	permissions_import?: PermissionsImportOptions;
 }
 
-export interface TransferAuditEntry {
+export interface TransferItem extends IEntityIdentifier<number> {
+	parent_id?: number;
+	source?: TransferPlatformItem;
+	destination?: TransferPlatformItem;
+	audit_category?: AuditCategory;
+	retried?: number;
+	status?: string;
+	processing?: string[];
+	transferred_on?: number;
+}
+
+export interface TransferPlatformItem extends IEntityIdentifier<string> {
+	name?: string;
+	caption?: string;
+	path?: string;
+	bytes?: number;
+	version?: string;
+	hash?: string;
+	etag?: string;
+	created_on?: number;
+	modified_on?: number;
+}
+
+export interface TransferAuditEntry extends IEntityIdentifier<number> {
 	job_id?: string;
 	execution_id?: number;
-	source?: Connection;
-	destination?: Connection;
+	target?: TransferItem;
 	from_source?: boolean;
 	to_destination?: boolean;
 	bytes?: number;
-	event?: string;
-	id?: number;
+	version?: string;
+	hash?: string;
 	level?: string;
+	type?: string;
 	recorded_on?: number;
 }

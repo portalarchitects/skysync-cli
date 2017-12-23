@@ -9,7 +9,8 @@ import {
 	SitesResource,
 	StoragePlatformsResource,
 	UsersResource,
-	AuditCategoriesResource
+	AuditCategoriesResource,
+	TransferJobStatisticsResource
 } from './resources';
 import * as models from './models';
 
@@ -57,6 +58,10 @@ export class SkySyncClient {
 
 	get jobs(): JobsResource {
 		return new JobsResource(this._httpClient);
+	}
+
+	get transferStatistics(): TransferJobStatisticsResource {
+		return new TransferJobStatisticsResource(this._httpClient);
 	}
 
 	get permissions(): PermissionsResource {
