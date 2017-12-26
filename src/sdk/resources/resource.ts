@@ -8,6 +8,19 @@ export function getTypedResponse<T>(result: any, type?: string): T {
 	return result && <T>result[type];
 }
 
+export function getPagedResponse<T>(response: any, items: T[]): PagedResult<T> {
+	const meta = response && response.meta;
+	return <PagedResult<T>>{
+		offset: meta && meta.offset,
+		limit: meta && meta.limit,
+		totalCount: meta && meta.total_count,
+		hasMore: Boolean(meta && meta.has_more),
+		next: http.parseQuery(meta && meta.links && meta.links.next),
+		previous: http.parseQuery(meta && meta.links && meta.links.previous),
+		items
+	};
+}
+
 export class BaseResource {
 	public defaultParams: any;
 
@@ -136,16 +149,7 @@ export class PagedResource<TResource> extends EditableResource<TResource> {
 	async page(params?: any): Promise<PagedResult<TResource>> {
 		const result = await this.httpClient.get(this.resourcePath, this.mergeDefaultParams(params));
 		const items = this.getList(result);
-		const meta = result && result.meta;
-		return <PagedResult<TResource>>{
-			offset: meta && meta.offset,
-			limit: meta && meta.limit,
-			totalCount: meta && meta.total_count,
-			hasMore: Boolean(meta && meta.has_more),
-			next: http.parseQuery(meta && meta.links && meta.links.next),
-			previous: http.parseQuery(meta && meta.links && meta.links.previous),
-			items
-		};
+		return getPagedResponse<TResource>(result, items);
 	}
 }
 

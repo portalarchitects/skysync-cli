@@ -63,6 +63,7 @@ export interface TransferItem extends IEntityIdentifier<number> {
 	retried?: number;
 	status?: string;
 	processing?: string[];
+	source_to_destination?: boolean;
 	transferred_on?: number;
 }
 
@@ -83,6 +84,8 @@ export interface TransferAuditEntry extends IEntityIdentifier<number> {
 	execution_id?: number;
 	target?: TransferItem;
 	from_source?: boolean;
+	to_source?: boolean;
+	from_destination?: boolean;
 	to_destination?: boolean;
 	bytes?: number;
 	version?: string;

@@ -1,4 +1,5 @@
 import * as cliff from 'cliff';
+import {formatBytes} from './util';
 import {runCommand} from '../../util/command';
 
 const outputFormat = {
@@ -25,18 +26,6 @@ const outputFormat = {
 		}
 	]
 };
-
-const byteAbbreviation = ['KB', 'MB', 'GB', 'TB'];
-function formatBytes(num: number): string {
-	let index = -1;
-	while (num > 1000) {
-		num = num / 1000;
-		index++;
-	}
-
-	const abbreviation = (index >= 0 ? byteAbbreviation[index] : '');
-	return `${num.toLocaleString('en')} ${abbreviation}`;
-}
 
 function statTransform(statKey: string, format?: (number: number) => string) {
 	if (!format) {

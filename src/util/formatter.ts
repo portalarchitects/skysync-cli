@@ -111,7 +111,9 @@ export class OutputFormatter {
 function formatToString(col: { property?: string, transform?: (val: any) => any; }, obj: any): string {
 	let val = undefined;
 
-	if (col.property && col.property.indexOf('[]') !== -1) {
+	if (!Boolean(col.property) && col.transform) {
+		val = col.transform(obj);
+	} else if (col.property && col.property.indexOf('[]') !== -1) {
 		val = formatArrayToString(col.property, col.transform, obj);
 	} else {
 		val = dot.pick(col.property, obj)
@@ -120,7 +122,7 @@ function formatToString(col: { property?: string, transform?: (val: any) => any;
 		}
 	}
 
-	if (typeof (val) === 'undefined') {
+	if (typeof (val) === 'undefined' || val === null) {
 		val = '';
 	} else if (typeof (val) !== 'string') {
 		val = val.toString();
@@ -159,7 +161,9 @@ function copyJson(obj: any, options?: OutputOptions): any {
 		const copy = {};
 
 		options.table.forEach(x => {
-			copyJsonProperty(x.property, obj, copy);
+			if (x.property) {
+				copyJsonProperty(x.property, obj, copy);
+			}
 		});
 
 		if (options.json) {
