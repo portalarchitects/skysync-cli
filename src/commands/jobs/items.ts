@@ -1,5 +1,5 @@
 import { listArgumentsDefault } from '../util';
-import { formatBytes } from './util';
+import { util } from '../../sdk';
 import {runCommand} from '../../util/command';
 
 const maxPathLength = 50;
@@ -40,7 +40,7 @@ const outputFormat = {
 				if (!size) {
 					return '';
 				}
-				return size && formatBytes(size);
+				return size && util.formatBytes(size);
 			}
 		},
 		{

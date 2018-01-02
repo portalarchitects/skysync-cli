@@ -1,5 +1,5 @@
 import * as cliff from 'cliff';
-import {formatBytes} from './util';
+import { util } from '../../sdk';
 import {runCommand} from '../../util/command';
 
 const outputFormat = {
@@ -12,7 +12,7 @@ const outputFormat = {
 		{
 			header: 'Content',
 			property: 'stats',
-			transform: statTransform('bytes', formatBytes)
+			transform: statTransform('bytes', util.formatBytes)
 		},
 		{
 			header: 'Files',

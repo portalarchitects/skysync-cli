@@ -185,16 +185,3 @@ function formatTotalCount(totalCount): any {
 }
 
 export { jobsSearchArgumentsDefault, listOutputFormat, detailOutputFormat, historyOutputFormat, auditOutputFormat, searchCriteriaIsMissing, getSearchArgs, formatTotalCount };
-
-const byteAbbreviation = ['KB', 'MB', 'GB', 'TB'];
-export function formatBytes(num: number): string {
-	let index = -1;
-	while (num > 1000) {
-		num = num / 1000;
-		index++;
-	}
-
-	const abbreviation = (index >= 0 ? byteAbbreviation[index] : '');
-	return `${num.toLocaleString('en')} ${abbreviation}`;
-}
-
