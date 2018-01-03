@@ -1,3 +1,5 @@
+import { URL } from 'url';
+
 export function stripQuery(href: string): string {
 	if (href) {
 		const index = href.indexOf('?');
@@ -53,15 +55,12 @@ export function parseQuery(href: string, filter?: (name: string) => boolean): an
 	}
 
 	const result = {};
-	
-	return new URL(href).searchParams.entries();
-	
-	/*new URL(href).searchParams.forEach((value: string, name: string) => {
+	new URL(href).searchParams.forEach((value: string, name: string) => {
 		if (!filter || filter(name)) {
 			result[name] = value;
 		}
 	});
-	return result;*/
+	return result;
 }
 
 export interface AppendQuery {
