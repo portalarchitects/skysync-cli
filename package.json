@@ -65,13 +65,14 @@
   "devDependencies": {
     "@types/expect.js": "^0.3.29",
     "@types/mocha": "^2.2.41",
-    "@types/node": "^8.0.57",
+    "@types/node": "^8.0.20",
     "cross-env": "^5.0.5",
     "expect.js": "^0.3.1",
     "mocha": "^3.5.0",
     "rimraf": "^2.6.1",
     "ts-node": "^3.3.0",
     "tslint-microsoft-contrib": "^5.0.1",
-    "typescript": "^2.4.2"
+    "typescript": "^2.4.2",
+    "universal-url": "^1.0.0"
   }
 }

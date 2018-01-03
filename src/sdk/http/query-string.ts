@@ -1,4 +1,4 @@
-import { URL } from 'url';
+import { URL } from 'universal-url';
 
 export function stripQuery(href: string): string {
 	if (href) {
