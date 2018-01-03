@@ -65,6 +65,8 @@ export interface TransferItem extends IEntityIdentifier<number> {
 	processing?: string[];
 	source_to_destination?: boolean;
 	transferred_on?: number;
+	is_transfer_root?: boolean;
+	is_container?: boolean;
 }
 
 export interface TransferPlatformItem extends IEntityIdentifier<string> {
