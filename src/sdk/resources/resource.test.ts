@@ -1,6 +1,5 @@
 import 'mocha';
 import expect = require('expect.js');
-import { URL } from 'url';
 import { TestHttpClient } from '../http/test-client';
 import {
 	PagedResource
@@ -264,7 +263,17 @@ describe('PagedResource', () => {
 						has_more: true,
 						offset: 10,
 						limit: 100,
-						total_count: 1000
+						total_count: 1000,
+						links: {
+							next: {
+								// tslint:disable-next-line:no-http-string
+								href: 'http://localhost:9090/v1/jobs?offset=12&limit=6&sort=name+ASC&fields=count%2Cid%2Cname%2Cprevious_execution.start_time%2Cstatus', 
+							},
+							previous: {
+								// tslint:disable-next-line:no-http-string
+								href: 'http://localhost:9090/v1/jobs?offset=0&limit=6&sort=name+ASC&fields=count%2Cid%2Cname%2Cprevious_execution.start_time%2Cstatus',
+							}
+						}
 					},
 					connections: expectedResponses
 				})
@@ -275,6 +284,17 @@ describe('PagedResource', () => {
 			expect(result.offset).to.eql(10);
 			expect(result.limit).to.eql(100);
 			expect(result.totalCount).to.eql(1000);
+
+			expect(result.next.offset).to.eql(12);
+			expect(result.next.limit).to.eql(6);
+			expect(result.next.sort).to.eql('name ASC');
+			expect(result.next.fields).to.eql('count,id,name,previous_execution.start_time,status');
+
+			expect(result.previous.offset).to.eql(0);
+			expect(result.previous.limit).to.eql(6);
+			expect(result.previous.sort).to.eql('name ASC');
+			expect(result.previous.fields).to.eql('count,id,name,previous_execution.start_time,status');
+			
 			expect(result.items).to.eql(expectedResponses);
 		});
 	});
