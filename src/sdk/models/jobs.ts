@@ -8,6 +8,14 @@ export enum JobScheduleMode {
 	Manual = 'manual'
 }
 
+export enum JobStatus {
+	Cancelled = 'cancelled',
+	Idle = 'idle',
+	Paused = 'paused',
+	Running = 'running',
+	Started = 'started'
+}
+
 export interface RetentionDuration {
 	type?: string;
 	count?: number;

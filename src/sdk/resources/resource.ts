@@ -15,8 +15,8 @@ export function getPagedResponse<T>(response: any, items: T[]): PagedResult<T> {
 		limit: meta && meta.limit,
 		totalCount: meta && meta.total_count,
 		hasMore: Boolean(meta && meta.has_more),
-		next: http.parseQuery(meta && meta.links && meta.links.next),
-		previous: http.parseQuery(meta && meta.links && meta.links.previous),
+		next: http.parseQuery(meta && meta.links && meta.links.next && meta.links.next.href),
+		previous: http.parseQuery(meta && meta.links && meta.links.prev && meta.links.prev.href),
 		items
 	};
 }
