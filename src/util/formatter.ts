@@ -111,16 +111,18 @@ export class OutputFormatter {
 function formatToString(col: { property?: string, transform?: (val: any) => any; }, obj: any): string {
 	let val = undefined;
 
-	if (col.property && col.property.indexOf('[]') !== -1) {
-		val = formatArrayToString(col.property, obj);
+	if (!Boolean(col.property) && col.transform) {
+		val = col.transform(obj);
+	} else if (col.property && col.property.indexOf('[]') !== -1) {
+		val = formatArrayToString(col.property, col.transform, obj);
 	} else {
 		val = dot.pick(col.property, obj)
+		if (col.transform) {
+			val = col.transform(val);
+		}
 	}
 
-	if (col.transform) {
-		val = col.transform(val);
-	}
-	if (typeof (val) === 'undefined') {
+	if (typeof (val) === 'undefined' || val === null) {
 		val = '';
 	} else if (typeof (val) !== 'string') {
 		val = val.toString();
@@ -128,7 +130,7 @@ function formatToString(col: { property?: string, transform?: (val: any) => any;
 	return val;
 }
 
-function formatArrayToString(property: string, obj: any): string {
+function formatArrayToString(property: string, transform: (val: any) => any, obj: any): string {
 	let valueArray = [];
 	if (property) {
 		let arrayIndicatorIndex = property.indexOf(arrayIndicator);
@@ -139,9 +141,13 @@ function formatArrayToString(property: string, obj: any): string {
 			if (Array.isArray(parent)) {
 				parent.forEach(function(arrayItem) {
 					if (childKey.indexOf(arrayIndicator) !== -1) {
-						valueArray.push(formatArrayToString(childKey, arrayItem));
+						valueArray.push(formatArrayToString(childKey, transform, arrayItem));
 					} else {
-						valueArray.push(dot.pick(childKey, arrayItem));
+						let childValue = dot.pick(childKey, arrayItem);
+						if (childValue && transform) {
+							childValue = transform(childValue);
+						}
+						valueArray.push(childValue);
 					}
 				});
 			}
@@ -155,7 +161,9 @@ function copyJson(obj: any, options?: OutputOptions): any {
 		const copy = {};
 
 		options.table.forEach(x => {
-			copyJsonProperty(x.property, obj, copy);
+			if (x.property) {
+				copyJsonProperty(x.property, obj, copy);
+			}
 		});
 
 		if (options.json) {

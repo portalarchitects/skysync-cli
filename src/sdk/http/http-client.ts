@@ -203,8 +203,11 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 			return null;
 		}
 
-		const error = JSON.parse(body)['errors'][0].description;
-		return new Error(error);
+		let result = JSON.parse(body);
+		if (result.errors && result.errros.length > 0) {
+			result = result.errors[0];
+		}
+		return new Error(result.description || result.error_description || 'An unknown error occurred');
 	}
 
 	private async executeApiRequest(path: string, params: any, options: any = {}): Promise<any> {

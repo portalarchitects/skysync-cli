@@ -185,4 +185,3 @@ function formatTotalCount(totalCount): any {
 }
 
 export { jobsSearchArgumentsDefault, listOutputFormat, detailOutputFormat, historyOutputFormat, auditOutputFormat, searchCriteriaIsMissing, getSearchArgs, formatTotalCount };
-
