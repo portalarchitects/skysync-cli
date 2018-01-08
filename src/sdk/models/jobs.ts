@@ -15,7 +15,7 @@ export enum JobStatus {
 	Deleted = 'deleted',
 	Failed = 'failed',
 	Idle = 'idle',
-	NotComplete = 'not-complete'
+	NotComplete = 'not-complete',
 	Paused = 'paused',
 	Running = 'running',
 	Started = 'started',
