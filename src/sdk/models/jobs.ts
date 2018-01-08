@@ -9,7 +9,10 @@ export enum JobScheduleMode {
 }
 
 export enum JobStatus {
-	Cancelled = 'cancelled',
+	Cancelled = 'cancel',
+	Complete = 'complete',
+	AwaitingUser = 'awaiting-user',
+	Deleted = 'deleted',
 	Idle = 'idle',
 	Paused = 'paused',
 	Running = 'running',
