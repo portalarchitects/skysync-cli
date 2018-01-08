@@ -9,14 +9,17 @@ export enum JobScheduleMode {
 }
 
 export enum JobStatus {
+	AwaitingUser = 'awaiting-user',
 	Cancelled = 'cancel',
 	Complete = 'complete',
-	AwaitingUser = 'awaiting-user',
 	Deleted = 'deleted',
+	Failed = 'failed',
 	Idle = 'idle',
+	NotComplete = 'not-complete'
 	Paused = 'paused',
 	Running = 'running',
-	Started = 'started'
+	Started = 'started',
+	Success = 'success'
 }
 
 export interface RetentionDuration {
