@@ -5,13 +5,15 @@ const unitsAndFormatDigit = [
 	['TB', 3]
 ];
 const maxByteDigit = unitsAndFormatDigit.length - 1;
+const unitSize = 1024;
+
 const formatBytesImpl = (num: number): string => {
 	const negative = num < 0;
 	num = Math.abs(num);
 
 	let index = -1;
-	while (num >= 1000) {
-		num = num / 1000;
+	while (num >= unitSize) {
+		num = num / unitSize;
 		index++;
 		if (index === maxByteDigit) {
 			break;
