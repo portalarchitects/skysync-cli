@@ -3,6 +3,7 @@ import {
 	ConnectionsResource,
 	DiagnosticMetricsResource,
 	JobsResource,
+	JobExecutionsResource,
 	OwnershipGroupsResource,
 	PermissionsResource,
 	RolesResource,
@@ -10,6 +11,7 @@ import {
 	StoragePlatformsResource,
 	UsersResource,
 	AuditCategoriesResource,
+	TransferAuditsResource,
 	TransferItemsResource,
 	TransferJobStatisticsResource
 } from './resources';
@@ -61,8 +63,16 @@ export class SkySyncClient {
 		return new JobsResource(this._httpClient);
 	}
 
+	get jobExecutions(): JobExecutionsResource {
+		return new JobExecutionsResource(this._httpClient);
+	}
+
 	get transferItems(): TransferItemsResource {
 		return new TransferItemsResource(this._httpClient);
+	}
+
+	get transferAudits(): TransferAuditsResource {
+		return new TransferAuditsResource(this._httpClient);
 	}
 
 	get transferStatistics(): TransferJobStatisticsResource {

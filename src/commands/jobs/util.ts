@@ -82,37 +82,44 @@ const detailOutputFormat = {
 const historyOutputFormat = {
 	table: [
 		{
+			header: 'ID',
+			property: 'id'
+		},
+		{
 			header: 'JobID',
 			property: 'job_id'
 		},
 		{
 			header: 'Progress',
-			property: 'progress'
+			property: 'progress',
+			transform: value => {
+				if (!value) {
+					return '';
+				}
+				return value.toLocaleString('en', {style: 'percent'});
+			}
 		},
 		{
-			header: 'Phase',
-			property: 'phase'
-		},
-		{
-			header: 'StartTime',
+			header: 'Start',
 			property: 'start_time',
-			transform: value => new Date(value)
+			transform: value => new Date(value).toLocaleString('en')
 		},
 		{
-			header: 'EndTime',
+			header: 'End',
 			property: 'end_time',
-			transform: value => new Date(value)
+			transform: value => value && new Date(value).toLocaleString('en') || ''
 		},
 		{
 			header: 'Status',
 			property: 'status'
 		},
 		{
-			header: 'NodeAddress',
+			header: 'Node',
 			property: 'node_address'
 		}
 	],
 	json: [
+		'phase',
 		'stats',
 		'duration'
 	]
@@ -120,27 +127,6 @@ const historyOutputFormat = {
 
 const auditOutputFormat = {
 	table: [
-		{
-			header: 'JobID',
-			property: 'job_id'
-		},
-		{
-			header: 'ExecutionID',
-			property: 'execution_id'
-		},
-		{
-			header: 'FromSource',
-			property: 'from_source'
-		},
-		{
-			header: 'ToDestination',
-			property: 'to_destination'
-		},
-		{
-			header: 'RecordedOn',
-			property: 'recorded_on',
-			transform: value => new Date(value)
-		},
 		{
 			header: 'Level',
 			property: 'level'
@@ -150,13 +136,18 @@ const auditOutputFormat = {
 			property: 'event'
 		},
 		{
+			header: 'RecordedOn',
+			property: 'recorded_on',
+			transform: value => new Date(value).toLocaleString('en')
+		},
+		{
 			header: 'Reason',
 			property: 'reason'
 		}
 	],
 	json: [
-		'source',
-		'destination'
+		'execution_id',
+		'target'
 	]
 };
 
