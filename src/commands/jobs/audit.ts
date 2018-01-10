@@ -22,26 +22,23 @@ export = {
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			let result;
-
-			if (!argv.id && argv.execution) {
+			const params: any = {
+				fields: ['all']
+			};
+			if (argv.id) {
+				params.job = argv.id;
+				if (argv.execution) {
+					params.execution = argv.execution;
+				}
+			} else if (argv.execution) {
 				output.writeWarning('Execution parameter ignored.', true);
-				argv.execution = undefined;
 			}
 
 			if (argv.csv) {
-				if (argv.execution) {
-					result = await client.jobs.getAuditCsv(argv.id, argv.execution, {include: ['all']});
-				} else {
-					result = await client.jobs.getAuditCsvList(argv.id, {include: ['all']});
-				}
+				const result = await client.transferAudits.downloadCsv(params);
 				output.writeText(result);
 			} else {
-				if (argv.execution) {
-					result = await client.jobs.getAudit(argv.id, argv.execution, {include: ['all']});
-				} else {
-					result = await client.jobs.getAuditList(argv.id, {include: ['all']});
-				}
+				const result = await client.transferAudits.list(params);
 				output.writeTable(result, auditOutputFormat);
 			}
 		});

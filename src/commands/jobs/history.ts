@@ -22,26 +22,23 @@ export = {
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			let result;
-
-			if (!argv.id && argv.execution && argv.execution.length > 0) {
+			const params: any = {
+				fields: ['all']
+			};
+			if (argv.id) {
+				params.job = argv.id;
+				if (argv.execution) {
+					params.execution = argv.execution;
+				}
+			} else if (argv.execution) {
 				output.writeWarning('Execution parameter ignored.', true);
-				argv.execution = undefined;
 			}
 
 			if (argv.csv) {
-				if (argv.execution) {
-					result = await client.jobs.getHistoryCsv(argv.id, argv.execution, {include: ['all']});
-				} else {
-					result = await client.jobs.getHistoryCsvList(argv.id, {fields: ['all']});
-				}
+				const result = await client.jobExecutions.downloadCsv(params);
 				output.writeText(result);
 			} else {
-				if (argv.execution) {
-					result = await client.jobs.getHistory(argv.id, argv.execution, {include: ['all']});
-				} else {
-					result = await client.jobs.getHistoryList(argv.id, {fields: ['all']});
-				}
+				const result = await client.jobExecutions.list(params);
 				output.writeTable(result, historyOutputFormat);
 			}
 		});
