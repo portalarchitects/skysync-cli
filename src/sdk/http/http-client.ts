@@ -161,7 +161,10 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 						scope: `profile roles${offlineScope}`,
 						resource: this.resourceUri
 					}
-				}, (err, respose, body) => {
+				}, (err, response, body) => {
+					if (!err) {
+						err = this.getError(err, response, body);
+					}
 					if (err) {
 						this.lastAccessToken = null;
 						if (Boolean(this.token.onTokenInvalid)) {
@@ -169,6 +172,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 						}
 						return reject(err);
 					}
+
 					const rawToken = JSON.parse(body);
 					this.accessToken = rawToken.access_token;
 					this.lastAccessToken = rawToken;
@@ -203,14 +207,15 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 			return null;
 		}
 
-		let result = JSON.parse(body);
-		if (result.errors && result.errros.length > 0) {
+		let result = body && JSON.parse(body);
+		if (result && result.errors && result.errors.length > 0) {
 			result = result.errors[0];
 		}
-		return new Error(result.description || result.error_description || 'An unknown error occurred');
+		return new Error((result && (result.description || result.error_description)) || 'An unknown error occurred');
 	}
 
 	private async executeApiRequest(path: string, params: any, options: any = {}): Promise<any> {
+		const url = getUrl(path, this.apiUrl, params);
 		return await new Promise(async (resolve, reject) => {
 			try {
 				if (this.isAuthRequired) {
@@ -218,8 +223,6 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 					options.headers = options.headers || {};
 					options.headers['Authorization'] = `Bearer ${token}`;
 				}
-
-				options.url = getUrl(path, this.apiUrl, params);
 
 				const processResponse = (err, response, body) => {
 					err = this.getError(err, response, body);
@@ -247,6 +250,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 				};
 
 				let attempted = false;
+				options.url = url;
 				this.executeJsonRequest(options, async (err, response, body) => {
 					try {
 						if (response && this.getStatusCode(response) === 401 && this.isAuthRequired) {
@@ -255,6 +259,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 
 								this.accessToken = null;
 								const token = await this.getAccessToken();
+								options.url = url;
 								options.headers['Authorization'] = `Bearer ${token}`;
 								return this.executeJsonRequest(options, processResponse);
 							}
