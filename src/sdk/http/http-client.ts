@@ -1,5 +1,5 @@
 import { Readable } from 'stream';
-import { appendQuery } from './query-string';
+import * as qs from 'querystring';
 
 const API_VERSION = 'v1';
 
@@ -40,7 +40,10 @@ function getUrl(requestPath: string, baseUrl: string, params?: any): string {
 	if (baseUrl && baseUrl.length > 0) {
 		requestPath = baseUrl + requestPath;
 	}
-	return appendQuery(requestPath, params);
+	if (params) {
+		requestPath = `${requestPath}?${qs.stringify(params)}`;
+	}
+	return requestPath;
 }
 
 function isValidToken(token: IAuthorizationToken): boolean {

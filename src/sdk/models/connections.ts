@@ -81,8 +81,25 @@ export interface Connection extends IEntityIdentifier<string>, IHaveLinks<Connec
 	auth?: any;
 }
 
-export interface Account extends IEntityIdentifier<string> {
+export interface SecurityIdentifier extends IEntityIdentifier<string> {
+	external_id?: string;
+	admin?: boolean;
+	built_in?: boolean;
+	disabled?: boolean;
+	readonly?: boolean;
+}
+
+export interface Group extends SecurityIdentifier {
+	name?: string;
+	caption?: string;
+}
+
+export interface Account extends SecurityIdentifier {
 	email?: string;
+	username?: string;
+	given_name?: string;
+	surname?: string;
+	name?: string;
 }
 
 export interface ConnectionPool extends IEntityIdentifier<string> {
