@@ -1,11 +1,23 @@
-import { IHttpClient, http } from '../http';
+import { IHttpClient } from '../http';
 import { IEntityIdentifier } from '../models/base';
+import * as qs from 'querystring';
 
 export function getTypedResponse<T>(result: any, type?: string): T {
 	if (!type) {
 		type = result && result.type;
 	}
 	return result && <T>result[type];
+}
+
+function parseLink(link: any): any {
+	const href = link && link.href;
+	if (href) {
+		const query = href.indexOf('?');
+		if (query !== -1) {
+			return qs.parse(href.substring(query + 1));
+		}
+	}
+	return null;
 }
 
 export function getPagedResponse<T>(response: any, items: T[]): PagedResult<T> {
@@ -15,8 +27,8 @@ export function getPagedResponse<T>(response: any, items: T[]): PagedResult<T> {
 		limit: meta && meta.limit,
 		totalCount: meta && meta.total_count,
 		hasMore: Boolean(meta && meta.has_more),
-		next: http.parseQuery(meta && meta.links && meta.links.next && meta.links.next.href),
-		previous: http.parseQuery(meta && meta.links && meta.links.prev && meta.links.prev.href),
+		next: parseLink(meta && meta.links && meta.links.next),
+		previous: parseLink(meta && meta.links && meta.links.prev),
 		items
 	};
 }
