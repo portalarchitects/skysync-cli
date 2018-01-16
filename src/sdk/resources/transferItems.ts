@@ -16,6 +16,6 @@ export class TransferItemsResource extends PagedResource<TransferItem> {
 	}
 
 	private async modifyItem(itemid: number, params: any): Promise<void> {
-		await this.httpClient.patch(`${this.resourcePath}/${itemid}`, this.mergeDefaultParams(params));
+		await this.httpClient.patch(`${this.resourcePath}/${itemid}`, undefined, this.mergeDefaultParams(params));
 	}
 }
