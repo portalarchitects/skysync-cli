@@ -36,16 +36,6 @@ export interface IHttpClient {
 	delete(path: string, params?: any): Promise<boolean>;
 }
 
-function getUrl(requestPath: string, baseUrl: string, params?: any): string {
-	if (baseUrl && baseUrl.length > 0) {
-		requestPath = baseUrl + requestPath;
-	}
-	if (params) {
-		requestPath = `${requestPath}?${qs.stringify(params)}`;
-	}
-	return requestPath;
-}
-
 function isValidToken(token: IAuthorizationToken): boolean {
 	if (Boolean(token)) {
 		if (Boolean(token.username && token.password)) {
@@ -109,6 +99,16 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		}
 	}
 
+	static getUrl(requestPath: string, baseUrl?: string, params?: any): string {
+		if (baseUrl && baseUrl.length > 0 && requestPath.indexOf('://') === -1) {
+			requestPath = baseUrl + requestPath;
+		}
+		if (params) {
+			requestPath = `${requestPath}?${qs.stringify(params)}`;
+		}
+		return requestPath;
+	}
+
 	get isLoggedIn(): boolean {
 		return !this.isAuthRequired || Boolean(this.accessToken)
 	}
@@ -126,7 +126,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		return await new Promise<any>((resolve, reject) => {
 			if (this.isLoggedIn) {
 				this.executeJsonRequest(<any>{
-					url: getUrl('connect/token', this.baseAddress),
+					url: HttpClient.getUrl('connect/token', this.baseAddress),
 					method: 'GET',
 					headers: {
 						'Accept': 'application/json'
@@ -157,7 +157,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 				}
 
 				this.executeJsonRequest(<any>{
-					url: getUrl('connect/token', this.baseAddress),
+					url: HttpClient.getUrl('connect/token', this.baseAddress),
 					method: 'POST',
 					form: {
 						...tokenParameters,
@@ -218,7 +218,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	}
 
 	private async executeApiRequest(path: string, params: any, options: any = {}): Promise<any> {
-		const url = getUrl(path, this.apiUrl, params);
+		const url = HttpClient.getUrl(path, this.apiUrl, params);
 		return await new Promise(async (resolve, reject) => {
 			try {
 				if (this.isAuthRequired) {
@@ -288,7 +288,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 			options.headers['Authorization'] = `Bearer ${token}`;
 		}
 
-		options.url = getUrl(path, this.apiUrl);
+		options.url = HttpClient.getUrl(path, this.apiUrl);
 		return options;
 	}
 	
