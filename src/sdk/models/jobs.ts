@@ -17,9 +17,11 @@ export enum JobStatus {
 	Idle = 'idle',
 	NotComplete = 'not-complete',
 	Paused = 'paused',
+	Resumed = 'resume',
 	Running = 'running',
-	Started = 'started',
-	Success = 'success'
+	Started = 'start',
+	Success = 'success',
+	Warn = 'warn'
 }
 
 export interface RetentionDuration {
