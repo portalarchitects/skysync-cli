@@ -29,6 +29,7 @@ export function getPagedResponse<T>(response: any, items: T[]): PagedResult<T> {
 		hasMore: Boolean(meta && meta.has_more),
 		next: parseLink(meta && meta.links && meta.links.next),
 		previous: parseLink(meta && meta.links && meta.links.prev),
+		links: meta && meta.links,
 		items
 	};
 }

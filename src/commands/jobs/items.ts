@@ -71,13 +71,22 @@ export = {
 	desc: 'Show transfer items',
 	builder: yargs => {
 		yargs.options({
-			...listArgumentsDefault
+			...listArgumentsDefault,
+			'csv': {
+				default: undefined,
+				desc: 'Output results as CSV',
+				type: 'boolean',
+				group: 'Output format'
+			}
 		})
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			const items = await client.transferItems.list({
+			const params: any = {
 				job: argv.id,
+				q: argv.search,
+				offset: argv.offset,
+				limit: argv.limit,
 				fields: [
 					'source',
 					'destination',
@@ -88,8 +97,15 @@ export = {
 					'processing',
 					'transferred_on'
 				]
-			});
-			output.writeTable(items, outputFormat);
+			};
+			
+			if (argv.csv) {
+				const csv = await client.transferItems.downloadCsv(params);
+				output.writeText(csv);
+			} else {
+				const items = await client.transferItems.list(params);
+				output.writeTable(items, outputFormat);	
+			}
 		});
 	}
 }
