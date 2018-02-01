@@ -96,7 +96,7 @@ export = {
 					'status',
 					'processing',
 					'transferred_on'
-					]
+				]
 			};
 			
 			if (argv.csv) {
