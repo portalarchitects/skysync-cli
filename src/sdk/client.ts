@@ -6,6 +6,7 @@ import {
 	JobExecutionsResource,
 	OwnershipGroupsResource,
 	PermissionsResource,
+	ProfilesResource,
 	RolesResource,
 	SitesResource,
 	StoragePlatformsResource,
@@ -81,6 +82,10 @@ export class SkySyncClient {
 
 	get permissions(): PermissionsResource {
 		return new PermissionsResource(this._httpClient);
+	}
+
+	get profiles(): ProfilesResource {
+		return new ProfilesResource(this._httpClient);
 	}
 
 	get roles(): RolesResource {
