@@ -156,7 +156,7 @@ export interface PagedResult<TResource> {
 
 export class PagedResource<TResource> extends EditableResource<TResource> {
 	constructor(httpClient: IHttpClient, name: string, type?: string, pluralName?: string, pluralType?: string, resourcePath?: string) {
-		super(httpClient, name, pluralName, type, pluralType, resourcePath);
+		super(httpClient, name, type, pluralName, pluralType, resourcePath);
 	}
 
 	async page(params?: any): Promise<PagedResult<TResource>> {

@@ -5,6 +5,7 @@ export * from './groups';
 export * from './jobs';
 export * from './jobCategories';
 export * from './scheduler';
+export * from './templates';
 export * from './transfers';
 export * from './permissions';
 export * from './profiles';

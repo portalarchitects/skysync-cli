@@ -4,7 +4,7 @@ import { PagedResource } from './resource';
 
 export class TransferItemsResource extends PagedResource<TransferItem> {
 	constructor(httpClient: IHttpClient) {
-		super(httpClient, 'item', 'item', null, null, 'transfers/items');
+		super(httpClient, 'item', null, 'item', null, 'transfers/items');
 	}
 
 	ignoreItem(itemid: number): Promise<void> {

@@ -12,6 +12,7 @@ import {
 	StoragePlatformsResource,
 	UsersResource,
 	AuditCategoriesResource,
+	TemplatesResource,
 	TransferAuditsResource,
 	TransferItemsResource,
 	TransferJobStatisticsResource
@@ -98,6 +99,10 @@ export class SkySyncClient {
 
 	get storagePlatforms(): StoragePlatformsResource {
 		return new StoragePlatformsResource(this._httpClient);
+	}
+	
+	get templates(): TemplatesResource {
+		return new TemplatesResource(this._httpClient);
 	}
 
 	get users(): UsersResource {
