@@ -19,33 +19,17 @@ const listOutputFormat = {
 		}
 	],
 	json: [
-		'schedule'
+		'transfer'
 	]
 };
 
 const detailOutputFormat = {
 	table: [
-		{
-			header: 'ID',
-			property: 'id'
-		},
-		{
-			header: 'Name',
-			property: 'name'
-		},
-		{
-			header: 'Kind',
-			property: 'kind'
-		},
-		{
-			header: 'Enabled',
-			property: 'disabled',
-			transform: val => !val
-		}
+		...listOutputFormat.table
 	],
 	json: [
 		'schedule',
-		'transfer',
+		...listOutputFormat.json		
 	]
 };
 

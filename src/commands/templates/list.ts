@@ -28,7 +28,7 @@ export = {
 				q: argv.search,
 				offset: argv.offset,
 				limit: argv.limit,
-				fields: ['id', 'name', 'kind', 'disabled', 'schedule']
+				fields: ['id', 'name', 'kind', 'disabled', 'transfer']
 			});
 			output.writeTable(templates, listOutputFormat);
 		});
