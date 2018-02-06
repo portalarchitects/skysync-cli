@@ -1,5 +1,5 @@
 import { runCommand } from '../../util/command';
-import { outputFormat } from './util';
+import { detailOutputFormat } from './util';
 
 export = {
 	command: 'show <id>',
@@ -7,11 +7,9 @@ export = {
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
 			const template = await client.templates.get(argv.id, {
-				fields: [
-					'all'
-				]
+				fields: ['id', 'name', 'kind', 'disabled', 'schedule', 'transfer']
 			});
-			output.writeItem(template, outputFormat);
+			output.writeItem(template, detailOutputFormat);
 		});
 	}
 }

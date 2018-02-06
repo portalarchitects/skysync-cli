@@ -1,5 +1,5 @@
 import { runCommand } from '../../util/command';
-import { outputFormat } from './util';
+import { listOutputFormat } from './util';
 import { listArgumentsDefault } from '../util';
 
 export = {
@@ -27,9 +27,10 @@ export = {
 				kind: argv.kind,
 				q: argv.search,
 				offset: argv.offset,
-				limit: argv.limit
+				limit: argv.limit,
+				fields: ['id', 'name', 'kind', 'disabled', 'schedule']
 			});
-			output.writeTable(templates, outputFormat);
+			output.writeTable(templates, listOutputFormat);
 		});
 	}
 }
