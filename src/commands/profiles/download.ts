@@ -17,7 +17,7 @@ export = {
 		runCommand(argv, async (client, output) => {
 			try {
 				const downloader = new FileDownloader(client.httpClient, client.profiles);
-				let path = await downloader.download(argv.id, argv.targetDirectory);
+				const path = await downloader.download(argv.id, argv.targetDirectory);
 				output.writeSuccess(`File saved to ${path}`);
 			} catch (err) {
 				output.writeFailure(err);
