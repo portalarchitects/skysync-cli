@@ -1,8 +1,8 @@
 import { IHttpClient } from '../http';
 import { PagedResource } from './resource';
-import { Template } from '../models';
+import { Job } from '../models';
 
-export class TemplatesResource extends PagedResource<Template> {
+export class TemplatesResource extends PagedResource<Job> {
 	constructor(httpClient: IHttpClient) {
 		super(httpClient, 'template', 'job');
 	}
