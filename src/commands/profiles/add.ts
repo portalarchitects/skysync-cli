@@ -15,7 +15,7 @@ function isJobTemplateKindValid(jobTemplateKind) {
 	return false;
 }
 
-function getJobTemplatesJson(argv, output) {
+function getJobTemplatesJson(argv) {
 	return argv.templates && argv.templates.split(',').map(input => {
 		const jobTemplateKindDefault = 'transfer';
 		const [jobTemplateId, jobTemplateKind = jobTemplateKindDefault] = input.split(':');
@@ -51,7 +51,7 @@ export = {
 				name: argv.name,
 				description: argv.description,
 				instructions: argv.instructions,
-				job_templates: getJobTemplatesJson(argv, output)
+				job_templates: getJobTemplatesJson(argv)
 			};
 
 			const profile = await client.profiles.add(newProfileRequestBody, { generateclient: true });
