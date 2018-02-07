@@ -17,19 +17,11 @@ function isJobTemplateKindValid(jobTemplateKind) {
 
 function getJobTemplatesJson(argv, output) {
 	return argv.templates && argv.templates.split(',').map(input => {
-		const jobTemplateInputParsed = input.trim().split(':');
-		if (jobTemplateInputParsed.length !== 2) {
-			output.writeWarning(`The job template input "${input}" does not appear to be in the correct format.  The job template must be specified using the ID and the kind, separated by a colon.`, true);
-			return;
-		}
-		const jobTemplateId = jobTemplateInputParsed[0];
-		const jobTemplateKind = jobTemplateInputParsed[1];
-		if (!isJobTemplateKindValid(jobTemplateKind)) {
-			output.writeWarning(`The job template kind "${jobTemplateKind}" may not be valid.  The template "${jobTemplateId}" may not be properly associated with the profile.`, true);
-		}
+		const jobTemplateKindDefault = 'transfer';
+		const [jobTemplateId, jobTemplateKind = jobTemplateKindDefault] = input.split(':');
 		return  {
 			id: jobTemplateId,
-			kind: jobTemplateKind
+			kind: isJobTemplateKindValid(jobTemplateKind) ? jobTemplateKind : jobTemplateKindDefault 
 		}
 	}).filter(x => x != null) || [];
 }
