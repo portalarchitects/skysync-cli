@@ -10,6 +10,7 @@ export * from './profiles';
 export * from './resource';
 export * from './roles';
 export * from './sites';
+export * from './templates';
 export * from './transferItems';
 export * from './transferStatistics';
 export * from './users';

@@ -4,7 +4,7 @@ import { TransferAuditEntry } from '../models';
 
 export class TransferAuditsResource extends PagedResource<TransferAuditEntry> {
 	constructor(httpClient: IHttpClient) {
-		super(httpClient, 'item', 'item', null, null, 'transfers/auditing');
+		super(httpClient, 'item', null, 'item', null, 'transfers/auditing');
 	}
 
 	downloadCsv(params?: any): Promise<string> {
