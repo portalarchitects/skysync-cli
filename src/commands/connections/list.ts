@@ -33,7 +33,7 @@ export = {
 				platform: argv.platform,
 				q: argv.search,
 				active: argv.active,
-				pools: argv.pools,
+				pools: Boolean(argv.pools),
 				offset: argv.offset,
 				limit: argv.limit,
 				fields: ['name',
