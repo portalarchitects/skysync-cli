@@ -44,19 +44,4 @@ describe('HttpClient', () => {
 			expect(url).to.eql('http://localhost:8000/v1/connections?bar=barParameter&baz=bazParameter');
 		})
 	});
-	
-	describe('getFilteredParameters', () => {
-		it('should filter undefined parameters', () => {
-			const params = {
-				foo: undefined,
-				bar: 'barParameter',
-				baz: 'bazParameter'
-			}
-			const filteredParams = HttpClient.getFilteredParameters(params);
-			expect(filteredParams).to.eql({
-				bar: 'barParameter',
-				baz: 'bazParameter'
-			});
-		})
-	})	
 });

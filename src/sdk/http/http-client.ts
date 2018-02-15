@@ -69,6 +69,19 @@ function invalidTokenError() {
 	return new Error('Could not acquire a valid access token.');
 }
 
+function getFilteredParameters(params?: any): any {
+	let filteredParams;
+	for (const param in params) {
+		if (params[param] !== undefined) {
+			if (!filteredParams) {
+				filteredParams = {};
+			}
+			filteredParams[param] = params[param];
+		}
+	}
+	return filteredParams;
+}
+
 export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	private accessToken: string;
 	private resourceUri: string;
@@ -99,22 +112,15 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		}
 	}
 
-	static getFilteredParameters(params?: any): any {
-		let filteredParams = {};
-		for (const param in params) {
-			if (params[param] !== undefined) {
-				filteredParams[param] = params[param];
-			}
-		}
-		return filteredParams;
-	}
-
 	static getUrl(requestPath: string, baseUrl?: string, params?: any): string {
 		if (baseUrl && baseUrl.length > 0 && requestPath.indexOf('://') === -1) {
 			requestPath = baseUrl + requestPath;
 		}
 		if (params) {
-			requestPath = `${requestPath}?${qs.stringify(HttpClient.getFilteredParameters(params))}`;
+			params = getFilteredParameters(params);
+		}
+		if (params) {
+			requestPath = `${requestPath}?${qs.stringify(params)}`;
 		}
 		return requestPath;
 	}
