@@ -69,7 +69,7 @@ function invalidTokenError() {
 	return new Error('Could not acquire a valid access token.');
 }
 
-function getFilteredParameters(params?: any): any {
+function removeUndefinedParameters(params?: any): any {
 	let filteredParams;
 	for (const param in params) {
 		if (params[param] !== undefined) {
@@ -117,7 +117,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 			requestPath = baseUrl + requestPath;
 		}
 		if (params) {
-			params = getFilteredParameters(params);
+			params = removeUndefinedParameters(params);
 		}
 		if (params) {
 			requestPath = `${requestPath}?${qs.stringify(params)}`;
