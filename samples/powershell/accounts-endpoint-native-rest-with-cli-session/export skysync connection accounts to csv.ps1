@@ -43,8 +43,7 @@ do {
 
     $accounts += $accountsResponse.accounts
     $totalCount = $accountsResponse.meta.total_count  
- 
-  
+   
     if ($totalCount -gt 1000){
         $pages = [math]:: Ceiling($totalCount / 1000)       
     }
@@ -55,7 +54,6 @@ do {
 } while ($pages -ne $currentPage)
 
 $accounts | Select-Object -Property name,email,id | Format-Table
-
 $accounts | Select-Object -Property name,email,id | Export-Csv "accounts_$connectionId.csv" -NoTypeInformation
 
 write-host "$totalCount Total Accounts for Connection $connectionId Successfully Exported to CSV" -ForegroundColor Green
