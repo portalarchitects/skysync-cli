@@ -33,13 +33,13 @@ $totalCount = 0
 $accounts = @()
 
 #get skysync access token via skysync-cli
-$accessToken= skysync-cli sessions token
+$accessToken= skysync-cli sessions token --output-json=false
 $authHeader = @{"Authorization"="Bearer $accessToken";}
 
 #call endpoint with paging (endpoint only returns 1000 items at a time)
 do {
     $accountsEndpoint ="$baseUrl/connections/$connectionId/accounts?offset=$offsetValue&limit=1000&fields=all"
-    $accountsResponse = Invoke-RestMethod $accountsEndpoint -Headers $authHeader #-Proxy 'http://localhost:8888
+    $accountsResponse = Invoke-RestMethod $accountsEndpoint -Headers $authHeader -Proxy 'http://localhost:8888'
 
     $accounts += $accountsResponse.accounts
     $totalCount = $accountsResponse.meta.total_count  
