@@ -73,6 +73,9 @@ export interface TransferPlatformItem extends IEntityIdentifier<string> {
 	name?: string;
 	caption?: string;
 	path?: string;
+	ext?: string;
+	mime_type?: string;
+	file_type?: string;
 	bytes?: number;
 	version?: string;
 	hash?: string;
