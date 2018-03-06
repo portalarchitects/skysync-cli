@@ -3,8 +3,8 @@ import expect = require('expect.js');
 
 describe('formatBytes', () => {
 	it('can format positive bytes', () => {
-		expect(util.formatBytes(10)).to.eql('10');
-		expect(util.formatBytes(100)).to.eql('100');
+		expect(util.formatBytes(10)).to.eql('10 B');
+		expect(util.formatBytes(100)).to.eql('100 B');
 	});
 
 	it('can format positive kb', () => {
@@ -38,8 +38,8 @@ describe('formatBytes', () => {
 	});
 
 	it('can format negative bytes', () => {
-		expect(util.formatBytes(-10)).to.eql('-10');
-		expect(util.formatBytes(-100)).to.eql('-100');
+		expect(util.formatBytes(-10)).to.eql('-10 B');
+		expect(util.formatBytes(-100)).to.eql('-100 B');
 	});
 
 	it('can format negative kb', () => {

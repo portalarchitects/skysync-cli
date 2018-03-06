@@ -1,4 +1,5 @@
 const unitsAndFormatDigit = [
+	['B', 0],
 	['KB', 1],
 	['MB', 2],
 	['GB', 2],
@@ -11,7 +12,7 @@ const formatBytesImpl = (num: number): string => {
 	const negative = num < 0;
 	num = Math.abs(num);
 
-	let index = -1;
+	let index = 0;
 	while (num >= unitSize) {
 		num = num / unitSize;
 		index++;
@@ -20,16 +21,14 @@ const formatBytesImpl = (num: number): string => {
 		}
 	}
 
-	const unit = (index >= 0 ? unitsAndFormatDigit[index] : null);
-	const abbreviation = unit && ` ${unit[0]}` || '';
-	const digit = <number>(unit && unit[1] || 0);
+	const [abbreviation, digit] = unitsAndFormatDigit[index];
 	const byteFormatter = new Intl.NumberFormat('en', {
 		style: 'decimal',
 		useGrouping: true,
-		minimumFractionDigits: Math.min(digit, 1),
-		maximumFractionDigits: digit
+		minimumFractionDigits: Math.min(<number>digit, 1),
+		maximumFractionDigits: <number>digit
 	});
-	return `${negative ? '-' : ''}${byteFormatter.format(num)}${abbreviation}`;
+	return `${negative ? '-' : ''}${byteFormatter.format(num)} ${abbreviation}`;
 }
 
 export namespace util {
