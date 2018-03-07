@@ -18,12 +18,17 @@ export const outputFormat = {
 			property: 'ip_address'
 		},
 		{
+			header: 'Version',
+			property: 'version'
+		},
+		{
 			header: 'Enabled',
 			property: 'disabled',
 			transform: val => !Boolean(val)
 		}
 	],
 	json: [
+		'timezone',
 		'status_updated_on'
 	]
 };
