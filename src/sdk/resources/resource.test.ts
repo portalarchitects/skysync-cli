@@ -2,7 +2,9 @@ import 'mocha';
 import expect = require('expect.js');
 import { TestHttpClient } from '../http/test-client';
 import {
-	PagedResource
+	PagedResource,
+	PagedResult,
+	consumePagedResult
 } from './resource';
 
 describe('PagedResource', () => {
@@ -296,6 +298,26 @@ describe('PagedResource', () => {
 			expect(result.previous.fields).to.eql('count,id,name,previous_execution.start_time,status');
 			
 			expect(result.items).to.eql(expectedResponses);
+		});
+
+		it('can consume all pages', async () => {
+			const expectedResponses = [
+				{ name: 'Test1' },
+				{ name: 'Test2' }
+			];
+
+			const actualResponses = [];
+
+			await consumePagedResult<any>(item => actualResponses.push(item), params => {
+				const hasMore = !Boolean(params);
+				return Promise.resolve(<PagedResult<any>>{
+					hasMore,
+					next: hasMore ? {} : undefined,
+					items: hasMore ? [expectedResponses[0]] : [expectedResponses[1]]
+				});
+			});
+
+			expect(actualResponses).to.eql(expectedResponses);
 		});
 	});
 });

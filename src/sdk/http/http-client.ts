@@ -120,7 +120,8 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 			params = removeUndefinedParameters(params);
 		}
 		if (params) {
-			requestPath = `${requestPath}?${qs.stringify(params)}`;
+			const hasExisting = requestPath.indexOf('?') !== -1;
+			requestPath = `${requestPath}${hasExisting ? '&' : '?'}${qs.stringify(params)}`;
 		}
 		return requestPath;
 	}

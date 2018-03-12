@@ -43,5 +43,15 @@ describe('HttpClient', () => {
 			const url = HttpClient.getUrl('http://localhost:8000/v1/connections', 'http://localhost:9090/', params);
 			expect(url).to.eql('http://localhost:8000/v1/connections?bar=barParameter&baz=bazParameter');
 		});
+		
+		it('should handle request path that has existing query string', () => {
+			const params = {
+				foo: undefined,
+				bar: 'barParameter',
+				baz: 'bazParameter'
+			}
+			const url = HttpClient.getUrl('http://localhost:8000/v1/connections?active=1', 'http://localhost:9090/', params);
+			expect(url).to.eql('http://localhost:8000/v1/connections?active=1&bar=barParameter&baz=bazParameter');
+		});
 	});
 });
