@@ -12,7 +12,7 @@ export = {
 				type: 'string',
 				group: 'Search'
 			}, ...listArgumentsDefault
-		})
+		});
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
@@ -26,4 +26,4 @@ export = {
 			output.writeTable(groups, outputFormatWithParent);
 		});
 	}
-}
+};

@@ -134,7 +134,7 @@ export class EditableResource<TResource extends IEntityIdentifier<string>> exten
 
 	delete(id: any, params?: any): Promise<boolean> {
 		if (typeof id !== 'string' && Boolean(id && id.id)) {
-			id = id.id
+			id = id.id;
 		}
 		return this.httpClient.delete(`${this.resourcePath}/${id}`, this.mergeDefaultParams(params));
 	}

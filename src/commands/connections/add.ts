@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { runCommand, readJsonInput } from '../../util/command';
-const open = require('open')
+const open = require('open');
 
 const outputFormat = {
 	table: [
@@ -85,4 +85,4 @@ export = {
 			open(request.target);
 		});
 	}
-}
+};

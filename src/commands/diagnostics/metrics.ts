@@ -40,7 +40,7 @@ export = {
 				type: 'string',
 				group: 'Search'
 			}
-		})
+		});
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
@@ -62,4 +62,4 @@ export = {
 			output.writeTable(mappedMetrics, outputFormat);
 		});
 	}
-}
+};

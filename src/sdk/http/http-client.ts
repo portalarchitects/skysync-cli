@@ -53,7 +53,7 @@ function getTokenRequestParameters(token: IAuthorizationToken): any {
 		return {
 			grant_type: 'refresh_token',
 			refresh_token: token.refreshToken
-		}
+		};
 	}
 	if (Boolean(token.username)) {
 		return {
@@ -126,7 +126,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	}
 
 	get isLoggedIn(): boolean {
-		return !this.isAuthRequired || Boolean(this.accessToken)
+		return !this.isAuthRequired || Boolean(this.accessToken);
 	}
 
 	async authenticate(): Promise<any> {
@@ -139,7 +139,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	}
 
 	async logout(): Promise<any> {
-		return await new Promise<any>((resolve, reject) => {
+		return await new Promise<any>(resolve => {
 			if (this.isLoggedIn) {
 				this.executeJsonRequest(<any>{
 					url: HttpClient.getUrl('connect/token', this.baseAddress),
@@ -147,9 +147,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 					headers: {
 						'Accept': 'application/json'
 					}
-				}, (err, respose, body) => {
-					resolve();
-				});
+				}, resolve);
 			} else {
 				resolve();
 			}

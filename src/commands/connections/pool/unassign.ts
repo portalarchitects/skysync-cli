@@ -1,6 +1,4 @@
 import { runCommand } from '../../../util/command';
-import { outputFormat } from '../util';
-const open = require('open')
 
 export = {
 	command: 'unassign <id>',
@@ -15,4 +13,4 @@ export = {
 			}
 		});
 	}
-}
+};

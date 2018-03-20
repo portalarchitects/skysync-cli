@@ -19,29 +19,29 @@ describe('HttpClient', () => {
 		it('can get qualified url with single parameter', () => {
 			const params = {
 				foo: 'fooParameter'
-			}
+			};
 			const url = HttpClient.getUrl('http://localhost:8000/v1/connections', 'http://localhost:9090/', params);
 			expect(url).to.eql('http://localhost:8000/v1/connections?foo=fooParameter');
-		})
+		});
 
 		it('can get qualified url with multiple parameters', () => {
 			const params = {
 				foo: 'fooParameter',
 				bar: 'barParameter',
 				baz: 'bazParameter'
-			}
+			};
 			const url = HttpClient.getUrl('http://localhost:8000/v1/connections', 'http://localhost:9090/', params);
 			expect(url).to.eql('http://localhost:8000/v1/connections?foo=fooParameter&bar=barParameter&baz=bazParameter');
-		})
+		});
 		
 		it('can get qualified url with filtered parameters', () => {
 			const params = {
 				foo: undefined,
 				bar: 'barParameter',
 				baz: 'bazParameter'
-			}
+			};
 			const url = HttpClient.getUrl('http://localhost:8000/v1/connections', 'http://localhost:9090/', params);
 			expect(url).to.eql('http://localhost:8000/v1/connections?bar=barParameter&baz=bazParameter');
-		})
+		});
 	});
 });

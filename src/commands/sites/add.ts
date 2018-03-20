@@ -12,4 +12,4 @@ export = {
 			output.writeItem(site, outputFormat);
 		});
 	}
-}
+};

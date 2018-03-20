@@ -4,7 +4,7 @@ export interface IEntityIdentifier<TID> {
 
 export interface Link {
 	href?: string;
-};
+}
 
 export interface ILinks {
 	[name: string]: Link;

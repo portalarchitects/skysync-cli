@@ -1,6 +1,6 @@
 import { runCommand } from '../../util/command';
 import { listArgumentsDefault } from '../util';
-import { outputFormat } from './util'
+import { outputFormat } from './util';
 
 export = {
 	command: 'list',
@@ -8,7 +8,7 @@ export = {
 	builder: yargs => {
 		yargs.options({
 			...listArgumentsDefault
-		})
+		});
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
@@ -21,4 +21,4 @@ export = {
 			output.writeItem(auditCategories, outputFormat);
 		});
 	}
-}
+};

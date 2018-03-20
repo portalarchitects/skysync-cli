@@ -1,5 +1,4 @@
 import { runCommand } from '../../../util/command';
-const open = require('open')
 
 const outputFormat = {
 	table: [
@@ -55,4 +54,4 @@ export = {
 			output.writeItem(connection, outputFormat);
 		});
 	}
-}
+};

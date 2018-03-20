@@ -6,7 +6,7 @@ export = {
 	command: 'list',
 	desc: 'List all permissions',
 	builder: yargs => {
-		yargs.options(listArgumentsSearch)
+		yargs.options(listArgumentsSearch);
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
@@ -17,4 +17,4 @@ export = {
 			output.writeTable(permissions, outputFormat);
 		});
 	}
-}
+};

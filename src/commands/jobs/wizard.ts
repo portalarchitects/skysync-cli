@@ -2,13 +2,12 @@ import * as prompt from 'prompt';
 import {
 	Job,
 	TransferJob,
-	JobSchedule,
 	JobScheduleMode,
 	StoragePlatform,
 	Connection,
 	SkySyncClient
 } from '../../sdk';
-const open = require('open')
+const open = require('open');
 
 /* tslint:disable:no-console */
 
@@ -127,7 +126,7 @@ async function JobWelcomeStep(state: Job): Promise<Job> {
 	if (!result) {
 		throw new Error('Wizard Cancelled.');
 	}
-	return state
+	return state;
 }
 
 async function JobNameStep(state: Job): Promise<Job> {
@@ -199,7 +198,7 @@ function TransferPathJobStep(client: SkySyncClient): WizardStep<Job> {
 			lastPlatform = platform;
 		}
 		return connectionCache;
-	}
+	};
 
 	const factory = (name: string): WizardStep<TransferJob> => {
 		return async (state: TransferJob): Promise<TransferJob> => {

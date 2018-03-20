@@ -40,7 +40,7 @@ export = {
 				desc: 'The options JSON file',
 				type: 'string'
 			}
-		})
+		});
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
@@ -64,4 +64,4 @@ export = {
 			output.writeItem(template, detailOutputFormat);
 		});
 	}
-}
+};

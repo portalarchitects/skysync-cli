@@ -5,7 +5,7 @@ export const outputFormatID = {
 			property: 'id'
 		}
 	]
-}
+};
 
 export const outputFormat = {
 	table: [
@@ -60,6 +60,4 @@ export const outputFormatWithGroupAndRoles = {
 		'roles[].id',
 		'permissions[].id'
 	]
-}
-
-
+};

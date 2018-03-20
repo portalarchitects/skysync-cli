@@ -40,4 +40,4 @@ export = {
 			output.writeItem(connection, outputFormat);
 		});
 	}
-}
+};

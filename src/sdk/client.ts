@@ -17,7 +17,6 @@ import {
 	TransferItemsResource,
 	TransferJobStatisticsResource
 } from './resources';
-import * as models from './models';
 
 export class SkySyncClient {
 	private _httpClient: IHttpClient;

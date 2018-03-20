@@ -1,5 +1,5 @@
 import { runCommand } from '../../util/command';
-import { outputFormat } from './util'
+import { outputFormat } from './util';
 
 export = {
 	command: 'show <id>',
@@ -14,4 +14,4 @@ export = {
 			output.writeItem(auditCategory, outputFormat);
 		});
 	}
-}
+};

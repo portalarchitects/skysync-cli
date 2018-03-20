@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import { runCommand, readJsonInput } from '../../util/command';
 import { outputFormat } from './util';
 
@@ -43,7 +42,7 @@ export = {
 				desc: 'Audit Type code to which this audit category applies',
 				type: 'number'
 			}
-		})
+		});
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
@@ -75,4 +74,4 @@ export = {
 			output.writeItem(auditCategory, outputFormat);
 		});
 	}
-}
+};

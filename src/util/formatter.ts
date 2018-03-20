@@ -116,7 +116,7 @@ function formatToString(col: { property?: string, transform?: (val: any) => any;
 	} else if (col.property && col.property.indexOf('[]') !== -1) {
 		val = formatArrayToString(col.property, col.transform, obj);
 	} else {
-		val = dot.pick(col.property, obj)
+		val = dot.pick(col.property, obj);
 		if (col.transform) {
 			val = col.transform(val);
 		}
@@ -201,16 +201,16 @@ function copyJsonArray(property: string, source: any, target?: any): any {
 				} else {
 					parentKeys.push(resolvedKey);
 				}
-			})
+			});
 		} else {
-			parent.forEach(function (value, index) {
+			parent.forEach(function (_, index) {
 				let resolvedKey = parentKey + '[' + index + '].' + childKey;
 				if (target) {
 					dot.copy(resolvedKey, resolvedKey, source, target);
 				} else {
 					parentKeys.push(resolvedKey);
 				}
-			})
+			});
 		}
 	}
 	return parentKeys;

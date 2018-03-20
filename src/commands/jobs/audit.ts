@@ -18,7 +18,7 @@ export = {
 				type: 'boolean',
 				group: 'Audit'
 			}
-		})
+		});
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
@@ -43,4 +43,4 @@ export = {
 			}
 		});
 	}
-}
+};

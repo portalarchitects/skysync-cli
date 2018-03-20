@@ -4,4 +4,4 @@ export = {
 	builder: yargs => yargs.commandDir('./pool', {
 		exclude: /util/
 	}).demandCommand(1)
-}
+};

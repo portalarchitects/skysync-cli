@@ -16,4 +16,4 @@ export = {
 			output.writeItem(job, detailOutputFormat);
 		});
 	}
-}
+};

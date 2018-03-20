@@ -1,6 +1,5 @@
 import { runCommand } from '../../util/command';
 import { outputFormat } from './util';
-const open = require('open')
 
 export = {
 	command: 'add <name>',
@@ -24,4 +23,4 @@ export = {
 			output.writeItem(group, outputFormat);
 		});
 	}
-}
+};

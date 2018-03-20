@@ -13,7 +13,7 @@ export = {
 				default: undefined
 			},
 			...jobsSearchArgumentsDefault
-		})
+		});
 	},
 	handler: argv => {
 		if (argv.id === undefined) {
@@ -45,11 +45,11 @@ export = {
 					]
 				});
 				if (job == null) {
-					output.writeFailure(`Job with ID=${argv.id} was not found`)
+					output.writeFailure(`Job with ID=${argv.id} was not found`);
 				} else {
 					output.writeItem(job, detailOutputFormat);
 				}
 			});
 		}
 	}
-}
+};
