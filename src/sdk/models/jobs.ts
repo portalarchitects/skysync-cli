@@ -65,26 +65,36 @@ export interface Job extends IEntityIdentifier<string> {
 	disabled?: boolean;
 }
 
-export interface JobExecutionStatistics {
+export interface JobExecutionFileStatistics {
 	bytes?: number;
-	files?: number;
-	files_pending?: number;
-	rate_limits?: number;
 	versions?: number;
-	versions_pending?: number;
+	files?: number;
 	[name: string]: number;
 }
 
+export interface JobExecutionStatistics {
+	existing?: JobExecutionFileStatistics;
+	'new'?: JobExecutionFileStatistics;
+	pending?: JobExecutionFileStatistics;
+	folders?: number;
+	flagged?: number;
+	revisions?: number;
+	ignored?: number;
+	rate_limits?: number;
+	[name: string]: any;
+}
+
 export interface JobFailureStatistics {
-	failure?: number;
-	critical?: number;
+	warnings?: number;
+	failures?: number;
 	[name: string]: number;
 }
 
 export interface JobExecutionStatisticsSet {
 	destination?: JobExecutionStatistics;
 	source?: JobExecutionStatistics;
-	failures?: JobFailureStatistics;
+	errors?: JobFailureStatistics;
+	[name: string]: any;
 }
 
 export interface JobExecution {
