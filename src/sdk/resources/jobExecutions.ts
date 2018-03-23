@@ -1,5 +1,5 @@
 import { IHttpClient } from '../http';
-import { PagedResource, getTypedResponse } from './resource';
+import { PagedResource } from './resource';
 import { JobExecution } from '../models';
 
 export class JobExecutionsResource extends PagedResource<JobExecution> {

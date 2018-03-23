@@ -1,4 +1,3 @@
-import { StoragePlatform } from '../../sdk';
 import { runCommand } from '../../util/command';
 
 const outputFormat = {
@@ -36,4 +35,4 @@ export = {
 			output.writeTable(platforms, outputFormat);
 		});
 	}
-}
+};

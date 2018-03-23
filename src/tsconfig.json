@@ -3,11 +3,15 @@
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"target": "es6",
-		"noImplicitAny": false,
 		"declaration": true,
 		"removeComments": true,
 		"sourceMap": false,
-		"outDir": "../dist"
+		"outDir": "../dist",
+		"noImplicitAny": false,
+		"allowUnusedLabels" : false,
+		"allowUnreachableCode" : false,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true
 	},
 	"exclude": [
 		"node_modules",

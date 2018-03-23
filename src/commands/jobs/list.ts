@@ -8,7 +8,7 @@ export = {
 	builder: yargs => {
 		yargs.options({
 			...jobsSearchArgumentsDefault
-		})
+		});
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
@@ -24,4 +24,4 @@ export = {
 			output.writeTable(jobs, listOutputFormat);
 		});
 	}
-}
+};

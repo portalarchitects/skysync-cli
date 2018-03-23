@@ -15,7 +15,7 @@ export interface TransferStatisticsList {
 	[key: string]: TransferPlatformStatistics;
 }
 
-export type TransferJobStatisticsTimeline = { timestamp: number; stats: TransferStatisticsList; }[]
+export type TransferJobStatisticsTimeline = { timestamp: number; stats: TransferStatisticsList; }[];
 
 export interface TransferJobStatistics extends IEntityIdentifier<string> {
 	timeline?: TransferJobStatisticsTimeline;

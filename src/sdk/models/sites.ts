@@ -9,4 +9,4 @@ export interface RemoteSite extends IEntityIdentifier<string> {
 	version?: string;
 	status_updated_on?: number;
 	disabled?: boolean;
-};
+}

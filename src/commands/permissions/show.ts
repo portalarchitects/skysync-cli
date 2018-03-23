@@ -14,4 +14,4 @@ export = {
 			output.writeItem(permission, outputFormat);
 		});
 	}
-}
+};

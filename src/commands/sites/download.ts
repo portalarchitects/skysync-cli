@@ -11,7 +11,7 @@ export = {
 				type: 'string',
 				default: (process.cwd())
 			}
-		})
+		});
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
@@ -24,4 +24,4 @@ export = {
 			}
 		});
 	}
-}
+};

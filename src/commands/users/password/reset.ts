@@ -1,6 +1,5 @@
 import { runCommand } from '../../../util/command';
 import { outputFormatID } from '../util';
-const open = require('open')
 
 export = {
 	command: 'reset <id> <new-password>',
@@ -14,4 +13,4 @@ export = {
 			output.writeItem(user, outputFormatID);
 		});
 	}
-}
+};

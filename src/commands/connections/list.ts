@@ -25,7 +25,7 @@ export = {
 				group: 'Search',
 				default: undefined
 			}, ...listArgumentsDefault
-		})
+		});
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
@@ -44,4 +44,4 @@ export = {
 			output.writeTable(connections, outputFormat);
 		});
 	}
-}
+};

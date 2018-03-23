@@ -38,4 +38,4 @@ export const detailedOutputFormat = {
 	json: [
 		'job_templates[].id'
 	]
-}
+};

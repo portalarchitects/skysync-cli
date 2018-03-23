@@ -6,7 +6,7 @@ export = {
 	command: 'list',
 	desc: 'List all roles',
 	builder: yargs => {
-		yargs.options(listArgumentsDefault)
+		yargs.options(listArgumentsDefault);
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
@@ -19,4 +19,4 @@ export = {
 			output.writeTable(roles, outputFormat);
 		});
 	}
-}
+};

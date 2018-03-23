@@ -19,7 +19,7 @@ const outputFormat = {
 			header: ' ',
 			property: 'source_to_destination',
 			transform: val => {
-				return val ? '\u2192' : '\u2190'
+				return val ? '\u2192' : '\u2190';
 			}
 		},
 		{
@@ -78,7 +78,7 @@ export = {
 				type: 'boolean',
 				group: 'Output format'
 			}
-		})
+		});
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
@@ -108,4 +108,4 @@ export = {
 			}
 		});
 	}
-}
+};

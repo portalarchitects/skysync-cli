@@ -42,7 +42,7 @@ export interface StoragePlatformPromptDimensions {
 }
 
 export interface ConnectionAuthorizePrompt {
-	method: 'oauth2' | 'oauth' | 'prompt',
+	method: 'oauth2' | 'oauth' | 'prompt';
 	target: string;
 	prompt?: StoragePlatformPromptDimensions;
 	attributes?: PromptAttributes;

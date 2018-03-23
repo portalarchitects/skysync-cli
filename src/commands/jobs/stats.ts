@@ -1,4 +1,4 @@
-import * as cliff from 'cliff';
+require('cliff');
 import { util } from '../../sdk';
 import {runCommand} from '../../util/command';
 
@@ -55,4 +55,4 @@ export = {
 			}
 		});
 	}
-}
+};

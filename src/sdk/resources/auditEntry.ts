@@ -1,5 +1,5 @@
 import { IHttpClient } from '../http';
-import { PagedResource, getTypedResponse } from './resource';
+import { PagedResource } from './resource';
 import { TransferAuditEntry } from '../models';
 
 export class TransferAuditsResource extends PagedResource<TransferAuditEntry> {

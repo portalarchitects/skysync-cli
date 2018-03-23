@@ -37,8 +37,8 @@ const formatBytesImpl = (num: number): string => {
 	const abbreviation = units[e];
 	const formatter = e === 0 ? noDigit : withDigit;
 	return `${negative ? '-' : ''}${formatter.format(num)}\xa0${abbreviation}`;
-}
+};
 
 export namespace util {
 	export const formatBytes = formatBytesImpl;
-};
+}

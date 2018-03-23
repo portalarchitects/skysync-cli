@@ -22,4 +22,4 @@ export const detailedOutputFormat = {
 	json: [
 		'permissions[].id'
 	]
-}
+};

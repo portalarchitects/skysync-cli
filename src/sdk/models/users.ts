@@ -1,6 +1,6 @@
 import { IEntityIdentifier } from './base';
 import { OwnershipGroup } from './groups';
-import { Role } from './roles'
+import { Role } from './roles';
 
 export interface User extends IEntityIdentifier<string> {
 	login?: string;

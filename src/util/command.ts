@@ -1,5 +1,5 @@
 import { stdin } from 'process';
-import { SkySyncClient, Connection } from '../sdk';
+import { SkySyncClient } from '../sdk';
 import { OutputFormatter } from './formatter';
 
 export async function runCommand(argv: any, handler: (client: SkySyncClient, output: OutputFormatter) => Promise<void>) {

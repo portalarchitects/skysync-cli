@@ -1,16 +1,15 @@
 import { runCommand } from '../../util/command';
 import { outputFormat } from './util';
-const open = require('open')
 
 const jobTemplateKinds = [
 	'folder_mapping',
 	'personal_drive',
 	'transfer',
-]
+];
 
 function isJobTemplateKindValid(jobTemplateKind) {
 	if (jobTemplateKinds.indexOf(jobTemplateKind) > -1) {
-		return true
+		return true;
 	}
 	return false;
 }
@@ -22,7 +21,7 @@ function getJobTemplatesJson(argv) {
 		return  {
 			id: jobTemplateId,
 			kind: isJobTemplateKindValid(jobTemplateKind) ? jobTemplateKind : jobTemplateKindDefault 
-		}
+		};
 	}).filter(x => x != null) || [];
 }
 
@@ -58,4 +57,4 @@ export = {
 			output.writeItem(profile, outputFormat);
 		});
 	}
-}
+};
