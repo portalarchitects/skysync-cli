@@ -34,6 +34,25 @@ export function getPagedResponse<T>(response: any, items: T[]): PagedResult<T> {
 	};
 }
 
+export async function consumePagedResult<T>(handle: (item: T) => void, func: (params: any) => Promise<PagedResult<T>>, params?: any): Promise<void> {
+	while (true) {
+		const result = await func(params);
+		if (result.items) {
+			result.items.forEach(handle);
+		}
+
+		if (result.next) {
+			params = result.next;
+		} else {
+			break;
+		}
+	}
+}
+
+export function consumePagedResource<T>(handle: (item: T) => void, resource: PagedResource<T>, params?: any): Promise<void> {
+	return consumePagedResult(handle, resource.page, params);
+}
+
 export class BaseResource {
 	public defaultParams: any;
 

@@ -113,10 +113,36 @@ export interface PlatformItemType {
 	caption?: string;
 }
 
-export interface PlatformItem {
+export interface PlatformItem extends IHaveLinks<PlatformItemHierarchyLinks> {
 	id?: string;
 	name?: string;
 	caption?: string;
 	parent?: PlatformItem;
+	type?: string;
 	item_type: PlatformItemType;
+	bytes?: number;
+	etag?: string;
+	mime_type?: string;
+	version?: string;
+	hash?: string;
+	is_hidden?: boolean;
+	is_system?: boolean;
+	is_shared?: boolean;
+	size_estimate?: {
+		count?: number;
+		bytes?: number;
+	};
+	owner?: Account;
+	content_created_on?: number;
+	created_on?: number;
+	created_by?: Account;
+	content_modified_on?: number;
+	modified_on?: number;
+	modified_by?: Account;
+	content_accessed_on?: number;
+	accessed_on?: number;
+	accessed_by?: Account;
+	checkout_on?: number;
+	checkout_by?: Account;
+	[name: string]: any;
 }

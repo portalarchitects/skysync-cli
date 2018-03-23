@@ -1,5 +1,6 @@
 import * as cliff from 'cliff';
 import * as dot from 'dot-object';
+import { PagedResult, consumePagedResult } from '../sdk';
 
 /* tslint:disable:no-console */
 
@@ -32,6 +33,30 @@ export class OutputFormatter {
 
 	writeTable(obj: any[], options?: OutputOptions): void {
 		this.write(obj, options, true);
+	}
+
+	async writeAllPages<T>(func: (params: any) => Promise<PagedResult<T>>, params?: any, options?: OutputOptions): Promise<void> {
+		let isFirst = true;
+		await consumePagedResult(item => {
+			if (this.outputJson) {
+				if (isFirst) {
+					console.log('[');
+					console.log();
+				}
+				const json = copyJson(item, options);
+				console.log(JSON.stringify(json, null, this.formatOptions.tabSize));
+			} else {
+				console.log(this.format([item], options, true, isFirst));
+			}
+			isFirst = false;
+		}, func, params);
+
+		if (isFirst) {
+			// no rows reported
+			this.write([], options, true);
+		} else if (this.outputJson) {
+			console.log(']');
+		}
 	}
 
 	writeItem(obj: any, options?: OutputOptions): void {
@@ -75,7 +100,7 @@ export class OutputFormatter {
 		console.log(this.toString(obj, options, asTable));
 	}
 
-	toString(obj: any[], options?: OutputOptions, asTable: boolean = true): string {
+	private format(obj: any[], options?: OutputOptions, asTable: boolean = true, includeHeader: boolean = true): string {
 		if (!obj) {
 			return null;
 		}
@@ -99,12 +124,16 @@ export class OutputFormatter {
 				return options.table.map(col => formatToString(col, x));
 			}) || [];
 
-			if (options) {
+			if (options && includeHeader) {
 				data.splice(0, 0, options.table.map(x => x.header));
 			}
 
 			return cliff.stringifyRows(data, ['gray']);
 		}
+	}
+
+	toString(obj: any[], options?: OutputOptions, asTable: boolean = true): string {
+		return this.format(obj, options, asTable);
 	}
 }
 
