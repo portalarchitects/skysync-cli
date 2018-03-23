@@ -78,10 +78,6 @@ export class ConnectionItemsResource extends BaseResource {
 		super(httpClient);
 	}
 
-	private getList(result: any): PlatformItem[] {
-		return getTypedResponse<PlatformItem[]>(result, 'items');
-	}
-
 	private async byHref<T>(href: string, params: any, parse: (result: any, items: PlatformItem[]) => T): Promise<T> {
 		const result = await this.httpClient.get(href, this.mergeDefaultParams(params));
 		const items = getTypedResponse<PlatformItem[]>(result, 'items');

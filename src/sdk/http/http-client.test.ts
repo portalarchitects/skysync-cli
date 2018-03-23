@@ -49,7 +49,7 @@ describe('HttpClient', () => {
 				foo: undefined,
 				bar: 'barParameter',
 				baz: 'bazParameter'
-			}
+			};
 			const url = HttpClient.getUrl('http://localhost:8000/v1/connections?active=1', 'http://localhost:9090/', params);
 			expect(url).to.eql('http://localhost:8000/v1/connections?active=1&bar=barParameter&baz=bazParameter');
 		});

@@ -64,4 +64,4 @@ export = {
 			output.writeTable(items, outputFormat);
 		});
 	}
-}
+};

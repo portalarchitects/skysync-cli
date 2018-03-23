@@ -40,4 +40,4 @@ export = {
 			output.writeTable(groups, outputFormat);
 		});
 	}
-}
+};

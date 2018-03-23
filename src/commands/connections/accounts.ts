@@ -46,4 +46,4 @@ export = {
 			output.writeTable(accounts, outputFormat);
 		});
 	}
-}
+};
