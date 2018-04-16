@@ -38,7 +38,7 @@ $boxConn01 = skysync-cli connections add --name $boxConnName --platform 'box' --
 skysync-cli connections list --json | ConvertFrom-Json | Format-Table 
 
 # set job configuration (copy job from NFS -> Box)
-$jobConfig = '{{"transfer_type": "copy","source":{"connection": {"id": "<source_id>"},"target": {"path": "<source_path>"}}, "destination":{"connection": {"id": "<destination_id>"}, "target": {"path": "<destination_path>"}}}}' | ConvertFrom-Json
+$jobConfig = '{"transfer": {"transfer_type": "copy","source":{"connection": {"id": "<source_id>"},"target": {"path": "<source_path>"}}, "destination":{"connection": {"id": "<destination_id>"}, "target": {"path": "<destination_path>"}}}}' | ConvertFrom-Json
 
 $jobConfig.source.connection.id = $nfsConn01.id
 $jobConfig.source.target.path = $sourceNFSPath
