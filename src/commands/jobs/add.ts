@@ -55,7 +55,7 @@ export = {
 				...argv.name && { name: argv.name },
 				...argv.manual && { schedule: { mode: 'manual' }}
 			};
-			
+
 			let jobParametersInput = argv.jobInput ? await readJsonInput() : undefined;
 			if (!jobParametersInput && argv.jobFile) {
 				jobParametersInput = JSON.parse(fs.readFileSync(argv.jobFile, 'utf-8'));
@@ -79,7 +79,7 @@ export = {
 					'disabled'
 				]
 			});
-			output.writeItem(job, detailOutputFormat); 
+			output.writeItem(job, detailOutputFormat);
 		});
 	}
 };
