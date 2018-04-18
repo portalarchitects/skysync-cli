@@ -10,9 +10,7 @@ export = {
 		yargs.options({
 			'kind': {
 				desc: 'The job kind',
-				type: 'string',
-				default: 'transfer',
-				demand: true
+				type: 'string'				
 			},
 
 			'name': {
@@ -37,13 +35,13 @@ export = {
 				type: 'boolean'
 			},
 
-			'options-input': {
+			'job-input': {
 				alias: 'in',
 				desc: 'Read JSON options from stdin',
 				type: 'boolean'
 			},
 
-			'options-file': {
+			'job-file': {
 				alias: 'file',
 				desc: 'The options JSON file',
 				type: 'string'
@@ -52,21 +50,25 @@ export = {
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			let job: any = {
-				kind: argv.kind,
-				name: argv.name,
-				schedule: {
-					mode: argv.manual ? 'manual' : 'auto'
-				}
+			let jobCliParameters: any = {
+				...argv.kind && { kind: argv.kind },
+				...argv.name && { name: argv.name },
+				...argv.manual && { schedule: { mode: 'manual' }}
 			};
 
-			let options = argv.optionsInput ? await readJsonInput() : undefined;
-			if (!options && argv.optionsFile) {
-				options = JSON.parse(fs.readFileSync(argv.optionsFile, 'utf-8'));
+			let jobParametersInput = argv.jobInput ? await readJsonInput() : undefined;
+			if (!jobParametersInput && argv.jobFile) {
+				jobParametersInput = JSON.parse(fs.readFileSync(argv.jobFile, 'utf-8'));
 			}
-			job[job.kind] = options;
 
-			if (!options && !argv.optionsInput && job.kind === 'transfer' && argv.wizard) {
+			let jobDefaults: any = {
+				kind: 'transfer',
+				schedule: { mode: 'auto' }
+			};
+			
+			let job = Object.assign(jobDefaults, jobParametersInput, jobCliParameters);
+			
+			if (!jobParametersInput && !argv.jobInput && job.kind === 'transfer' && argv.wizard) {
 				job = await new JobWizard(client).run(job);
 			}
 
