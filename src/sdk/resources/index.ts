@@ -8,6 +8,8 @@ export * from './jobs';
 export * from './jobExecutions';
 export * from './permissions';
 export * from './profiles';
+export * from './reports';
+export * from './reportStatistics';
 export * from './resource';
 export * from './roles';
 export * from './sites';

@@ -1,38 +1,6 @@
 import { runCommand } from '../../util/command';
 import { listArgumentsDefault } from '../util';
-import { util } from '../../sdk';
-
-const outputFormat = {
-	table: [
-		{
-			header: 'Name',
-			property: 'name'
-		},
-		{
-			header: 'Size',
-			property: 'bytes',
-			transform: val => {
-				if (typeof(val) === 'undefined') {
-					return '';
-				}
-				return val && util.formatBytes(val);
-			}
-		},
-	],
-	json: [
-		'id',
-		'item_type',
-		'etag',
-		'hash',
-		'owner',
-		'content_created_on',
-		'created_on',
-		'created_by',
-		'content_modified_on',
-		'modified_on',
-		'modified_by'
-	]
-};
+import { itemOutputFormat } from './util';
 
 export = {
 	command: 'items <connection>',
@@ -61,7 +29,7 @@ export = {
 			};
 
 			const items = await client.connectionItems.list(argv.connection, params);
-			output.writeTable(items, outputFormat);
+			output.writeTable(items, itemOutputFormat);
 		});
 	}
 };

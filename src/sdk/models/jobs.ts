@@ -1,4 +1,4 @@
-import { IEntityIdentifier } from './base';
+import { IEntityIdentifier, IAuditedEntity } from './base';
 import { TimeOfDay, TimeInterval } from './time';
 import { JobScheduler } from './scheduler';
 import { JobCategory } from './jobCategories';
@@ -47,7 +47,7 @@ export interface JobSchedule {
 	max_execution?: TimeInterval;
 }
 
-export interface Job extends IEntityIdentifier<string> {
+export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
 	parent_id?: string;
 	kind?: string;
 	name?: string;

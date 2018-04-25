@@ -1,6 +1,7 @@
 import { listArgumentsDefault } from '../util';
+import { util } from '../../sdk';
 
-const jobsSearchArgumentsDefault = {
+export const jobsSearchArgumentsDefault = {
 	'kind': {
 		desc: 'Job Kind',
 		type: 'string',
@@ -20,7 +21,7 @@ const jobsSearchArgumentsDefault = {
 	...listArgumentsDefault
 };
 
-const listOutputFormat = {
+export const listOutputFormat = {
 	table: [
 		{
 			header: 'ID',
@@ -49,7 +50,7 @@ const listOutputFormat = {
 	]
 };
 
-const detailOutputFormat = {
+export const detailOutputFormat = {
 	table: [
 		{
 			header: 'ID',
@@ -79,7 +80,7 @@ const detailOutputFormat = {
 	]
 };
 
-const historyOutputFormat = {
+export const historyOutputFormat = {
 	table: [
 		{
 			header: 'ID',
@@ -125,7 +126,7 @@ const historyOutputFormat = {
 	]
 };
 
-const auditOutputFormat = {
+export const auditOutputFormat = {
 	table: [
 		{
 			header: 'Level',
@@ -151,19 +152,21 @@ const auditOutputFormat = {
 	]
 };
 
-function getSearchArgs(argv): any {
+export function getSearchArgs(argv): any {
 	if (argv.all !== undefined) {
 		return {};
 	}
-	return {kind: argv.kind,
+	return {
+		kind: argv.kind,
 		q: argv.search,
 		active: argv.active,
 		parent: argv.parent,
 		offset: argv.offset,
-		limit: argv.limit};
+		limit: argv.limit
+	};
 }
 
-function searchCriteriaIsMissing(argv): boolean {
+export function searchCriteriaIsMissing(argv): boolean {
 	return argv.all === undefined
 		&& argv.parent === undefined
 		&& argv.kind === undefined
@@ -171,8 +174,111 @@ function searchCriteriaIsMissing(argv): boolean {
 		&& argv.active === undefined;
 }
 
-function formatTotalCount(totalCount): any {
+export function formatTotalCount(totalCount): any {
 	return {total_count: totalCount};
 }
 
-export { jobsSearchArgumentsDefault, listOutputFormat, detailOutputFormat, historyOutputFormat, auditOutputFormat, searchCriteriaIsMissing, getSearchArgs, formatTotalCount };
+export const statsOutputFormat = {
+	table: [
+		{
+			header: 'Timestamp',
+			property: 'timestamp',
+			transform: val => new Intl.DateTimeFormat('en', {month: 'short', day: '2-digit'}).format(val * 1000)
+		},
+		{
+			header: 'Content',
+			property: 'stats',
+			transform: statTransform('bytes', util.formatBytes)
+		},
+		{
+			header: 'Files',
+			property: 'stats',
+			transform: statTransform('files')
+		},
+		{
+			header: 'Folders',
+			property: 'stats',
+			transform: statTransform('folders')
+		}
+	]
+};
+
+export function statTransform(statKey: string, format?: (number: number) => string) {
+	if (!format) {
+		format = num => num.toLocaleString('en');
+	}
+	return val => {
+		let source = 0, destination = 0;
+		Object.keys(val).forEach(key => {
+			const stat = val[key];
+			source += stat.source[statKey];
+			destination += stat.destination[statKey];
+		});
+		return `(${format(source)} ${('\u2191' as any).gray} ${format(destination)} ${('\u2193' as any).gray})`;
+	};
+}
+
+
+const maxPathLength = 50;
+
+function truncatePath(path: string): string {
+	const len = path && path.length;
+	if (len > maxPathLength) {
+		path = '…' + path.substring(len - maxPathLength, len);
+	}
+	return path;
+}
+
+export const itemOutputFormat = {
+	table: [
+		{
+			header: 'ID',
+			property: 'id'
+		},
+		{
+			header: 'Source',
+			property: 'source.path',
+			transform: truncatePath
+		},
+		{
+			header: ' ',
+			property: 'source_to_destination',
+			transform: val => {
+				return val ? '\u2192' : '\u2190';
+			}
+		},
+		{
+			header: 'Destination',
+			property: 'destination.path',
+			transform: truncatePath
+		},
+		{
+			header: 'Size',
+			property: null,
+			transform: val => {
+				if (!val) {
+					return '';
+				}
+				const size = !Boolean(val.source_to_destination)
+					? (val.source && val.source.bytes)
+					: (val.destination && val.destination.bytes);
+				if (!size) {
+					return '';
+				}
+				return size && util.formatBytes(size);
+			}
+		},
+		{
+			header: 'Status',
+			property: 'status'
+		}
+	],
+	json: [
+		'source',
+		'destination',
+		'audit_category',
+		'retried',
+		'processing',
+		'transferred_on'
+	]
+};

@@ -1,5 +1,6 @@
 import {
 	IEntityIdentifier,
+	IAuditedEntity,
 	Link,
 	ILinks,
 	IHaveLinks
@@ -71,7 +72,7 @@ export interface ConnectionLinks extends PlatformItemHierarchyLinks {
 	edit?: Link;
 }
 
-export interface Connection extends IEntityIdentifier<string>, IHaveLinks<ConnectionLinks> {
+export interface Connection extends IEntityIdentifier<string>, IHaveLinks<ConnectionLinks>, IAuditedEntity {
 	name?: string;
 	features?: ConnectionFeatures;
 	platform?: StoragePlatform;
