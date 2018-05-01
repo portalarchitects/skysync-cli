@@ -1,5 +1,6 @@
 export * from './auditCategories';
 export * from './auditEntry';
+export * from './cluster';
 export * from './connections';
 export * from './diagnostics';
 export * from './groups';
