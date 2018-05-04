@@ -35,7 +35,7 @@ export = {
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
 			const parameters = {
-				...argv.category && { category: argv.category },
+				...argv.category && { job_category_id: argv.category },
 				...argv.parent && { parent: argv.parent },
 				...argv.jobs && { jobs: argv.jobs },
 			};
