@@ -1,16 +1,15 @@
 import { runCommand } from '../../util/command';
-import { listOutputFormat, jobsSearchArgumentsDefault, getSearchArgs } from './util';
+import { listOutputFormat, jobsSearchArgumentsDefault, getSearchArgs } from '../jobs/util';
 
 export = {
-	command: 'list',
-	desc: 'List all jobs',
+	command: 'jobs <id>',
+	desc: 'List all jobs in report',
 	builder: yargs => {
 		yargs.options(jobsSearchArgumentsDefault);
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			
-			const jobs = await client.jobs.list({
+			const jobs = await client.reports.jobs({
 				...getSearchArgs(argv),
 				fields: [
 					'name',
@@ -18,7 +17,7 @@ export = {
 					'disabled'
 				]
 			});
-			output.writeTable(jobs, listOutputFormat);
+			output.writeTable(jobs && jobs.items, listOutputFormat);
 		});
 	}
 };

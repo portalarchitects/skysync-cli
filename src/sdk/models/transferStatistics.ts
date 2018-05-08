@@ -22,4 +22,11 @@ export interface TransferJobStatistics extends IEntityIdentifier<string> {
 	by_category?: TransferStatisticsList;
 	by_status?: TransferStatisticsList;
 	processing?: TransferStatisticsList;
+	count?: number;
+	executions?: number;
+	stop_policy?: {
+		none?: number;
+		pending?: number;
+		complete?: number;
+	};
 }

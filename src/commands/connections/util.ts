@@ -1,3 +1,5 @@
+import { util } from '../../sdk';
+
 export const outputFormat = {
 	table: [
 		{
@@ -29,5 +31,37 @@ export const outputFormat = {
 	json: [
 		'platform.id',
 		'pool.id'
+	]
+};
+
+export const itemOutputFormat = {
+	table: [
+		{
+			header: 'Name',
+			property: 'name'
+		},
+		{
+			header: 'Size',
+			property: 'bytes',
+			transform: val => {
+				if (typeof(val) === 'undefined') {
+					return '';
+				}
+				return val && util.formatBytes(val);
+			}
+		},
+	],
+	json: [
+		'id',
+		'item_type',
+		'etag',
+		'hash',
+		'owner',
+		'content_created_on',
+		'created_on',
+		'created_by',
+		'content_modified_on',
+		'modified_on',
+		'modified_by'
 	]
 };
