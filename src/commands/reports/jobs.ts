@@ -9,7 +9,7 @@ export = {
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			const jobs = await client.reports.jobs({
+			const jobs = await client.reports.jobs(argv.id, {
 				...getSearchArgs(argv),
 				fields: [
 					'name',
