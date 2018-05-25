@@ -52,26 +52,26 @@
   },
   "dependencies": {
     "cliff": "^0.1.10",
-    "dot-object": "^1.5.4",
-    "liftoff": "^2.3.0",
+    "dot-object": "^1.7.0",
+    "liftoff": "^2.5.0",
     "open": "0.0.5",
     "prompt": "^1.0.0",
-    "request": "^2.81.0",
-    "semver": "^5.4.1",
-    "tslint": "^5.8.0",
-    "v8flags": "^2.1.1",
-    "yargs": "^7.1.0"
+    "request": "^2.87.0",
+    "semver": "^5.5.0",
+    "tslint": "^5.10.0",
+    "v8flags": "^3.1.0",
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
     "@types/expect.js": "^0.3.29",
-    "@types/mocha": "^2.2.41",
+    "@types/mocha": "^5.2.0",
     "@types/node": "^8.0.20",
-    "cross-env": "^5.0.5",
+    "cross-env": "^5.1.6",
     "expect.js": "^0.3.1",
-    "mocha": "^3.5.0",
-    "rimraf": "^2.6.1",
-    "ts-node": "^3.3.0",
-    "tslint-microsoft-contrib": "^5.0.1",
+    "mocha": "^5.2.0",
+    "rimraf": "^2.6.2",
+    "ts-node": "^6.0.5",
+    "tslint-microsoft-contrib": "^5.0.3",
     "typescript": "^2.8.3"
   }
 }
