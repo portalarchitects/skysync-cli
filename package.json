@@ -44,7 +44,7 @@
     "lint": "tslint --config tslint.json 'src/**/*.ts' --exclude '**/node_modules/**'",
     "rebuild": "npm run clean && npm run build",
     "start": "node bin/skysync.js",
-    "test": "cross-env TS_NODE_PROJECT=./src mocha --compilers ts:ts-node/register src/**/*.test.ts && npm run lint",
+    "test": "cross-env TS_NODE_PROJECT=./src/tsconfig.json mocha --compilers ts:ts-node/register src/**/*.test.ts && npm run lint",
     "prepublishOnly": "npm run rebuild"
   },
   "bin": {
