@@ -7,6 +7,7 @@ import {
 	DiagnosticMetricsResource,
 	JobsResource,
 	JobExecutionsResource,
+	JobSchedulersResource,
 	OwnershipGroupsResource,
 	PermissionsResource,
 	ProfilesResource,
@@ -84,6 +85,10 @@ export class SkySyncClient {
 
 	get jobExecutions(): JobExecutionsResource {
 		return new JobExecutionsResource(this._httpClient);
+	}
+
+	get jobSchedulers(): JobSchedulersResource {
+		return new JobSchedulersResource(this._httpClient);
 	}
 
 	get transferItems(): TransferItemsResource {

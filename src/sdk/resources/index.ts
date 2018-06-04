@@ -12,6 +12,7 @@ export * from './reports';
 export * from './reportStatistics';
 export * from './resource';
 export * from './roles';
+export * from './scheduler';
 export * from './sites';
 export * from './templates';
 export * from './transferItems';
