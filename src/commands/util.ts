@@ -24,3 +24,7 @@ export const listArgumentsDefault = {
 	}
 };
 
+export function formatTotalCount(totalCount): any {
+	return {total_count: totalCount};
+}
+

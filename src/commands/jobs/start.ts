@@ -1,5 +1,6 @@
 import { runCommand } from '../../util/command';
-import { detailOutputFormat, jobsSearchArgumentsDefault, searchCriteriaIsMissing, getSearchArgs, formatTotalCount } from './util';
+import { formatTotalCount } from '../util';
+import { detailOutputFormat, jobsSearchArgumentsDefault, searchCriteriaIsMissing, getSearchArgs } from './util';
 
 export = {
 	command: 'start [id]',

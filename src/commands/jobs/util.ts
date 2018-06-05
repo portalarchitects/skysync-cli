@@ -18,6 +18,11 @@ export const jobsSearchArgumentsDefault = {
 		type: 'string',
 		group: 'Search'
 	},
+	'node': {
+		desc: 'Search by the currently executing node address',
+		type: 'string',
+		group: 'Search'
+	},
 	...listArgumentsDefault
 };
 
@@ -159,6 +164,7 @@ export function getSearchArgs(argv): any {
 	return {
 		kind: argv.kind,
 		q: argv.search,
+		node: argv.node,
 		active: argv.active,
 		parent: argv.parent,
 		offset: argv.offset,
@@ -172,10 +178,6 @@ export function searchCriteriaIsMissing(argv): boolean {
 		&& argv.kind === undefined
 		&& argv.q === undefined
 		&& argv.active === undefined;
-}
-
-export function formatTotalCount(totalCount): any {
-	return {total_count: totalCount};
 }
 
 export const statsOutputFormat = {
