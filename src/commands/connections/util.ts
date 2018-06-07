@@ -1,4 +1,4 @@
-import { util } from '../../sdk';
+import { DataFormatter } from '../../sdk';
 
 export const outputFormat = {
 	table: [
@@ -47,7 +47,7 @@ export const itemOutputFormat = {
 				if (typeof(val) === 'undefined') {
 					return '';
 				}
-				return val && util.formatBytes(val);
+				return val && DataFormatter.formatBytes(val);
 			}
 		},
 	],

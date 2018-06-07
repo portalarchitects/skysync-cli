@@ -13,5 +13,4 @@ export * from './sites';
 export * from './users';
 export * from './auditCategories';
 export * from './transferStatistics';
-export * from './util';
 export * from './reports';
