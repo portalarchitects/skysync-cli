@@ -13,5 +13,8 @@ export const formatRange = (start: string, end: string, options?: RangeFormatOpt
 		}
 		return start;
 	}
-	return end;
+	if (end) {
+		return end;
+	}
+	return null;
 };

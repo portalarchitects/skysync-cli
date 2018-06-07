@@ -3,6 +3,7 @@ import expect = require('expect.js');
 
 describe('formatBytes', () => {
 	it('can format positive bytes', () => {
+		expect(formatBytes(0)).to.eql('0\xa0B');
 		expect(formatBytes(10)).to.eql('10\xa0B');
 		expect(formatBytes(100)).to.eql('100\xa0B');
 		expect(formatBytes(100, { separator: ' '})).to.eql('100 B');
@@ -76,5 +77,11 @@ describe('formatBytes', () => {
 
 	it('can format large yb', () => {
 		expect(formatBytes(Math.pow(2, 80) * 1024)).to.eql('1,024\xa0YB');
+	});
+
+	it('should return `0` when non-number', () => {
+		expect(formatBytes(null)).to.eql('0\xa0B');
+		expect(formatBytes(undefined)).to.eql('0\xa0B');
+		expect(formatBytes(<any>'test')).to.eql('0\xa0B');
 	});
 });

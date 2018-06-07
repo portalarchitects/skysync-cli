@@ -10,4 +10,19 @@ describe('formatRange', () => {
 	it('can format with custom separator', () => {
 		expect(formatRange('a', 'b', {separator: '-'})).to.eql('a-b');
 	});
+
+	it('should return `start` without separator when no `end`', () => {
+		expect(formatRange('a', null)).to.eql('a');
+		expect(formatRange('a', undefined)).to.eql('a');
+	});
+
+	it('should return `end` without separator when no `start`', () => {
+		expect(formatRange(null, 'b')).to.eql('b');
+		expect(formatRange(undefined, 'b')).to.eql('b');
+	});
+
+	it('should return null when no `start` or `end`', () => {
+		expect(formatRange(null, null)).to.eql(null);
+		expect(formatRange(undefined, undefined)).to.eql(null);
+	});
 });

@@ -2,7 +2,7 @@ import { convertDate, ConvertibleDate } from './convertDate';
 import { formatRange, RangeFormatOptions } from './formatRange';
 import { formatTime } from './formatTime';
 import { getDateFormat } from './getDateFormat';
-import { trimPreceedingZero } from './trimPreceedingZero';
+import { trimPrecedingZero } from './trimPrecedingZero';
 
 const noSuffixFormat = getDateFormat({
 	hour: '2-digit',
@@ -23,7 +23,7 @@ const formatNoSuffix = (value: Date) => {
 		value.setUTCHours(hours - 12);
 	}
 
-	return trimPreceedingZero(noSuffixFormat.format(value));
+	return trimPrecedingZero(noSuffixFormat.format(value));
 };
 
 export const formatTimeRange = (start: ConvertibleDate, end: ConvertibleDate, options?: RangeFormatOptions): string => {

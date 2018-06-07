@@ -1,6 +1,6 @@
 import { convertDate, ConvertibleDate } from './convertDate';
 import { getDateFormat } from './getDateFormat';
-import { trimPreceedingZero } from './trimPreceedingZero';
+import { trimPrecedingZero } from './trimPrecedingZero';
 
 const timeFormat = getDateFormat({
 	hour: '2-digit',
@@ -24,5 +24,5 @@ export const formatTime = (value: ConvertibleDate, options?: TimeFormatOptions):
 	}
 
 	const formatter = options && options.showTimeZone && timeZoneFormat || timeFormat;
-	return trimPreceedingZero(formatter.format(date));
+	return trimPrecedingZero(formatter.format(date));
 };
