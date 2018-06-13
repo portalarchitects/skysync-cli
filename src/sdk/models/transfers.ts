@@ -21,8 +21,27 @@ export interface MetadataImportOptions {
 	source?: AttributeImportSource;
 }
 
+export interface PermissionsOptions {
+	import?: PermissionsImportOptions;
+	policy?: PermissionsPreservationPolicy;
+	failures?: PermissionsFailurePolicy;
+}
+
 export interface PermissionsImportOptions {
 	source?: AttributeImportSource;
+}
+
+export enum PermissionsPreservationPolicy {
+	None = 'none',
+	AddOnly = 'add',
+	ReconcileDifferences = 'diff'
+}
+
+export enum PermissionsFailurePolicy {
+	FailOnExceptions = 'exceptions',
+	FailOnDeny = 'deny',
+	Fail = 'all',
+	None = 'none'
 }
 
 export interface TransferTarget {
@@ -52,7 +71,7 @@ export interface TransferOptions {
 	conflict_resolution?: string;
 	delete_propagation?: string;
 	metadata_import?: MetadataImportOptions;
-	permissions_import?: PermissionsImportOptions;
+	permissions?: PermissionsOptions;
 }
 
 export interface TransferItem extends IEntityIdentifier<number> {
