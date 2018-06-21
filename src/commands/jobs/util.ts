@@ -1,5 +1,5 @@
 import { listArgumentsDefault } from '../util';
-import { util } from '../../sdk';
+import { DataFormatter } from '../../sdk';
 
 export const jobsSearchArgumentsDefault = {
 	'kind': {
@@ -98,22 +98,17 @@ export const historyOutputFormat = {
 		{
 			header: 'Progress',
 			property: 'progress',
-			transform: value => {
-				if (!value) {
-					return '';
-				}
-				return value.toLocaleString('en', {style: 'percent'});
-			}
+			transform: DataFormatter.formatPercent
 		},
 		{
 			header: 'Start',
 			property: 'start_time',
-			transform: value => new Date(value).toLocaleString('en')
+			transform: DataFormatter.formatDate
 		},
 		{
 			header: 'End',
 			property: 'end_time',
-			transform: value => value && new Date(value).toLocaleString('en') || ''
+			transform: DataFormatter.formatDate
 		},
 		{
 			header: 'Status',
@@ -144,7 +139,7 @@ export const auditOutputFormat = {
 		{
 			header: 'RecordedOn',
 			property: 'recorded_on',
-			transform: value => new Date(value).toLocaleString('en')
+			transform: DataFormatter.formatDate
 		},
 		{
 			header: 'Reason',
@@ -185,12 +180,12 @@ export const statsOutputFormat = {
 		{
 			header: 'Timestamp',
 			property: 'timestamp',
-			transform: val => new Intl.DateTimeFormat('en', {month: 'short', day: '2-digit'}).format(val * 1000)
+			transform: val => DataFormatter.formatDate(val, {time: false})
 		},
 		{
 			header: 'Content',
 			property: 'stats',
-			transform: statTransform('bytes', util.formatBytes)
+			transform: statTransform('bytes', DataFormatter.formatBytes)
 		},
 		{
 			header: 'Files',
@@ -207,7 +202,7 @@ export const statsOutputFormat = {
 
 export function statTransform(statKey: string, format?: (number: number) => string) {
 	if (!format) {
-		format = num => num.toLocaleString('en');
+		format = DataFormatter.formatNumber;
 	}
 	return val => {
 		let source = 0, destination = 0;
@@ -267,7 +262,7 @@ export const itemOutputFormat = {
 				if (!size) {
 					return '';
 				}
-				return size && util.formatBytes(size);
+				return size && DataFormatter.formatBytes(size);
 			}
 		},
 		{
