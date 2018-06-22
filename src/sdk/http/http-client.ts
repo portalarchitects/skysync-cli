@@ -84,7 +84,6 @@ function removeUndefinedParameters(params?: any): any {
 
 export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	private accessToken: string;
-	private resourceUri: string;
 	private lastAccessToken: any;
 	private readonly apiUrl: string;
 	private readonly isAuthRequired: boolean;
@@ -103,7 +102,6 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		this.isAuthRequired = isValidToken(this.token);
 		this.accessToken = this.isAuthRequired ? (this.token && this.token.accessToken) : null;
 		this.lastAccessToken = null;
-		this.resourceUri = (this.token && this.token.resource) || this.baseAddress;
 
 		if (site && site.length > 0) {
 			this.apiUrl = `${this.baseAddress}${API_VERSION}/sites/${site}/api/`;
@@ -176,8 +174,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 					method: 'POST',
 					form: {
 						...tokenParameters,
-						scope: `profile roles${offlineScope}`,
-						resource: this.resourceUri
+						scope: `profile roles${offlineScope}`
 					}
 				}, (err, response, body) => {
 					if (!err) {
