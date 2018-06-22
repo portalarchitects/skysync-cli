@@ -6,6 +6,7 @@ import {
 	ConnectionItemsResource,
 	DiagnosticMetricsResource,
 	JobsResource,
+	JobCategoriesResource,
 	JobExecutionsResource,
 	JobSchedulersResource,
 	OwnershipGroupsResource,
@@ -81,6 +82,10 @@ export class SkySyncClient {
 
 	get jobs(): JobsResource {
 		return new JobsResource(this._httpClient);
+	}
+
+	get jobCategories(): JobCategoriesResource {
+		return new JobCategoriesResource(this._httpClient);
 	}
 
 	get jobExecutions(): JobExecutionsResource {

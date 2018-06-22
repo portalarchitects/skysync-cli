@@ -4,7 +4,7 @@ import { outputFormat } from './util';
 
 export = {
 	command: 'list',
-	desc: 'List all Audit Categories',
+	desc: 'List all Job Categories',
 	builder: yargs => {
 		yargs.options({
 			...listArgumentsDefault
@@ -12,13 +12,12 @@ export = {
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			const auditCategories = await client.auditCategories.list({
+			const jobCategories = await client.jobCategories.list({
 				q: argv.search,
 				offset: argv.offset,
-				limit: argv.limit,
-				fields: 'all'
+				limit: argv.limit
 			});
-			output.writeTable(auditCategories, outputFormat);
+			output.writeTable(jobCategories, outputFormat);
 		});
 	}
 };
