@@ -23,6 +23,11 @@ export const jobsSearchArgumentsDefault = {
 		type: 'string',
 		group: 'Search'
 	},
+	'status': {
+		desc: 'Search by the current job status (idle, start, running, paused)',
+		type: 'string',
+		group: 'Search'
+	},
 	...listArgumentsDefault
 };
 
@@ -163,6 +168,7 @@ export function getSearchArgs(argv): any {
 		active: argv.active,
 		parent: argv.parent,
 		offset: argv.offset,
+		status: argv.status,
 		limit: argv.limit
 	};
 }
@@ -172,6 +178,7 @@ export function searchCriteriaIsMissing(argv): boolean {
 		&& argv.parent === undefined
 		&& argv.kind === undefined
 		&& argv.q === undefined
+		&& argv.status === undefined
 		&& argv.active === undefined;
 }
 
