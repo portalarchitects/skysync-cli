@@ -24,6 +24,16 @@ export enum JobStatus {
 	Warn = 'warn'
 }
 
+export enum JobExecutionStatus {
+	Running = 'running',
+	Failing = 'failing',
+	Failed = 'failed',
+	Completed = 'completed',
+	Cancelled = 'cancelled',
+	FailedToStart = 'failed_to_start',
+	Warning = 'warn'
+}
+
 export interface RetentionDuration {
 	type?: string;
 	count?: number;
@@ -105,7 +115,7 @@ export interface JobExecution {
 	start_time?: number;
 	end_time?: number;
 	duration?: TimeInterval;
-	status?: string;
+	status?: JobExecutionStatus;
 	node_address?: string;
 	stats?: JobExecutionStatisticsSet;
 }
