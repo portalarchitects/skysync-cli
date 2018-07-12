@@ -4,6 +4,7 @@ import {
 	ConnectionAccountsResource,
 	ConnectionGroupsResource,
 	ConnectionItemsResource,
+	ConventionAuditsResource,
 	DiagnosticMetricsResource,
 	JobsResource,
 	JobCategoriesResource,
@@ -98,6 +99,10 @@ export class SkySyncClient {
 
 	get transferItems(): TransferItemsResource {
 		return new TransferItemsResource(this._httpClient);
+	}
+
+	get conventionAudits(): ConventionAuditsResource {
+		return new ConventionAuditsResource(this._httpClient);
 	}
 
 	get transferAudits(): TransferAuditsResource {
