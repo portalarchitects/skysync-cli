@@ -187,7 +187,7 @@ export const statsOutputFormat = {
 		{
 			header: 'Timestamp',
 			property: 'timestamp',
-			transform: val => DataFormatter.formatDate(val, {time: false})
+			transform: val => DataFormatter.formatDate(val, {displayTime: false})
 		},
 		{
 			header: 'Content',

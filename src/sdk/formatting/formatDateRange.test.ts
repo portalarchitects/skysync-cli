@@ -12,6 +12,7 @@ describe('formatDateRange', () => {
 		expect(formatDateRange('2016-04-10 4:34:50Z', '2016-04-11 13:34:50Z', options)).to.eql('Today - Tomorrow');
 		expect(formatDateRange('2016-04-6 4:34:50Z', '2016-04-7 13:34:50Z', options)).to.eql('Apr 06 - Apr 07');
 		expect(formatDateRange('2015-04-6 4:34:50Z', '2015-04-7 13:34:50Z', options)).to.eql('Apr 06, 2015 - Apr 07, 2015');
+		expect(formatDateRange('2016-04-10 4:34:50Z', '2016-04-11 13:34:50Z', {...options, requireStrict: true})).to.eql('Apr 10 - Apr 11');
 	});
 
 	it('should return `start` without separator when no `end`', () => {
