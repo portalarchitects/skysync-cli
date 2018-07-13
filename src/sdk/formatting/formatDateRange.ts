@@ -4,10 +4,10 @@ import { formatDate, DateFormatOptions } from './formatDate';
 
 export const formatDateRange = (start: ConvertibleDate, end: ConvertibleDate, options?: RangeFormatOptions & DateFormatOptions): string => {
 	options = options || {};
-	options.absolute = true;
+	options.allowRelative = false;
 
-	if (typeof(options.time) !== 'boolean') {
-		options.time = false;
+	if (typeof(options.displayTime) !== 'boolean') {
+		options.displayTime = false;
 	}
 
 	return formatRange(formatDate(start, options), formatDate(end, options), options);

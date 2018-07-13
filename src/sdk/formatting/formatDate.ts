@@ -5,9 +5,11 @@ import { RelativeDate } from './RelativeDate';
 
 export type DateFormatOptions = {
 	now?: Date;
-	absolute?: boolean;
-	time?: boolean;
-	timeZone?: boolean;
+	allowRelative?: boolean;
+	requireStrict?: boolean;
+	displayTime?: boolean;
+	displayTimeZone?: boolean;
+	allowRelativeInDistantPast?: boolean;
 	format?: any;
 };
 
@@ -106,8 +108,12 @@ const defaultOptions = (options: DateFormatOptions): DateFormatOptions => {
 		options.now = new Date();
 	}
 
-	if (typeof(options.absolute) !== 'boolean') {
-		options.absolute = false;
+	if (typeof(options.allowRelative) !== 'boolean') {
+		options.allowRelative = true;
+	}
+
+	if (typeof(options.allowRelativeInDistantPast) !== 'boolean') {
+		options.allowRelativeInDistantPast = options.allowRelative;
 	}
 
 	return options;
@@ -115,8 +121,8 @@ const defaultOptions = (options: DateFormatOptions): DateFormatOptions => {
 
 const getNamedRelativeFormat = (value: number, label: string, options: DateFormatOptions): FormatMethod => {
 	label = label.replace(/%d/i, value.toLocaleString('en'));
-	if (options && options.time) {
-		return date => `${label} at ${formatTime(date, {showTimeZone: options.timeZone})}`;
+	if (options && options.displayTime) {
+		return date => `${label} at ${formatTime(date, {showTimeZone: options.displayTimeZone})}`;
 	}
 	return () => label;
 };
@@ -134,9 +140,9 @@ const getConditionalRelativeFormat = (value: number, threshold: number, labelOne
 const getRelativeFormat = (value: RelativeDate, options: DateFormatOptions): FormatMethod => {
 	value = value.abs();
 	return getConditionalRelativeFormat(value.seconds, relativeTimeThresholds.seconds, null, relativeTimeLabels.ss)
-		|| getConditionalRelativeFormat(value.minutes, relativeTimeThresholds.minutes, relativeTimeLabels.m, relativeTimeLabels.mm)
-		|| getConditionalRelativeFormat(value.hours, relativeTimeThresholds.hours, relativeTimeLabels.h, relativeTimeLabels.hh)
-		|| getConditionalRelativeFormat(value.days, relativeTimeThresholds.days, relativeTimeLabels.d, relativeTimeLabels.dd, options);
+		|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.minutes, relativeTimeThresholds.minutes, relativeTimeLabels.m, relativeTimeLabels.mm))
+		|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.hours, relativeTimeThresholds.hours, relativeTimeLabels.h, relativeTimeLabels.hh))
+		|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.days, relativeTimeThresholds.days, relativeTimeLabels.d, relativeTimeLabels.dd, options));
 };
 
 const getAbsoluteFormatName = (value: RelativeDate): 'lastDay' | 'sameDay' | 'nextDay' | 'else' => {
@@ -154,18 +160,18 @@ const getAbsoluteFormatName = (value: RelativeDate): 'lastDay' | 'sameDay' | 'ne
 };
 
 const getAbsoluteFormat = (value: RelativeDate, options: DateFormatOptions): FormatMethod => {
-	const formatName = getAbsoluteFormatName(value);
+	const formatName = Boolean(options && options.requireStrict) ? null : getAbsoluteFormatName(value);
 	if (formatName) {
-		const formatList = options.time ? (options.timeZone ? absoluteFormatWithTimeZone : absoluteFormatWithTime) : absoluteFormatNoTime;
+		const formatList = options.displayTime ? (options.displayTimeZone ? absoluteFormatWithTimeZone : absoluteFormatWithTime) : absoluteFormatNoTime;
 		return formatList[formatName];
 	}
 
 	const formatter = value.isCurrentYear
-		? options.time
-			? (options.timeZone ? absoluteFormats.fullWithZoneSameYear : absoluteFormats.fullSameYear)
+		? options.displayTime
+			? (options.displayTimeZone ? absoluteFormats.fullWithZoneSameYear : absoluteFormats.fullSameYear)
 			: absoluteFormats.shortSameYear
-		: options.time
-			? (options.timeZone ? absoluteFormats.fullWithZone : absoluteFormats.full)
+		: options.displayTime
+			? (options.displayTimeZone ? absoluteFormats.fullWithZone : absoluteFormats.full)
 			: absoluteFormats.short;
 	return formatter.format;
 };
@@ -193,9 +199,9 @@ export const formatDate = (value: ConvertibleDate, options?: DateFormatOptions):
 	}
 
 	const relativeDate = new RelativeDate(date, options.now);
-	if (typeof(options.time) !== 'boolean') {
-		options.time = relativeDate.isCurrentYear;
+	if (typeof(options.displayTime) !== 'boolean') {
+		options.displayTime = relativeDate.isCurrentYear;
 	}
 
-	return options.absolute ? formatAbsoluteDate(relativeDate, options) : formatRelativeDate(relativeDate, options);
+	return !options.requireStrict && options.allowRelative ? formatRelativeDate(relativeDate, options) : formatAbsoluteDate(relativeDate, options);
 };

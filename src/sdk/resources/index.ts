@@ -1,7 +1,7 @@
 export * from './auditCategories';
-export * from './auditEntry';
 export * from './cluster';
 export * from './connections';
+export * from './conventionAudits';
 export * from './diagnostics';
 export * from './groups';
 export * from './jobs';
@@ -16,6 +16,7 @@ export * from './roles';
 export * from './scheduler';
 export * from './sites';
 export * from './templates';
+export * from './transferAudits';
 export * from './transferItems';
 export * from './transferStatistics';
 export * from './users';

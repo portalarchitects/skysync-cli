@@ -116,5 +116,6 @@ export interface TransferAuditEntry extends IEntityIdentifier<number> {
 	hash?: string;
 	level?: string;
 	type?: string;
+	message?: string;
 	recorded_on?: number;
 }

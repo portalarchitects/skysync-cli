@@ -49,6 +49,14 @@ export class RelativeDate {
 		return this._date.getUTCFullYear() === this._now.getUTCFullYear();
 	}
 
+	get isPast(): boolean {
+		return this._ms < 0;
+	}
+
+	get isFuture(): boolean {
+		return this._ms > 0;
+	}
+
 	get months(): number {
 		if (!this._months) {
 			this._months = this._years * 12 + this._date.getMonth() - this._now.getMonth();
