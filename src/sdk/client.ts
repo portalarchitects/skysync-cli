@@ -20,6 +20,7 @@ import {
 	AuditCategoriesResource,
 	TemplatesResource,
 	TransferAuditsResource,
+	TransferFoldersResource,
 	TransferItemsResource,
 	TransferJobStatisticsResource,
 	ClusterResource,
@@ -103,6 +104,10 @@ export class SkySyncClient {
 
 	get conventionAudits(): ConventionAuditsResource {
 		return new ConventionAuditsResource(this._httpClient);
+	}
+
+	get transferFolders(): TransferFoldersResource {
+		return new TransferFoldersResource(this._httpClient);
 	}
 
 	get transferAudits(): TransferAuditsResource {
