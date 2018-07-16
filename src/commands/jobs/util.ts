@@ -144,7 +144,7 @@ export const auditOutputFormat = {
 		{
 			header: 'RecordedOn',
 			property: 'recorded_on',
-			transform: DataFormatter.formatDate
+			transform: val => DataFormatter.formatDate(val)
 		},
 		{
 			header: 'Reason',
