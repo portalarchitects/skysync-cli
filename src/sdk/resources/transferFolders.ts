@@ -13,5 +13,3 @@ export class TransferFoldersResource extends PagedResource<TransferItem> {
 		return super.list(params);
 	}
 }
-
-// const result = await this.httpClient.get(`transfers/${id}/folders`, this.mergeDefaultParams(params));

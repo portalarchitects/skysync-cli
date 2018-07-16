@@ -263,7 +263,7 @@ export const itemOutputFormat = {
 				if (!val) {
 					return '';
 				}
-				const size = Boolean(val.source_to_destination) && val.destination && val.destination.bytes
+				const size = Boolean(val.source_to_destination && val.destination && val.destination.bytes)
 					? (val.destination && val.destination.bytes)
 					: (val.source && val.source.bytes);
 				if (!size) {
