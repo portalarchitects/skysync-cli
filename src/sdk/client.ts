@@ -17,6 +17,7 @@ import {
 	SitesResource,
 	StoragePlatformsResource,
 	UsersResource,
+	UserPreferencesResource,
 	AuditCategoriesResource,
 	TemplatesResource,
 	TransferAuditsResource,
@@ -144,6 +145,10 @@ export class SkySyncClient {
 
 	get users(): UsersResource {
 		return new UsersResource(this._httpClient);
+	}
+
+	get userPreferences(): UserPreferencesResource {
+		return new UserPreferencesResource(this._httpClient);
 	}
 
 	get auditCategories(): AuditCategoriesResource {

@@ -13,3 +13,7 @@ export interface User extends IEntityIdentifier<string> {
 	group?: OwnershipGroup;
 	roles?: Role[];	
 }
+
+export interface UserPreference extends IEntityIdentifier<string> {
+	value?: any;
+}
