@@ -4,7 +4,7 @@ import { itemOutputFormat } from './util';
 
 
 export = {
-	command: 'folders <id>',
+	command: 'folders [id]',
 	desc: 'Show transfer folders',
 	builder: yargs => {
 		yargs.options({
@@ -14,7 +14,7 @@ export = {
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
 			const params: any = {
-				id: argv.id,
+				job: argv.id,
 				q: argv.search,
 				offset: argv.offset,
 				limit: argv.limit,
@@ -29,7 +29,6 @@ export = {
 					'transferred_on'
 				]
 			};
-			
 			const folders = await client.transferFolders.list(params);
 			output.writeTable(folders, itemOutputFormat);
 		});
