@@ -34,7 +34,7 @@ describe('formatDate', () => {
 			expect(formatDate('2016-04-03 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('1 week ago');
 			expect(formatDate('2016-03-28 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('1 week ago');
 			expect(formatDate('2016-03-27 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('2 weeks ago');
-			expect(formatDate('2016-03-13 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('3 weeks ago');
+			expect(formatDate('2016-03-14 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('3 weeks ago');
 			expect(formatDate('2016-03-12 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('1 month ago');
 			expect(formatDate('2016-02-30 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('1 month ago');
 			expect(formatDate('2016-02-29 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('2 months ago');
