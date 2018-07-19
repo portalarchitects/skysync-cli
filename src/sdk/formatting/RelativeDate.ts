@@ -24,6 +24,7 @@ export class RelativeDate {
 	private _ms: number;
 	private _years: number;
 	private _months: number;
+	private _weeks: number;
 	private _days: number;
 	private _hours: number;
 	private _minutes: number;
@@ -62,6 +63,13 @@ export class RelativeDate {
 			this._months = this._years * 12 + this._date.getMonth() - this._now.getMonth();
 		}
 		return this._months;
+	}
+
+	get weeks(): number {
+		if (!this._weeks) {
+			this._weeks = this._round(this.days / 7);
+		}
+		return this._weeks;
 	}
 
 	get days(): number {
