@@ -29,23 +29,13 @@ describe('formatDate', () => {
 		it('should format days-distant dates', () => {
 			expect(formatDate('2016-04-09 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('1 day ago');
 			expect(formatDate('2016-04-08 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('2 days ago');
-			expect(formatDate('2016-04-06 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('4 days ago');
-			expect(formatDate('2016-04-04 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('6 days ago');
-			expect(formatDate('2016-04-03 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('1 week ago');
-			expect(formatDate('2016-03-28 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('1 week ago');
-			expect(formatDate('2016-03-27 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('2 weeks ago');
-			expect(formatDate('2016-03-14 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('3 weeks ago');
-			expect(formatDate('2016-03-12 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('1 month ago');
-			expect(formatDate('2016-02-30 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('1 month ago');
-			expect(formatDate('2016-02-29 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('2 months ago');
-			expect(formatDate('2015-04-30 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('1 year ago');
-			expect(formatDate('2014-04-10 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('Apr 10, 2014');
+			expect(formatDate('2016-04-06 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('Apr 06');
+			expect(formatDate('2015-04-06 13:00Z', {now, allowRelative: true, displayTime: false})).to.eql('Apr 06, 2015');
 
 			expect(formatDate('2016-04-09 13:00Z', {now, allowRelative: true, displayTime: true})).to.eql('1 day ago at 1:00 PM');
 			expect(formatDate('2016-04-08 13:00Z', {now, allowRelative: true, displayTime: true})).to.eql('2 days ago at 1:00 PM');
-			expect(formatDate('2016-04-04 13:00Z', {now, allowRelative: true, displayTime: true})).to.eql('6 days ago at 1:00 PM');
-			expect(formatDate('2016-04-03 13:00Z', {now, allowRelative: true, displayTime: true})).to.eql('1 week ago');
-			expect(formatDate('2014-04-10 13:00Z', {now, allowRelative: true, displayTime: true})).to.eql('Apr 10, 2014, 1:00 PM');
+			expect(formatDate('2016-04-06 13:00Z', {now, allowRelative: true, displayTime: true})).to.eql('Apr 06, 1:00 PM');
+			expect(formatDate('2015-04-06 13:00Z', {now, allowRelative: true, displayTime: true})).to.eql('Apr 06, 2015, 1:00 PM');
 		});
 
 		it('should not allow relative when in the past', () => {

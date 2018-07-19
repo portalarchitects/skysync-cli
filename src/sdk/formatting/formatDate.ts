@@ -83,13 +83,10 @@ const absoluteFormatNoTime = {
 };
 
 const relativeTimeThresholds = {
-	seconds: 20,	// just now
-	minutes: 45,	// X minutes ago
-	hours: 18,		// X hours ago
-	days: 6,		// X days ago
-	weeks: 3,		// X weeks ago
-	months: 11,		// X months ago
-	years: 1		// X years ago
+	seconds: 20,        // just now
+	minutes: 45,        // X minutes ago
+	hours: 18,           // X hours ago
+	days: 3,            // X days ago
 };
 
 const relativeTimeLabels = {
@@ -99,13 +96,7 @@ const relativeTimeLabels = {
 	h: '%d hour ago',
 	hh: '%d hours ago',
 	d: '%d day ago',
-	dd: '%d days ago',
-	w: '%d week ago',
-	ww: '%d weeks ago',
-	M: '%d month ago',
-	MM: '%d months ago',
-	y: '%d year ago',
-	yy: '%d years ago',
+	dd: '%d days ago'
 };
 
 const defaultOptions = (options: DateFormatOptions): DateFormatOptions => {
@@ -151,10 +142,7 @@ const getRelativeFormat = (value: RelativeDate, options: DateFormatOptions): For
 	return getConditionalRelativeFormat(value.seconds, relativeTimeThresholds.seconds, null, relativeTimeLabels.ss)
 		|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.minutes, relativeTimeThresholds.minutes, relativeTimeLabels.m, relativeTimeLabels.mm))
 		|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.hours, relativeTimeThresholds.hours, relativeTimeLabels.h, relativeTimeLabels.hh))
-		|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.days, relativeTimeThresholds.days, relativeTimeLabels.d, relativeTimeLabels.dd, options))
-		|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.weeks, relativeTimeThresholds.weeks, relativeTimeLabels.w, relativeTimeLabels.ww, {...options, displayTime: false}))
-		|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.months, relativeTimeThresholds.months, relativeTimeLabels.M, relativeTimeLabels.MM, {...options, displayTime: false}))
-		|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.years, relativeTimeThresholds.years, relativeTimeLabels.y, relativeTimeLabels.yy, {...options, displayTime: false}));
+		|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.days, relativeTimeThresholds.days, relativeTimeLabels.d, relativeTimeLabels.dd, options));
 };
 
 const getAbsoluteFormatName = (value: RelativeDate): 'lastDay' | 'sameDay' | 'nextDay' | 'else' => {
