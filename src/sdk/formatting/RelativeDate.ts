@@ -1,13 +1,13 @@
 const startOf = (date: Date, unit: 'day' | 'hour' | 'minute' | 'second'): Date => {
 	date = new Date(date);
 	switch (unit) {
-		case 'day': date.setHours(0);
+		case 'day': date.setUTCHours(0);
 		// falls through
-		case 'hour': date.setMinutes(0);
+		case 'hour': date.setUTCMinutes(0);
 		// falls through
-		case 'minute': date.setSeconds(0);
+		case 'minute': date.setUTCSeconds(0);
 		// falls through
-		case 'second': date.setMilliseconds(0);
+		case 'second': date.setUTCMilliseconds(0);
 	}
 	return date;
 };

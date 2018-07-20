@@ -9,6 +9,8 @@ import { formatTimeRange } from './formatTimeRange';
 import { formatPercent } from './formatPercent';
 import { TimeInterval } from '../models';
 
+export { RelativeDate } from './RelativeDate';
+
 // The intent of the code in this directory is to conform to the formatting standards
 // recommended in the design system: https://skysync.atlassian.net/wiki/spaces/PUCS/pages/323649654/Data+formats
 
