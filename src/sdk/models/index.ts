@@ -1,5 +1,6 @@
 export * from './time';
 export * from './connections';
+export * from './platformCompare';
 export * from './conventions';
 export * from './diagnostics';
 export * from './groups';
