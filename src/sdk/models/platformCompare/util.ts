@@ -1,4 +1,7 @@
-import { get } from 'lodash';
+import { 
+	get,
+	difference
+} from 'lodash';
 import { StoragePlatform, ConnectionFeatures } from '../connections';
 import { formatBytes } from '../../formatting/formatBytes';
 import { formatNumber } from '../../formatting/formatNumber';
@@ -93,4 +96,17 @@ export const checkPath = (handler: (left: any, right: any) => PlatformComparison
 		}
 		return notApplicable();
 	};
+};
+
+export const ifStringArrayExists = (left: any, right: any, key: string): PlatformComparisonRuleResult => {
+	const leftStringArray = Array(get(left, key));
+	const rightStringArray = Array(get(right, key));
+	if (leftStringArray || rightStringArray) {
+		return {
+			left: leftStringArray,
+			right: rightStringArray,
+			status: difference(rightStringArray, leftStringArray).length === 0 ? PlatformComparisonRuleStatus.Compatible : PlatformComparisonRuleStatus.NotCompatible
+		};
+	}
+	return notApplicable();
 };
