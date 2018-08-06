@@ -80,19 +80,18 @@ const comparisonRules: PlatformComparisonRuleGroup[] = [
 		available: (left, right) => availableIfSupported(left, right, 'features.permissions'),
 		rules: [
 			{
-				id: 'author_preservation',
-				name: 'Author-Owner preservation',
-				compare: checkFeatures((left, right) => ifFeaturePresent(left, right, 'native_copy.ownership'))
-			},
-
-			{
 				id: 'map_accounts',
-				name: 'Map accounts',
+				name: 'Account map',
 				compare: checkFeatures((left, right) => ifFeaturePresent(left, right, 'query_account'))
 			},
 			{
+				id: 'author_preservation',
+				name: 'Author/Owner preservation',
+				compare: checkFeatures((left, right) => ifFeaturePresent(left, right, 'native_copy.ownership'))
+			},
+			{
 				id: 'map_groups',
-				name: 'Map groups',
+				name: 'Group map',
 				compare: checkFeatures((left, right) => ifFeaturePresent(left, right, 'query_group'))
 			},
 			{
@@ -114,12 +113,12 @@ const comparisonRules: PlatformComparisonRuleGroup[] = [
 		rules: [
 			{
 				id: 'map_metadata',
-				name: 'Map metadata',
+				name: 'Metadata map',
 				compare: checkFeatures((left, right) => ifFeaturePresent(left, right, 'metadata'))
 			},
 			{
 				id: 'tags',
-				name: 'Map tags',
+				name: 'Tags map',
 				compare: checkFeatures((left, right) => ifFeaturePresent(left, right, 'tags'))
 			}
 		]
