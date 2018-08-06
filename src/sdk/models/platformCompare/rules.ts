@@ -8,8 +8,7 @@ import {
 	ifSizeGreaterThan,
 	checkFeatures,
 	checkPath,
-	availableIfSupported,
-	ifStringArrayExists
+	availableIfSupported
 } from './util';
 
 const comparisonRules: PlatformComparisonRuleGroup[] = [
@@ -50,7 +49,7 @@ const comparisonRules: PlatformComparisonRuleGroup[] = [
 			{
 				id: 'invalid_characters',
 				name: 'Invalid characters',
-				compare: checkPath((left, right) => ifStringArrayExists(left, right, 'invalid_characters'))
+				compare: checkPath((left, right) => ifFeaturePresent(left, right, 'invalid_characters'))
 			},
 			{
 				id: 'max_file_size',
@@ -62,11 +61,11 @@ const comparisonRules: PlatformComparisonRuleGroup[] = [
 				name: 'Path length maximum',
 				compare: checkPath((left, right) => ifLengthLessThan(left, right, 'total.max'))
 			},
-			{
+			/*{
 				id: 'restricted_types',
 				name: 'Restricted types',
 				compare: checkPath((left, right) => ifFeaturePresent(left, right, 'invalid_extensions'))
-			},
+			},*/
 			{
 				id: 'max_segment_length',
 				name: 'Segment path length',
