@@ -8,7 +8,8 @@ import {
 	ifSizeGreaterThan,
 	checkFeatures,
 	checkPath,
-	availableIfSupported
+	availableIfSupported,
+	ifStringArrayExists
 } from './util';
 
 const comparisonRules: PlatformComparisonRuleGroup[] = [
@@ -49,7 +50,7 @@ const comparisonRules: PlatformComparisonRuleGroup[] = [
 			{
 				id: 'invalid_characters',
 				name: 'Invalid characters',
-				compare: checkPath((left, right) => ifFeaturePresent(left, right, 'invalid_characters'))
+				compare: checkPath((left, right) => ifStringArrayExists(left, right, 'invalid_characters'))
 			},
 			{
 				id: 'max_file_size',
