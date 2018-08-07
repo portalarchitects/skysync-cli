@@ -62,11 +62,11 @@ const comparisonRules: PlatformComparisonRuleGroup[] = [
 				name: 'Path length maximum',
 				compare: checkPath((left, right) => ifLengthLessThan(left, right, 'total.max'))
 			},
-			/*{
+			{
 				id: 'restricted_types',
 				name: 'Restricted types',
-				compare: checkPath((left, right) => ifFeaturePresent(left, right, 'invalid_extensions'))
-			},*/
+				compare: checkPath((left, right) => ifFeaturePresentNotCompatible(left, right, 'invalid_extensions'))
+			},
 			{
 				id: 'max_segment_length',
 				name: 'Segment path length',
