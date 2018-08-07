@@ -101,8 +101,8 @@ export const ifStringArrayExists = (left: any, right: any, key: string): Platfor
 	const rightStringArray = right === undefined || right instanceof Array ? right : Array(get(right, key));
 	if (leftStringArray || rightStringArray) {
 		return {
-			left: leftStringArray || leftStringArray.length !== 0 ? leftStringArray : false,
-			right: rightStringArray || rightStringArray.length !== 0 ? rightStringArray : false,
+			left: leftStringArray && leftStringArray.length !== 0 ? leftStringArray : false,
+			right: rightStringArray && rightStringArray.length !== 0 ? rightStringArray : false,
 			status: rightStringArray.length === 0 || difference(rightStringArray, leftStringArray).length === 0 ? PlatformComparisonRuleStatus.Compatible : PlatformComparisonRuleStatus.NotCompatible
 		};
 	}
