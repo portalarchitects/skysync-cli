@@ -1,5 +1,5 @@
 import expect = require('expect.js');
-import {PlatformComparisonRuleStatus} from "./types";
+import {PlatformComparisonRuleStatus} from './types';
 import {
 	ifStringArrayExists
 } from './util';
