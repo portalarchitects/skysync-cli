@@ -1,8 +1,8 @@
 import {get} from 'lodash';
 import {difference} from 'lodash';
-import { StoragePlatform, ConnectionFeatures } from '../connections';
-import { formatBytes } from '../../formatting/formatBytes';
-import { formatNumber } from '../../formatting/formatNumber';
+import {StoragePlatform, ConnectionFeatures} from '../connections';
+import {formatBytes} from '../../formatting/formatBytes';
+import {formatNumber} from '../../formatting/formatNumber';
 import {
 	PlatformComparisonRuleStatus,
 	PlatformComparisonRuleResult,
@@ -97,12 +97,12 @@ export const checkPath = (handler: (left: any, right: any) => PlatformComparison
 };
 
 export const ifStringArrayExists = (left: any, right: any, key: string): PlatformComparisonRuleResult => {
-	const leftStringArray =  left == undefined || left instanceof Array ? left : Array(get(left, key));
-	const rightStringArray =  right == undefined || right instanceof Array ? right : Array(get(right, key));
+	const leftStringArray = left === undefined || left instanceof Array ? left : Array(get(left, key));
+	const rightStringArray = right === undefined || right instanceof Array ? right : Array(get(right, key));
 	if (leftStringArray || rightStringArray) {
 		return {
-			left: leftStringArray || leftStringArray.length != 0 ? leftStringArray.join(", ") : false,
-			right: rightStringArray || rightStringArray.length != 0  ? rightStringArray.join(", ") : false,
+			left: leftStringArray || leftStringArray.length !== 0 ? leftStringArray.join(', ') : false,
+			right: rightStringArray || rightStringArray.length !== 0 ? rightStringArray.join(', ') : false,
 			status: rightStringArray.length === 0 || difference(rightStringArray, leftStringArray).length === 0 ? PlatformComparisonRuleStatus.Compatible : PlatformComparisonRuleStatus.NotCompatible
 		};
 	}
@@ -113,7 +113,7 @@ export const ifFeaturePresentNotCompatible = (left: any, right: any, key: string
 	const leftAvailable = Boolean(get(left, key));
 	const rightAvailable = Boolean(get(right, key));
 	if (leftAvailable || rightAvailable) {
-		const notCompatible = ((leftAvailable && rightAvailable) && left != right) || !leftAvailable ;
+		const notCompatible = ((leftAvailable && rightAvailable) && left !== right) || !leftAvailable;
 		return {
 			left: leftAvailable,
 			right: rightAvailable,
