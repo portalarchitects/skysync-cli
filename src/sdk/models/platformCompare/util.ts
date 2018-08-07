@@ -113,7 +113,7 @@ export const ifFeaturePresentNotCompatible = (left: any, right: any, key: string
 	const leftAvailable = Boolean(get(left, key));
 	const rightAvailable = Boolean(get(right, key));
 	if (leftAvailable || rightAvailable) {
-		const notCompatible = (leftAvailable && rightAvailable) || !leftAvailable;
+		const notCompatible = ((leftAvailable && rightAvailable) && left != right) || !leftAvailable ;
 		return {
 			left: leftAvailable,
 			right: rightAvailable,
