@@ -5,15 +5,15 @@ import {
 } from './util';
 
 describe('ifStringArrayExists', () => {
-	it(' is Compatiable', () => {
+	it('is Compatiable', () => {
 		expect(ifStringArrayExists(['<', '>', ':', '\\', '/', '\"', '|', '?', '*'], ['/', '\\'], 'invalid_characters').status).to.eql(PlatformComparisonRuleStatus.Compatible);
 		expect(ifStringArrayExists(['/', '\\'], [], 'invalid_characters').status).to.eql(PlatformComparisonRuleStatus.Compatible);
 	});
-	it(' is NotCompatiable', () => {
+	it('is NotCompatiable', () => {
 		expect(ifStringArrayExists(['/', '\\'], ['<', '>', ':', '\\', '/', '\"', '|', '?', '*'], 'invalid_characters').status).to.eql(PlatformComparisonRuleStatus.NotCompatible);
 		expect(ifStringArrayExists([], ['<', '>', ':', '\\', '/', '\"', '|', '?', '*'], 'invalid_characters').status).to.eql(PlatformComparisonRuleStatus.NotCompatible);
 	});
-	it(' is NotApplicable', () => {
+	it('is NotApplicable', () => {
 		expect(ifStringArrayExists(undefined, undefined, 'invalid_characters').status).to.eql(PlatformComparisonRuleStatus.NotApplicable);
 	});
 });

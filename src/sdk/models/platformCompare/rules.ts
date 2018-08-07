@@ -87,7 +87,7 @@ const comparisonRules: PlatformComparisonRuleGroup[] = [
 			{
 				id: 'author_preservation',
 				name: 'Author/Owner preservation',
-				compare: checkFeatures((left, right) => ifFeaturePresent(left, right, 'native_copy.ownership'))
+				compare: checkFeatures((left, right) => ifFeaturePresent(left, right, 'audit_trail'))
 			},
 			{
 				id: 'map_groups',
@@ -109,7 +109,7 @@ const comparisonRules: PlatformComparisonRuleGroup[] = [
 	{
 		id: 'metadata',
 		name: 'Metadata',
-		available: (left, right) => availableIfSupported(left, right, 'features.metadata'),
+		available: (left, right) => (availableIfSupported(left, right, 'features.metadata') || availableIfSupported(left, right,  'features.tags')),
 		rules: [
 			{
 				id: 'map_metadata',
