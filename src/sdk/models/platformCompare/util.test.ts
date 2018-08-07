@@ -1,13 +1,6 @@
 import expect = require('expect.js');
 import {PlatformComparisonRuleStatus} from "./types";
-import { StoragePlatform, ConnectionFeatures } from '../connections';
 import {
-	ifFeaturePresent,
-	ifLengthLessThan,
-	ifSizeGreaterThan,
-	checkFeatures,
-	checkPath,
-	availableIfSupported,
 	ifStringArrayExists
 } from './util';
 
