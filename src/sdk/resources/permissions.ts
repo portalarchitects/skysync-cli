@@ -1,9 +1,9 @@
 import { IHttpClient } from '../http';
 import { Resource } from './resource';
-import { Permission } from '../models';
+import { PermissionCategory } from '../models';
 
-export class PermissionsResource extends Resource<Permission> {
+export class PermissionsResource extends Resource<PermissionCategory> {
 	constructor(httpClient: IHttpClient) {
-		super(httpClient, 'permission', 'permission_category', 'permissions', 'permission_categories');
+		super(httpClient, 'permission', 'permission_category', 'permissions', 'permission_categories', 'permissions');
 	}
 }

@@ -6,6 +6,7 @@ const API_VERSION = 'v1';
 export interface IAuthorizationToken {
 	resource?: string;
 	offline?: boolean;
+	scope?: string;
 	username?: string;
 	password?: string;
 	accessToken?: string;
@@ -85,6 +86,7 @@ function removeUndefinedParameters(params?: any): any {
 export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	private accessToken: string;
 	private lastAccessToken: any;
+	private readonly scope: string;
 	private readonly apiUrl: string;
 	private readonly isAuthRequired: boolean;
 
@@ -102,6 +104,8 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		this.isAuthRequired = isValidToken(this.token);
 		this.accessToken = this.isAuthRequired ? (this.token && this.token.accessToken) : null;
 		this.lastAccessToken = null;
+
+		this.scope = this.token && this.token.scope || '';
 
 		if (site && site.length > 0) {
 			this.apiUrl = `${this.baseAddress}${API_VERSION}/sites/${site}/api/`;
@@ -161,6 +165,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 				}
 
 				const offlineScope = Boolean(this.token.offline) ? ' offline_access' : '';
+				const userScope = this.scope.length > 0 ? ` ${this.scope}` : '';
 				const tokenParameters = getTokenRequestParameters(this.token);
 				if (!tokenParameters) {
 					if (Boolean(this.token.onTokenInvalid)) {
@@ -174,7 +179,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 					method: 'POST',
 					form: {
 						...tokenParameters,
-						scope: `profile roles${offlineScope}`
+						scope: `profile roles${offlineScope}${userScope}`
 					}
 				}, (err, response, body) => {
 					if (!err) {
