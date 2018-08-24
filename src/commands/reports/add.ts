@@ -29,6 +29,12 @@ export = {
 			'description': {
 				desc: 'Report description',
 				type: 'string'
+			},
+
+			'simulation': {
+				desc: 'Report is based on simulation jobs',
+				type: 'boolean',
+				default: undefined
 			}
 		});
 	},
@@ -38,6 +44,7 @@ export = {
 				...argv.category && { job_category_id: argv.category },
 				...argv.parent && { parent: argv.parent },
 				...argv.jobs && { jobs: argv.jobs },
+				simulation_mode: argv.simulation,
 			};
 
 			const report = await client.reports.add({
