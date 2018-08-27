@@ -37,6 +37,16 @@ export interface IHttpClient {
 	delete(path: string, params?: any): Promise<boolean>;
 }
 
+export class HttpError extends Error {
+	constructor (message, public status, public errors?) {
+		super(message);
+		this.name = this.constructor.name;
+
+		Error.captureStackTrace(this, this.constructor);
+		this.status = status || 500;
+	}
+}
+
 function isValidToken(token: IAuthorizationToken): boolean {
 	if (Boolean(token)) {
 		if (Boolean(token.username && token.password)) {
@@ -227,11 +237,13 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 			return null;
 		}
 
-		let result = body && JSON.parse(body);
-		if (result && result.errors && result.errors.length > 0) {
-			result = result.errors[0];
-		}
-		return new Error((result && (result.description || result.error_description)) || 'An unknown error occurred');
+		const result = body && JSON.parse(body);
+		const error = result && result.errors && result.errors.length > 0
+			? result.errors[0]
+			: result;
+
+		const message = (error && (error.description || error.error_description)) || 'An unknown error occurred';
+		return new HttpError(message, statusCode, result && result.errors);
 	}
 
 	private async executeApiRequest(path: string, params: any, options: any = {}): Promise<any> {
