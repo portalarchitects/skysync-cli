@@ -7,6 +7,7 @@ export * from './groups';
 export * from './jobs';
 export * from './jobCategories';
 export * from './jobExecutions';
+export * from './license';
 export * from './permissions';
 export * from './profiles';
 export * from './reports';

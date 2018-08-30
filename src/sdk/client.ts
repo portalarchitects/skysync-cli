@@ -10,6 +10,7 @@ import {
 	JobCategoriesResource,
 	JobExecutionsResource,
 	JobSchedulersResource,
+	LicenseResource,
 	OwnershipGroupsResource,
 	PermissionsResource,
 	ProfilesResource,
@@ -97,6 +98,10 @@ export class SkySyncClient {
 
 	get jobSchedulers(): JobSchedulersResource {
 		return new JobSchedulersResource(this._httpClient);
+	}
+
+	get licensing(): LicenseResource {
+		return new LicenseResource(this._httpClient);
 	}
 
 	get transferItems(): TransferItemsResource {
