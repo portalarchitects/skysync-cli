@@ -20,6 +20,7 @@ import {
 	UsersResource,
 	UserPreferencesResource,
 	AuditCategoriesResource,
+	ContentCategoriesResource,
 	TemplatesResource,
 	TransferAuditsResource,
 	TransferFoldersResource,
@@ -158,6 +159,10 @@ export class SkySyncClient {
 
 	get auditCategories(): AuditCategoriesResource {
 		return new AuditCategoriesResource(this._httpClient);
+	}
+
+	get contentCategories(): ContentCategoriesResource {
+		return new ContentCategoriesResource(this._httpClient);
 	}
 
 	get cluster(): ClusterResource {
