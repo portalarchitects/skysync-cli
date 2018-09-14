@@ -7,7 +7,7 @@ export = {
 	desc: 'List transfer security mappings',
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			const mappings = await client.transferSecurityMappings.items(argv.id);
+			const mappings = await client.transferSecurityMappings.page(argv.id);
 			if (output.outputJson) {
 				output.writeItem(mappings);
 			} else {
