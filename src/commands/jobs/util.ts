@@ -286,3 +286,24 @@ export const itemOutputFormat = {
 		'transferred_on'
 	]
 };
+
+export const securityMappingOutputFormat = {
+	table: [
+		{
+			header: 'Source',
+			property: 'source.email'
+		},
+		{
+			header: 'Destination',
+			property: 'destination.email'
+		},
+		{
+			header: 'Mapper',
+			property: 'mapper'
+		},
+		{
+			header: 'Message',
+			property: 'message'
+		}
+	]
+};
