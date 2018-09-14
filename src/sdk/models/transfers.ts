@@ -120,7 +120,7 @@ export interface TransferAuditEntry extends IEntityIdentifier<number> {
 	recorded_on?: number;
 }
 
-export interface TransferSecurityMapping {
+export interface TransferSecurityMapping extends IEntityIdentifier<string> {
 	source?: SecurityIdentifier;
 	destination?: SecurityIdentifier;
 	mapper?: string;
