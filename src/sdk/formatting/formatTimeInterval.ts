@@ -11,8 +11,29 @@ const TimeUnitDescriptions = {
 	[TimeUnit.Days]: 'day'
 };
 
+const TimeUnitAbbreviations = {
+	[TimeUnit.Nanoseconds]: 'ns',
+	[TimeUnit.Microseconds]: 'µs',
+	[TimeUnit.Milliseconds]: 'ms',
+	[TimeUnit.Seconds]: 'sec',
+	[TimeUnit.Minutes]: 'min',
+	[TimeUnit.Hours]: 'hr',
+	[TimeUnit.Days]: 'day'
+};
+
+const PluralAbbreviations = {
+	[TimeUnit.Nanoseconds]: TimeUnitAbbreviations[TimeUnit.Nanoseconds],
+	[TimeUnit.Microseconds]: TimeUnitAbbreviations[TimeUnit.Microseconds],
+	[TimeUnit.Milliseconds]: TimeUnitAbbreviations[TimeUnit.Milliseconds],
+	[TimeUnit.Seconds]: 'secs',
+	[TimeUnit.Minutes]: 'mins',
+	[TimeUnit.Hours]: 'hrs',
+	[TimeUnit.Days]: 'days'
+};
+
 export type TimeIntervalFormatOptions = {
 	separator?: string;
+	abbreviate?: boolean;
 };
 
 export const formatTimeInterval = (value: TimeInterval, options?: TimeIntervalFormatOptions): string => {
@@ -21,9 +42,14 @@ export const formatTimeInterval = (value: TimeInterval, options?: TimeIntervalFo
 		return null;
 	}
 
-	let unit = TimeUnitDescriptions[display.unit];
-	if (display.value > 1) {
-		unit += 's';
+	let unit;
+	if (options && options.abbreviate) {
+		unit = (display.value > 1 ? PluralAbbreviations : TimeUnitAbbreviations)[display.unit];
+	} else {
+		unit = TimeUnitDescriptions[display.unit];
+		if (display.value > 1) {
+			unit += 's';
+		}
 	}
 
 	return formatNumber(display.value, {unit, separator: options && options.separator});
