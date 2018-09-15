@@ -7,8 +7,8 @@ export class TransferSecurityMappingsResource extends PagedResource<TransferSecu
 		super(httpClient, 'item', 'item', null, null, 'transfers');
 	}
 
-	async page(id: string, params?: any): Promise<PagedResult<TransferSecurityMapping>> {
-		const result = await this.httpClient.get(`${this.resourcePath}/${id}/security_map`, this.mergeDefaultParams(params));
+	async page(params?: any): Promise<PagedResult<TransferSecurityMapping>> {
+		const result = await this.httpClient.get(`${this.resourcePath}/${params && params.id}/security_map`, this.mergeDefaultParams(params));
 		const items = getTypedResponse<TransferSecurityMapping[]>(result, this.singularType);
 		return getPagedResponse<TransferSecurityMapping>(result, items);
 	}
