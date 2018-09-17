@@ -31,7 +31,8 @@ export enum JobExecutionStatus {
 	Completed = 'completed',
 	Cancelled = 'cancelled',
 	FailedToStart = 'failed_to_start',
-	Warning = 'warn'
+	Warning = 'warn',
+	NoChangesPerformed = 'no_changes'
 }
 
 export interface RetentionDuration {
