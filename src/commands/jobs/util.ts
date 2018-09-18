@@ -301,7 +301,7 @@ export const securityMappingOutputFormat = {
 		},
 		{
 			header: 'Resolution',
-			property: 'mapper'
+			property: 'resolution'
 		},
 		{
 			header: 'Message',
