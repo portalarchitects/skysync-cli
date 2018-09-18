@@ -291,19 +291,22 @@ export const securityMappingOutputFormat = {
 	table: [
 		{
 			header: 'Source',
-			property: 'source.email'
+			property: 'source',
+			transform: val => val && (val.email || val.username || val.id)
 		},
 		{
 			header: 'Destination',
-			property: 'destination.email'
+			property: 'destination',
+			transform: val => val && (val.email || val.username || val.id)
 		},
 		{
-			header: 'Mapper',
+			header: 'Resolution',
 			property: 'mapper'
 		},
 		{
 			header: 'Message',
 			property: 'message'
 		}
-	]
+	],
+	json: ['id', 'source', 'destination']
 };
