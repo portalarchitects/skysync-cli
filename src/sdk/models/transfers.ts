@@ -85,7 +85,7 @@ export interface TransferItem extends IEntityIdentifier<number> {
 	source_to_destination?: boolean;
 	transferred_on?: number;
 	root?: boolean;
-	container?: boolean;
+	type?: 'container' | 'item';
 }
 
 export interface TransferPlatformItem extends IEntityIdentifier<string> {
