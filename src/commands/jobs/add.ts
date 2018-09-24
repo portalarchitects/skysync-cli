@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import { runCommand, readJsonInput } from '../../util/command';
 import { detailOutputFormat } from './util';
-import { JobWizard } from './wizard';
 
 export = {
 	command: 'add',
@@ -10,19 +9,12 @@ export = {
 		yargs.options({
 			'kind': {
 				desc: 'The job kind',
-				type: 'string'				
+				type: 'string'
 			},
 
 			'name': {
 				desc: 'The job name',
 				type: 'string'
-			},
-
-			'wizard': {
-				alias: 'prompt',
-				desc: 'A flag to indicate a desire to run through the new-job wizard',
-				default: true,
-				type: 'boolean'
 			},
 
 			'auto': {
@@ -67,11 +59,6 @@ export = {
 			};
 			
 			let job = Object.assign(jobDefaults, jobParametersInput, jobCliParameters);
-			
-			if (!jobParametersInput && !argv.jobInput && job.kind === 'transfer' && argv.wizard) {
-				job = await new JobWizard(client).run(job);
-			}
-
 			job = await client.jobs.add(job, {
 				fields: [
 					'name',
