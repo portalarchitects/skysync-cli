@@ -12,6 +12,7 @@ export interface LicenseEdition {
 }
 
 export interface LicenseQuota {
+	activations?: number;
 	nodes?: number;
 	concurrent_transfers?: number;
 	parallel_writes?: number;
