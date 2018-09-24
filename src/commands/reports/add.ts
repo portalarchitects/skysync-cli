@@ -23,7 +23,8 @@ export = {
 
 			'name': {
 				desc: 'Report name',
-				type: 'string'
+				type: 'string',
+				demandOption: true,
 			},
 
 			'description': {
