@@ -123,7 +123,6 @@ export interface TransferAuditEntry extends IEntityIdentifier<number> {
 export interface TransferSecurityMapping extends IEntityIdentifier<string> {
 	source?: SecurityIdentifier;
 	destination?: SecurityIdentifier;
-	mapper?: string;
+	resolution?: string;
 	message?: string;
 }
-
