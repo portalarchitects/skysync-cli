@@ -4,6 +4,7 @@ import {
 
 import {
 	ifFeaturePresent,
+	ifFeaturesPresent,
 	ifLengthLessThan,
 	ifSizeGreaterThan,
 	checkFeatures,
@@ -87,7 +88,7 @@ const comparisonRules: PlatformComparisonRuleGroup[] = [
 			{
 				id: 'author_preservation',
 				name: 'Author/Owner preservation',
-				compare: checkFeatures((left, right) => ifFeaturePresent(left, right, 'audit_trail'))
+				compare: checkFeatures((left, right) => ifFeaturesPresent(left, right, 'audit_trail', 'impersonation.per_request'))
 			},
 			{
 				id: 'map_groups',

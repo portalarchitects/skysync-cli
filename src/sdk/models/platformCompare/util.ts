@@ -35,6 +35,20 @@ export const ifFeaturePresent = (left: any, right: any, key: string): PlatformCo
 	return notApplicable();
 };
 
+export const ifFeaturesPresent = (left: any, right: any, ...keys: string[]): PlatformComparisonRuleResult => {
+	const leftAvailable = keys.map(x => get(left, x)).filter(x => Boolean(x)).length > 0;
+	const rightAvailable = keys.map(x => get(right, x)).filter(x => Boolean(x)).length > 0;
+	if (leftAvailable || rightAvailable) {
+		const compatible = (leftAvailable && rightAvailable) || !leftAvailable;
+		return {
+			left: leftAvailable,
+			right: rightAvailable,
+			status: compatible ? PlatformComparisonRuleStatus.Compatible : PlatformComparisonRuleStatus.NotCompatible
+		};
+	}
+	return notApplicable();
+};
+
 export const ifLengthLessThan = (left: any, right: any, key: string): PlatformComparisonRuleResult => {
 	const leftNumber = Number(get(left, key));
 	const rightNumber = Number(get(right, key));
