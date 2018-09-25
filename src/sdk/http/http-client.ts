@@ -155,7 +155,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		return await new Promise<any>(resolve => {
 			if (this.isLoggedIn) {
 				this.executeJsonRequest(<any>{
-					url: HttpClient.getUrl('connect/token', this.baseAddress),
+					url: HttpClient.getUrl('connect/logout', this.baseAddress),
 					method: 'GET',
 					headers: {
 						'Accept': 'application/json'
