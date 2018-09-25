@@ -9,6 +9,7 @@ export = {
 			'name': {
 				desc: 'Audit Category name',
 				type: 'string',
+				demandOption: true,
 			},
 			
 			'description': {
