@@ -286,3 +286,27 @@ export const itemOutputFormat = {
 		'transferred_on'
 	]
 };
+
+export const securityMappingOutputFormat = {
+	table: [
+		{
+			header: 'Source',
+			property: 'source',
+			transform: val => val && (val.email || val.username || val.id)
+		},
+		{
+			header: 'Destination',
+			property: 'destination',
+			transform: val => val && (val.email || val.username || val.id)
+		},
+		{
+			header: 'Resolution',
+			property: 'resolution'
+		},
+		{
+			header: 'Message',
+			property: 'message'
+		}
+	],
+	json: ['id', 'source', 'destination']
+};

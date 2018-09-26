@@ -1,5 +1,5 @@
 import { Job } from './jobs';
-import { Connection, Account, PlatformItem } from './connections';
+import { Connection, Account, PlatformItem, SecurityIdentifier } from './connections';
 import { IEntityIdentifier } from './base';
 import { AuditCategory } from './auditCategories';
 
@@ -118,4 +118,11 @@ export interface TransferAuditEntry extends IEntityIdentifier<number> {
 	type?: string;
 	message?: string;
 	recorded_on?: number;
+}
+
+export interface TransferSecurityMapping extends IEntityIdentifier<string> {
+	source?: SecurityIdentifier;
+	destination?: SecurityIdentifier;
+	resolution?: string;
+	message?: string;
 }

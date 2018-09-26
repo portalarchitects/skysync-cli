@@ -21,5 +21,6 @@ export * from './templates';
 export * from './transferAudits';
 export * from './transferItems';
 export * from './transferFolders';
+export * from './transferSecurityMappings';
 export * from './transferStatistics';
 export * from './users';
