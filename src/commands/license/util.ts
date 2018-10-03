@@ -19,8 +19,8 @@ export const outputFormat = {
 		'edition',
 		'customer',
 		'features',
-		'usage',
 		'quota',
+		'used',
 		'trial'
 	]
 };

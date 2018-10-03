@@ -22,6 +22,7 @@ export interface LicenseQuota {
 }
 
 export interface LicenseUsage {
+	activations?: number;
 	nodes?: number;
 	jobs?: number;
 	transfer_bytes?: number;
@@ -37,7 +38,7 @@ export interface License {
 	features?: string[];
 	trial?: boolean;
 	quota?: LicenseQuota;
-	usage?: LicenseUsage;
+	used?: LicenseUsage;
 	expires_on?: number;
 	expired?: boolean;
 }
