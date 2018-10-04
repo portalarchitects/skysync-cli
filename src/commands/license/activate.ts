@@ -6,7 +6,7 @@ export = {
 	desc: 'Activate license',
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			const license = await client.licensing.activate(argv.key);
+			const license = await client.licensing.activate(argv.key, output.outputJson);
 			output.writeItem(license, outputFormat);
 		});
 	}

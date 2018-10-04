@@ -7,18 +7,18 @@ export class LicenseResource extends BaseResource {
 		super(httpClient);
 	}
 
-	async get(): Promise<License> {
-		const response = await this.httpClient.get(`licensing`);
+	async get(usage: boolean = false): Promise<License> {
+		const response = await this.httpClient.get(`licensing`, usage ? {usage} : undefined);
 		return getTypedResponse<License>(response);
 	}
 
-	async refresh(): Promise<License> {
-		const response = await this.httpClient.post(`licensing/refresh`, null);
+	async refresh(usage: boolean = false): Promise<License> {
+		const response = await this.httpClient.post(`licensing/refresh`, null, usage ? {usage} : undefined);
 		return getTypedResponse<License>(response);
 	}
 
-	async activate(key: string): Promise<License> {
-		const response = await this.httpClient.post(`licensing/activate`, {key});
+	async activate(key: string, usage: boolean = false): Promise<License> {
+		const response = await this.httpClient.post(`licensing/activate`, {key}, usage ? {usage} : undefined);
 		return getTypedResponse<License>(response);
 	}
 }
