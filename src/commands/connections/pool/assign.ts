@@ -49,7 +49,7 @@ export = {
 					name: argv.name
 				},
 				{
-					fields: 'all'
+					fields: ['name', 'disabled', 'pool.id', 'pool.name']
 				});
 			output.writeItem(connection, outputFormat);
 		});
