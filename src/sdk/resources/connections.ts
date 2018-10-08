@@ -33,17 +33,17 @@ export class ConnectionsResource extends PagedResource<Connection> {
 	}
 
 	async edit(id: string, params?: any): Promise<ConnectionAuthorizePrompt> {
-		const response = this.httpClient.get(`${this.resourcePath}/${id}/edit`, this.mergeDefaultParams(params));
+		const response = await this.httpClient.get(`${this.resourcePath}/${id}/edit`, this.mergeDefaultParams(params));
 		return getTypedResponse<ConnectionAuthorizePrompt>(response);
 	}
 
 	async assignPool(id: string, body: any, params?: any): Promise<Connection> {
-		const response = this.httpClient.patch(`${this.resourcePath}/${id}/pool`, body, params);
+		const response = await this.httpClient.patch(`${this.resourcePath}/${id}/pool`, body, this.mergeDefaultParams(params));
 		return getTypedResponse<Connection>(response);
 	}
 
 	async unassignPool(id: string, params?: any): Promise<Connection> {
-		const response = this.httpClient.delete(`${this.resourcePath}/${id}/pool`, this.mergeDefaultParams(params));
+		const response = await this.httpClient.delete(`${this.resourcePath}/${id}/pool`, this.mergeDefaultParams(params));
 		return getTypedResponse<Connection>(response);
 	}
 }
