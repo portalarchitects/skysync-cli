@@ -1,3 +1,4 @@
+require('cliff');
 import { listArgumentsDefault } from '../util';
 import { runCommand } from '../../util/command';
 import { securityMappingOutputFormat } from './util';
