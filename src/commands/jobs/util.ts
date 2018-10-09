@@ -292,12 +292,12 @@ export const securityMappingOutputFormat = {
 		{
 			header: 'Source',
 			property: 'source',
-			transform: val => val && (val.email || val.username || val.id)
+			transform: val => val && (val.name || val.email || val.username || val.id)
 		},
 		{
 			header: 'Destination',
 			property: 'destination',
-			transform: val => val && (val.email || val.username || val.id)
+			transform: val => val && (val.name || val.email || val.username || val.id)
 		},
 		{
 			header: 'Resolution',
