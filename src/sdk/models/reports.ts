@@ -4,4 +4,5 @@ export interface TransferReport extends IEntityIdentifier<string>, IAuditedEntit
 	name?: string;
 	description?: string;
 	parameters?: any;
+	use_simulation_mode?: boolean;
 }
