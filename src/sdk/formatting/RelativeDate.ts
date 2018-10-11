@@ -1,5 +1,5 @@
-const startOf = (date: Date, unit: 'day' | 'hour' | 'minute' | 'second'): Date => {
-	date = new Date(date);
+const startOf = (date: Date, unit: 'day' | 'hour' | 'minute' | 'second', convertToLocal?: boolean): Date => {
+	date = convertToLocal ? new Date(date.getTime() + date.getTimezoneOffset()) : new Date(date);
 	switch (unit) {
 		case 'day': date.setUTCHours(0);
 		// falls through
@@ -66,7 +66,7 @@ export class RelativeDate {
 
 	get days(): number {
 		if (!this._days) {
-			this._days = this._round((<any>startOf(this._date, 'day') - <any>startOf(this._now, 'day')) / day);
+			this._days = this._round((<any>startOf(this._date, 'day', true) - <any>startOf(this._now, 'day', true)) / day);
 		}
 		return this._days;
 	}
