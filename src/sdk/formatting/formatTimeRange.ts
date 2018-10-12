@@ -11,16 +11,16 @@ const noSuffixFormat = getDateFormat({
 });
 
 const isSameTimeFrame = (start: Date, end: Date): boolean => {
-	const isStartAM = start.getUTCHours() < 12;
-	const isEndAM = end.getUTCHours() < 12;
+	const isStartAM = start.getHours() < 12;
+	const isEndAM = end.getHours() < 12;
 	return isStartAM === isEndAM;
 };
 
 const formatNoSuffix = (value: Date) => {
-	const hours = value.getUTCHours();
+	const hours = value.getHours();
 	if (hours >= 12) {
 		value = new Date(value);
-		value.setUTCHours(hours - 12);
+		value.setHours(hours - 12);
 	}
 
 	return trimPrecedingZero(noSuffixFormat.format(value));
