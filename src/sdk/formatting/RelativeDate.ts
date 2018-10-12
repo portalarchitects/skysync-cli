@@ -1,5 +1,5 @@
 const startOf = (date: Date, unit: 'day' | 'hour' | 'minute' | 'second', convertToLocal?: boolean): Date => {
-	date = convertToLocal ? new Date(date.getTime() + (date.getTimezoneOffset() * minute)) : new Date(date);
+	date = convertToLocal ? new Date(date.getTime() - (date.getTimezoneOffset() * minute)) : new Date(date);
 	switch (unit) {
 		case 'day': date.setUTCHours(0);
 		// falls through
