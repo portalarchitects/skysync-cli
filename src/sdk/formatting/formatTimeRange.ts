@@ -10,10 +10,15 @@ const noSuffixFormat = getDateFormat({
 	hour12: false
 });
 
+const isAM = (date: Date): boolean => {
+	const minute = 6e4;
+	const hour = 36e5;
+	const day = 864e5;
+	return ((date.getTime() - date.getTimezoneOffset() * minute) % day) / hour < 12;
+};
+
 const isSameTimeFrame = (start: Date, end: Date): boolean => {
-	const isStartAM = start.getHours() < 12;
-	const isEndAM = end.getHours() < 12;
-	return isStartAM === isEndAM;
+	return isAM(start) === isAM(end);
 };
 
 const formatNoSuffix = (value: Date) => {
