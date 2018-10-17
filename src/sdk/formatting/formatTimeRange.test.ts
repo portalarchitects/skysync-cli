@@ -1,9 +1,6 @@
 import { formatTimeRange } from './formatTimeRange';
 import expect = require('expect.js');
-
-const timeZoneCode = ' UTC-7';
-Date.prototype.getTimezoneOffset = function () { return 420; };
-
+import {timeZoneCode} from './testUtil';
 
 describe('formatTimeRange', () => {
 	it('can format time ranges', () => {

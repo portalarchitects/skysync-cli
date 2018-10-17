@@ -1,8 +1,6 @@
 import { formatDateRange } from './formatDateRange';
 import expect = require('expect.js');
-
-const timeZoneCode = ' UTC-7';
-Date.prototype.getTimezoneOffset = function () { return 420; };
+import {timeZoneCode} from './testUtil';
 
 describe('formatDateRange', () => {
 	const now = new Date(`2016-04-10 12:00:00${timeZoneCode}`);

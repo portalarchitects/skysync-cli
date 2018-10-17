@@ -1,8 +1,7 @@
 import { formatDate } from './formatDate';
 import expect = require('expect.js');
+import {timeZoneCode} from './testUtil';
 
-const timeZoneCode = ' UTC-7';
-Date.prototype.getTimezoneOffset = function () { return 420; };
 
 describe('formatDate', () => {
 	describe('relative', () => {
