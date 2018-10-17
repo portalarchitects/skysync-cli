@@ -2,7 +2,6 @@ import { formatDate } from './formatDate';
 import expect = require('expect.js');
 import {timeZoneCode} from './testUtil';
 
-
 describe('formatDate', () => {
 	describe('relative', () => {
 		const now = new Date(`2016-04-10 12:00:00${timeZoneCode}`);
