@@ -29,7 +29,9 @@ import {
 	ClusterResource,
 	TransferReportsResource,
 	TransferReportStatisticsResource,
-	TransferSecurityMappingsResource
+	TransferSecurityMappingsResource,
+	AccountMapsResource,
+	GroupMapsResource
 } from './resources';
 
 export class SkySyncClient {
@@ -180,5 +182,13 @@ export class SkySyncClient {
 
 	get reportStatistics(): TransferReportStatisticsResource {
 		return new TransferReportStatisticsResource(this._httpClient);
+	}
+	
+	get accountMaps(): AccountMapsResource {
+		return new AccountMapsResource(this._httpClient);
+	}
+
+	get groupMaps(): GroupMapsResource {
+		return new GroupMapsResource(this._httpClient);
 	}
 }
