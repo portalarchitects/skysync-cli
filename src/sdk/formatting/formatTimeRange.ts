@@ -22,10 +22,9 @@ const isSameTimeFrame = (start: Date, end: Date): boolean => {
 };
 
 const formatNoSuffix = (value: Date) => {
-	const hours = value.getHours();
-	if (hours >= 12) {
+	if (!isAM(value)) {
 		value = new Date(value);
-		value.setHours(hours - 12);
+		value.setHours((value.getHours() + 12) % 24);
 	}
 
 	return trimPrecedingZero(noSuffixFormat.format(value));
