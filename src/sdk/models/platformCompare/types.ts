@@ -1,4 +1,4 @@
-import { StoragePlatform } from '../connections';
+import { IHaveConnectorFeatures } from '../connections';
 
 export enum PlatformComparisonRuleStatus {
 	NotApplicable = 1,
@@ -17,9 +17,9 @@ export interface PlatformComparisonRuleResult extends PlatformComparisonRuleInfo
 	status?: PlatformComparisonRuleStatus;
 }
 
-export type PlatformComparisonRuleEvaluator = (left: StoragePlatform, right: StoragePlatform) => PlatformComparisonRuleResult;
+export type PlatformComparisonRuleEvaluator = (left: IHaveConnectorFeatures, right: IHaveConnectorFeatures) => PlatformComparisonRuleResult;
 
-export type PlatformComparisonRuleAvailable = (left: StoragePlatform, right: StoragePlatform) => boolean;
+export type PlatformComparisonRuleAvailable = (left: IHaveConnectorFeatures, right: IHaveConnectorFeatures) => boolean;
 
 export interface PlatformComparisonRule extends PlatformComparisonRuleInformation {
 	id: string;

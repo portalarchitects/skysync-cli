@@ -247,6 +247,12 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	}
 
 	private async executeApiRequest(path: string, params: any, options: any = {}): Promise<any> {
+		const headers = params && params.headers;
+		if (headers) {
+			delete params.headers;
+			options.headers = headers;
+		}
+
 		const url = HttpClient.getUrl(path, this.apiUrl, params);
 		return await new Promise(async (resolve, reject) => {
 			try {

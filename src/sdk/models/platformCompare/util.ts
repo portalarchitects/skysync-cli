@@ -1,6 +1,6 @@
 import {get} from 'lodash';
 import {difference} from 'lodash';
-import {StoragePlatform, ConnectionFeatures} from '../connections';
+import {IHaveConnectorFeatures, ConnectionFeatures} from '../connections';
 import {formatBytes} from '../../formatting/formatBytes';
 import {formatNumber} from '../../formatting/formatNumber';
 import {
@@ -89,7 +89,7 @@ export const ifSizeGreaterThan = (left: any, right: any, key: string): PlatformC
 };
 
 export const checkFeatures = (handler: (left: ConnectionFeatures, right: ConnectionFeatures) => PlatformComparisonRuleResult): PlatformComparisonRuleEvaluator => {
-	return (left: StoragePlatform, right: StoragePlatform): PlatformComparisonRuleResult => {
+	return (left: IHaveConnectorFeatures, right: IHaveConnectorFeatures): PlatformComparisonRuleResult => {
 		const leftFeatures = left && left.features;
 		const rightFeatures = right && right.features;
 		if (leftFeatures && rightFeatures) {
@@ -100,7 +100,7 @@ export const checkFeatures = (handler: (left: ConnectionFeatures, right: Connect
 };
 
 export const checkPath = (handler: (left: any, right: any) => PlatformComparisonRuleResult): PlatformComparisonRuleEvaluator => {
-	return (left: StoragePlatform, right: StoragePlatform): PlatformComparisonRuleResult => {
+	return (left: IHaveConnectorFeatures, right: IHaveConnectorFeatures): PlatformComparisonRuleResult => {
 		const leftPath = left && left.path && left.path.validation;
 		const rightPath = right && right.path && right.path.validation;
 		if (leftPath && rightPath) {

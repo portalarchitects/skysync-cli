@@ -1,4 +1,4 @@
-import { StoragePlatform } from '../connections';
+import { IHaveConnectorFeatures } from '../connections';
 import {
 	PlatformComparisonRuleGroup,
 	PlatformComparisonRuleGroupResult
@@ -10,7 +10,7 @@ export class StoragePlatformComparer {
 		return comparisonRules.slice(0);
 	}
 
-	static compare(left: StoragePlatform, right: StoragePlatform): PlatformComparisonRuleGroupResult[] {
+	static compare(left: IHaveConnectorFeatures, right: IHaveConnectorFeatures): PlatformComparisonRuleGroupResult[] {
 		return StoragePlatformComparer.rules.filter(group => !Boolean(group.available) || group.available(left, right))
 			.map(group => ({
 				id: group.id,
