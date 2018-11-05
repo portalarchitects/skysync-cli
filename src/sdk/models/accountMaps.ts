@@ -1,5 +1,5 @@
 import { IEntityIdentifier } from './base';
-import { Connection } from './connections';
+import { Account, Connection } from './connections';
 
 export interface AccountMap extends IEntityIdentifier<string> {
 	name?: string;
@@ -9,4 +9,14 @@ export interface AccountMap extends IEntityIdentifier<string> {
 	destination?: {
 		connection?: Connection
 	};
+}
+
+export interface AccountMapException extends IEntityIdentifier<string> {
+	source?: Account;
+	destination?: Account;
+}
+
+export interface AccountMapExclusion extends IEntityIdentifier<string> {
+	source?: boolean;
+	sid?: Account;
 }

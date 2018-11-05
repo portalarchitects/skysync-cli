@@ -1,5 +1,5 @@
 import { IEntityIdentifier } from './base';
-import { Connection } from './connections';
+import { Connection, Group } from './connections';
 
 export interface GroupMap extends IEntityIdentifier<string> {
 	name?: string;
@@ -10,3 +10,14 @@ export interface GroupMap extends IEntityIdentifier<string> {
 		connection?: Connection
 	};
 }
+
+export interface GroupMapException extends IEntityIdentifier<string> {
+	source?: Group;
+	destination?: Group;
+}
+
+export interface GroupMapExclusion extends IEntityIdentifier<string> {
+	source?: boolean;
+	sid?: Group;
+}
+
