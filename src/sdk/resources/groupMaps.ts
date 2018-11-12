@@ -1,22 +1,19 @@
 import { IHttpClient } from '../http';
-import { PagedResult, PagedResource, getTypedResponse, getPagedResponse } from './resource';
+import { PagedResource } from './resource';
 import { GroupMap } from '../models';
-import { GroupMapException } from '../models/groupMaps';
+import { GroupMapExceptionsResource } from './groupMapExceptions';
+import { GroupMapExclusionsResource } from './groupMapExclusions';
 
 export class GroupMapsResource extends PagedResource<GroupMap> {
 	constructor(httpClient: IHttpClient) {
 		super(httpClient, 'group_map');
 	}
 
-	async exceptions(id: string, params?: any): Promise<PagedResult<GroupMapException>> {
-		const result = await this.httpClient.get(`${this.resourcePath}/${id}/exceptions`, this.mergeDefaultParams(params));
-		const exceptions = getTypedResponse<GroupMapException[]>(result);
-		return getPagedResponse<GroupMapException>(result, exceptions);
+	exceptions(groupMapId: string): GroupMapExceptionsResource {
+		return new GroupMapExceptionsResource(this.httpClient, groupMapId);
 	}
 
-	async exclusions(id: string, params?: any): Promise<PagedResult<GroupMapException>> {
-		const result = await this.httpClient.get(`${this.resourcePath}/${id}/exclusions`, this.mergeDefaultParams(params));
-		const exclusions = getTypedResponse<GroupMapException[]>(result);
-		return getPagedResponse<GroupMapException>(result, exclusions);
+	exclusions(groupMapId: string): GroupMapExclusionsResource {
+		return new GroupMapExclusionsResource(this.httpClient, groupMapId);
 	}
 }
