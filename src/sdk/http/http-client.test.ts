@@ -1,6 +1,7 @@
 import 'mocha';
 import expect = require('expect.js');
 import { HttpClient } from './http-client';
+import { TestHttpClient } from './test-client';
 
 // tslint:disable:no-http-string
 
@@ -52,6 +53,21 @@ describe('HttpClient', () => {
 			};
 			const url = HttpClient.getUrl('http://localhost:8000/v1/connections?active=1', 'http://localhost:9090/', params);
 			expect(url).to.eql('http://localhost:8000/v1/connections?active=1&bar=barParameter&baz=bazParameter');
+		});
+	});
+
+	it('should remove "headers" param and merge with request', () => {
+		const httpClient = new TestHttpClient();
+		httpClient.get('connections/123', {
+			active: 1,
+			headers: {
+				'X-Connect-As': 'foobar'
+			}
+		});
+		const lastRequest = httpClient.executedRequests[0];
+		expect(lastRequest.url).to.eql('http://localhost:9090/v1/connections/123?active=1');
+		expect(lastRequest.headers).to.eql({
+			'X-Connect-As': 'foobar'
 		});
 	});
 });

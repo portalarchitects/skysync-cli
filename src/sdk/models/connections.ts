@@ -49,18 +49,21 @@ export interface ConnectionAuthorizePrompt {
 	attributes?: PromptAttributes;
 }
 
-export interface StoragePlatform extends IEntityIdentifier<string>, IHaveLinks<StoragePlatformLinks> {
+export interface IHaveConnectorFeatures extends IEntityIdentifier<string> {
 	name?: string;
-	group?: string;
 	features?: ConnectionFeatures;
-	authorize?: {
-		prompt?: StoragePlatformPromptDimensions;
-		methods?: string[];
-	};
 	path?: {
 		validation?: any
 	};
 	disabled?: boolean;
+}
+
+export interface StoragePlatform extends IHaveConnectorFeatures, IHaveLinks<StoragePlatformLinks> {
+	group?: string;
+	authorize?: {
+		prompt?: StoragePlatformPromptDimensions;
+		methods?: string[];
+	};
 	default?: boolean;
 }
 
@@ -72,13 +75,10 @@ export interface ConnectionLinks extends PlatformItemHierarchyLinks {
 	edit?: Link;
 }
 
-export interface Connection extends IEntityIdentifier<string>, IHaveLinks<ConnectionLinks>, IAuditedEntity {
-	name?: string;
-	features?: ConnectionFeatures;
+export interface Connection extends IHaveConnectorFeatures, IHaveLinks<ConnectionLinks>, IAuditedEntity {
 	platform?: StoragePlatform;
 	account?: Account;
 	pool?: ConnectionPool;
-	disabled?: boolean;
 	auth?: any;
 }
 
