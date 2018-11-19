@@ -1,12 +1,14 @@
-import { Account, Connection } from './connections';
+import { Connection } from './connections';
 
 export interface SecurityMap {
 	name?: string;
 	source?: {
-		connection?: Connection
+		connection?: Connection;
+		default?;
 	};
 	destination?: {
 		connection?: Connection
+		default?;
 	};
 	unmapped_policy?: string;
 	map_by?: {
@@ -25,11 +27,11 @@ export interface SecurityMap {
 }
 
 export interface SecurityMapException {
-	source?: Account;
-	destination?: Account;
+	source?;
+	destination?;
 }
 
 export interface SecurityMapExclusion {
 	source?: boolean;
-	sid?: Account;
+	sid?;
 }
