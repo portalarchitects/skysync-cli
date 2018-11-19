@@ -18,5 +18,6 @@ export * from './contentCategories';
 export * from './transferStatistics';
 export * from './reports';
 export * from './license';
+export * from './securityMaps';
 export * from './accountMaps';
 export * from './groupMaps';
