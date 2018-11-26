@@ -1,7 +1,7 @@
 import { runCommand } from '../../util/command';
 
 export = {
-	command: 'delete <id>',
+	command: 'delete [id]',
 	desc: 'Delete job',
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
