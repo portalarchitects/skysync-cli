@@ -3,7 +3,7 @@ import {runCommand} from '../../util/command';
 import {itemOutputFormat} from '../jobs/util';
 
 export = {
-	command: 'items [id]',
+	command: 'items <id>',
 	desc: 'Show transfer items',
 	builder: yargs => {
 		yargs.options(listArgumentsDefault);

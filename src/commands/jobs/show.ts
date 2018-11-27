@@ -2,7 +2,7 @@ import { runCommand } from '../../util/command';
 import { detailOutputFormat } from './util';
 
 export = {
-	command: 'show [id]',
+	command: 'show <id>',
 	desc: 'Show job',
 	handler: argv => {
 		runCommand(argv, async (client, output) => {

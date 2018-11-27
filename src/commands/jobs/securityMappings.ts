@@ -3,7 +3,7 @@ import { runCommand } from '../../util/command';
 import { securityMappingOutputFormat } from './util';
 
 export = {
-	command: 'security-mappings [id]',
+	command: 'security-mappings <id>',
 	desc: 'List transfer security mappings',
 	builder: yargs => {
 		yargs.options({

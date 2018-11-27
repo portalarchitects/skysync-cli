@@ -3,7 +3,7 @@ import { formatTotalCount } from '../util';
 import { detailOutputFormat, jobsSearchArgumentsDefault, searchCriteriaIsMissing, getSearchArgs } from './util';
 
 export = {
-	command: 'pause [id]',
+	command: 'pause <id>',
 	desc: 'Pause job(s)',
 	builder: yargs => {
 		yargs.options({

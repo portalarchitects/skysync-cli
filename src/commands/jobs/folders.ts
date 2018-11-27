@@ -4,7 +4,7 @@ import { itemOutputFormat } from './util';
 
 
 export = {
-	command: 'folders [id]',
+	command: 'folders <id>',
 	desc: 'Show transfer folders',
 	builder: yargs => {
 		yargs.options({

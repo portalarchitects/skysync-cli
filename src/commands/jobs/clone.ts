@@ -3,7 +3,7 @@ import { runCommand, readJsonInput } from '../../util/command';
 import { detailOutputFormat } from './util';
 
 export = {
-	command: 'clone [id]',
+	command: 'clone <id>',
 	desc: 'Clone job',
 	builder: yargs => {
 		yargs.options({
