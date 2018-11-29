@@ -32,6 +32,6 @@ export interface SecurityMapException {
 }
 
 export interface SecurityMapExclusion {
-	source?: boolean;
+	location?: string;
 	sid?;
 }
