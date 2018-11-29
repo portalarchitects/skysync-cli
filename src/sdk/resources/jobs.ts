@@ -27,6 +27,11 @@ export class JobsResource extends PagedResource<Job> {
 		return this.changeStatus(id, 'cancel', params);
 	}
 
+	async clone(id: string, body?: any, params?: any): Promise<Job> {
+		const job = await this.httpClient.post(`${this.resourcePath}/${id}/clone`, body, params);
+		return this.getSingle(job);
+	}
+
 	private async changeStatus(id: string, status: string, params?: any): Promise<Job> {
 		const statusParams = {};
 		statusParams[status] = 1;

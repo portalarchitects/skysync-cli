@@ -3,7 +3,7 @@ import { runCommand } from '../../util/command';
 import { statsOutputFormat } from '../jobs/util';
 
 export = {
-	command: 'stats [id]',
+	command: 'stats <id>',
 	desc: 'Show transfer statistics',
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
