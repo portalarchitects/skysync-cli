@@ -1,12 +1,22 @@
 import { IEntityIdentifier } from './base';
-import { Connection } from './connections';
+import { Group } from './connections';
+import { SecurityMap, SecurityMapException, SecurityMapExclusion } from './securityMaps';
 
-export interface GroupMap extends IEntityIdentifier<string> {
-	name?: string;
+export interface GroupMap extends IEntityIdentifier<string>, SecurityMap {
 	source?: {
-		connection?: Connection
+		default?: Group
 	};
 	destination?: {
-		connection?: Connection
+		default?: Group
 	};
 }
+
+export interface GroupMapException extends IEntityIdentifier<string>, SecurityMapException {
+	source?: Group;
+	destination?: Group;
+}
+
+export interface GroupMapExclusion extends IEntityIdentifier<string>, SecurityMapExclusion {
+	sid?: Group;
+}
+

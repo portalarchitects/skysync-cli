@@ -1,4 +1,6 @@
 export * from './accountMaps';
+export * from './accountMapExceptions';
+export * from './accountMapExclusions';
 export * from './auditCategories';
 export * from './cluster';
 export * from './connections';
@@ -6,6 +8,8 @@ export * from './contentCategories';
 export * from './conventionAudits';
 export * from './diagnostics';
 export * from './groupMaps';
+export * from './groupMapExceptions';
+export * from './groupMapExclusions';
 export * from './groups';
 export * from './jobs';
 export * from './jobCategories';

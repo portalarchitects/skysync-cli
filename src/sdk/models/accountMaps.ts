@@ -1,12 +1,21 @@
 import { IEntityIdentifier } from './base';
-import { Connection } from './connections';
+import { Account } from './connections';
+import { SecurityMap, SecurityMapException, SecurityMapExclusion } from './securityMaps';
 
-export interface AccountMap extends IEntityIdentifier<string> {
-	name?: string;
+export interface AccountMap extends IEntityIdentifier<string>, SecurityMap {
 	source?: {
-		connection?: Connection
+		default?: Account	
 	};
 	destination?: {
-		connection?: Connection
+		default?: Account
 	};
+}
+
+export interface AccountMapException extends IEntityIdentifier<string>, SecurityMapException {
+	source?: Account;
+	destination?: Account;
+}
+
+export interface AccountMapExclusion extends IEntityIdentifier<string>, SecurityMapExclusion {
+	sid?: Account;
 }
