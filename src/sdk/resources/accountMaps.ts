@@ -13,7 +13,7 @@ export class AccountMapsResource extends PagedResource<AccountMap> {
 		return new AccountMapExceptionsResource(this.httpClient, accountMapId);
 	}
 	
-	exclusions(accountMapId: string, location?: string): AccountMapExclusionsResource {
+	exclusions(accountMapId: string, location?: 'source' | 'destination'): AccountMapExclusionsResource {
 		return new AccountMapExclusionsResource(this.httpClient, accountMapId, location);
 	}
 }

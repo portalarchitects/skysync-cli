@@ -13,7 +13,7 @@ export class GroupMapsResource extends PagedResource<GroupMap> {
 		return new GroupMapExceptionsResource(this.httpClient, groupMapId);
 	}
 
-	exclusions(groupMapId: string, location?: string): GroupMapExclusionsResource {
+	exclusions(groupMapId: string, location?: 'source' | 'destination'): GroupMapExclusionsResource {
 		return new GroupMapExclusionsResource(this.httpClient, groupMapId, location);
 	}
 }
