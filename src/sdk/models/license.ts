@@ -32,7 +32,6 @@ export interface LicenseUsage {
 export interface License {
 	key?: string;
 	activation_id?: string;
-	eula_accepted: boolean;
 	customer?: LicenseCustomer;
 	product?: LicenseProduct;
 	edition?: LicenseEdition;

@@ -21,9 +21,4 @@ export class LicenseResource extends BaseResource {
 		const response = await this.httpClient.post(`licensing/activate`, {key}, usage ? {usage} : undefined);
 		return getTypedResponse<License>(response);
 	}
-
-	async acceptEula(usage: boolean = false): Promise<License> {
-		const response = await this.httpClient.patch(`licensing/acceptEula`, undefined, usage ? {usage} : undefined);
-		return getTypedResponse<License>(response);
-	}
 }
