@@ -28,7 +28,7 @@ export class JobsResource extends PagedResource<Job> {
 	}
 
 	patchMultiple(params: any, changes: Job): Promise<any> {
-		return this.patchMultipleJobs(params, changes);
+		return this.httpClient.patch(`${this.resourcePath}`, changes, params);
 	}
 
 	async clone(id: string, body?: any, params?: any): Promise<Job> {
@@ -54,8 +54,4 @@ export class JobsResource extends PagedResource<Job> {
 		return result;
 	}
 
-	private async patchMultipleJobs(params: any, changes: Job): Promise<any> {
-		const result = await this.httpClient.patch(`${this.resourcePath}`, changes, params);
-		return result;
-	}
 }
