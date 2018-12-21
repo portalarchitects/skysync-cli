@@ -53,5 +53,4 @@ export class JobsResource extends PagedResource<Job> {
 		const result = await this.httpClient.patch(`${this.resourcePath}`, undefined, params);
 		return result;
 	}
-
 }
