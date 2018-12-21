@@ -1,5 +1,6 @@
 import { IHttpClient, createHttpClient } from './http';
 import {
+	ConfigurationResource,
 	ConnectionsResource,
 	ConnectionAccountsResource,
 	ConnectionGroupsResource,
@@ -63,7 +64,11 @@ export class SkySyncClient {
 	get httpClient(): IHttpClient {
 		return this._httpClient;
 	}
-
+	
+	get configuration(): ConfigurationResource {
+		return new ConfigurationResource(this._httpClient);
+	}
+	
 	get connections(): ConnectionsResource {
 		return new ConnectionsResource(this._httpClient);
 	}
