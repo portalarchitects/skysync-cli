@@ -28,7 +28,7 @@ export class JobsResource extends PagedResource<Job> {
 	}
 
 	patchMultiple(params: any, changes: Job): Promise<any> {
-		return this.httpClient.patch(`${this.resourcePath}`, changes, params);
+		return this.httpClient.patch(this.resourcePath, changes, params);
 	}
 
 	async clone(id: string, body?: any, params?: any): Promise<Job> {
@@ -50,7 +50,7 @@ export class JobsResource extends PagedResource<Job> {
 		statusParams[status] = 1;
 		params = this.mergeParams(statusParams, params);
 
-		const result = await this.httpClient.patch(`${this.resourcePath}`, undefined, params);
+		const result = await this.httpClient.patch(this.resourcePath, undefined, params);
 		return result;
 	}
 }

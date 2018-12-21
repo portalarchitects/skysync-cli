@@ -51,7 +51,7 @@ export class JobSchedulersResource extends Resource<JobScheduler> {
 		statusParams[status] = 1;
 		params = this.mergeParams(statusParams, params);
 
-		const result = await this.httpClient.patch(`${this.resourcePath}`, undefined, params);
+		const result = await this.httpClient.patch(this.resourcePath, undefined, params);
 		return result;
 	}
 }

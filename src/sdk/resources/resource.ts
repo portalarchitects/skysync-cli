@@ -135,7 +135,7 @@ export class EditableResource<TResource extends IEntityIdentifier<string>> exten
 	}
 	
 	async add(body: TResource, params?: any): Promise<TResource> {
-		const result = await this.httpClient.post(`${this.resourcePath}`, body, this.mergeDefaultParams(params));
+		const result = await this.httpClient.post(this.resourcePath, body, this.mergeDefaultParams(params));
 		return this.getSingle(result);
 	}
 
@@ -159,7 +159,7 @@ export class EditableResource<TResource extends IEntityIdentifier<string>> exten
 	}
 
 	deleteAll(params?: any): Promise<boolean> {
-		return this.httpClient.delete(`${this.resourcePath}`, this.mergeDefaultParams(params));
+		return this.httpClient.delete(this.resourcePath, this.mergeDefaultParams(params));
 	}
 }
 
