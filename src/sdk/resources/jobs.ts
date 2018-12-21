@@ -27,6 +27,10 @@ export class JobsResource extends PagedResource<Job> {
 		return this.changeStatus(id, 'cancel', params);
 	}
 
+	patchMultiple(params: any, changes: Job): Promise<any> {
+		return this.patchMultipleJobs(params, changes);
+	}
+
 	async clone(id: string, body?: any, params?: any): Promise<Job> {
 		const job = await this.httpClient.post(`${this.resourcePath}/${id}/clone`, body, params);
 		return this.getSingle(job);
@@ -47,6 +51,11 @@ export class JobsResource extends PagedResource<Job> {
 		params = this.mergeParams(statusParams, params);
 
 		const result = await this.httpClient.patch(`${this.resourcePath}`, undefined, params);
+		return result;
+	}
+
+	private async patchMultipleJobs(params: any, changes: Job): Promise<any> {
+		const result = await this.httpClient.patch(`${this.resourcePath}`, changes, params);
 		return result;
 	}
 }
