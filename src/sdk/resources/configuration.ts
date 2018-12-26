@@ -13,4 +13,8 @@ export class ConfigurationResource extends BaseResource {
 	async patch(body: {}): Promise<{}> {
 		return await this.httpClient.patch(`admin/config`, body);
 	}
+
+	async acceptEula(): Promise<{}> {
+		return await this.httpClient.patch(`admin/config/acceptEula`, null);
+	}
 }
