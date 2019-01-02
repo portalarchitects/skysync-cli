@@ -3,6 +3,7 @@ export * from './accountMapExceptions';
 export * from './accountMapExclusions';
 export * from './auditCategories';
 export * from './cluster';
+export * from './configuration';
 export * from './connections';
 export * from './contentCategories';
 export * from './conventionAudits';
