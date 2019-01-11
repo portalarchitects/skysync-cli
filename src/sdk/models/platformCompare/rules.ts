@@ -6,7 +6,7 @@ import {
 	ifFeaturePresent,
 	ifFeaturesPresent,
 	ifLengthLessThan,
-	ifSizeGreaterThan,
+	ifSizeLessThan,
 	checkFeatures,
 	checkPath,
 	availableIfSupported,
@@ -56,7 +56,7 @@ const comparisonRules: PlatformComparisonRuleGroup[] = [
 			{
 				id: 'max_file_size',
 				name: 'File size maximum',
-				compare: checkFeatures((left, right) => ifSizeGreaterThan(left, right, 'max_size'))
+				compare: checkFeatures((left, right) => ifSizeLessThan(left, right, 'max_size'))
 			},
 			{
 				id: 'max_total_length',

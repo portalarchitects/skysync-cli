@@ -75,6 +75,19 @@ export const ifLengthGreaterThan = (left: any, right: any, key: string): Platfor
 	return notApplicable();
 };
 
+export const ifSizeLessThan = (left: any, right: any, key: string): PlatformComparisonRuleResult => {
+	const leftNumber = Number(get(left, key));
+	const rightNumber = Number(get(right, key));
+	if (leftNumber || rightNumber) {
+		return {
+			left: leftNumber ? formatBytes(leftNumber) : false,
+			right: rightNumber ? formatBytes(rightNumber) : false,
+			status: !rightNumber || leftNumber <= rightNumber ? PlatformComparisonRuleStatus.Compatible : PlatformComparisonRuleStatus.NotCompatible
+		};
+	}
+	return notApplicable();
+};
+
 export const ifSizeGreaterThan = (left: any, right: any, key: string): PlatformComparisonRuleResult => {
 	const leftNumber = Number(get(left, key));
 	const rightNumber = Number(get(right, key));
