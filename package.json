@@ -20,7 +20,7 @@
   "main": "./dist/sdk/index.js",
   "types": "./dist/sdk/index.d.ts",
   "author": {
-    "name": "Portal Architects",
+    "name": "SkySync",
     "email": "developers@skysync.com"
   },
   "contributors": [
