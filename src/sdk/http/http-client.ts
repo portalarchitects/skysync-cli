@@ -42,7 +42,14 @@ export class HttpError extends Error {
 		super(message);
 		this.name = this.constructor.name;
 
-		Error.captureStackTrace(this, this.constructor);
+		if (Error.captureStackTrace) {
+			// Chrome and NodeJS
+			Error.captureStackTrace(this, this.constructor);
+		} else {
+			// FF, IE 10+ and Safari 6+. Fallback for others
+			this.stack = (new Error()).stack || '';
+		}
+
 		this.status = status || 500;
 	}
 }
