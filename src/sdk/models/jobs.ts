@@ -58,6 +58,10 @@ export interface JobSchedule {
 	max_execution?: TimeInterval;
 }
 
+export interface JobConvention {
+	match?: string;	
+}
+
 export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
 	parent_id?: string;
 	kind?: string;
@@ -74,6 +78,7 @@ export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
 	execution: JobExecution;
 	retention?: RetentionOptions;
 	disabled?: boolean;
+	convention?: JobConvention;
 }
 
 export interface JobExecutionFileStatistics {
