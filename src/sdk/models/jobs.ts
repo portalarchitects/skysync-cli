@@ -58,7 +58,7 @@ export interface JobSchedule {
 	max_execution?: TimeInterval;
 }
 
-export declare enum JobConventionMatch {
+export enum JobConventionMatch {
 	Account = 'account',
 	Container = 'container',
 	Ldap = 'ldap'
