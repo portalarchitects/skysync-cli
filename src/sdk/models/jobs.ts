@@ -58,8 +58,14 @@ export interface JobSchedule {
 	max_execution?: TimeInterval;
 }
 
+export declare enum JobConventionMatch {
+	Account = 'account',
+	Container = 'container',
+	Ldap = 'ldap'
+}
+
 export interface JobConvention {
-	match?: string;	
+	match?: JobConventionMatch;	
 }
 
 export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
