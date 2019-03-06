@@ -58,16 +58,6 @@ export interface JobSchedule {
 	max_execution?: TimeInterval;
 }
 
-export enum JobConventionMatch {
-	Account = 'account',
-	Container = 'container',
-	Ldap = 'ldap'
-}
-
-export interface JobConvention {
-	match?: JobConventionMatch;	
-}
-
 export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
 	parent_id?: string;
 	kind?: string;
@@ -84,7 +74,6 @@ export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
 	execution: JobExecution;
 	retention?: RetentionOptions;
 	disabled?: boolean;
-	convention?: JobConvention;
 }
 
 export interface JobExecutionFileStatistics {

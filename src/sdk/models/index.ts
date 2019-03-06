@@ -8,6 +8,8 @@ export * from './jobs';
 export * from './jobCategories';
 export * from './scheduler';
 export * from './transfers';
+export * from './folderMappingJob';
+export * from './personalDriveMappingJob';
 export * from './permissions';
 export * from './profiles';
 export * from './roles';
