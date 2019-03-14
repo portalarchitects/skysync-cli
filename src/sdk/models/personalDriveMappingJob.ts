@@ -8,6 +8,7 @@ export enum PersonalDriveMappingJobConventionMatch {
 
 export interface PersonalDriveMappingConvention {
 	match?: PersonalDriveMappingJobConventionMatch;
+	includeMatches?: boolean;
 }
 
 export interface PersonalDriveMappingJob extends TransferJob {

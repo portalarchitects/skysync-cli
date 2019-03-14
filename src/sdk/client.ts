@@ -14,6 +14,7 @@ import {
 	LicenseResource,
 	OwnershipGroupsResource,
 	PermissionsResource,
+	PersonalDriveResource,
 	ProfilesResource,
 	RolesResource,
 	SitesResource,
@@ -139,6 +140,10 @@ export class SkySyncClient {
 
 	get permissions(): PermissionsResource {
 		return new PermissionsResource(this._httpClient);
+	}
+	
+	get personalDrive(): PersonalDriveResource {
+		return new PersonalDriveResource(this._httpClient);
 	}
 
 	get profiles(): ProfilesResource {
