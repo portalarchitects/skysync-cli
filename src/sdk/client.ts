@@ -32,7 +32,8 @@ import {
 	TransferReportStatisticsResource,
 	TransferSecurityMappingsResource,
 	AccountMapsResource,
-	GroupMapsResource
+	GroupMapsResource,
+	PersonalDriveJobsResource
 } from './resources';
 
 export class SkySyncClient {
@@ -195,5 +196,9 @@ export class SkySyncClient {
 
 	get groupMaps(): GroupMapsResource {
 		return new GroupMapsResource(this._httpClient);
+	}
+
+	get personalDriveJobs(): PersonalDriveJobsResource {
+		return new PersonalDriveJobsResource(this._httpClient);
 	}
 }
