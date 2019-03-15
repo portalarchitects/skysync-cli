@@ -19,6 +19,7 @@ export * from './license';
 export * from './permissions';
 export * from './personalDrive';
 export * from './personalDriveMatches';
+export * from './personalDriveExceptions';
 export * from './profiles';
 export * from './reports';
 export * from './reportStatistics';
