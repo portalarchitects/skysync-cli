@@ -12,7 +12,7 @@ export class PersonalDriveResource extends PagedResource<Account> {
 		return new PersonalDriveMatchesResource(this.httpClient, jobId);
 	}
 
-	exceptions(personalDriveJobId: string): PersonalDriveExceptionsResource {
-		return new PersonalDriveExceptionsResource(this.httpClient, personalDriveJobId);
+	exceptions(jobId: string): PersonalDriveExceptionsResource {
+		return new PersonalDriveExceptionsResource(this.httpClient, jobId);
 	}
 }
