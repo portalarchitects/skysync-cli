@@ -1,6 +1,6 @@
 {
   "name": "skysync-cli",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "SkySync Command Line Interface",
   "homepage": "http://www.skysync.com",
   "license": "MIT",
