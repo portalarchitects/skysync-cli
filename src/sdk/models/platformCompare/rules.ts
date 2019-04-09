@@ -27,6 +27,23 @@ const comparisonRules: PlatformComparisonRuleGroup[] = [
 		]
 	},
 	{
+		id: 'audit_trail',
+		name: 'Audit trail preservation',
+		available: (left, right) => availableIfSupported(left, right, 'features'),
+		rules: [
+			{
+				id: 'timestamp_preservation',
+				name: 'Timestamp preservation',
+				compare: checkFeatures((left, right) => ifFeaturePresent(left, right, 'timestamps'))
+			},
+			{
+				id: 'author_preservation',
+				name: 'Author/Owner preservation',
+				compare: checkFeatures((left, right) => ifFeaturesPresent(left, right, 'audit_trail', 'impersonation.per_request'))
+			}
+		]
+	},
+	{
 		id: 'lock_propagation',
 		name: 'Lock propagation',
 		available: (left, right) => availableIfSupported(left, right, 'features.checkout'),
@@ -84,11 +101,6 @@ const comparisonRules: PlatformComparisonRuleGroup[] = [
 				id: 'map_accounts',
 				name: 'Account map',
 				compare: checkFeatures((left, right) => ifFeaturePresent(left, right, 'query_account'))
-			},
-			{
-				id: 'author_preservation',
-				name: 'Author/Owner preservation',
-				compare: checkFeatures((left, right) => ifFeaturesPresent(left, right, 'audit_trail', 'impersonation.per_request'))
 			},
 			{
 				id: 'map_groups',
