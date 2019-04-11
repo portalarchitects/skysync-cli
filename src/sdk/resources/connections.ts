@@ -43,7 +43,7 @@ export class ConnectionsResource extends PagedResource<Connection> {
 	}
 
 	async unassignPool(id: string, params?: any): Promise<Connection> {
-		const response = await this.httpClient.delete(`${this.resourcePath}/${id}/pool`, this.mergeDefaultParams(params));
+		const response = await this.httpClient.delete(`${this.resourcePath}/${id}/pool`, null, this.mergeDefaultParams(params));
 		return getTypedResponse<Connection>(response);
 	}
 }

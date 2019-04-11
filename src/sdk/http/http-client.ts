@@ -34,7 +34,7 @@ export interface IHttpClient {
 
 	patch(path: string, body: any, params?: any): Promise<any>;
 
-	delete(path: string, params?: any): Promise<boolean>;
+	delete(path: string, body: any, params?: any): Promise<any>;
 }
 
 export class HttpError extends Error {
@@ -376,10 +376,14 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		return this.executePost('PATCH', path, body, params);
 	}
 
-	async delete(path: string, params?: any): Promise<boolean> {
-		const result = await this.executeApiRequest(path, params, {
-			method: 'DELETE'
-		});
-		return result !== null;
+	async delete(path: string, body: any, params?: any): Promise<any> {
+		if (body) {
+			return await this.executePost('DELETE', path, body, params);
+		} else {
+			const result = await this.executeApiRequest(path, params, {
+				method: 'DELETE'
+			});
+			return result !== null;
+		}
 	}
 }

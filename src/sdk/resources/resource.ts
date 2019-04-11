@@ -155,11 +155,11 @@ export class EditableResource<TResource extends IEntityIdentifier<string>> exten
 		if (typeof id !== 'string' && Boolean(id && id.id)) {
 			id = id.id;
 		}
-		return this.httpClient.delete(`${this.resourcePath}/${id}`, this.mergeDefaultParams(params));
+		return this.httpClient.delete(`${this.resourcePath}/${id}`, null, this.mergeDefaultParams(params));
 	}
 
 	deleteAll(params?: any): Promise<boolean> {
-		return this.httpClient.delete(this.resourcePath, this.mergeDefaultParams(params));
+		return this.httpClient.delete(this.resourcePath, null, this.mergeDefaultParams(params));
 	}
 }
 
