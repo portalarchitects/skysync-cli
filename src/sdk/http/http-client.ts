@@ -24,7 +24,7 @@ export interface IHttpClient {
 
 	getAccessToken(): Promise<string>;
 
-	get(path: string, params?: any): Promise<any>;
+	get(path: string, params?: any, signal?: any): Promise<any>;
 
 	download(path: string, handler: (fileName: string, output: Readable) => Promise<any>): Promise<any>;
 	
@@ -346,10 +346,11 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		return fileNameItem.split('=').pop();
 	}
 	
-	get(path: string, params?: any): Promise<any> {
+	get(path: string, params?: any, signal?: any): Promise<any> {
 		return this.executeApiRequest(path, params, {
 			method: 'GET',
-			encoding: 'utf-8'
+			encoding: 'utf-8',
+			signal
 		});
 	}
 

@@ -101,13 +101,13 @@ export class Resource<TResource> extends BaseResource {
 		return getTypedResponse<TResource>(result, this.singularType || this.singularName);
 	}
 
-	async list(params?: any): Promise<TResource[]> {
-		const result = await this.httpClient.get(this.resourcePath, this.mergeDefaultParams(params));
+	async list(params?: any, signal?: any): Promise<TResource[]> {
+		const result = await this.httpClient.get(this.resourcePath, this.mergeDefaultParams(params), signal);
 		return this.getList(result);
 	}
 
-	async get(id: any, params?: any): Promise<TResource> {
-		const result = await this.httpClient.get(`${this.resourcePath}/${id}`, this.mergeDefaultParams(params));
+	async get(id: any, params?: any, signal?: any): Promise<TResource> {
+		const result = await this.httpClient.get(`${this.resourcePath}/${id}`, this.mergeDefaultParams(params), signal);
 		return this.getSingle(result);
 	}
 }
@@ -178,8 +178,8 @@ export class PagedResource<TResource> extends EditableResource<TResource> {
 		super(httpClient, name, type, pluralName, pluralType, resourcePath);
 	}
 
-	async page(params?: any): Promise<PagedResult<TResource>> {
-		const result = await this.httpClient.get(this.resourcePath, this.mergeDefaultParams(params));
+	async page(params?: any, signal?: any): Promise<PagedResult<TResource>> {
+		const result = await this.httpClient.get(this.resourcePath, this.mergeDefaultParams(params), signal);
 		const items = this.getList(result);
 		return getPagedResponse<TResource>(result, items);
 	}
