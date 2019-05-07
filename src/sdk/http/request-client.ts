@@ -1,6 +1,7 @@
 import { HttpClient, IAuthorizationToken } from './http-client';
 import * as request from 'request';
 import { Readable } from 'stream';
+import { CancellationToken } from '../../util/cancellation-token';
 
 export class RequestHttpClient extends HttpClient<any, any> {
 	constructor(baseAddress: string, token: IAuthorizationToken, site: string = null) {
@@ -21,19 +22,26 @@ export class RequestHttpClient extends HttpClient<any, any> {
 		return 'http://localhost:9090/';
 	}
 
-	protected executeJsonRequest(req: any, callback: (err: any, response: any, body: string) => void) {
-		request(req, callback);
+	protected executeJsonRequest(req: any, callback: (err: any, response: any, body: string) => void, token?: CancellationToken) {
+		const r = request(req, callback);
+		if (token) {
+			token.onCancel(() => r && r.abort());
+		}
 	}
 	
 	protected getStatusCode(response: any): number {
 		return response.statusCode;
 	}
 	
-	async download(path: string, handler: (fileName: string, output: Readable) => Promise<any>) {
+	async download(path: string, handler: (fileName: string, output: Readable) => Promise<any>, token?: CancellationToken) {
 		return await new Promise(async (resolve, reject) => {
 			try {
 				const options: any = await this.getOptions(path, {method: 'GET'});
-				const response = await request.get(options);
+				const r = request.get(options);
+				if (token) {
+					token.onCancel(() => r && r.abort);
+				}
+				const response = await r;
 				let __this = this;
 				
 				response.on('response', function (response) {
