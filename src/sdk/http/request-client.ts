@@ -39,7 +39,7 @@ export class RequestHttpClient extends HttpClient<any, any> {
 				const options: any = await this.getOptions(path, {method: 'GET'});
 				const r = request.get(options);
 				if (token) {
-					token.onCancel(() => r && r.abort);
+					token.onCancel(() => r && r.abort());
 				}
 				const response = await r;
 				let __this = this;
