@@ -1,7 +1,7 @@
 import { HttpClient, IAuthorizationToken } from './http-client';
 import * as request from 'request';
 import { Readable } from 'stream';
-import { CancellationToken } from '../../util/cancellation-token';
+import { CancellationToken } from '../';
 
 export class RequestHttpClient extends HttpClient<any, any> {
 	constructor(baseAddress: string, token: IAuthorizationToken, site: string = null) {

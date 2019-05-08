@@ -1,7 +1,7 @@
 import { IHttpClient } from '../http';
 import { IEntityIdentifier } from '../models/base';
 import * as qs from 'querystring';
-import { CancellationToken } from '../../util/cancellation-token';
+import { CancellationToken } from '../cancellation-token';
 
 export function getTypedResponse<T>(result: any, type?: string): T {
 	if (!type) {

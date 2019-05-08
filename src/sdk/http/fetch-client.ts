@@ -1,6 +1,6 @@
 import { HttpClient, IAuthorizationToken } from './http-client';
 import { Readable } from 'stream';
-import { CancellationToken } from '../../util/cancellation-token';
+import { CancellationToken } from '../';
 
 declare const fetch: (url: string, request: any) => Promise<any>;
 
