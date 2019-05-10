@@ -1,6 +1,7 @@
 import { TransferJobStatistics } from '../models';
 import { IHttpClient } from '../http';
 import { TransferReportsResource } from './reports';
+import { CancellationToken } from '../cancellation-token';
 
 export class TransferReportStatisticsResource {
 	private resource: TransferReportsResource;
@@ -9,8 +10,8 @@ export class TransferReportStatisticsResource {
 		this.resource = new TransferReportsResource(httpClient);
 	}
 
-	async get(id: string, params?: any): Promise<TransferJobStatistics> {
-		const result = await this.resource.stats(id, params);
+	async get(id: string, params?: any, token?: CancellationToken): Promise<TransferJobStatistics> {
+		const result = await this.resource.stats(id, params, token);
 		if (result) {
 			result.id = id;
 		}

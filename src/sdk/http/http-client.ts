@@ -1,6 +1,6 @@
 import { Readable } from 'stream';
 import * as qs from 'querystring';
-import { CancellationToken } from '../';
+import { CancellationToken } from '../cancellation-token';
 
 const API_VERSION = 'v1';
 
