@@ -1,6 +1,7 @@
 import { IHttpClient } from '../http';
 import { IEntityIdentifier } from '../models/base';
 import * as qs from 'querystring';
+import { CancellationToken } from '../cancellation-token';
 
 export function getTypedResponse<T>(result: any, type?: string): T {
 	if (!type) {
@@ -101,13 +102,13 @@ export class Resource<TResource> extends BaseResource {
 		return getTypedResponse<TResource>(result, this.singularType || this.singularName);
 	}
 
-	async list(params?: any): Promise<TResource[]> {
-		const result = await this.httpClient.get(this.resourcePath, this.mergeDefaultParams(params));
+	async list(params?: any, token?: CancellationToken): Promise<TResource[]> {
+		const result = await this.httpClient.get(this.resourcePath, this.mergeDefaultParams(params), token);
 		return this.getList(result);
 	}
 
-	async get(id: any, params?: any): Promise<TResource> {
-		const result = await this.httpClient.get(`${this.resourcePath}/${id}`, this.mergeDefaultParams(params));
+	async get(id: any, params?: any, token?: CancellationToken): Promise<TResource> {
+		const result = await this.httpClient.get(`${this.resourcePath}/${id}`, this.mergeDefaultParams(params), token);
 		return this.getSingle(result);
 	}
 }
@@ -134,32 +135,32 @@ export class EditableResource<TResource extends IEntityIdentifier<string>> exten
 		super(httpClient, name, pluralName, type, pluralType, resourcePath);
 	}
 	
-	async add(body: TResource, params?: any): Promise<TResource> {
-		const result = await this.httpClient.post(this.resourcePath, body, this.mergeDefaultParams(params));
+	async add(body: TResource, params?: any, token?: CancellationToken): Promise<TResource> {
+		const result = await this.httpClient.post(this.resourcePath, body, this.mergeDefaultParams(params), token);
 		return this.getSingle(result);
 	}
 
-	async update(body: TResource | string, params?: any): Promise<TResource> {
+	async update(body: TResource | string, params?: any, token?: CancellationToken): Promise<TResource> {
 		const request = getEditRequest(body);
-		const result = await this.httpClient.put(`${this.resourcePath}/${request.id}`, request.payload, this.mergeDefaultParams(params));
+		const result = await this.httpClient.put(`${this.resourcePath}/${request.id}`, request.payload, this.mergeDefaultParams(params), token);
 		return this.getSingle(result);
 	}
 
-	async patch(body: TResource | string, params?: any): Promise<TResource> {
+	async patch(body: TResource | string, params?: any, token?: CancellationToken): Promise<TResource> {
 		const request = getEditRequest(body);
-		const result = await this.httpClient.patch(`${this.resourcePath}/${request.id}`, request.payload, this.mergeDefaultParams(params));
+		const result = await this.httpClient.patch(`${this.resourcePath}/${request.id}`, request.payload, this.mergeDefaultParams(params), token);
 		return this.getSingle(result);
 	}
 
-	delete(id: any, params?: any): Promise<boolean> {
+	delete(id: any, params?: any, token?: CancellationToken): Promise<boolean> {
 		if (typeof id !== 'string' && Boolean(id && id.id)) {
 			id = id.id;
 		}
-		return this.httpClient.delete(`${this.resourcePath}/${id}`, this.mergeDefaultParams(params));
+		return this.httpClient.delete(`${this.resourcePath}/${id}`, this.mergeDefaultParams(params), token);
 	}
 
-	deleteAll(params?: any): Promise<boolean> {
-		return this.httpClient.delete(this.resourcePath, this.mergeDefaultParams(params));
+	deleteAll(params?: any, token?: CancellationToken): Promise<boolean> {
+		return this.httpClient.delete(this.resourcePath, this.mergeDefaultParams(params), token);
 	}
 }
 
@@ -178,8 +179,8 @@ export class PagedResource<TResource> extends EditableResource<TResource> {
 		super(httpClient, name, type, pluralName, pluralType, resourcePath);
 	}
 
-	async page(params?: any): Promise<PagedResult<TResource>> {
-		const result = await this.httpClient.get(this.resourcePath, this.mergeDefaultParams(params));
+	async page(params?: any, token?: CancellationToken): Promise<PagedResult<TResource>> {
+		const result = await this.httpClient.get(this.resourcePath, this.mergeDefaultParams(params), token);
 		const items = this.getList(result);
 		return getPagedResponse<TResource>(result, items);
 	}

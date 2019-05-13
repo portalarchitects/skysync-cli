@@ -1,5 +1,6 @@
 import { HttpClient, IAuthorizationToken } from './http-client';
 import { Readable } from 'stream';
+import { CancellationToken } from '../';
 
 declare const fetch: (url: string, request: any) => Promise<any>;
 
@@ -22,7 +23,12 @@ export class FetchHttpClient extends HttpClient<any, any> {
 		return '/';
 	}
 
-	protected async executeJsonRequest(req: any, callback: (err: any, response?: any, body?: string) => void) {
+	protected async executeJsonRequest(req: any, callback: (err: any, response?: any, body?: string) => void, token?: CancellationToken) {
+		if (token) {
+			const controller = new AbortController();
+			token.onCancel(() => controller && controller.abort());
+			req.signal = controller.signal;
+		}
 		if (!req.headers) {
 			req.headers = {};
 		}
@@ -52,13 +58,18 @@ export class FetchHttpClient extends HttpClient<any, any> {
 		return response.status;
 	}
 	
-	async download(path: string, handler: (fileName: string, output: Readable) => Promise<any>) {
+	async download(path: string, handler: (fileName: string, output: Readable) => Promise<any>, token?: CancellationToken) {
 		return await new Promise(async (resolve, reject) => {
 			try {
 				const options: any = await this.getOptions(path, {method: 'GET'});
 				const url = options.url;
 				delete options.url;
 
+				if (token) {
+					const controller = new AbortController();
+					token.onCancel(() => controller && controller.abort());
+					options.signal = controller.signal;
+				}
 				const response = await fetch(url, options);
 				let __this = this;
 				

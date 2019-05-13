@@ -1,5 +1,6 @@
 import { Readable } from 'stream';
 import * as qs from 'querystring';
+import { CancellationToken } from '../cancellation-token';
 
 const API_VERSION = 'v1';
 
@@ -24,17 +25,17 @@ export interface IHttpClient {
 
 	getAccessToken(): Promise<string>;
 
-	get(path: string, params?: any): Promise<any>;
+	get(path: string, params?: any, token?: CancellationToken): Promise<any>;
 
-	download(path: string, handler: (fileName: string, output: Readable) => Promise<any>): Promise<any>;
+	download(path: string, handler: (fileName: string, output: Readable) => Promise<any>, token?: CancellationToken): Promise<any>;
 	
-	post(path: string, body: any, params?: any): Promise<any>;
+	post(path: string, body: any, params?: any, token?: CancellationToken): Promise<any>;
 
-	put(path: string, body: any, params?: any): Promise<any>;
+	put(path: string, body: any, params?: any, token?: CancellationToken): Promise<any>;
 
-	patch(path: string, body: any, params?: any): Promise<any>;
+	patch(path: string, body: any, params?: any, token?: CancellationToken): Promise<any>;
 
-	delete(path: string, params?: any): Promise<boolean>;
+	delete(path: string, params?: any, token?: CancellationToken): Promise<boolean>;
 }
 
 export class HttpError extends Error {
@@ -227,7 +228,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 
 	protected abstract getDefaultBaseAddress(): string;
 
-	protected abstract executeJsonRequest(req: TRequest, callback: (err: any, response: TResponse, body: string) => void);
+	protected abstract executeJsonRequest(req: TRequest, callback: (err: any, response: TResponse, body: string) => void, token?: CancellationToken);
 
 	protected abstract getStatusCode(response: TResponse): number;
 
@@ -253,7 +254,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		return new HttpError(message, statusCode, result && result.errors);
 	}
 
-	private async executeApiRequest(path: string, params: any, options: any = {}): Promise<any> {
+	private async executeApiRequest(path: string, params: any, options: any = {}, token: CancellationToken): Promise<any> {
 		const headers = params && params.headers;
 		if (headers) {
 			delete params.headers;
@@ -303,10 +304,10 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 								attempted = true;
 
 								this.accessToken = null;
-								const token = await this.getAccessToken();
+								const accessToken = await this.getAccessToken();
 								options.url = url;
-								options.headers['Authorization'] = `Bearer ${token}`;
-								return this.executeJsonRequest(options, processResponse);
+								options.headers['Authorization'] = `Bearer ${accessToken}`;
+								return this.executeJsonRequest(options, processResponse, token);
 							}
 						}
 
@@ -314,14 +315,14 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 					} catch (e) {
 						reject(e);
 					}
-				});
+				}, token);
 			} catch (e) {
 				reject(e);
 			}
 		});
 	}
 
-	abstract async download(path: string, handler: (fileName: string, output: Readable) => Promise<any>);
+	abstract async download(path: string, handler: (fileName: string, output: Readable) => Promise<any>, token?: CancellationToken);
 	
 	protected async getOptions(path: string, options: any) {
 		if (this.isAuthRequired) {
@@ -346,14 +347,14 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		return fileNameItem.split('=').pop();
 	}
 	
-	get(path: string, params?: any): Promise<any> {
+	get(path: string, params?: any, token?: CancellationToken): Promise<any> {
 		return this.executeApiRequest(path, params, {
 			method: 'GET',
 			encoding: 'utf-8'
-		});
+		}, token);
 	}
 
-	private executePost(method: string, path: string, body: any, params?: any): Promise<any> {
+	private executePost(method: string, path: string, body: any, params?: any, token?: CancellationToken): Promise<any> {
 		return this.executeApiRequest(path, params, {
 			method,
 			headers: {
@@ -361,25 +362,25 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 			},
 			encoding: 'utf-8',
 			body: body && JSON.stringify(body) || ''
-		});
+		}, token);
 	}
 
-	post(path: string, body: any, params?: any): Promise<any> {
-		return this.executePost('POST', path, body, params);
+	post(path: string, body: any, params?: any, token?: CancellationToken): Promise<any> {
+		return this.executePost('POST', path, body, params, token);
 	}
 
-	put(path: string, body: any, params?: any): Promise<any> {
-		return this.executePost('PUT', path, body, params);
+	put(path: string, body: any, params?: any, token?: CancellationToken): Promise<any> {
+		return this.executePost('PUT', path, body, params, token);
 	}
 
-	patch(path: string, body: any, params?: any): Promise<any> {
-		return this.executePost('PATCH', path, body, params);
+	patch(path: string, body: any, params?: any, token?: CancellationToken): Promise<any> {
+		return this.executePost('PATCH', path, body, params, token);
 	}
 
-	async delete(path: string, params?: any): Promise<boolean> {
+	async delete(path: string, params?: any, token?: CancellationToken): Promise<boolean> {
 		const result = await this.executeApiRequest(path, params, {
 			method: 'DELETE'
-		});
+		}, token);
 		return result !== null;
 	}
 }
