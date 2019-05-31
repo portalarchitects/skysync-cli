@@ -34,10 +34,10 @@ describe('formatBytes', () => {
 		expect(formatBytes(Math.pow(2, 40) * 9.81)).to.eql('9.8\xa0TB');
 	});
 
-	it('can format large positive tb', () => {
-		expect(formatBytes(Math.pow(2, 40) * 1024)).to.eql('1\xa0PB');
-		expect(formatBytes(Math.pow(2, 40) * 1.213 * 1024)).to.eql('1.2\xa0PB');
-		expect(formatBytes(Math.pow(2, 40) * 9.81 * 1024)).to.eql('9.8\xa0PB');
+	it('can format large positive values', () => {
+		expect(formatBytes(Math.pow(2, 90))).to.eql('1,024\xa0YB');
+		expect(formatBytes(Math.pow(2, 90) * 1.213)).to.eql('1,242.1\xa0YB');
+		expect(formatBytes(Math.pow(2, 90) * 9.81)).to.eql('10,045.4\xa0YB');
 	});
 
 	it('can format negative bytes', () => {
@@ -69,14 +69,10 @@ describe('formatBytes', () => {
 		expect(formatBytes(-Math.pow(2, 40) * 9.8)).to.eql('-9.8\xa0TB');
 	});
 
-	it('can format large negative tb', () => {
-		expect(formatBytes(-Math.pow(2, 40) * 1024)).to.eql('-1\xa0PB');
-		expect(formatBytes(-Math.pow(2, 40) * 1.213 * 1024)).to.eql('-1.2\xa0PB');
-		expect(formatBytes(-Math.pow(2, 40) * 9.81 * 1024)).to.eql('-9.8\xa0PB');
-	});
-
-	it('can format large yb', () => {
-		expect(formatBytes(Math.pow(2, 80) * 1024)).to.eql('1,024\xa0YB');
+	it('can format large negative values', () => {
+		expect(formatBytes(-Math.pow(2, 90))).to.eql('-1,024\xa0YB');
+		expect(formatBytes(-Math.pow(2, 90) * 1.213)).to.eql('-1,242.1\xa0YB');
+		expect(formatBytes(-Math.pow(2, 90) * 9.81)).to.eql('-10,045.4\xa0YB');
 	});
 
 	it('should return `0` when non-number', () => {
