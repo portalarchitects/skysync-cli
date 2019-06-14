@@ -3,6 +3,18 @@ import { PagedResource } from './resource';
 import { Job } from '../models';
 import { CancellationToken } from '../cancellation-token';
 
+export enum JobResetType {
+	Validate = 'validate',
+	ValidateFiltered = 'validate_filtered',
+	ValidateShared = 'validate_shared',
+	ValidateAll = 'validate_all',
+	Stats = 'stats',
+	Permissions = 'permissions',
+	Soft = 'soft',
+	Hard = 'hard',
+	Full = 'full'
+}
+
 export class JobsResource extends PagedResource<Job> {
 	constructor(httpClient: IHttpClient) {
 		super(httpClient, 'job');
@@ -53,5 +65,15 @@ export class JobsResource extends PagedResource<Job> {
 
 		const result = await this.httpClient.patch(this.resourcePath, undefined, params, token);
 		return result;
+	}
+
+	async reset(id: string, reset: JobResetType, params?: any, token?: CancellationToken): Promise<Job> {
+		const resetParams = {
+			reset: reset
+		};
+		params = this.mergeParams(resetParams, params);
+
+		const job = await this.httpClient.patch(`${this.resourcePath}/${id}`, undefined, params, token);
+		return this.getSingle(job);
 	}
 }
