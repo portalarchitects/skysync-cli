@@ -67,7 +67,7 @@ export class JobsResource extends PagedResource<Job> {
 		return result;
 	}
 
-	private async reset(id: string, reset: JobResetType, params?: any, token?: CancellationToken): Promise<Job> {
+	async reset(id: string, reset: JobResetType, params?: any, token?: CancellationToken): Promise<Job> {
 		const resetParams = {
 			reset: reset
 		};
