@@ -4,15 +4,15 @@ import { Job } from '../models';
 import { CancellationToken } from '../cancellation-token';
 
 export enum JobResetType {
-	validate = 'validate',
-	validateFiltered = 'validate_filtered',
-	validateShared = 'validate_shared',
-	validateAll = 'validate_all',
-	stats = 'stats',
-	permissions = 'permissions',
-	soft = 'soft',
-	hard = 'hard',
-	full = 'full'
+	Validate = 'validate',
+	ValidateFiltered = 'validate_filtered',
+	ValidateShared = 'validate_shared',
+	ValidateAll = 'validate_all',
+	Stats = 'stats',
+	Permissions = 'permissions',
+	Soft = 'soft',
+	Hard = 'hard',
+	Full = 'full'
 }
 
 export class JobsResource extends PagedResource<Job> {
