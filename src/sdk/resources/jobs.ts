@@ -54,4 +54,53 @@ export class JobsResource extends PagedResource<Job> {
 		const result = await this.httpClient.patch(this.resourcePath, undefined, params, token);
 		return result;
 	}
+
+	resetValidate(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
+		return this.reset(id, 'validate', start, params, token);
+	}
+
+	resetValidateFiltered(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
+		return this.reset(id, 'validate_filtered', start, params, token);
+	}
+
+	resetValidateShared(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
+		return this.reset(id, 'validate_shared', start, params, token);
+	}
+
+	resetValidateAll(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
+		return this.reset(id, 'validate_all', start, params, token);
+	}
+
+	resetStats(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
+		return this.reset(id, 'stats', start, params, token);
+	}
+
+	resetPermissions(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
+		return this.reset(id, 'permissions', start, params, token);
+	}
+
+	resetSoft(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
+		return this.reset(id, 'soft', start, params, token);
+	}
+
+	resetHard(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
+		return this.reset(id, 'hard', start, params, token);
+	}
+
+	resetFull(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
+		return this.reset(id, 'full', start, params, token);
+	}
+
+	private async reset(id: string, resetType: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
+		const resetParams = {
+			reset: resetType
+		};
+		if (start) {
+			resetParams['start'] = 1;
+		}
+		params = this.mergeParams(resetParams, params);
+
+		const job = await this.httpClient.patch(`${this.resourcePath}/${id}`, undefined, params, token);
+		return this.getSingle(job);
+	}
 }
