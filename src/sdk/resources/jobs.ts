@@ -3,6 +3,18 @@ import { PagedResource } from './resource';
 import { Job } from '../models';
 import { CancellationToken } from '../cancellation-token';
 
+export enum JobResetType {
+	validate = 'validate',
+	validateFiltered = 'validate_filtered',
+	validateShared = 'validate_shared',
+	validateAll = 'validate_all',
+	stats = 'stats',
+	permissions = 'permissions',
+	soft = 'soft',
+	hard = 'hard',
+	full = 'full'
+}
+
 export class JobsResource extends PagedResource<Job> {
 	constructor(httpClient: IHttpClient) {
 		super(httpClient, 'job');
@@ -55,49 +67,10 @@ export class JobsResource extends PagedResource<Job> {
 		return result;
 	}
 
-	resetValidate(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
-		return this.reset(id, 'validate', start, params, token);
-	}
-
-	resetValidateFiltered(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
-		return this.reset(id, 'validate_filtered', start, params, token);
-	}
-
-	resetValidateShared(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
-		return this.reset(id, 'validate_shared', start, params, token);
-	}
-
-	resetValidateAll(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
-		return this.reset(id, 'validate_all', start, params, token);
-	}
-
-	resetStats(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
-		return this.reset(id, 'stats', start, params, token);
-	}
-
-	resetPermissions(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
-		return this.reset(id, 'permissions', start, params, token);
-	}
-
-	resetSoft(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
-		return this.reset(id, 'soft', start, params, token);
-	}
-
-	resetHard(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
-		return this.reset(id, 'hard', start, params, token);
-	}
-
-	resetFull(id: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
-		return this.reset(id, 'full', start, params, token);
-	}
-
-	private async reset(id: string, resetType: string, start: boolean, params?: any, token?: CancellationToken): Promise<Job> {
+	private async reset(id: string, reset: JobResetType, params?: any, token?: CancellationToken): Promise<Job> {
 		const resetParams = {
-			reset: resetType
+			reset: reset
 		};
-		if (start) {
-			resetParams['start'] = 1;
-		}
 		params = this.mergeParams(resetParams, params);
 
 		const job = await this.httpClient.patch(`${this.resourcePath}/${id}`, undefined, params, token);
