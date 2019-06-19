@@ -35,6 +35,18 @@ export enum JobExecutionStatus {
 	NoChangesPerformed = 'no_changes'
 }
 
+export enum JobResetType {
+	Validate = 'validate',
+	ValidateFiltered = 'validate_filtered',
+	ValidateShared = 'validate_shared',
+	ValidateAll = 'validate_all',
+	Stats = 'stats',
+	Permissions = 'permissions',
+	Soft = 'soft',
+	Hard = 'hard',
+	Full = 'full'
+}
+
 export interface RetentionDuration {
 	type?: string;
 	count?: number;
@@ -70,6 +82,7 @@ export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
 	priority?: number;
 	status?: string;
 	execute_on?: number;
+	resets?: JobResetType[];
 	previous_execution: JobExecution;
 	execution: JobExecution;
 	retention?: RetentionOptions;
@@ -119,4 +132,5 @@ export interface JobExecution {
 	status?: JobExecutionStatus;
 	node_address?: string;
 	stats?: JobExecutionStatisticsSet;
+	resets?: JobResetType[];
 }
