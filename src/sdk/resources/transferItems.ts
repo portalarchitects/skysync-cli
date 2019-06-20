@@ -20,6 +20,18 @@ export class TransferItemsResource extends PagedResource<TransferItem> {
 		await this.httpClient.patch(`${this.resourcePath}/${itemid}`, undefined, this.mergeDefaultParams(params), token);
 	}
 
+	ignoreMultiple(params?: any, token?: CancellationToken): Promise<void> {
+		return this.modifyMultiple(this.mergeParams(params, {ignore: true}), token);
+	}
+
+	retryMultiple(params?: any, token?: CancellationToken): Promise<void> {
+		return this.modifyMultiple(this.mergeParams(params, {retry: true}), token);
+	}
+
+	private async modifyMultiple(params: any, token?: CancellationToken): Promise<void> {
+		await this.httpClient.patch(this.resourcePath, undefined, params, token);
+	}
+
 	downloadCsv(params?: any, token?: CancellationToken): Promise<string> {
 		return this.httpClient.get(`${this.resourcePath}.csv`, params, token);
 	}
