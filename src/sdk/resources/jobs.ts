@@ -1,19 +1,7 @@
 import { IHttpClient } from '../http';
 import { PagedResource } from './resource';
-import { Job } from '../models';
+import { Job, JobResetType } from '../models';
 import { CancellationToken } from '../cancellation-token';
-
-export enum JobResetType {
-	Validate = 'validate',
-	ValidateFiltered = 'validate_filtered',
-	ValidateShared = 'validate_shared',
-	ValidateAll = 'validate_all',
-	Stats = 'stats',
-	Permissions = 'permissions',
-	Soft = 'soft',
-	Hard = 'hard',
-	Full = 'full'
-}
 
 export class JobsResource extends PagedResource<Job> {
 	constructor(httpClient: IHttpClient) {
