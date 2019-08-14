@@ -113,7 +113,7 @@ export class Resource<TResource> extends BaseResource {
 	}
 }
 
-function getEditRequest(body: any | string): {id: string, payload?: any} {
+export function getEditRequest(body: any | string): {id: string, payload?: any} {
 	if (typeof body === 'string') {
 		return {
 			id: <string>body

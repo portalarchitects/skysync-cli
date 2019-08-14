@@ -28,7 +28,9 @@ export interface IHttpClient {
 	get(path: string, params?: any, token?: CancellationToken): Promise<any>;
 
 	download(path: string, handler: (fileName: string, output: Readable) => Promise<any>, token?: CancellationToken): Promise<any>;
-	
+
+	upload(path: string, name: string, body: Buffer, params?: any, token?: CancellationToken): Promise<any>;
+
 	post(path: string, body: any, params?: any, token?: CancellationToken): Promise<any>;
 
 	put(path: string, body: any, params?: any, token?: CancellationToken): Promise<any>;
@@ -254,7 +256,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		return new HttpError(message, statusCode, result && result.errors);
 	}
 
-	private async executeApiRequest(path: string, params: any, options: any = {}, token: CancellationToken): Promise<any> {
+	private executeApiRequest(path: string, params: any, options: any = {}, token: CancellationToken): Promise<any> {
 		const headers = params && params.headers;
 		if (headers) {
 			delete params.headers;
@@ -262,7 +264,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		}
 
 		const url = HttpClient.getUrl(path, this.apiUrl, params);
-		return await new Promise(async (resolve, reject) => {
+		return new Promise(async (resolve, reject) => {
 			try {
 				if (this.isAuthRequired) {
 					const token = await this.getAccessToken();
@@ -322,8 +324,26 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		});
 	}
 
-	abstract async download(path: string, handler: (fileName: string, output: Readable) => Promise<any>, token?: CancellationToken);
-	
+	abstract download(path: string, handler: (fileName: string, output: Readable) => Promise<any>, token?: CancellationToken);
+
+	upload(path: string, name: string, body: Buffer, params?: any, token?: CancellationToken): Promise<any> {
+		return this.executeApiRequest(path, params, {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json'
+			},
+			formData: {
+				file: {
+					value: body,
+					options: {
+						filename: name,
+						contentType: 'application/octet-stream'
+					}
+				}
+			}
+		}, token);
+	}
+
 	protected async getOptions(path: string, options: any) {
 		if (this.isAuthRequired) {
 			const token = await this.getAccessToken();
