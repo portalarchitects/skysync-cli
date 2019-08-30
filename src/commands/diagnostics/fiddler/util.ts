@@ -1,5 +1,5 @@
 import { OutputFormatter } from '../../../util/formatter';
-import { IHttpClient, IDownloadFileProvider } from '../../../sdk';
+import { IHttpClient, IDownloadFileProvider, getTypedResponse } from '../../../sdk';
 import { FileDownloader } from '../../../util/file-downloader';
 
 const outputFormat = {
@@ -17,20 +17,25 @@ const outputFormat = {
 	]
 };
 
-export const getStatus = (httpClient: IHttpClient): Promise<any> => {
-	return httpClient.get('diagnostics/fiddler');
+interface FiddlerStatus {
+	status?: boolean;
+	port?: number;
+}
+
+export const getStatus = (httpClient: IHttpClient): Promise<FiddlerStatus> => {
+	return getFiddlerResponse(httpClient.get('diagnostics/fiddler'));
 };
 
-export const changeStatus = (httpClient: IHttpClient, enable: boolean): Promise<any> => {
-	return httpClient.post('diagnostics/fiddler', {status: enable});
+export const changeStatus = (httpClient: IHttpClient, enable: boolean): Promise<FiddlerStatus> => {
+	return getFiddlerResponse(httpClient.post('diagnostics/fiddler', {status: enable}));
 };
 
-export const installCerts = (httpClient: IHttpClient, trustRoot: boolean = false): Promise<any> => {
-	return httpClient.post(`diagnostics/fiddler/certificates?trust=${trustRoot ? '1' : '0'}`, null);
+export const installCerts = (httpClient: IHttpClient, trustRoot: boolean = false): Promise<FiddlerStatus> => {
+	return getFiddlerResponse(httpClient.post(`diagnostics/fiddler/certificates?trust=${trustRoot ? '1' : '0'}`, null));
 };
 
-export const uninstallCerts = (httpClient: IHttpClient, trustRoot: boolean = false): Promise<any> => {
-	return httpClient.delete(`diagnostics/fiddler/certificates?trust=${trustRoot ? '1' : '0'}`);
+export const uninstallCerts = (httpClient: IHttpClient, trustRoot: boolean = false): Promise<FiddlerStatus> => {
+	return getFiddlerResponse(httpClient.delete(`diagnostics/fiddler/certificates?trust=${trustRoot ? '1' : '0'}`));
 };
 
 export const downloadTraces = (httpClient: IHttpClient, outputDirectory: string, purge?: boolean): Promise<string> => {
@@ -44,14 +49,23 @@ export const downloadTraces = (httpClient: IHttpClient, outputDirectory: string,
 	return downloader.download(null, outputDirectory);
 };
 
-export const deleteTraces = (httpClient: IHttpClient): Promise<any> => {
-	return httpClient.delete('diagnostics/fiddler/traces');
+export const deleteTraces = (httpClient: IHttpClient): Promise<FiddlerStatus> => {
+	return getFiddlerResponse(httpClient.delete('diagnostics/fiddler/traces'));
 };
 
-export const writeStatus = (status: any, output: OutputFormatter) => {
+export const writeStatus = (status: FiddlerStatus, output: OutputFormatter) => {
 	if (!Boolean(status)) {
-		output.writeFailure('Fiddler is not availalbe on this SkySync node.');
+		output.writeFailure('Fiddler is not availalbe on this node.');
 	} else {
 		output.writeItem(status, outputFormat);
 	}
 };
+
+const getFiddlerResponse = async (response: Promise<any>): Promise<FiddlerStatus> => {
+	try {
+		const result = await response;
+		return getTypedResponse(result, 'fiddler');
+	} catch (e) {
+		return null;
+	}
+}
