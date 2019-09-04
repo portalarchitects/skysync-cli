@@ -10,8 +10,9 @@ export interface User extends IEntityIdentifier<string> {
 	name?: string;
 	email?: string;
 	disabled?: boolean;
+	readonly?: boolean;
 	group?: OwnershipGroup;
-	roles?: Role[];	
+	roles?: Role[];
 }
 
 export interface UserPreference extends IEntityIdentifier<string> {
