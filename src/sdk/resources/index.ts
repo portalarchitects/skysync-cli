@@ -34,3 +34,4 @@ export * from './transferFolders';
 export * from './transferSecurityMappings';
 export * from './transferStatistics';
 export * from './users';
+export * from './extensions';

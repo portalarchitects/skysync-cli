@@ -23,3 +23,4 @@ export * from './license';
 export * from './securityMaps';
 export * from './accountMaps';
 export * from './groupMaps';
+export * from './extensions';
