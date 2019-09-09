@@ -38,6 +38,7 @@ export enum JobExecutionStatus {
 export enum JobResetType {
 	InspectFiltered = 'inspect_filtered',
 	InspectShared = 'inspect_shared',
+	InspectAll = 'inspect_all',
 	Stats = 'stats',
 	Permissions = 'permissions',
 	Soft = 'soft',
