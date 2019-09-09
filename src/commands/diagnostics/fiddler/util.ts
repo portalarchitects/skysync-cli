@@ -55,7 +55,7 @@ export const deleteTraces = (httpClient: IHttpClient): Promise<FiddlerStatus> =>
 
 export const writeStatus = (status: FiddlerStatus, output: OutputFormatter) => {
 	if (!Boolean(status)) {
-		output.writeFailure('Fiddler is not availalbe on this node.');
+		output.writeFailure('Fiddler is not available on this node.');
 	} else {
 		output.writeItem(status, outputFormat);
 	}
