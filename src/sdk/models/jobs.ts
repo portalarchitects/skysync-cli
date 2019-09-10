@@ -46,6 +46,13 @@ export enum JobResetType {
 	Full = 'full'
 }
 
+export enum SkippedFolderInspection {
+	None = 'none',
+	Shared = 'shared',
+	Filtered = 'filtered',
+	All = 'all'
+}
+
 export interface RetentionDuration {
 	type?: string;
 	count?: number;
@@ -81,8 +88,7 @@ export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
 	priority?: number;
 	status?: string;
 	execute_on?: number;
-	inspect_filtered?: boolean;
-	inspect_shared?: boolean;
+	skipped_folder_inspection?: SkippedFolderInspection;
 	previous_execution: JobExecution;
 	execution: JobExecution;
 	retention?: RetentionOptions;
@@ -132,6 +138,5 @@ export interface JobExecution {
 	status?: JobExecutionStatus;
 	node_address?: string;
 	stats?: JobExecutionStatisticsSet;
-	inspect_filtered?: boolean;
-	inspect_shared?: boolean;
+	skipped_folder_inspection?: SkippedFolderInspection;
 }
