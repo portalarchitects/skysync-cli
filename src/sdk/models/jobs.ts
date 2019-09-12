@@ -88,8 +88,8 @@ export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
 	priority?: number;
 	status?: string;
 	execute_on?: number;
+	resets?: JobResetType[];
 	skipped_folder_inspection?: SkippedFolderInspection;
-	skipped_folder_inspection_next_run?: SkippedFolderInspection;
 	previous_execution: JobExecution;
 	execution: JobExecution;
 	retention?: RetentionOptions;
@@ -139,5 +139,4 @@ export interface JobExecution {
 	status?: JobExecutionStatus;
 	node_address?: string;
 	stats?: JobExecutionStatisticsSet;
-	skipped_folder_inspection?: SkippedFolderInspection;
 }
