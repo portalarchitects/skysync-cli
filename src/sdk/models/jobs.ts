@@ -89,7 +89,7 @@ export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
 	status?: string;
 	execute_on?: number;
 	resets?: JobResetType[];
-	skipped_folder_inspection?: SkippedFolderInspection;
+	skipped_item_inspection?: SkippedFolderInspection;
 	previous_execution: JobExecution;
 	execution: JobExecution;
 	retention?: RetentionOptions;
