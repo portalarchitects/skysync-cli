@@ -46,7 +46,7 @@ export enum JobResetType {
 	Full = 'full'
 }
 
-export enum SkippedFolderInspection {
+export enum ItemInspectionPolicy {
 	None = 'none',
 	Shared = 'shared',
 	Filtered = 'filtered',
@@ -89,7 +89,7 @@ export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
 	status?: string;
 	execute_on?: number;
 	resets?: JobResetType[];
-	skipped_item_inspection?: SkippedFolderInspection;
+	item_inspection_policy?: ItemInspectionPolicy;
 	previous_execution: JobExecution;
 	execution: JobExecution;
 	retention?: RetentionOptions;
