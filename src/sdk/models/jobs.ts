@@ -48,8 +48,8 @@ export enum JobResetType {
 
 export enum ItemInspectionPolicy {
 	None = 'none',
-	Shared = 'shared',
 	Filtered = 'filtered',
+	Shared = 'shared',
 	All = 'all'
 }
 
@@ -89,7 +89,6 @@ export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
 	status?: string;
 	execute_on?: number;
 	resets?: JobResetType[];
-	item_inspection_policy?: ItemInspectionPolicy;
 	previous_execution: JobExecution;
 	execution: JobExecution;
 	retention?: RetentionOptions;
@@ -139,4 +138,5 @@ export interface JobExecution {
 	status?: JobExecutionStatus;
 	node_address?: string;
 	stats?: JobExecutionStatisticsSet;
+	item_inspection_policy?: ItemInspectionPolicy;
 }

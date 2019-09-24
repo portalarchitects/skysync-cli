@@ -1,4 +1,4 @@
-import { Job } from './jobs';
+import { Job, ItemInspectionPolicy } from './jobs';
 import { Connection, Account, PlatformItem, SecurityIdentifier } from './connections';
 import { IEntityIdentifier } from './base';
 import { AuditCategory } from './auditCategories';
@@ -72,6 +72,8 @@ export interface TransferOptions {
 	delete_propagation?: string;
 	metadata_import?: MetadataImportOptions;
 	permissions?: PermissionsOptions;
+	item_inspection_policy?: ItemInspectionPolicy;
+	item_inspection_policy_next?: ItemInspectionPolicy;
 }
 
 export interface TransferItem extends IEntityIdentifier<number> {
