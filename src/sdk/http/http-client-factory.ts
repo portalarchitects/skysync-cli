@@ -12,6 +12,7 @@ function isFetchDefined(): boolean {
 		? window
 		: typeof WorkerGlobalScope !== 'undefined'
 			? self
+			// tslint:disable-next-line:function-constructor
 			: typeof global !== 'undefined' ? global : Function('return this;')));
 }
 
