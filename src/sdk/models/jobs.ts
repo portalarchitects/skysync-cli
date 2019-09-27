@@ -138,5 +138,4 @@ export interface JobExecution {
 	status?: JobExecutionStatus;
 	node_address?: string;
 	stats?: JobExecutionStatisticsSet;
-	item_inspection_policy?: ItemInspectionPolicy;
 }

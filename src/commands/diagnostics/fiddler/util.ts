@@ -68,4 +68,4 @@ const getFiddlerResponse = async (response: Promise<any>): Promise<FiddlerStatus
 	} catch (e) {
 		return null;
 	}
-}
+};
