@@ -77,7 +77,7 @@
 		"no-disable-auto-sanitization": true,
 		"no-duplicate-parameter-names": true,
 		"no-exec-script": true,
-		"no-function-constructor-with-string-args": true,
+		"function-constructor": true,
 		"no-octal-literal": true,
 		"no-reserved-keywords": false,
 		"no-string-based-set-immediate": true,
