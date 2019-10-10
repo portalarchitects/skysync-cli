@@ -88,7 +88,6 @@ export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
 	priority?: number;
 	status?: string;
 	execute_on?: number;
-	resets?: JobResetType[];
 	previous_execution: JobExecution;
 	execution: JobExecution;
 	retention?: RetentionOptions;
