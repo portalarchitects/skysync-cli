@@ -34,8 +34,8 @@ export const installCerts = (httpClient: IHttpClient, trustRoot: boolean = false
 	return getFiddlerResponse(httpClient.post(`diagnostics/fiddler/certificates?trust=${trustRoot ? '1' : '0'}`, null));
 };
 
-export const uninstallCerts = (httpClient: IHttpClient, trustRoot: boolean = false): Promise<FiddlerStatus> => {
-	return getFiddlerResponse(httpClient.delete(`diagnostics/fiddler/certificates?trust=${trustRoot ? '1' : '0'}`));
+export const uninstallCerts = (httpClient: IHttpClient, trustRoot: boolean = false): Promise<boolean> => {
+	return httpClient.delete(`diagnostics/fiddler/certificates?trust=${trustRoot ? '1' : '0'}`);
 };
 
 export const downloadTraces = (httpClient: IHttpClient, outputDirectory: string, purge?: boolean): Promise<string> => {
