@@ -1,5 +1,5 @@
 import { runCommand } from '../../../util/command';
-import { uninstallCerts, writeStatus } from './util';
+import { uninstallCerts } from './util';
 
 export = {
 	command: 'uninstall-certs',
@@ -7,15 +7,19 @@ export = {
 	builder: yargs => {
 		yargs.options({
 			'trustRoot': {
-				desc: 'Attempt to install root certificates into trusted machine store',
+				desc: 'Attempt to uninstall root certificates from trusted machine store',
 				type: 'boolean'
 			},
 		});
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			const status = await uninstallCerts(client.httpClient, argv.trustRoot);
-			writeStatus(status, output);
+			const wasUninstalled = await uninstallCerts(client.httpClient, argv.trustRoot);
+			if (wasUninstalled) {
+				output.writeSuccess('The certificates were uninstalled.');
+			} else {
+				output.writeSuccess('The certificates could not be uninstalled.');
+			}
 		});
 	}
 };
