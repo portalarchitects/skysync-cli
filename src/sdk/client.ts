@@ -34,7 +34,8 @@ import {
 	TransferSecurityMappingsResource,
 	AccountMapsResource,
 	GroupMapsResource,
-	ExtensionsResource
+	ExtensionsResource,
+	NotificationsResource,
 } from './resources';
 
 export class SkySyncClient {
@@ -205,5 +206,9 @@ export class SkySyncClient {
 
 	get extensions(): ExtensionsResource {
 		return new ExtensionsResource(this._httpClient);
+	}
+
+	get notifications(): NotificationsResource {
+		return new NotificationsResource(this._httpClient);
 	}
 }
