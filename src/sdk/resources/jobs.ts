@@ -56,22 +56,11 @@ export class JobsResource extends PagedResource<Job> {
 	}
 
 	async reset(id: string, reset: JobResetType, params?: any, token?: CancellationToken): Promise<Job> {
-		const resetParams = {
-			reset: reset
-		};
-		params = this.mergeParams(resetParams, params);
-
-		const job = await this.httpClient.patch(`${this.resourcePath}/${id}`, undefined, params, token);
+		const job = await this.httpClient.patch(`${this.resourcePath}/${id}`, undefined, this.mergeParams({reset}, params), token);
 		return this.getSingle(job);
 	}
 
-	async resetMultiple(reset: JobResetType, params?: any, token?: CancellationToken): Promise<Job> {
-		const resetParams = {
-			reset: reset
-		};
-		params = this.mergeParams(resetParams, params);
-
-		const result = await this.httpClient.patch(`${this.resourcePath}`, undefined, params, token);
-		return result;
+	resetMultiple(reset: JobResetType, params?: any, token?: CancellationToken): Promise<Job> {
+		return this.httpClient.patch(`${this.resourcePath}`, undefined, this.mergeParams({reset}, params), token);
 	}
 }
