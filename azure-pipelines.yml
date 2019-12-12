@@ -1,0 +1,25 @@
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+    - task: NodeTool@0
+      inputs:
+          versionSpec: '8.x'
+      displayName: 'Install Node.js'
+
+    - task: Npm@1
+      inputs:
+          command: install
+      displayName: 'Build'
+
+    - script: |
+          npm test
+      displayName: 'Test'
+
+    - task: Npm@1
+      inputs:
+          command: publish
+          workingDir: publish
+          publishRegistry: useFeed
+          publishFeed: '9ee3b1ba-43b7-4d43-b1b1-b0e328eb5ecd/6b2c6d4b-eda7-4403-8cbe-c1b220843328'
+      displayName: 'Publish SDK'
