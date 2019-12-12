@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/portalarchitects/skysync-cli.svg?branch=master)](https://travis-ci.org/portalarchitects/skysync-cli)
+[![Build Status](https://dev.azure.com/skysync/skysync/_apis/build/status/cli-ci?branchName=master&label=Build)
 [![npm version](https://badge.fury.io/js/skysync-cli.svg)](https://www.npmjs.com/package/skysync-cli)
 [![Downloads](https://img.shields.io/npm/dm/skysync-cli.svg)](https://www.npmjs.com/package/skysync-cli)
 
