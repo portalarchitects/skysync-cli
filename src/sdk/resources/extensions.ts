@@ -35,4 +35,11 @@ export class ExtensionsResource extends Resource<Extension> implements IDownload
 		}
 		return this.httpClient.delete(`${this.resourcePath}/${id}`, this.mergeDefaultParams(params), token);
 	}
+	
+	async configure(id: any, configuration: any, params?: any, token?: CancellationToken): Promise<void> {
+		if (typeof id !== 'string' && Boolean(id && id.id)) {
+			id = id.id;
+		}
+		await this.httpClient.patch(`${this.resourcePath}/${id}/configure`, configuration, this.mergeDefaultParams(params), token);
+	}
 }

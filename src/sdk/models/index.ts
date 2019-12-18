@@ -1,4 +1,5 @@
 export * from './time';
+export * from './prompt';
 export * from './connections';
 export * from './platformCompare';
 export * from './conventions';

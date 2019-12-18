@@ -5,6 +5,7 @@ import {
 	ILinks,
 	IHaveLinks
 } from './base';
+import { PromptAttributes } from './prompt';
 
 export interface ConnectionFeatures {
 	[name: string]: any;
@@ -13,28 +14,6 @@ export interface ConnectionFeatures {
 export interface StoragePlatformLinks extends ILinks {
 	icon?: Link;
 	connect?: Link;
-}
-
-export interface PromptAttributeOption {
-	caption?: string;
-}
-
-export interface PromptAttributeOptionList {
-	[key: string]: PromptAttributeOption;
-}
-
-export interface PromptAttribute {
-	type?: string;
-	id?: string;
-	caption?: string;
-	hint?: string;
-	required?: boolean;
-	value?: any;
-	options?: PromptAttributeOptionList;
-}
-
-export interface PromptAttributes {
-	[name: string]: PromptAttribute;
 }
 
 export interface StoragePlatformPromptDimensions {
