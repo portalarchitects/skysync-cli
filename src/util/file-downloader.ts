@@ -1,5 +1,4 @@
-import { IHttpClient } from '../sdk/http';
-import { IDownloadFileProvider } from '../sdk/resources';
+import { IDownloadFileProvider, IHttpClient } from '../sdk';
 
 const path = require('path');
 const fs = require('fs');
