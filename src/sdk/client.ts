@@ -32,6 +32,7 @@ import {
 	TransferReportsResource,
 	TransferReportStatisticsResource,
 	TransferSecurityMappingsResource,
+	TransferPermissionsResource,
 	AccountMapsResource,
 	GroupMapsResource,
 	ExtensionsResource,
@@ -134,6 +135,10 @@ export class SkySyncClient {
 
 	get transferSecurityMappings(): TransferSecurityMappingsResource {
 		return new TransferSecurityMappingsResource(this._httpClient);		
+	}
+
+	get transferPermissions(): TransferPermissionsResource {
+		return new TransferPermissionsResource(this._httpClient);		
 	}
 
 	get transferStatistics(): TransferJobStatisticsResource {

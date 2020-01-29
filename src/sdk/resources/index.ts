@@ -32,6 +32,7 @@ export * from './transferAudits';
 export * from './transferItems';
 export * from './transferFolders';
 export * from './transferSecurityMappings';
+export * from './transferPermissions';
 export * from './transferStatistics';
 export * from './users';
 export * from './extensions';
