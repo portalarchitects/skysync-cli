@@ -3,7 +3,7 @@ import {
 	PlatformComparisonRuleGroup,
 	PlatformComparisonRuleGroupResult
 } from './types';
-const comparisonRules: PlatformComparisonRuleGroup[] = require('./rules');
+import comparisonRules from './rules';
 
 export class StoragePlatformComparer {
 	static get rules(): PlatformComparisonRuleGroup[] {
