@@ -128,3 +128,29 @@ export interface TransferSecurityMapping extends IEntityIdentifier<string> {
 	resolution?: string;
 	message?: string;
 }
+
+export enum AccessRights {
+	None = 'none',
+	Read = 'read',
+	Write = 'write',
+	Append = 'append',
+	Delete = 'delete',
+	ReadPermissions = 'read_permissions',
+	WritePermissions = 'write_permissions',
+	ReadWrite = 'read_write',
+	FullPermissions = 'full_permissions',
+	FullControl = 'full'
+}
+
+export enum AccessControlType {
+	Allow = 'allow',
+	Deny = 'deny'
+}
+
+export interface TransferPermission extends IEntityIdentifier<number> {
+	security_map?: TransferSecurityMapping;
+	target?: TransferItem;
+	rights?: AccessRights;
+	access?: AccessControlType;
+	audit_trail: string;
+}
