@@ -138,4 +138,4 @@ const comparisonRules: PlatformComparisonRuleGroup[] = [
 	}
 ];
 
-module.exports = comparisonRules;
+export default comparisonRules;
