@@ -1,21 +1,21 @@
 export class CancellationToken {
-	private listeners: { (): void } [] = [];
-	private cancelled: boolean = false;
+	private _listeners: { (): void } [] = [];
+	private _cancelled: boolean = false;
 	
 	public get isCancelled(): boolean {
-		return this.isCancelled;
+		return this._cancelled;
 	}
 
 	public onCancel(callback: () => void) {
-		if (this.cancelled) {
+		if (this._cancelled) {
 			callback();
 		} else {
-			this.listeners.push(callback);
+			this._listeners.push(callback);
 		}
 	}
 	
 	public cancel() {
-		this.cancelled = true;
-		this.listeners.forEach(callback => callback());
+		this._cancelled = true;
+		this._listeners.forEach(callback => callback());
 	}
 }
