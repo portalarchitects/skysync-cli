@@ -25,3 +25,4 @@ export * from './accountMaps';
 export * from './groupMaps';
 export * from './extensions';
 export * from './notifications';
+export * from './audits';

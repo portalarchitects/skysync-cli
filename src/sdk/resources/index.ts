@@ -37,3 +37,4 @@ export * from './transferStatistics';
 export * from './users';
 export * from './extensions';
 export * from './notifications';
+export * from './audits';
