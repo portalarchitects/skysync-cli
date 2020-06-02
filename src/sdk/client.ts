@@ -37,6 +37,8 @@ import {
 	GroupMapsResource,
 	ExtensionsResource,
 	NotificationsResource,
+	PoliciesResource,
+	PolicyJobStatisticsResource
 } from './resources';
 
 export class SkySyncClient {
@@ -215,5 +217,13 @@ export class SkySyncClient {
 
 	get notifications(): NotificationsResource {
 		return new NotificationsResource(this._httpClient);
+	}
+
+	get policies(): PoliciesResource {
+		return new PoliciesResource(this._httpClient);
+	}
+
+	get policyStatistics(): PolicyJobStatisticsResource {
+		return new PolicyJobStatisticsResource(this._httpClient);
 	}
 }
