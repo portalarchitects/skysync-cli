@@ -1,6 +1,7 @@
 import { IEntityIdentifier } from './base';
 
 export interface TransferPlatformStatistic {
+	name?: string;
 	bytes?: number;
 	files?: number;
 	folders?: number;

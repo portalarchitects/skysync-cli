@@ -1,6 +1,7 @@
 import { IEntityIdentifier } from './base';
 
 export interface PolicyStatistic {
+	name?: string;
 	bytes?: number;
 	files?: number;
 	folders?: number;
@@ -13,7 +14,14 @@ export interface PolicyStatisticsList {
 	[key: string]: PolicyStatistic;
 }
 
-export type PolicyJobStatisticsTimeline = { timestamp: number; stats: PolicyStatisticsList; }[];
+export type PolicyJobStatisticsTimeline = { 
+	timestamp: number; 
+	stats: {
+		by_risk?: PolicyStatisticsList;
+		by_group?: PolicyStatisticsList;
+		by_activity?: PolicyStatisticsList;
+	}
+}[];
 
 export interface PolicyJobStatistics extends IEntityIdentifier<string> {
 	timeline?: PolicyJobStatisticsTimeline;
@@ -22,10 +30,6 @@ export interface PolicyJobStatistics extends IEntityIdentifier<string> {
 	by_flagged_category?: PolicyStatisticsList;
 	by_activity?: PolicyStatisticsList;
 	count?: number;
+	locations?: number;
 	executions?: number;
-	stop_policy?: {
-		none?: number;
-		pending?: number;
-		complete?: number;
-	};
 }
