@@ -8,6 +8,11 @@ export enum JobScheduleMode {
 	Manual = 'manual'
 }
 
+export enum JobScheduleType {
+	Interval = 'interval',
+	SpecificTime = 'specific-time'
+}
+
 export enum JobStatus {
 	AwaitingUser = 'awaiting-user',
 	Cancelled = 'cancel',
@@ -65,6 +70,7 @@ export interface RetentionOptions {
 
 export interface JobSchedule {
 	mode?: JobScheduleMode;
+	type?: JobScheduleType;
 	start_date?: number;
 	end_date?: number;
 	start_window?: TimeOfDay;
