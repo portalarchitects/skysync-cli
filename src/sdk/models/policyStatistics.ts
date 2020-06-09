@@ -2,6 +2,7 @@ import { IEntityIdentifier } from './base';
 
 export interface PolicyStatistic {
 	name?: string;
+	description?: string;
 	bytes?: number;
 	files?: number;
 	folders?: number;

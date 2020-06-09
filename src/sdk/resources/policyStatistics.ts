@@ -12,9 +12,4 @@ export class PolicyJobStatisticsResource extends BaseResource {
 		const result = await this.httpClient.get(`policies/${id}/stats`, this.mergeDefaultParams(params), token);
 		return getTypedResponse<PolicyJobStatistics>(result);
 	}
-
-	async summarize(params?: any, token?: CancellationToken): Promise<PolicyJobStatistics> {
-		const result = await this.httpClient.get(`policies/stats`, this.mergeDefaultParams(params), token);
-		return getTypedResponse<PolicyJobStatistics>(result);
-	}
 }
