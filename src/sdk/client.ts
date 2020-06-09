@@ -38,6 +38,7 @@ import {
 	ExtensionsResource,
 	NotificationsResource,
 	PoliciesResource,
+	PolicyLocationsResource,
 	PolicyJobStatisticsResource
 } from './resources';
 
@@ -221,6 +222,10 @@ export class SkySyncClient {
 
 	get policies(): PoliciesResource {
 		return new PoliciesResource(this._httpClient);
+	}
+
+	get policyLocations(): PolicyLocationsResource {
+		return new PolicyLocationsResource(this._httpClient);
 	}
 
 	get policyStatistics(): PolicyJobStatisticsResource {
