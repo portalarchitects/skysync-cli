@@ -8,11 +8,6 @@ export enum JobScheduleMode {
 	Manual = 'manual'
 }
 
-export enum JobScheduleType {
-	Interval = 'interval',
-	SpecificTime = 'specific-time'
-}
-
 export enum JobStatus {
 	AwaitingUser = 'awaiting-user',
 	Cancelled = 'cancel',
