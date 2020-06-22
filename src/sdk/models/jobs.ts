@@ -65,7 +65,6 @@ export interface RetentionOptions {
 
 export interface JobSchedule {
 	mode?: JobScheduleMode;
-	type?: JobScheduleType;
 	start_date?: number;
 	end_date?: number;
 	start_window?: TimeOfDay;
