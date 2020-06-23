@@ -10,9 +10,9 @@ export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
 	disabled?: boolean;
 }
 
-export interface PolicyLocation extends Job {
-	policy?: PolicyLocationOptions;
+export interface PolicyJob extends Job {
+	policy?: PolicyJobOptions;
 }
 
-export interface PolicyLocationOptions extends TransferPath {
+export interface PolicyJobOptions extends TransferPath {
 }

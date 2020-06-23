@@ -32,6 +32,5 @@ export interface PolicyJobStatistics extends IEntityIdentifier<string> {
 	by_location_health?: PolicyStatisticsList;
 	by_flagged_category?: PolicyStatisticsList;
 	count?: number;
-	locations?: number;
 	executions?: number;
 }
