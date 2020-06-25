@@ -15,7 +15,8 @@ export interface PolicyJob extends Job {
 	policy?: PolicyJobOptions;
 }
 
-export interface PolicyJobOptions extends TransferPath {
+export interface PolicyJobOptions {
+	source?: TransferPath;
 }
 
 export interface PolicyItem extends IEntityIdentifier<number> {
