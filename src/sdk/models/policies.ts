@@ -25,9 +25,7 @@ export interface PolicyItem extends IEntityIdentifier<number> {
 	audit_category?: AuditCategory;
 	retried?: number;
 	status?: string;
-	processing?: string[];
-	source_to_destination?: boolean;
-	transferred_on?: number;
+	processed_on?: number;
 	root?: boolean;
 	type?: 'container' | 'item';
 }
