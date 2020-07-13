@@ -15,5 +15,5 @@ export interface PolicyJob extends Job {
 }
 
 export interface PolicyJobOptions extends TransferPath {
-	policy?: Policy[];
+	policies?: Policy[];
 }
