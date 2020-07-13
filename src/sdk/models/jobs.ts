@@ -25,8 +25,9 @@ export enum JobStatus {
 }
 
 export enum JobHealth {
+	Unavailable = 'unavailable',
 	Healthy = 'healthy',
-	Failing = 'failing',
+	Unhealthy = 'unhealthy',
 	Inactive = 'inactive'
 }
 

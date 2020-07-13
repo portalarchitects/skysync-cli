@@ -8,7 +8,6 @@ export interface PolicyStatistic {
 	folders?: number;
 	versions?: number;
 	storage?: number;
-	cost_savings?: number;
 }
 
 export interface PolicyStatisticsList {
@@ -20,7 +19,6 @@ export type PolicyJobStatisticsTimeline = {
 	stats: {
 		by_risk?: PolicyStatisticsList;
 		by_group?: PolicyStatisticsList;
-		by_activity?: PolicyStatisticsList;
 	}
 }[];
 
