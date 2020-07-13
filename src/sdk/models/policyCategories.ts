@@ -1,5 +1,5 @@
 import { IEntityIdentifier } from './base';
 
-export interface PolicyCategory extends IEntityIdentifier<number> {
+export interface PolicyCategory extends IEntityIdentifier<string> {
 	name?: string;
 }
