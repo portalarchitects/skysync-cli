@@ -50,6 +50,6 @@ export interface PolicyAuditEntry extends IEntityIdentifier<number> {
 	recorded_on?: number;
 }
 
-export interface PolicyItemTrackingGroup extends IEntityIdentifier<number> {
+export interface PolicyItemTrackingGroup extends IEntityIdentifier<string> {
 	name?: string;
 }
