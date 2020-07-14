@@ -33,7 +33,6 @@ export interface PolicyItem extends TransferPlatformItem {
 	processed_on?: number;
 	root?: boolean;
 	type?: 'container' | 'item';
-	risk_level?: PolicyItemRiskLevel;
 	group?: PolicyItemTrackingGroup;
 }
 
@@ -52,4 +51,5 @@ export interface PolicyAuditEntry extends IEntityIdentifier<number> {
 
 export interface PolicyItemTrackingGroup extends IEntityIdentifier<string> {
 	name?: string;
+	risk_level?: PolicyItemRiskLevel;
 }
