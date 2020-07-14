@@ -4,6 +4,12 @@ import { Job } from './jobs';
 import { TransferPath, TransferPlatformItem } from './transfers';
 import { AuditCategory } from './auditCategories';
 
+export enum PolicyItemRiskLevel {
+	High = 'high',
+	Medium = 'medium',
+	Low = 'low',
+}
+
 export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
 	name?: string;
 	description?: string;
@@ -27,6 +33,7 @@ export interface PolicyItem extends TransferPlatformItem {
 	processed_on?: number;
 	root?: boolean;
 	type?: 'container' | 'item';
+	group?: PolicyItemTrackingGroup;
 }
 
 export interface PolicyAuditEntry extends IEntityIdentifier<number> {
@@ -40,4 +47,9 @@ export interface PolicyAuditEntry extends IEntityIdentifier<number> {
 	type?: string;
 	message?: string;
 	recorded_on?: number;
+}
+
+export interface PolicyItemTrackingGroup extends IEntityIdentifier<string> {
+	name?: string;
+	risk_level?: PolicyItemRiskLevel;
 }
