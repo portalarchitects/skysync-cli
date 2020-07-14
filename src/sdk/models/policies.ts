@@ -1,7 +1,8 @@
 import { IEntityIdentifier, IAuditedEntity } from './base';
 import { PolicyCategory } from './policyCategories';
 import { Job } from './jobs';
-import { TransferPath } from './transfers';
+import { TransferPath, TransferPlatformItem } from './transfers';
+import { AuditCategory } from './auditCategories';
 
 export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
 	name?: string;
@@ -16,4 +17,27 @@ export interface PolicyJob extends Job {
 
 export interface PolicyJobOptions extends TransferPath {
 	policies?: Policy[];
+}
+
+export interface PolicyItem extends TransferPlatformItem {
+	parent_id?: number;
+	audit_category?: AuditCategory;
+	retried?: number;
+	status?: string;
+	processed_on?: number;
+	root?: boolean;
+	type?: 'container' | 'item';
+}
+
+export interface PolicyAuditEntry extends IEntityIdentifier<number> {
+	job_id?: string;
+	execution_id?: number;
+	target?: PolicyItem;
+	bytes?: number;
+	version?: string;
+	hash?: string;
+	level?: string;
+	type?: string;
+	message?: string;
+	recorded_on?: number;
 }

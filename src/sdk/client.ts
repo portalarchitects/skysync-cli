@@ -21,7 +21,7 @@ import {
 	StoragePlatformsResource,
 	UsersResource,
 	UserPreferencesResource,
-	AuditCategoriesResource,
+	TransferAuditCategoriesResource,
 	ContentCategoriesResource,
 	TemplatesResource,
 	TransferAuditsResource,
@@ -38,7 +38,8 @@ import {
 	ExtensionsResource,
 	NotificationsResource,
 	PoliciesResource,
-	PolicyJobStatisticsResource
+	PolicyJobStatisticsResource,
+	PolicyAuditsResource,
 } from './resources';
 
 export class SkySyncClient {
@@ -183,8 +184,8 @@ export class SkySyncClient {
 		return new UserPreferencesResource(this._httpClient);
 	}
 
-	get auditCategories(): AuditCategoriesResource {
-		return new AuditCategoriesResource(this._httpClient);
+	get transferAuditCategories(): TransferAuditCategoriesResource {
+		return new TransferAuditCategoriesResource(this._httpClient);
 	}
 
 	get contentCategories(): ContentCategoriesResource {
@@ -225,5 +226,9 @@ export class SkySyncClient {
 
 	get policyStatistics(): PolicyJobStatisticsResource {
 		return new PolicyJobStatisticsResource(this._httpClient);
+	}
+
+	get policyAudits(): PolicyAuditsResource {
+		return new PolicyAuditsResource(this._httpClient);
 	}
 }
