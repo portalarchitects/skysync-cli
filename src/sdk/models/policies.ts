@@ -19,9 +19,8 @@ export interface PolicyJobOptions extends TransferPath {
 	policies?: Policy[];
 }
 
-export interface PolicyItem extends IEntityIdentifier<number> {
+export interface PolicyItem extends TransferPlatformItem {
 	parent_id?: number;
-	source?: TransferPlatformItem;
 	audit_category?: AuditCategory;
 	retried?: number;
 	status?: string;
