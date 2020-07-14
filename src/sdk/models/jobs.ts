@@ -24,6 +24,13 @@ export enum JobStatus {
 	Warn = 'warn'
 }
 
+export enum JobHealth {
+	Unavailable = 'unavailable',
+	Healthy = 'healthy',
+	Unhealthy = 'unhealthy',
+	Inactive = 'inactive'
+}
+
 export enum JobExecutionStatus {
 	Running = 'running',
 	Failing = 'failing',
@@ -87,6 +94,7 @@ export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
 	stop_policy?: string;
 	priority?: number;
 	status?: string;
+	health?: JobHealth;
 	execute_on?: number;
 	previous_execution: JobExecution;
 	execution: JobExecution;
