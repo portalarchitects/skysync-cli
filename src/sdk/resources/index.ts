@@ -41,5 +41,3 @@ export * from './policies';
 export * from './policyStatistics';
 export * from './policyAudits';
 export * from './policyItems';
-export * from './policyItemTrackingGroups';
-export * from './policyItemActivities';
