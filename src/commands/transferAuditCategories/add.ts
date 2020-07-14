@@ -1,9 +1,9 @@
 import { runCommand, readJsonInput } from '../../util/command';
-import { outputFormat } from './util';
+import { outputFormat } from '../auditCategories/util';
 
 export = {
 	command: 'add',
-	desc: 'Add an Audit Category',
+	desc: 'Add a Transfer Audit Category',
 	builder: yargs => {
 		yargs.options({
 			'name': {
@@ -69,7 +69,7 @@ export = {
 			if (argv.optionsInput) {
 				auditCategory = await readJsonInput();
 			}
-			auditCategory = await client.auditCategories.add(auditCategory, {
+			auditCategory = await client.transferAuditCategories.add(auditCategory, {
 				fields: 'all'
 			});
 			output.writeItem(auditCategory, outputFormat);

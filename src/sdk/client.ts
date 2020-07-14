@@ -21,7 +21,7 @@ import {
 	StoragePlatformsResource,
 	UsersResource,
 	UserPreferencesResource,
-	AuditCategoriesResource,
+	TransferAuditCategoriesResource,
 	ContentCategoriesResource,
 	TemplatesResource,
 	TransferAuditsResource,
@@ -184,8 +184,8 @@ export class SkySyncClient {
 		return new UserPreferencesResource(this._httpClient);
 	}
 
-	get auditCategories(): AuditCategoriesResource {
-		return new AuditCategoriesResource(this._httpClient);
+	get transferAuditCategories(): TransferAuditCategoriesResource {
+		return new TransferAuditCategoriesResource(this._httpClient);
 	}
 
 	get contentCategories(): ContentCategoriesResource {
