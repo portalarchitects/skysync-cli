@@ -34,7 +34,7 @@ export interface PolicyItem extends TransferPlatformItem {
 	root?: boolean;
 	type?: 'container' | 'item';
 	risk_level?: PolicyItemRiskLevel;
-	tracking_group?: PolicyItemTrackingGroup;
+	group?: PolicyItemTrackingGroup;
 }
 
 export interface PolicyAuditEntry extends IEntityIdentifier<number> {
