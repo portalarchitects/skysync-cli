@@ -42,6 +42,10 @@ export const listOutputFormat = {
 			property: 'name'
 		},
 		{
+			header: 'Discriminator',
+			property: 'discriminator'
+		},
+		{
 			header: 'Kind',
 			property: 'kind'
 		},

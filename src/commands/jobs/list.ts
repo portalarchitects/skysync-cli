@@ -15,7 +15,8 @@ export = {
 				fields: [
 					'name',
 					'status',
-					'disabled'
+					'disabled',
+					'discriminator'
 				]
 			});
 			output.writeTable(jobs, listOutputFormat);
