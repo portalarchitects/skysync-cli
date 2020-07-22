@@ -5,9 +5,12 @@ import { TransferPath, TransferPlatformItem } from './transfers';
 import { AuditCategory } from './auditCategories';
 
 export enum PolicyItemRiskLevel {
-	High = 'high',
-	Medium = 'medium',
+	None = 'none',
 	Low = 'low',
+	Medium = 'medium',
+	High = 'high',
+	Critical = 'critical',
+	Extreme = 'extreme'
 }
 
 export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
