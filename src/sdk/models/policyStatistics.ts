@@ -10,25 +10,23 @@ export interface PolicyStatistic {
 	storage?: number;
 }
 
-export interface PolicyStatisticsList {
+export interface PolicyStatisticList {
 	[key: string]: PolicyStatistic;
 }
 
-export type PolicyJobStatisticsTimeline = { 
+export type PolicyStatisticsTimeline = { 
 	timestamp: number; 
 	stats: {
-		by_risk?: PolicyStatisticsList;
-		by_group?: PolicyStatisticsList;
+		by_risk_level?: PolicyStatisticList;
+		by_group?: PolicyStatisticList;
 	}
 }[];
 
-export interface PolicyJobStatistics extends IEntityIdentifier<string> {
-	timeline?: PolicyJobStatisticsTimeline;
-	by_risk?: PolicyStatisticsList;
-	by_group?: PolicyStatisticsList;
-	by_activity?: PolicyStatisticsList;
-	by_location_health?: PolicyStatisticsList;
-	by_flagged_category?: PolicyStatisticsList;
+export interface PolicyStatistics extends IEntityIdentifier<string> {
+	timeline?: PolicyStatisticsTimeline;
+	by_risk_level?: PolicyStatisticList;
+	by_group?: PolicyStatisticList;
+	by_audit_category?: PolicyStatisticList;
 	count?: number;
 	executions?: number;
 }
