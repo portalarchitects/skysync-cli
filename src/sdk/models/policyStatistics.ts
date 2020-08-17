@@ -17,14 +17,14 @@ export interface PolicyStatisticList {
 export type PolicyStatisticsTimeline = { 
 	timestamp: number; 
 	stats: {
-		by_risk_level?: PolicyStatisticList;
+		by_risk?: PolicyStatisticList;
 		by_group?: PolicyStatisticList;
 	}
 }[];
 
 export interface PolicyStatistics extends IEntityIdentifier<string> {
 	timeline?: PolicyStatisticsTimeline;
-	by_risk_level?: PolicyStatisticList;
+	by_risk?: PolicyStatisticList;
 	by_group?: PolicyStatisticList;
 	by_audit_category?: PolicyStatisticList;
 	count?: number;
