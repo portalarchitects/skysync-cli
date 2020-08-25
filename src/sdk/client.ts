@@ -38,7 +38,7 @@ import {
 	ExtensionsResource,
 	NotificationsResource,
 	PoliciesResource,
-	PolicyJobStatisticsResource,
+	PolicyStatisticsResource,
 	PolicyAuditsResource,
 	PolicyItemsResource,
 } from './resources';
@@ -225,8 +225,8 @@ export class SkySyncClient {
 		return new PoliciesResource(this._httpClient);
 	}
 
-	get policyStatistics(): PolicyJobStatisticsResource {
-		return new PolicyJobStatisticsResource(this._httpClient);
+	get policyStatistics(): PolicyStatisticsResource {
+		return new PolicyStatisticsResource(this._httpClient);
 	}
 
 	get policyAudits(): PolicyAuditsResource {
