@@ -54,5 +54,5 @@ export interface PolicyAuditEntry extends IEntityIdentifier<number> {
 
 export interface PolicyItemTrackingGroup extends IEntityIdentifier<string> {
 	name?: string;
-	risk_level?: PolicyItemRiskLevel;
+	risk?: PolicyItemRiskLevel;
 }
