@@ -29,7 +29,7 @@ export interface IHttpClient {
 
 	download(path: string, handler: (fileName: string, output: Readable) => Promise<any>, token?: CancellationToken): Promise<any>;
 
-	upload(path: string, name: string, body: Buffer, params?: any, token?: CancellationToken): Promise<any>;
+	upload(path: string, name: string, body: Buffer | FormData, params?: any, token?: CancellationToken): Promise<any>;
 
 	post(path: string, body: any, params?: any, token?: CancellationToken): Promise<any>;
 
@@ -326,22 +326,25 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 
 	abstract download(path: string, handler: (fileName: string, output: Readable) => Promise<any>, token?: CancellationToken);
 
-	upload(path: string, name: string, body: Buffer, params?: any, token?: CancellationToken): Promise<any> {
-		return this.executeApiRequest(path, params, {
+	upload(path: string, name: string, body: Buffer | FormData, params?: any, token?: CancellationToken): Promise<any> {
+		const options = {
 			method: 'POST',
-			headers: {
-				'Accept': 'application/json'
-			},
-			formData: {
-				file: {
-					value: body,
-					options: {
-						filename: name,
-						contentType: 'application/octet-stream'
+			...(body instanceof FormData && {
+					body: body
+				} || {
+					formData : {
+						file: {
+						value: body,
+						options: {
+							filename: name,
+							contentType: 'application/octet-stream'
+						}
 					}
 				}
-			}
-		}, token);
+			})
+		};
+
+		return this.executeApiRequest(path, params, options, token);
 	}
 
 	protected async getOptions(path: string, options: any) {

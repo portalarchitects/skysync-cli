@@ -33,7 +33,10 @@ export class FetchHttpClient extends HttpClient<any, any> {
 			req.headers = {};
 		}
 		req.headers['Accept'] = 'application/json';
-		req.headers['Content-Type'] = 'application/json';
+
+		if (!(req.body instanceof FormData)) {
+			req.headers['Content-Type'] = 'application/json';
+		}
 
 		const form = req.form;
 		if (form) {
