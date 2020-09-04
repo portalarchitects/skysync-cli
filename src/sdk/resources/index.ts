@@ -38,6 +38,7 @@ export * from './users';
 export * from './extensions';
 export * from './notifications';
 export * from './policies';
-export * from './policyStatistics';
+export * from './policyAuditCategories';
 export * from './policyAudits';
 export * from './policyItems';
+export * from './policyStatistics';
