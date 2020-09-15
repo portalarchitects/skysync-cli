@@ -62,7 +62,7 @@
     "request": "^2.88.2",
     "semver": "^7.3.2",
     "v8flags": "^3.2.0",
-    "yargs": "^14.0.0"
+    "yargs": "^15.4.1"
   },
   "devDependencies": {
     "@types/expect.js": "^0.3.29",
