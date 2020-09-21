@@ -1,47 +1,48 @@
 import { IHttpClient, createHttpClient } from './http';
 import {
+	AccountMapsResource,
+	ClusterResource,
 	ConfigurationResource,
 	ConnectionsResource,
 	ConnectionAccountsResource,
 	ConnectionGroupsResource,
 	ConnectionItemsResource,
+	ContentCategoriesResource,
 	ConventionAuditsResource,
 	DiagnosticMetricsResource,
+	EntityTypesResource,
+	ExtensionsResource,
+	GroupMapsResource,
 	JobsResource,
 	JobCategoriesResource,
 	JobExecutionsResource,
 	JobSchedulersResource,
 	LicenseResource,
+	NotificationsResource,
 	OwnershipGroupsResource,
 	PermissionsResource,
 	PersonalDriveResource,
-	ProfilesResource,
-	RolesResource,
-	SitesResource,
-	StoragePlatformsResource,
-	UsersResource,
-	UserPreferencesResource,
-	TransferAuditCategoriesResource,
-	ContentCategoriesResource,
-	TemplatesResource,
-	TransferAuditsResource,
-	TransferFoldersResource,
-	TransferItemsResource,
-	TransferJobStatisticsResource,
-	ClusterResource,
-	TransferReportsResource,
-	TransferReportStatisticsResource,
-	TransferSecurityMappingsResource,
-	TransferPermissionsResource,
-	AccountMapsResource,
-	GroupMapsResource,
-	ExtensionsResource,
-	NotificationsResource,
 	PoliciesResource,
 	PolicyAuditCategoriesResource,
 	PolicyAuditsResource,
 	PolicyItemsResource,
 	PolicyStatisticsResource,
+	ProfilesResource,
+	RolesResource,
+	SitesResource,
+	StoragePlatformsResource,
+	TemplatesResource,
+	TransferAuditCategoriesResource,
+	TransferAuditsResource,
+	TransferFoldersResource,
+	TransferItemsResource,
+	TransferJobStatisticsResource,
+	TransferPermissionsResource,
+	TransferReportsResource,
+	TransferReportStatisticsResource,
+	TransferSecurityMappingsResource,
+	UsersResource,
+	UserPreferencesResource,
 } from './resources';
 
 export class SkySyncClient {
@@ -226,8 +227,8 @@ export class SkySyncClient {
 		return new PoliciesResource(this._httpClient);
 	}
 
-	get policyStatistics(): PolicyStatisticsResource {
-		return new PolicyStatisticsResource(this._httpClient);
+	get policyAuditCategories(): PolicyAuditCategoriesResource {
+		return new PolicyAuditCategoriesResource(this._httpClient);
 	}
 
 	get policyAudits(): PolicyAuditsResource {
@@ -238,7 +239,11 @@ export class SkySyncClient {
 		return new PolicyItemsResource(this._httpClient);
 	}
 
-	get policyAuditCategories(): PolicyAuditCategoriesResource {
-		return new PolicyAuditCategoriesResource(this._httpClient);
+	get policyStatistics(): PolicyStatisticsResource {
+		return new PolicyStatisticsResource(this._httpClient);
+	}
+
+	get entityTypes(): EntityTypesResource {
+		return new EntityTypesResource(this._httpClient);
 	}
 }
