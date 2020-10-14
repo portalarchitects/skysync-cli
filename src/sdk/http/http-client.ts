@@ -169,6 +169,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 					url: HttpClient.getUrl('connect/logout', this.baseAddress),
 					method: 'GET',
 					headers: {
+						'Authorization': `Bearer ${this.token.accessToken}`,
 						'Accept': 'application/json',
 						'Revoke-Tokens': revokeTokens
 					}
