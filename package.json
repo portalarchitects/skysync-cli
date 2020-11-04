@@ -18,7 +18,7 @@
     "email": "support@skysync.com"
   },
   "main": "./dist/sdk.js",
-  "types": "./dist/types/sdk.d.ts",
+  "types": "./dist/sdk.d.ts",
   "author": {
     "name": "SkySync",
     "email": "developers@skysync.com"

@@ -11,7 +11,7 @@ const CreateTypesPlugin = (function() {
 			const fullPath = path.join(__dirname, `../publish/sdk.d.ts`);
 			fs.writeFileSync(
 				fullPath,
-				`export * from './types/sdk/index.d.ts';`
+				`export * from './types/sdk';`
 			);
 		});
 	};
