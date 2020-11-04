@@ -56,7 +56,7 @@ module.exports = {
 						return deps;
 					}, {}),
 				main: './sdk.js',
-				types: './types/sdk.d.ts',
+				types: './sdk.d.ts',
 			},
 			packageJsonPath
 		),

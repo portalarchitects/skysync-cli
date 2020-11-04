@@ -1,5 +1,6 @@
 export * from './accountMaps';
 export * from './auditCategories';
+export * from './base';
 export * from './connections';
 export * from './contentCategories';
 export * from './conventions';
