@@ -38,27 +38,27 @@ const absoluteFormats = {
 		year: 'numeric',
 		day: '2-digit',
 		month: 'short',
-		hour: '2-digit',
+		hour: 'numeric',
 		minute: '2-digit'
 	}),
 	fullSameYear: getDateFormat({
 		day: '2-digit',
 		month: 'short',
-		hour: '2-digit',
+		hour: 'numeric',
 		minute: '2-digit'
 	}),
 	fullWithZone: getDateFormat({
 		year: 'numeric',
 		day: '2-digit',
 		month: 'short',
-		hour: '2-digit',
+		hour: 'numeric',
 		minute: '2-digit',
 		timeZoneName: 'short'
 	}),
 	fullWithZoneSameYear: getDateFormat({
 		day: '2-digit',
 		month: 'short',
-		hour: '2-digit',
+		hour: 'numeric',
 		minute: '2-digit',
 		timeZoneName: 'short'
 	}),
