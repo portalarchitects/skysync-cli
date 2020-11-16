@@ -54,7 +54,7 @@
     "skysync-cli": "bin/skysync.js"
   },
   "dependencies": {
-    "cliff": "^0.1.10",
+    "clifflite": "^0.0.3",
     "dot-object": "^2.1.4",
     "liftoff": "^3.1.0",
     "lodash": "^4.17.20",

@@ -22,7 +22,7 @@ const version =
 
 console.log('Creating version ' + version);
 
-const excludeDeps = ['cliff', 'dot-object', 'liftoff', 'open', 'semver', 'v8flags', 'yargs'];
+const excludeDeps = ['clifflite', 'dot-object', 'liftoff', 'open', 'semver', 'v8flags', 'yargs'];
 
 module.exports = {
 	entry: {

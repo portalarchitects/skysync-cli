@@ -1,4 +1,4 @@
-require('cliff');
+require('clifflite');
 import {runCommand} from '../../util/command';
 import {statsOutputFormat} from './util';
 

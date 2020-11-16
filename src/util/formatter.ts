@@ -1,4 +1,4 @@
-import * as cliff from 'cliff';
+import * as cliff from 'clifflite';
 import * as dot from 'dot-object';
 import { PagedResult, consumePagedResult } from '../sdk';
 
