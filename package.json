@@ -35,7 +35,7 @@
   ],
   "engineStrict": true,
   "engines": {
-    "node": ">=8.3.0"
+    "node": ">=14.15.0"
   },
   "scripts": {
     "clean": "rimraf dist publish",
