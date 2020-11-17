@@ -219,8 +219,12 @@ export function statTransform(statKey: string, format?: (number: number) => stri
 		let source = 0, destination = 0;
 		Object.keys(val).forEach(key => {
 			const stat = val[key];
-			source += (stat.source[statKey] || 0);
-			destination += (stat.destination[statKey] || 0);
+			if (stat.source && statKey in stat.source) {
+				source += (stat.source[statKey] || 0);
+			}
+			if (stat.destination && statKey in stat.destination) {
+				destination += (stat.destination[statKey] || 0);
+			}
 		});
 		return `(${format(source)} ${('\u2191' as any).gray} ${format(destination)} ${('\u2193' as any).gray})`;
 	};

@@ -2,7 +2,7 @@
 
 'use strict';
 
-require('cliff');
+require('clifflite');
 
 const semver = require('semver');
 const packageJson = require('../package.json');
