@@ -1,7 +1,14 @@
 import { IHttpClient } from '../http';
 import { CancellationToken } from '../cancellation-token';
-import { Resource, PagedResult, getPagedResponse, getEditRequest, IDownloadFileProvider } from './resource';
-import { Extension } from '../models';
+import {
+	Resource,
+	PagedResult,
+	getPagedResponse,
+	getEditRequest,
+	IDownloadFileProvider,
+	getTypedResponse
+} from './resource';
+import {Connection, Extension} from '../models';
 
 export class ExtensionsResource extends Resource<Extension> implements IDownloadFileProvider {
 	constructor(httpClient: IHttpClient) {
@@ -22,13 +29,18 @@ export class ExtensionsResource extends Resource<Extension> implements IDownload
 		const result = await this.httpClient.upload(this.resourcePath, 'extension.nupkg', body, this.mergeDefaultParams(params), token);
 		return this.getSingle(result);
 	}
-	
+
 	async patch(body: Extension | string, params?: any, token?: CancellationToken): Promise<Extension> {
 		const request = getEditRequest(body);
 		const result = await this.httpClient.patch(`${this.resourcePath}/${request.id}`, request.payload, this.mergeDefaultParams(params), token);
 		return this.getSingle(result);
 	}
-	
+
+	async configure(id: string, values: any, params?: any, token?: CancellationToken): Promise<Extension> {
+		const response = await this.httpClient.patch(`${this.resourcePath}/${id}/configure`, values, this.mergeDefaultParams(params), token);
+		return getTypedResponse<Connection>(response);
+	}
+
 	delete(id: any, params?: any, token?: CancellationToken): Promise<boolean> {
 		if (typeof id !== 'string' && Boolean(id && id.id)) {
 			id = id.id;
