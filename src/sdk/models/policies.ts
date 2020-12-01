@@ -1,4 +1,5 @@
 import { IEntityIdentifier, IAuditedEntity } from './base';
+import { StoragePlatform } from './connections';
 import { PolicyCategory } from './policyCategories';
 import { Job } from './jobs';
 import { TransferPath, TransferPlatformItem } from './transfers';
@@ -13,19 +14,36 @@ export enum PolicyItemRiskLevel {
 	Extreme = 'extreme'
 }
 
+export enum PolicyStatus {
+	None = 'none',
+	Inactive = 'inactive',
+	NoLocations = 'no-locations',
+	HasLocationFailures = 'location-failures',
+	NoIssues = 'no-issues'
+}
+
 export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
 	name?: string;
 	description?: string;
 	category?: PolicyCategory;
+	locations?: PolicyLocations;
+	status?: PolicyStatus;
 	disabled?: boolean;
+}
+
+export interface PolicyLocations {
+	count?: number;
+	error?: number;
+	platforms?: (StoragePlatform & {count?: number})[];
 }
 
 export interface PolicyJob extends Job {
 	policy?: PolicyJobOptions;
 }
 
-export interface PolicyJobOptions extends TransferPath {
-	policies?: Policy[];
+export interface PolicyJobOptions {
+	source: TransferPath;
+	policies?: (Policy & {priority?: number})[];
 }
 
 export interface PolicyItem extends TransferPlatformItem {
