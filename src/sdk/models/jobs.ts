@@ -21,7 +21,8 @@ export enum JobStatus {
 	Running = 'running',
 	Started = 'start',
 	Success = 'success',
-	Warn = 'warn'
+	Warn = 'warn',
+	FailedToStart = 'failed-to-start',
 }
 
 export enum JobHealth {
@@ -70,6 +71,15 @@ export interface RetentionOptions {
 	purge_empty?: boolean;
 }
 
+export interface JobStopPolicy {
+	policy?: 'never' | 'on_success' | 'on_failure';
+	on_success?: number;
+	on_failure?: number;
+	completions?: number;
+	failures?: number;
+	executions?: number;
+}
+
 export interface JobSchedule {
 	mode?: JobScheduleMode;
 	start_date?: number;
@@ -91,9 +101,9 @@ export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
 	category?: JobCategory;
 	scheduler?: JobScheduler;
 	schedule?: JobSchedule;
-	stop_policy?: string;
+	stop_policy?: JobStopPolicy;
 	priority?: number;
-	status?: string;
+	status?: JobStatus;
 	health?: JobHealth;
 	execute_on?: number;
 	previous_execution: JobExecution;
@@ -134,11 +144,19 @@ export interface JobExecutionStatisticsSet {
 	[name: string]: any;
 }
 
-export interface JobExecution {
+export enum JobExecutionPhase {
+	Pending = 'pending',
+	Initializing = 'initialize',
+	DeterminingChanges = 'changes',
+	Executing = 'executing',
+	Finalizing = 'finalize',
+	Complete = 'complete'
+}
+
+export interface JobExecution extends IEntityIdentifier<number> {
 	job_id?: string;
 	progress?: number;
-	phase?: string;
-	id?: number;
+	phase?: JobExecutionPhase;
 	start_time?: number;
 	end_time?: number;
 	duration?: TimeInterval;
