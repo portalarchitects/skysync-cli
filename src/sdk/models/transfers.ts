@@ -64,6 +64,11 @@ export enum TransferType {
 	Taxonomy = 'taxonomy'
 }
 
+export enum RenditionType {
+	Rendition = "rendition",
+	Original = "original"
+}
+
 export interface TransferOptions {
 	transfer_type?: TransferType;
 	source?: TransferPath;
@@ -74,6 +79,7 @@ export interface TransferOptions {
 	permissions?: PermissionsOptions;
 	item_inspection_policy?: ItemInspectionPolicy;
 	item_inspection_policy_next?: ItemInspectionPolicy;
+	rendition: RenditionType;
 }
 
 export interface TransferItem extends IEntityIdentifier<number> {
