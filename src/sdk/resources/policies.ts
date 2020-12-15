@@ -8,8 +8,8 @@ export class PoliciesResource extends PagedResource<Policy> {
 		super(httpClient, 'policy', 'policy', 'policies', 'policies', 'policies');
 	}
 
-	async import(body: FormData, params?: any, token?: CancellationToken): Promise<void> {
-		await this.httpClient.upload(this.resourcePath, null, body, params, token);
+	async import(body: FormData, params?: any, token?: CancellationToken): Promise<Policy[]> {
+		return await this.httpClient.upload(this.resourcePath, null, body, params, token);
 	}
 
 	async test(id: string, body: FormData, params?: any, token?: CancellationToken): Promise<PolicyEvaluationResult> {
