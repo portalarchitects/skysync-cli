@@ -65,8 +65,8 @@ export enum TransferType {
 }
 
 export enum RenditionSelectionMethod {
-	Rendition = "rendition",
-	Original = "original"
+	Rendition = 'rendition',
+	Original = 'original'
 }
 
 export interface TransferOptions {
