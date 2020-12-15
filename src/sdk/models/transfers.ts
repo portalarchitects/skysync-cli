@@ -64,7 +64,7 @@ export enum TransferType {
 	Taxonomy = 'taxonomy'
 }
 
-export enum RenditionType {
+export enum RenditionSelectionMethod {
 	Rendition = "rendition",
 	Original = "original"
 }
@@ -79,7 +79,7 @@ export interface TransferOptions {
 	permissions?: PermissionsOptions;
 	item_inspection_policy?: ItemInspectionPolicy;
 	item_inspection_policy_next?: ItemInspectionPolicy;
-	rendition?: RenditionType;
+	rendition?: RenditionSelectionMethod;
 }
 
 export interface TransferItem extends IEntityIdentifier<number> {
