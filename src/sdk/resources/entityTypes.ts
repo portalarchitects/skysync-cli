@@ -8,8 +8,9 @@ export class EntityTypesResource extends PagedResource<EntityType> {
 		super(httpClient, 'entity_type');
 	}
 
-	async import(body: FormData, params?: any, token?: CancellationToken): Promise<void> {
-		await this.httpClient.upload(this.resourcePath, null, body, params, token);
+	async import(body: FormData, params?: any, token?: CancellationToken): Promise<EntityType[]> {
+		const result = await this.httpClient.upload(this.resourcePath, null, body, params, token);
+		return getTypedResponse<EntityType[]>(result);
 	}
 
 	async test(id: string, body: FormData, params?: any, token?: CancellationToken): Promise<EntityTypeEvaluationResult> {
