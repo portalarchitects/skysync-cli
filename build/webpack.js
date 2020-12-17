@@ -55,7 +55,8 @@ module.exports = {
 	resolve: {
 		extensions: ['.ts', '.js', '.json'],
 		fallback: {
-			'node-fetch': false
+			'node-fetch': false,
+			'querystring': 'querystring-es3'
 		}
 	},
 	module: {
@@ -80,5 +81,8 @@ module.exports = {
 			patterns: [{ from: __dirname + '/.npmrc' }]
 		})
 	],
-	externals: [ nodeExternals() ],
+	externals: [
+		{ 'querystring': 'querystring-es3' },
+		nodeExternals()
+	],
 };

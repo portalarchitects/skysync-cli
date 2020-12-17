@@ -1,5 +1,5 @@
 import { Readable } from 'stream';
-import { stringify } from 'querystring-es3';
+import { stringify } from 'querystring';
 import { CancellationToken } from '../cancellation-token';
 
 const API_VERSION = 'v1';

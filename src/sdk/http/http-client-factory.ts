@@ -9,7 +9,9 @@ function getFetch(): {fetch: FetchApi; usingNodeFetch: boolean} {
 	return (function(g: any) {
 		let f = g?.fetch;
 		let usingNodeFetch = false;
-		if (!f) {
+		if (f) {
+			f = f.bind(g);
+		} else {
 			f = g.require('node-fetch').fetch;
 			usingNodeFetch = true;
 		}

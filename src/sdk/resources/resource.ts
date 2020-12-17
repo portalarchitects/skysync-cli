@@ -1,6 +1,6 @@
 import { IHttpClient } from '../http';
 import { IEntityIdentifier } from '../models/base';
-import { parse } from 'querystring-es3';
+import { parse } from 'querystring';
 import { CancellationToken } from '../cancellation-token';
 
 export function getTypedResponse<T>(result: any, type?: string): T {
