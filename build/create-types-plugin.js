@@ -6,8 +6,8 @@ const CreateTypesPlugin = (function() {
 
 	function CreateTypesPlugin() {}
 
-	CreateTypesPlugin.prototype.apply = function(compiler) {
-		compiler.plugin('done', function() {
+	CreateTypesPlugin.prototype.apply = compiler => {
+		compiler.hooks.done.tap('CreateTypes', () => {
 			const fullPath = path.join(__dirname, `../publish/sdk.d.ts`);
 			fs.writeFileSync(
 				fullPath,

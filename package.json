@@ -40,7 +40,7 @@
   "scripts": {
     "clean": "rimraf dist publish",
     "build:tsc": "tsc -p ./src",
-    "build:webpack": "webpack --config ./build/webpack.js -p",
+    "build:webpack": "webpack --config ./build/webpack.js",
     "build:publish": "rimraf dist/sdk && ncp ./publish ./dist && rimraf dist/.npmrc dist/package.json",
     "build": "npm run clean && npm run build:tsc && npm run build:webpack && npm run build:publish",
     "prepare": "npm run build",
@@ -53,14 +53,16 @@
   "bin": {
     "skysync-cli": "bin/skysync.js"
   },
+  "peerDependencies": {
+    "querystring-es3": "^0.2.1"
+  },
   "dependencies": {
-    "clifflite": "^0.0.3",
+    "clifflite": "^0.0.4",
     "dot-object": "^2.1.4",
     "liftoff": "^3.1.0",
-    "lodash": "^4.17.20",
-    "open": "7.2.1",
-    "request": "^2.88.2",
-    "semver": "^7.3.2",
+    "node-fetch": "^2.6.1",
+    "querystring-es3": "^0.2.1",
+    "semver": "^7.3.4",
     "v8flags": "^3.2.0",
     "yargs": "^15.4.1"
   },
@@ -68,22 +70,23 @@
     "@types/expect.js": "^0.3.29",
     "@types/mocha": "^8.0.3",
     "@types/node": "^14.11.2",
-    "copy-webpack-plugin": "^5.1.2",
-    "cross-env": "^7.0.2",
-    "debug": "^4.2.0",
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^4.10.0",
+    "@typescript-eslint/parser": "^4.10.0",
+    "copy-webpack-plugin": "^7.0.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.15.0",
+    "eslint-plugin-import": "^2.22.1",
     "expect.js": "^0.3.1",
-    "extend": "^3.0.2",
-    "generate-package-json-webpack-plugin": "^1.1.2",
-    "mocha": "^6.2.1",
+    "generate-package-json-webpack-plugin": "^2.1.2",
+    "mocha": "^8.2.1",
     "ncp": "^2.0.0",
     "rimraf": "^3.0.2",
-    "ts-loader": "^8.0.4",
-    "ts-node": "^9.0.0",
-    "tslint": "^6.1.3",
-    "tslint-microsoft-contrib": "^6.2.0",
-    "typescript": "^4.0.3",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12",
+    "ts-loader": "^8.0.12",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3",
+    "webpack": "^5.11.0",
+    "webpack-cli": "^4.2.0",
     "webpack-node-externals": "^2.5.2"
   }
 }

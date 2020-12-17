@@ -2,16 +2,16 @@ import { HttpClient, IAuthorizationToken } from './http-client';
 import { Readable } from 'stream';
 import { CancellationToken } from '../';
 
-declare const fetch: (url: string, request: any) => Promise<any>;
-
 function toFormData(options: any): string {
 	return Object.keys(options).map((key) => {
 		return encodeURIComponent(key) + '=' + encodeURIComponent(options[key]);
 	}).join('&');
 }
 
+export type FetchApi = (url: string, request: any) => Promise<any>;
+
 export class FetchHttpClient extends HttpClient<any, any> {
-	constructor(baseAddress: string, token: IAuthorizationToken, site: string = null) {
+	constructor(private fetch: FetchApi, baseAddress: string, token: IAuthorizationToken, site: string = null) {
 		super(baseAddress, token, site);
 	}
 
@@ -49,7 +49,7 @@ export class FetchHttpClient extends HttpClient<any, any> {
 		delete req.url;
 
 		try {
-			const response = await fetch(url, req);
+			const response = await this.fetch(url, req);
 			const body = await response.text();
 			callback(null, response, body);
 		} catch (e) {
@@ -73,7 +73,7 @@ export class FetchHttpClient extends HttpClient<any, any> {
 					token.onCancel(() => controller && controller.abort());
 					options.signal = controller.signal;
 				}
-				const response = await fetch(url, options);
+				const response = await this.fetch(url, options);
 				let __this = this;
 				
 				response.on('response', function (response) {

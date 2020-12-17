@@ -1,6 +1,6 @@
 import { IHttpClient } from '../http';
 import { IEntityIdentifier } from '../models/base';
-import * as qs from 'querystring';
+import { parse } from 'querystring-es3';
 import { CancellationToken } from '../cancellation-token';
 
 export function getTypedResponse<T>(result: any, type?: string): T {
@@ -15,7 +15,7 @@ function parseLink(link: any): any {
 	if (href) {
 		const query = href.indexOf('?');
 		if (query !== -1) {
-			return qs.parse(href.substring(query + 1));
+			return parse(href.substring(query + 1));
 		}
 	}
 	return null;

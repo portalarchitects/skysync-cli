@@ -1,5 +1,5 @@
 import { Readable } from 'stream';
-import * as qs from 'querystring';
+import { stringify } from 'querystring-es3';
 import { CancellationToken } from '../cancellation-token';
 
 const API_VERSION = 'v1';
@@ -143,7 +143,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		}
 		if (params) {
 			const hasExisting = requestPath.indexOf('?') !== -1;
-			requestPath = `${requestPath}${hasExisting ? '&' : '?'}${qs.stringify(params)}`;
+			requestPath = `${requestPath}${hasExisting ? '&' : '?'}${stringify(params)}`;
 		}
 		return requestPath;
 	}
@@ -161,8 +161,8 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		}
 	}
 
-	async logout(): Promise<any> {
-		return await new Promise<any>(resolve => {
+	async logout(): Promise<void> {
+		return await new Promise<void>(resolve => {
 			if (this.isLoggedIn) {
 				const revokeTokens: string = [this.token.accessToken, this.token.refreshToken].filter(Boolean).join(',');
 				this.executeJsonRequest(<any>{

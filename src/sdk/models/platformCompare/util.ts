@@ -1,5 +1,3 @@
-import {get} from 'lodash';
-import {difference} from 'lodash';
 import {IHaveConnectorFeatures, ConnectionFeatures} from '../connections';
 import {formatBytes} from '../../formatting/formatBytes';
 import {formatNumber} from '../../formatting/formatNumber';
@@ -15,15 +13,15 @@ export const notApplicable = () => ({
 	status: PlatformComparisonRuleStatus.NotApplicable
 });
 
-export const availableIfSupported = (left: any, right: any, key: string): boolean => {
-	const leftAvailable = Boolean(get(left, key));
-	const rightAvailable = Boolean(get(right, key));
+export const availableIfSupported = <T>(left: T, right: T, get: (target: T) => any): boolean => {
+	const leftAvailable = Boolean(get(left));
+	const rightAvailable = Boolean(get(right));
 	return leftAvailable || rightAvailable;
 };
 
-export const ifFeaturePresent = (left: any, right: any, key: string): PlatformComparisonRuleResult => {
-	const leftAvailable = Boolean(get(left, key));
-	const rightAvailable = Boolean(get(right, key));
+export const ifFeaturePresent = <T>(left: T, right: T, get: (target: T) => any): PlatformComparisonRuleResult => {
+	const leftAvailable = Boolean(get(left));
+	const rightAvailable = Boolean(get(right));
 	if (leftAvailable || rightAvailable) {
 		const compatible = (leftAvailable && rightAvailable) || !leftAvailable;
 		return {
@@ -35,23 +33,9 @@ export const ifFeaturePresent = (left: any, right: any, key: string): PlatformCo
 	return notApplicable();
 };
 
-export const ifFeaturesPresent = (left: any, right: any, ...keys: string[]): PlatformComparisonRuleResult => {
-	const leftAvailable = keys.map(x => get(left, x)).filter(x => Boolean(x)).length > 0;
-	const rightAvailable = keys.map(x => get(right, x)).filter(x => Boolean(x)).length > 0;
-	if (leftAvailable || rightAvailable) {
-		const compatible = (leftAvailable && rightAvailable) || !leftAvailable;
-		return {
-			left: leftAvailable,
-			right: rightAvailable,
-			status: compatible ? PlatformComparisonRuleStatus.Compatible : PlatformComparisonRuleStatus.NotCompatible
-		};
-	}
-	return notApplicable();
-};
-
-export const ifLengthLessThan = (left: any, right: any, key: string): PlatformComparisonRuleResult => {
-	const leftNumber = Number(get(left, key));
-	const rightNumber = Number(get(right, key));
+export const ifLengthLessThan = <T>(left: T, right: T, get: (target: T) => number): PlatformComparisonRuleResult => {
+	const leftNumber = Number(get(left));
+	const rightNumber = Number(get(right));
 	if (leftNumber || rightNumber) {
 		return {
 			left: leftNumber ? formatNumber(leftNumber) : false,
@@ -62,9 +46,9 @@ export const ifLengthLessThan = (left: any, right: any, key: string): PlatformCo
 	return notApplicable();
 };
 
-export const ifLengthGreaterThan = (left: any, right: any, key: string): PlatformComparisonRuleResult => {
-	const leftNumber = Number(get(left, key));
-	const rightNumber = Number(get(right, key));
+export const ifLengthGreaterThan = <T>(left: T, right: T, get: (target: T) => number): PlatformComparisonRuleResult => {
+	const leftNumber = Number(get(left));
+	const rightNumber = Number(get(right));
 	if (leftNumber || rightNumber) {
 		return {
 			left: leftNumber ? formatNumber(leftNumber) : false,
@@ -75,9 +59,9 @@ export const ifLengthGreaterThan = (left: any, right: any, key: string): Platfor
 	return notApplicable();
 };
 
-export const ifSizeLessThan = (left: any, right: any, key: string): PlatformComparisonRuleResult => {
-	const leftNumber = Number(get(left, key));
-	const rightNumber = Number(get(right, key));
+export const ifSizeLessThan = <T>(left: T, right: T, get: (target: T) => number): PlatformComparisonRuleResult => {
+	const leftNumber = Number(get(left));
+	const rightNumber = Number(get(right));
 	if (leftNumber || rightNumber) {
 		return {
 			left: leftNumber ? formatBytes(leftNumber) : false,
@@ -88,9 +72,9 @@ export const ifSizeLessThan = (left: any, right: any, key: string): PlatformComp
 	return notApplicable();
 };
 
-export const ifSizeGreaterThan = (left: any, right: any, key: string): PlatformComparisonRuleResult => {
-	const leftNumber = Number(get(left, key));
-	const rightNumber = Number(get(right, key));
+export const ifSizeGreaterThan = <T>(left: T, right: T, get: (target: T) => number): PlatformComparisonRuleResult => {
+	const leftNumber = Number(get(left));
+	const rightNumber = Number(get(right));
 	if (leftNumber || rightNumber) {
 		return {
 			left: leftNumber ? formatBytes(leftNumber) : false,
@@ -103,8 +87,8 @@ export const ifSizeGreaterThan = (left: any, right: any, key: string): PlatformC
 
 export const checkFeatures = (handler: (left: ConnectionFeatures, right: ConnectionFeatures) => PlatformComparisonRuleResult): PlatformComparisonRuleEvaluator => {
 	return (left: IHaveConnectorFeatures, right: IHaveConnectorFeatures): PlatformComparisonRuleResult => {
-		const leftFeatures = left && left.features;
-		const rightFeatures = right && right.features;
+		const leftFeatures = left?.features;
+		const rightFeatures = right?.features;
 		if (leftFeatures && rightFeatures) {
 			return handler(leftFeatures, rightFeatures);
 		}
@@ -114,8 +98,8 @@ export const checkFeatures = (handler: (left: ConnectionFeatures, right: Connect
 
 export const checkPath = (handler: (left: any, right: any) => PlatformComparisonRuleResult): PlatformComparisonRuleEvaluator => {
 	return (left: IHaveConnectorFeatures, right: IHaveConnectorFeatures): PlatformComparisonRuleResult => {
-		const leftPath = left && left.path && left.path.validation;
-		const rightPath = right && right.path && right.path.validation;
+		const leftPath = left?.path?.validation;
+		const rightPath = right?.path?.validation;
 		if (leftPath && rightPath) {
 			return handler(leftPath, rightPath);
 		}
@@ -123,22 +107,9 @@ export const checkPath = (handler: (left: any, right: any) => PlatformComparison
 	};
 };
 
-export const ifStringArrayExists = (left: any, right: any, key: string): PlatformComparisonRuleResult => {
-	const leftStringArray = left === undefined || left instanceof Array ? left : Array(get(left, key));
-	const rightStringArray = right === undefined || right instanceof Array ? right : Array(get(right, key));
-	if (leftStringArray || rightStringArray) {
-		return {
-			left: leftStringArray && leftStringArray.length !== 0 ? leftStringArray : false,
-			right: rightStringArray && rightStringArray.length !== 0 ? rightStringArray : false,
-			status: rightStringArray.length === 0 || difference(rightStringArray, leftStringArray).length === 0 ? PlatformComparisonRuleStatus.Compatible : PlatformComparisonRuleStatus.NotCompatible
-		};
-	}
-	return notApplicable();
-};
-
-export const ifFeaturePresentNotCompatible = (left: any, right: any, key: string): PlatformComparisonRuleResult => {
-	const leftAvailable = Boolean(get(left, key));
-	const rightAvailable = Boolean(get(right, key));
+export const ifFeaturePresentNotCompatible = <T>(left: T, right: T, get: (target: T) => any): PlatformComparisonRuleResult => {
+	const leftAvailable = Boolean(get(left));
+	const rightAvailable = Boolean(get(right));
 	if (leftAvailable || rightAvailable) {
 		const notCompatible = ((leftAvailable && rightAvailable) && left !== right) || !leftAvailable;
 		return {

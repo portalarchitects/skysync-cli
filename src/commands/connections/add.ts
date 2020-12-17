@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import { runCommand, readJsonInput } from '../../util/command';
-const open = require('open');
 
 const outputFormat = {
 	table: [
@@ -82,7 +81,6 @@ export = {
 				name: argv.name
 			});
 			output.writeSuccess(`Create the connection using your browser: ${request.target}`, true);
-			open(request.target);
 		});
 	}
 };

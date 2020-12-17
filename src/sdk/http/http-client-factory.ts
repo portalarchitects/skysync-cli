@@ -1,13 +1,17 @@
 import { IHttpClient, IAuthorizationToken } from './http-client';
-import { FetchHttpClient } from './fetch-client';
+import { FetchHttpClient, FetchApi } from './fetch-client';
 
 declare const window: any;
 declare const WorkerGlobalScope: any;
 declare const global: any;
 
-function isFetchDefined(): boolean {
+function getFetch(): FetchApi {
 	return (function(g: any) {
-		return g && (typeof g.fetch !== 'undefined');
+		let f = g?.fetch;
+		if (!f) {
+			f = g.require('node-fetch').fetch;
+		}
+		return f;
 	})((typeof window !== 'undefined'
 		? window
 		: typeof WorkerGlobalScope !== 'undefined'
@@ -17,10 +21,5 @@ function isFetchDefined(): boolean {
 }
 
 export function createHttpClient(baseAddress?: string, token?: IAuthorizationToken, site?: string): IHttpClient {
-	if (!isFetchDefined()) {
-		const RequestHttpClient = require('./request-client').RequestHttpClient;
-		return new RequestHttpClient(baseAddress, token, site);
-	}
-
-	return new FetchHttpClient(baseAddress, token, site);
+	return new FetchHttpClient(getFetch(), baseAddress, token, site);
 }

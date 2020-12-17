@@ -22,9 +22,10 @@ const version =
 
 console.log('Creating version ' + version);
 
-const excludeDeps = ['clifflite', 'dot-object', 'liftoff', 'open', 'semver', 'v8flags', 'yargs'];
+const includeDeps = ['querystring-es3'];
 
 module.exports = {
+	mode: 'production',
 	entry: {
 		sdk: path.resolve(__dirname, '../src/sdk/index.ts')
 	},
@@ -35,6 +36,9 @@ module.exports = {
 	},
 	resolve: {
 		extensions: ['.ts', '.js', '.json'],
+		fallback: {
+			'node-fetch': false
+		}
 	},
 	module: {
 		rules: [
@@ -50,9 +54,15 @@ module.exports = {
 				version,
 				engines: packageJson.engines,
 				dependencies: Object.keys(packageJson.dependencies)
-					.filter(key => excludeDeps.indexOf(key) === -1)
+					.filter(key => includeDeps.indexOf(key) >= 0)
 					.reduce((deps, key) => {
 						deps[key] = packageJson.dependencies[key];
+						return deps;
+					}, {}),
+				peerDependencies: Object.keys(packageJson.peerDependencies)
+					.filter(key => includeDeps.indexOf(key) >= 0)
+					.reduce((deps, key) => {
+						deps[key] = packageJson.peerDependencies[key];
 						return deps;
 					}, {}),
 				main: './sdk.js',
@@ -60,7 +70,9 @@ module.exports = {
 			},
 			packageJsonPath
 		),
-		new CopyPlugin([{ from: __dirname + '/.npmrc' }])
+		new CopyPlugin({
+			patterns: [{ from: __dirname + '/.npmrc' }]
+		})
 	],
-	externals: [nodeExternals()],
+	externals: [ nodeExternals() ],
 };
