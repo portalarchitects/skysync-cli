@@ -1,8 +1,8 @@
-import { Policy, PolicyItemTrackingGroup } from './policies';
+import { Policy, PolicyTrackingGroup } from './policies';
 
 export interface PolicyEvaluationResult {
 	policy?: Policy;
-	group?: PolicyItemTrackingGroup;
+	group?: PolicyTrackingGroup;
 	justification: string;
 	assigned: boolean;
 }

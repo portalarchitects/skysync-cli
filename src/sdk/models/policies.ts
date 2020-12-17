@@ -1,11 +1,12 @@
-import { IEntityIdentifier, IAuditedEntity } from './base';
+import { IEntityIdentifier, IAuditedEntity, IPrioritizedEntity } from './base';
 import { StoragePlatform } from './connections';
 import { PolicyCategory } from './policyCategories';
 import { Job } from './jobs';
 import { TransferPath, TransferPlatformItem } from './transfers';
 import { AuditCategory } from './auditCategories';
+import { EntityType } from './entityTypes';
 
-export enum PolicyItemRiskLevel {
+export enum ContentRiskLevel {
 	None = 'none',
 	Low = 'low',
 	Medium = 'medium',
@@ -29,6 +30,8 @@ export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
 	locations?: PolicyLocations;
 	status?: PolicyStatus;
 	disabled?: boolean;
+	entity_types?: (EntityType & IPrioritizedEntity)[];
+	groups?: PolicyTrackingGroup[];
 }
 
 export interface PolicyLocations {
@@ -43,7 +46,7 @@ export interface PolicyJob extends Job {
 
 export interface PolicyJobOptions {
 	source: TransferPath;
-	policies?: (Policy & {priority?: number})[];
+	policies?: (Policy & IPrioritizedEntity)[];
 }
 
 export interface PolicyItem extends TransferPlatformItem {
@@ -54,7 +57,7 @@ export interface PolicyItem extends TransferPlatformItem {
 	processed_on?: number;
 	root?: boolean;
 	type?: 'container' | 'item';
-	group?: PolicyItemTrackingGroup;
+	group?: PolicyTrackingGroup;
 }
 
 export interface PolicyAuditEntry extends IEntityIdentifier<number> {
@@ -70,7 +73,7 @@ export interface PolicyAuditEntry extends IEntityIdentifier<number> {
 	recorded_on?: number;
 }
 
-export interface PolicyItemTrackingGroup extends IEntityIdentifier<string> {
+export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPrioritizedEntity {
 	name?: string;
-	risk?: PolicyItemRiskLevel;
+	risk?: ContentRiskLevel;
 }
