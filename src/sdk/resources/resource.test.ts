@@ -268,11 +268,11 @@ describe('PagedResource', () => {
 						total_count: 1000,
 						links: {
 							next: {
-								// tslint:disable-next-line:no-http-string
+								// eslint:disable-next-line:no-http-string
 								href: 'http://localhost:9090/v1/jobs?offset=12&limit=6&sort=name+ASC&fields=count%2Cid%2Cname%2Cprevious_execution.start_time%2Cstatus', 
 							},
 							prev: {
-								// tslint:disable-next-line:no-http-string
+								// eslint:disable-next-line:no-http-string
 								href: 'http://localhost:9090/v1/jobs?offset=0&limit=6&sort=name+ASC&fields=count%2Cid%2Cname%2Cprevious_execution.start_time%2Cstatus',
 							}
 						}

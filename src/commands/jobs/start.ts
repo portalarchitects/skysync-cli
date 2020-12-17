@@ -31,7 +31,7 @@ export = {
 					} else if (totalCount === undefined || totalCount === 0) {
 						output.writeWarning('Warning: 0 jobs were started because no jobs matched the specified filter');
 					} else if (totalCount === 1) {
-						output.writeSuccess(`1 job started`);
+						output.writeSuccess('1 job started');
 					} else {
 						output.writeSuccess(`${totalCount} jobs started`);
 					}

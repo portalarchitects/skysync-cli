@@ -5,21 +5,27 @@ declare const window: any;
 declare const WorkerGlobalScope: any;
 declare const global: any;
 
-function getFetch(): FetchApi {
+function getFetch(): {fetch: FetchApi; usingNodeFetch: boolean} {
 	return (function(g: any) {
 		let f = g?.fetch;
+		let usingNodeFetch = false;
 		if (!f) {
 			f = g.require('node-fetch').fetch;
+			usingNodeFetch = true;
 		}
-		return f;
+		return {
+			fetch: f,
+			usingNodeFetch
+		};
 	})((typeof window !== 'undefined'
 		? window
 		: typeof WorkerGlobalScope !== 'undefined'
 			? self
-			// tslint:disable-next-line:function-constructor
+			// eslint-disable-next-line no-new-func
 			: typeof global !== 'undefined' ? global : Function('return this;')));
 }
 
 export function createHttpClient(baseAddress?: string, token?: IAuthorizationToken, site?: string): IHttpClient {
-	return new FetchHttpClient(getFetch(), baseAddress, token, site);
+	const { fetch, usingNodeFetch } = getFetch();
+	return new FetchHttpClient(fetch, usingNodeFetch, baseAddress, token, site);
 }

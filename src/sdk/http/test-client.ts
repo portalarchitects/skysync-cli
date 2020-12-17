@@ -1,8 +1,8 @@
-import { RequestHttpClient } from './request-client';
+import { HttpClient, IHttpClient } from './http-client';
 import expect = require('expect.js');
 
-export class TestHttpClient extends RequestHttpClient {
-	/* tslint:disable:no-http-string */
+export class TestHttpClient extends HttpClient<any, any> implements IHttpClient {
+	/* eslint:disable:no-http-string */
 	static readonly BASE_ADDRESS = 'http://localhost:9090';
 
 	private readonly _executedRequests = [];
@@ -12,6 +12,14 @@ export class TestHttpClient extends RequestHttpClient {
 		super(TestHttpClient.BASE_ADDRESS, null);
 	}
 
+	protected isAllowCustomBaseAddress(): boolean {
+		return true;
+	}
+
+	protected getDefaultBaseAddress(): string {
+		return TestHttpClient.BASE_ADDRESS;
+	}
+
 	get executedRequests() {
 		return this._executedRequests.slice();
 	}
@@ -19,8 +27,12 @@ export class TestHttpClient extends RequestHttpClient {
 	addPendingResponse(response) {
 		this._pendingResponses.push(response);
 	}
+	
+	protected getStatusCode(response: any): number {
+		return response.statusCode;
+	}
 
-	protected executeJsonRequest(req: any, callback: (err: any, response: any, body: string) => void) {
+	protected executeJsonRequest(req: any, callback: (err: any, response?: any, body?: string) => void) {
 		this._executedRequests.push(req);
 		const response = this._pendingResponses.pop() || {statusCode: 200};
 		callback(null, response, response.body || '');
@@ -41,5 +53,9 @@ export class TestHttpClient extends RequestHttpClient {
 			const expectedBody = typeof(req.body) === 'object' ? JSON.stringify(req.body) : req.body;
 			expect(lastRequest).to.have.property('body', expectedBody);
 		}
+	}
+
+	download(): Promise<any> {
+		return Promise.reject('Not Implemented');
 	}
 }

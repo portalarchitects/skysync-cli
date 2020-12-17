@@ -30,14 +30,14 @@ export = {
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
 			const user = await client.users.add({
-					login: argv.newUserUsername,
-					name: argv.newUserDisplayName,
-					password: argv.newUserPassword,
-					email: argv.newUserEmail,
-					group: {
-						id: argv.newUserGroup
-					},
-					roles: argv.newUserRoles ? argv.newUserRoles.split(',').map(id => ({id})) : undefined
+				login: argv.newUserUsername,
+				name: argv.newUserDisplayName,
+				password: argv.newUserPassword,
+				email: argv.newUserEmail,
+				group: {
+					id: argv.newUserGroup
+				},
+				roles: argv.newUserRoles ? argv.newUserRoles.split(',').map(id => ({id})) : undefined
 			});
 			output.writeItem(user, outputFormat);
 		});

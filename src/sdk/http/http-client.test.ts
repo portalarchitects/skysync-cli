@@ -3,7 +3,7 @@ import expect = require('expect.js');
 import { HttpClient } from './http-client';
 import { TestHttpClient } from './test-client';
 
-// tslint:disable:no-http-string
+// eslint:disable:no-http-string
 
 describe('HttpClient', () => {
 	describe('getUrl', () => {

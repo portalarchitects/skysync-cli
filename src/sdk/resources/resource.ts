@@ -78,7 +78,7 @@ export class BaseResource {
 
 export class Resource<TResource> extends BaseResource {
 	constructor(httpClient: IHttpClient, protected singularName: string, protected pluralName: string = undefined, 
-				protected singularType?: string, protected pluralType: string = undefined, protected resourcePath: string = undefined) {
+		protected singularType?: string, protected pluralType: string = undefined, protected resourcePath: string = undefined) {
 		super(httpClient);
 		
 		if (!this.pluralName) {
@@ -113,7 +113,12 @@ export class Resource<TResource> extends BaseResource {
 	}
 }
 
-export function getEditRequest(body: any | string): {id: string, payload?: any} {
+type EditRequest = {
+	id: string;
+	payload?: any;
+};
+
+export function getEditRequest(body: any | string): EditRequest {
 	if (typeof body === 'string') {
 		return {
 			id: <string>body

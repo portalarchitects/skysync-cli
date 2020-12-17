@@ -19,7 +19,7 @@ export type PolicyStatisticsTimeline = {
 	stats: {
 		by_risk?: PolicyStatisticList;
 		by_group?: PolicyStatisticList;
-	}
+	};
 }[];
 
 export interface PolicyStatistics extends IEntityIdentifier<string> {

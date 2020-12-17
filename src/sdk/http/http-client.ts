@@ -333,10 +333,10 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		const options = {
 			method: 'POST',
 			...(body instanceof FormData && {
-					body: body
-				} || {
-					formData : {
-						file: {
+				body: body
+			} || {
+				formData : {
+					file: {
 						value: body,
 						options: {
 							filename: name,

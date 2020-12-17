@@ -7,9 +7,9 @@ export = {
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
 			const user = await client.users.patch({
-					id: 'me',
-					old_password: argv.oldPassword,
-					new_password: argv.newPassword
+				id: 'me',
+				old_password: argv.oldPassword,
+				new_password: argv.newPassword
 			});
 			output.writeItem(user, outputFormatID);
 		});

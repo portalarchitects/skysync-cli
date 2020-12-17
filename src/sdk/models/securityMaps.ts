@@ -7,7 +7,7 @@ export interface SecurityMap {
 		default?;
 	};
 	destination?: {
-		connection?: Connection
+		connection?: Connection;
 		default?;
 	};
 	unmapped_policy?: string;

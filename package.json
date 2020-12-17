@@ -44,7 +44,7 @@
     "build:publish": "rimraf dist/sdk && ncp ./publish ./dist && rimraf dist/.npmrc dist/package.json",
     "build": "npm run clean && npm run build:tsc && npm run build:webpack && npm run build:publish",
     "prepare": "npm run build",
-    "lint": "tslint --config tslint.json 'src/**/*.ts' --exclude '**/node_modules/**'",
+    "lint": "eslint -c .eslintrc.js --ext .ts src",
     "rebuild": "npm run clean && npm run build",
     "start": "node bin/skysync.js",
     "test": "cross-env TS_NODE_PROJECT=./src/tsconfig.json TIME_ZONE=Pacific/Chatham mocha --timeout 10000 --require ts-node/register src/**/*.test.ts && npm run lint",
@@ -52,9 +52,6 @@
   },
   "bin": {
     "skysync-cli": "bin/skysync.js"
-  },
-  "peerDependencies": {
-    "querystring-es3": "^0.2.1"
   },
   "dependencies": {
     "clifflite": "^0.0.4",
@@ -71,7 +68,6 @@
     "@types/mocha": "^8.0.3",
     "@types/node": "^14.11.2",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
-    "@typescript-eslint/eslint-plugin-tslint": "^4.10.0",
     "@typescript-eslint/parser": "^4.10.0",
     "copy-webpack-plugin": "^7.0.0",
     "cross-env": "^7.0.3",

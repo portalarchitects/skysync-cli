@@ -1,22 +1,5 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"target": "es6",
-		"declaration": true,
-		"declarationDir": "../publish/types",
-		"removeComments": true,
-		"sourceMap": false,
-		"outDir": "../dist",
-		"noImplicitAny": false,
-		"allowUnusedLabels" : false,
-		"allowUnreachableCode" : false,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"typeRoots": [
-			"../node_modules/@types"
-		]
-	},
+	"extends": "./tsconfig.options",
 	"exclude": [
 		"node_modules",
 		"sdk/http/test-client.ts",

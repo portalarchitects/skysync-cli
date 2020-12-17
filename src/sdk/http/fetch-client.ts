@@ -11,16 +11,21 @@ function toFormData(options: any): string {
 export type FetchApi = (url: string, request: any) => Promise<any>;
 
 export class FetchHttpClient extends HttpClient<any, any> {
-	constructor(private fetch: FetchApi, baseAddress: string, token: IAuthorizationToken, site: string = null) {
+	constructor(
+		private fetch: FetchApi,
+		private usingNodeFetch: boolean,
+		baseAddress: string,
+		token: IAuthorizationToken,
+		site: string = null) {
 		super(baseAddress, token, site);
 	}
 
 	protected isAllowCustomBaseAddress(): boolean {
-		return false;
+		return this.usingNodeFetch;
 	}
 
 	protected getDefaultBaseAddress(): string {
-		return '/';
+		return this.usingNodeFetch ? 'http://localhost:9090/' : '/';
 	}
 
 	protected async executeJsonRequest(req: any, callback: (err: any, response?: any, body?: string) => void, token?: CancellationToken) {

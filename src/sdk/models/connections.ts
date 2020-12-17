@@ -53,7 +53,7 @@ export interface IHaveConnectorFeatures extends IEntityIdentifier<string> {
 	name?: string;
 	features?: ConnectionFeatures;
 	path?: {
-		validation?: any
+		validation?: any;
 	};
 	disabled?: boolean;
 }

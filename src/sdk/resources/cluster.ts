@@ -7,6 +7,6 @@ export class ClusterResource extends BaseResource implements IDownloadFileProvid
 	}
 
 	getDownloadRequestPath(): string {
-		return `admin/cluster`;
+		return 'admin/cluster';
 	}
 }

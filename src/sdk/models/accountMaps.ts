@@ -4,10 +4,10 @@ import { SecurityMap, SecurityMapException, SecurityMapExclusion } from './secur
 
 export interface AccountMap extends IEntityIdentifier<string>, SecurityMap {
 	source?: {
-		default?: Account	
+		default?: Account;	
 	};
 	destination?: {
-		default?: Account
+		default?: Account;
 	};
 }
 

@@ -11,7 +11,7 @@ export async function runCommand(argv: any, handler: (client: SkySyncClient, out
 		if (!formatter.outputJson) {
 			formatter.writeFailure(e.message, true);
 		}
-		/* tslint:disable-next-line */
+		/* eslint:disable-next-line */
 		console.error(e);
 		process.exit(1);
 	}
@@ -59,7 +59,7 @@ export async function readJsonInput(): Promise<string> {
 			stdin.on('data', onInputData);
 			stdin.on('end', onInputEnd);
 		} catch (e) {
-			/* tslint:disable-next-line */
+			/* eslint:disable-next-line */
 			console.error(e);
 			if (!promiseHandled) {
 				promiseHandled = true;
