@@ -114,10 +114,6 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		protected baseAddress: string,
 		private token: IAuthorizationToken,
 		site: string = null) {
-		if (!this.isAllowCustomBaseAddress() || !this.baseAddress || this.baseAddress.length === 0) {
-			this.baseAddress = this.getDefaultBaseAddress();
-		}
-
 		if (this.baseAddress[this.baseAddress.length - 1] !== '/') {
 			this.baseAddress += '/';
 		}
@@ -228,10 +224,6 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		}
 		return Promise.resolve(this.accessToken);
 	}
-
-	protected abstract isAllowCustomBaseAddress(): boolean;
-
-	protected abstract getDefaultBaseAddress(): string;
 
 	protected abstract executeJsonRequest(req: TRequest, callback: (err: any, response: TResponse, body: string) => void, token?: CancellationToken);
 

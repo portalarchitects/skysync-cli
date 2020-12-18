@@ -13,19 +13,11 @@ export type FetchApi = (url: string, request: any) => Promise<any>;
 export class FetchHttpClient extends HttpClient<any, any> {
 	constructor(
 		private fetch: FetchApi,
-		private usingNodeFetch: boolean,
+		private formDataType: any,
 		baseAddress: string,
 		token: IAuthorizationToken,
 		site: string = null) {
 		super(baseAddress, token, site);
-	}
-
-	protected isAllowCustomBaseAddress(): boolean {
-		return this.usingNodeFetch;
-	}
-
-	protected getDefaultBaseAddress(): string {
-		return this.usingNodeFetch ? 'http://localhost:9090/' : '/';
 	}
 
 	protected async executeJsonRequest(req: any, callback: (err: any, response?: any, body?: string) => void, token?: CancellationToken) {
@@ -39,7 +31,7 @@ export class FetchHttpClient extends HttpClient<any, any> {
 		}
 		req.headers['Accept'] = 'application/json';
 
-		if (!(req.body instanceof FormData)) {
+		if (!(req.body instanceof this.formDataType)) {
 			req.headers['Content-Type'] = 'application/json';
 		}
 

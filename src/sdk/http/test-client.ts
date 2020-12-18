@@ -12,14 +12,6 @@ export class TestHttpClient extends HttpClient<any, any> implements IHttpClient 
 		super(TestHttpClient.BASE_ADDRESS, null);
 	}
 
-	protected isAllowCustomBaseAddress(): boolean {
-		return true;
-	}
-
-	protected getDefaultBaseAddress(): string {
-		return TestHttpClient.BASE_ADDRESS;
-	}
-
 	get executedRequests() {
 		return this._executedRequests.slice();
 	}
