@@ -121,7 +121,7 @@ const comparisonRules: PlatformComparisonRuleGroup[] = [
 	{
 		id: 'metadata',
 		name: 'Metadata',
-		available: (left, right) => (availableIfSupported(left, right, x => x?.features?.metadata || x?.features.tags)),
+		available: (left, right) => (availableIfSupported(left, right, x => x?.features?.metadata || x?.features?.tags)),
 		rules: [
 			{
 				id: 'map_metadata',
