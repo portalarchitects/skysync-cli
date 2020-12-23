@@ -9,6 +9,10 @@ export interface IAuditedEntity {
 	modified_on?: number;
 }
 
+export interface IPrioritizedEntity {
+	priority?: number;
+}
+
 export interface Link {
 	href?: string;
 }
