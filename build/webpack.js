@@ -24,24 +24,6 @@ console.log('Creating version ' + version);
 
 const includeDeps = ['querystring-es3'];
 
-function mapDependencies(key, output) {
-	const deps = packageJson[key];
-	if (deps) {
-		output[key] = Object.keys(deps)
-			.filter(k => includeDeps.indexOf(k) >= 0)
-			.reduce((result, k) => {
-				result[k] = deps[k];
-				return result;
-			}, {});
-	}
-}
-
-function mergeDependencies(output) {
-	mapDependencies('dependencies', output);
-	mapDependencies('peerDependencies', output);
-	return output;
-}
-
 module.exports = {
 	mode: 'production',
 	entry: {
@@ -67,14 +49,20 @@ module.exports = {
 	plugins: [
 		new CreateTypesPlugin(),
 		new GeneratePackageJsonPlugin(
-			mergeDependencies({
+			{
 				name: '@skysync/sdk',
 				description: 'SkySync Client SDK',
 				version,
 				engines: packageJson.engines,
 				main: './sdk.js',
 				types: './sdk.d.ts',
-			}),
+				dependencies: Object.keys(packageJson.dependencies)
+					.filter(k => includeDeps.indexOf(k) >= 0)
+					.reduce((result, k) => {
+						result[k] = packageJson.dependencies[k];
+						return result;
+					}, {})
+			},
 			packageJsonPath
 		),
 		new CopyPlugin({
