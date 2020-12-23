@@ -1,26 +1,41 @@
 import { IHttpClient, IAuthorizationToken } from './http-client';
-import { FetchHttpClient } from './fetch-client';
+import { FetchHttpClient, FetchApi } from './fetch-client';
 
 declare const window: any;
 declare const WorkerGlobalScope: any;
 declare const global: any;
 
-function isFetchDefined(): boolean {
+function getFetch(): {fetch: FetchApi; formDataType: any; usingNodeFetch: boolean} {
 	return (function(g: any) {
-		return g && (typeof g.fetch !== 'undefined');
+		let f = g?.fetch;
+		let formDataType = g?.FormData;
+		let usingNodeFetch = false;
+		if (f) {
+			f = f.bind(g);
+		} else {
+			f = module.require('node-fetch');
+			formDataType = module.require('form-data');
+			usingNodeFetch = true;
+		}
+		return {
+			fetch: f,
+			formDataType,
+			usingNodeFetch
+		};
 	})((typeof window !== 'undefined'
 		? window
 		: typeof WorkerGlobalScope !== 'undefined'
 			? self
-			// tslint:disable-next-line:function-constructor
+			// eslint-disable-next-line no-new-func
 			: typeof global !== 'undefined' ? global : Function('return this;')));
 }
 
 export function createHttpClient(baseAddress?: string, token?: IAuthorizationToken, site?: string): IHttpClient {
-	if (!isFetchDefined()) {
-		const RequestHttpClient = require('./request-client').RequestHttpClient;
-		return new RequestHttpClient(baseAddress, token, site);
+	const { fetch, formDataType, usingNodeFetch } = getFetch();
+	if (!usingNodeFetch) {
+		baseAddress = '/';
+	} else {
+		baseAddress = baseAddress || 'http://localhost:9090/';
 	}
-
-	return new FetchHttpClient(baseAddress, token, site);
+	return new FetchHttpClient(fetch, formDataType, baseAddress, token, site);
 }

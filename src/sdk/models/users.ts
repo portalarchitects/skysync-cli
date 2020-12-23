@@ -16,7 +16,7 @@ export interface User extends IEntityIdentifier<string> {
 	notifications?: {
 		email?: boolean;
 		sms?: boolean;
-		notification_types?: string[]
+		notification_types?: string[];
 	};
 }
 

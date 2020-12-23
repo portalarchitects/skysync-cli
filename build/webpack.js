@@ -22,9 +22,10 @@ const version =
 
 console.log('Creating version ' + version);
 
-const excludeDeps = ['clifflite', 'dot-object', 'liftoff', 'open', 'semver', 'v8flags', 'yargs'];
+const includeDeps = ['querystring-es3'];
 
 module.exports = {
+	mode: 'production',
 	entry: {
 		sdk: path.resolve(__dirname, '../src/sdk/index.ts')
 	},
@@ -35,6 +36,10 @@ module.exports = {
 	},
 	resolve: {
 		extensions: ['.ts', '.js', '.json'],
+		fallback: {
+			'node-fetch': false,
+			'querystring': 'querystring-es3'
+		}
 	},
 	module: {
 		rules: [
@@ -49,18 +54,23 @@ module.exports = {
 				description: 'SkySync Client SDK',
 				version,
 				engines: packageJson.engines,
-				dependencies: Object.keys(packageJson.dependencies)
-					.filter(key => excludeDeps.indexOf(key) === -1)
-					.reduce((deps, key) => {
-						deps[key] = packageJson.dependencies[key];
-						return deps;
-					}, {}),
 				main: './sdk.js',
 				types: './sdk.d.ts',
+				dependencies: Object.keys(packageJson.dependencies)
+					.filter(k => includeDeps.indexOf(k) >= 0)
+					.reduce((result, k) => {
+						result[k] = packageJson.dependencies[k];
+						return result;
+					}, {})
 			},
 			packageJsonPath
 		),
-		new CopyPlugin([{ from: __dirname + '/.npmrc' }])
+		new CopyPlugin({
+			patterns: [{ from: __dirname + '/.npmrc' }]
+		})
 	],
-	externals: [nodeExternals()],
+	externals: [
+		{ 'querystring': 'querystring-es3' },
+		nodeExternals()
+	],
 };

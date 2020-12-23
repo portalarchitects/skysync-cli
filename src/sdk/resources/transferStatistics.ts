@@ -14,7 +14,7 @@ export class TransferJobStatisticsResource extends BaseResource {
 	}
 
 	async summarize(params?: any, token?: CancellationToken): Promise<TransferJobStatistics> {
-		const result = await this.httpClient.get(`transfers/stats`, this.mergeDefaultParams(params), token);
+		const result = await this.httpClient.get('transfers/stats', this.mergeDefaultParams(params), token);
 		return getTypedResponse<TransferJobStatistics>(result);
 	}
 }

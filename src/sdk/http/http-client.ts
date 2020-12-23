@@ -1,5 +1,5 @@
 import { Readable } from 'stream';
-import * as qs from 'querystring';
+import { stringify } from 'querystring';
 import { CancellationToken } from '../cancellation-token';
 
 const API_VERSION = 'v1';
@@ -114,10 +114,6 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		protected baseAddress: string,
 		private token: IAuthorizationToken,
 		site: string = null) {
-		if (!this.isAllowCustomBaseAddress() || !this.baseAddress || this.baseAddress.length === 0) {
-			this.baseAddress = this.getDefaultBaseAddress();
-		}
-
 		if (this.baseAddress[this.baseAddress.length - 1] !== '/') {
 			this.baseAddress += '/';
 		}
@@ -143,7 +139,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		}
 		if (params) {
 			const hasExisting = requestPath.indexOf('?') !== -1;
-			requestPath = `${requestPath}${hasExisting ? '&' : '?'}${qs.stringify(params)}`;
+			requestPath = `${requestPath}${hasExisting ? '&' : '?'}${stringify(params)}`;
 		}
 		return requestPath;
 	}
@@ -161,8 +157,8 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		}
 	}
 
-	async logout(): Promise<any> {
-		return await new Promise<any>(resolve => {
+	async logout(): Promise<void> {
+		return await new Promise<void>(resolve => {
 			if (this.isLoggedIn) {
 				const revokeTokens: string = [this.token.accessToken, this.token.refreshToken].filter(Boolean).join(',');
 				this.executeJsonRequest(<any>{
@@ -228,10 +224,6 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		}
 		return Promise.resolve(this.accessToken);
 	}
-
-	protected abstract isAllowCustomBaseAddress(): boolean;
-
-	protected abstract getDefaultBaseAddress(): string;
 
 	protected abstract executeJsonRequest(req: TRequest, callback: (err: any, response: TResponse, body: string) => void, token?: CancellationToken);
 
@@ -333,10 +325,10 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		const options = {
 			method: 'POST',
 			...(body instanceof FormData && {
-					body: body
-				} || {
-					formData : {
-						file: {
+				body: body
+			} || {
+				formData : {
+					file: {
 						value: body,
 						options: {
 							filename: name,

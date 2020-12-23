@@ -2,25 +2,22 @@ import { HttpClient, IAuthorizationToken } from './http-client';
 import { Readable } from 'stream';
 import { CancellationToken } from '../';
 
-declare const fetch: (url: string, request: any) => Promise<any>;
-
 function toFormData(options: any): string {
 	return Object.keys(options).map((key) => {
 		return encodeURIComponent(key) + '=' + encodeURIComponent(options[key]);
 	}).join('&');
 }
 
+export type FetchApi = (url: string, request: any) => Promise<any>;
+
 export class FetchHttpClient extends HttpClient<any, any> {
-	constructor(baseAddress: string, token: IAuthorizationToken, site: string = null) {
+	constructor(
+		private fetch: FetchApi,
+		private formDataType: any,
+		baseAddress: string,
+		token: IAuthorizationToken,
+		site: string = null) {
 		super(baseAddress, token, site);
-	}
-
-	protected isAllowCustomBaseAddress(): boolean {
-		return false;
-	}
-
-	protected getDefaultBaseAddress(): string {
-		return '/';
 	}
 
 	protected async executeJsonRequest(req: any, callback: (err: any, response?: any, body?: string) => void, token?: CancellationToken) {
@@ -34,7 +31,7 @@ export class FetchHttpClient extends HttpClient<any, any> {
 		}
 		req.headers['Accept'] = 'application/json';
 
-		if (!(req.body instanceof FormData)) {
+		if (!(req.body instanceof this.formDataType)) {
 			req.headers['Content-Type'] = 'application/json';
 		}
 
@@ -49,7 +46,7 @@ export class FetchHttpClient extends HttpClient<any, any> {
 		delete req.url;
 
 		try {
-			const response = await fetch(url, req);
+			const response = await this.fetch(url, req);
 			const body = await response.text();
 			callback(null, response, body);
 		} catch (e) {
@@ -73,7 +70,7 @@ export class FetchHttpClient extends HttpClient<any, any> {
 					token.onCancel(() => controller && controller.abort());
 					options.signal = controller.signal;
 				}
-				const response = await fetch(url, options);
+				const response = await this.fetch(url, options);
 				let __this = this;
 				
 				response.on('response', function (response) {

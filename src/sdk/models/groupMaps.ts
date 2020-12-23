@@ -4,10 +4,10 @@ import { SecurityMap, SecurityMapException, SecurityMapExclusion } from './secur
 
 export interface GroupMap extends IEntityIdentifier<string>, SecurityMap {
 	source?: {
-		default?: Group
+		default?: Group;
 	};
 	destination?: {
-		default?: Group
+		default?: Group;
 	};
 }
 

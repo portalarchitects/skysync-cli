@@ -12,10 +12,10 @@ export class ConfigurationResource extends BaseResource {
 	}
 
 	async patch(body: {}, token?: CancellationToken): Promise<{}> {
-		return await this.httpClient.patch(`admin/config`, body, token);
+		return await this.httpClient.patch('admin/config', body, token);
 	}
 
 	async acceptEula(token?: CancellationToken): Promise<{}> {
-		return await this.httpClient.patch(`admin/config/acceptEula`, null, token);
+		return await this.httpClient.patch('admin/config/acceptEula', null, token);
 	}
 }

@@ -2,7 +2,7 @@ import * as cliff from 'clifflite';
 import * as dot from 'dot-object';
 import { PagedResult, consumePagedResult } from '../sdk';
 
-/* tslint:disable:no-console */
+/* eslint-disable no-console */
 
 const arrayIndicator = '[]';
 
@@ -137,7 +137,12 @@ export class OutputFormatter {
 	}
 }
 
-function formatToString(col: { property?: string, transform?: (val: any) => any; }, obj: any): string {
+type FormattedColumn = {
+	property?: string;
+	transform?: (val: any) => any;
+};
+
+function formatToString(col: FormattedColumn, obj: any): string {
 	let val = undefined;
 
 	if (!Boolean(col.property) && col.transform) {

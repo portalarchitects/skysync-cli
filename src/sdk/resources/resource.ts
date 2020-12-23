@@ -1,6 +1,6 @@
 import { IHttpClient } from '../http';
 import { IEntityIdentifier } from '../models/base';
-import * as qs from 'querystring';
+import { parse } from 'querystring';
 import { CancellationToken } from '../cancellation-token';
 
 export function getTypedResponse<T>(result: any, type?: string): T {
@@ -15,7 +15,7 @@ function parseLink(link: any): any {
 	if (href) {
 		const query = href.indexOf('?');
 		if (query !== -1) {
-			return qs.parse(href.substring(query + 1));
+			return parse(href.substring(query + 1));
 		}
 	}
 	return null;
@@ -78,7 +78,7 @@ export class BaseResource {
 
 export class Resource<TResource> extends BaseResource {
 	constructor(httpClient: IHttpClient, protected singularName: string, protected pluralName: string = undefined, 
-				protected singularType?: string, protected pluralType: string = undefined, protected resourcePath: string = undefined) {
+		protected singularType?: string, protected pluralType: string = undefined, protected resourcePath: string = undefined) {
 		super(httpClient);
 		
 		if (!this.pluralName) {
@@ -113,7 +113,12 @@ export class Resource<TResource> extends BaseResource {
 	}
 }
 
-export function getEditRequest(body: any | string): {id: string, payload?: any} {
+type EditRequest = {
+	id: string;
+	payload?: any;
+};
+
+export function getEditRequest(body: any | string): EditRequest {
 	if (typeof body === 'string') {
 		return {
 			id: <string>body

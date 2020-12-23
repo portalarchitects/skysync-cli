@@ -9,17 +9,17 @@ export class LicenseResource extends BaseResource {
 	}
 
 	async get(usage: boolean = false, token?: CancellationToken): Promise<License> {
-		const response = await this.httpClient.get(`licensing`, usage ? {usage} : undefined, token);
+		const response = await this.httpClient.get('licensing', usage ? {usage} : undefined, token);
 		return getTypedResponse<License>(response);
 	}
 
 	async refresh(usage: boolean = false, token?: CancellationToken): Promise<License> {
-		const response = await this.httpClient.post(`licensing/refresh`, null, usage ? {usage} : undefined, token);
+		const response = await this.httpClient.post('licensing/refresh', null, usage ? {usage} : undefined, token);
 		return getTypedResponse<License>(response);
 	}
 
 	async activate(key: string, usage: boolean = false, token?: CancellationToken): Promise<License> {
-		const response = await this.httpClient.post(`licensing/activate`, {key}, usage ? {usage} : undefined, token);
+		const response = await this.httpClient.post('licensing/activate', {key}, usage ? {usage} : undefined, token);
 		return getTypedResponse<License>(response);
 	}
 }

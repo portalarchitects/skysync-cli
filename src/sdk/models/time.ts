@@ -43,11 +43,11 @@ type TimeUnitConverter = (d: number) => number;
 type TimeUnitConverters = {
 	[TimeUnit.Nanoseconds]: TimeUnitConverter;
 	[TimeUnit.Microseconds]: TimeUnitConverter;
-	[TimeUnit.Milliseconds]: TimeUnitConverter,
-	[TimeUnit.Seconds]: TimeUnitConverter,
-	[TimeUnit.Minutes]: TimeUnitConverter,
-	[TimeUnit.Hours]: TimeUnitConverter,
-	[TimeUnit.Days]: TimeUnitConverter
+	[TimeUnit.Milliseconds]: TimeUnitConverter;
+	[TimeUnit.Seconds]: TimeUnitConverter;
+	[TimeUnit.Minutes]: TimeUnitConverter;
+	[TimeUnit.Hours]: TimeUnitConverter;
+	[TimeUnit.Days]: TimeUnitConverter;
 };
 
 const Converters = {
