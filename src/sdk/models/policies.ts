@@ -1,6 +1,6 @@
 import { IEntityIdentifier, IAuditedEntity, IPrioritizedEntity } from './base';
 import { StoragePlatform } from './connections';
-import { PolicyCategory } from './policyCategories';
+import { Category } from './categories';
 import { Job } from './jobs';
 import { TransferPath, TransferPlatformItem } from './transfers';
 import { AuditCategory } from './auditCategories';
@@ -26,7 +26,7 @@ export enum PolicyStatus {
 export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
 	name?: string;
 	description?: string;
-	category?: PolicyCategory;
+	category?: Category;
 	locations?: PolicyLocations;
 	status?: PolicyStatus;
 	disabled?: boolean;

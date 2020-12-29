@@ -1,10 +1,13 @@
 import { IAuditedEntity, IEntityIdentifier } from './base';
+import { Category } from './categories';
 
 export interface EntityType extends IEntityIdentifier<string>, IAuditedEntity {
 	name?: string;
 	description?: string;
-	kind?: string;
+	kind?: 'pattern' | 'block_list' | 'transform' | 'classifier' | string;
+	category?: Category;
 	threshold?: number;
+	readonly?: boolean;
 	disabled?: boolean;
 }
 
