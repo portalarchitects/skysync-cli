@@ -1,6 +1,6 @@
 import { IEntityIdentifier } from './base';
 
-export interface ContentCategory extends IEntityIdentifier<string> {
+export interface Category extends IEntityIdentifier<string> {
 	name?: string;
 	description?: string;
 }

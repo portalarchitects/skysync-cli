@@ -11,6 +11,7 @@ import {
 	ConventionAuditsResource,
 	DiagnosticMetricsResource,
 	EntityTypesResource,
+	EntityTypeCategoriesResource,
 	ExtensionsResource,
 	GroupMapsResource,
 	JobsResource,
@@ -24,6 +25,7 @@ import {
 	PersonalDriveResource,
 	PoliciesResource,
 	PolicyAuditCategoriesResource,
+	PolicyCategoriesResource,
 	PolicyAuditsResource,
 	PolicyItemsResource,
 	PolicyStatisticsResource,
@@ -231,6 +233,10 @@ export class SkySyncClient {
 		return new PolicyAuditCategoriesResource(this._httpClient);
 	}
 
+	get policyCategories(): PolicyCategoriesResource {
+		return new PolicyCategoriesResource(this._httpClient);
+	}
+
 	get policyAudits(): PolicyAuditsResource {
 		return new PolicyAuditsResource(this._httpClient);
 	}
@@ -245,5 +251,9 @@ export class SkySyncClient {
 
 	get entityTypes(): EntityTypesResource {
 		return new EntityTypesResource(this._httpClient);
+	}
+
+	get entityTypeCategories(): EntityTypeCategoriesResource {
+		return new EntityTypeCategoriesResource(this._httpClient);
 	}
 }
