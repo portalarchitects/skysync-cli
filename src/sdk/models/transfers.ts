@@ -55,6 +55,21 @@ export interface TransferPath {
 	target?: TransferTarget;
 }
 
+export enum ConflictResolutionPolicy {
+	Copy = 'copy',
+	PreferLatest = 'latest',
+	PreferSource = 'source',
+	PreferDestination = 'destination',
+	Failure = 'failure'
+}
+
+export enum DeletePropagationPolicy {
+	IgnoreBoth = 'ignore_both',
+	IgnoreSource = 'ignore_source',
+	IgnoreDestination = 'ignore_destination',
+	Mirror = 'mirror'
+}
+
 export enum TransferType {
 	Synchronize = 'sync',
 	Publish = 'publish',
@@ -73,8 +88,8 @@ export interface TransferOptions {
 	transfer_type?: TransferType;
 	source?: TransferPath;
 	destination?: TransferPath;
-	conflict_resolution?: string;
-	delete_propagation?: string;
+	conflict_resolution?: ConflictResolutionPolicy;
+	delete_propagation?: DeletePropagationPolicy;
 	metadata_import?: MetadataImportOptions;
 	permissions?: PermissionsOptions;
 	item_inspection_policy?: ItemInspectionPolicy;
