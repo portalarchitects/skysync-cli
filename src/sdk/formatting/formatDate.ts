@@ -82,14 +82,21 @@ const absoluteFormatNoTime = {
 	lastDay: (): string => 'Yesterday'
 };
 
-const relativeTimeThresholds = {
+const pastRelativeTimeThresholds = {
 	seconds: 20,        // just now
 	minutes: 45,        // X minutes ago
 	hours: 18,           // X hours ago
 	days: 3,            // X days ago
 };
 
-const relativeTimeLabels = {
+const futureRelativeTimeThresholds = {
+	seconds: 59,        // Less than a minute
+	minutes: 59,        // X minutes ago
+	hours: 23,           // X hours ago
+	days: 3,            // X days ago
+};
+
+const pastRelativeTimeLabels = {
 	ss: 'Just now',
 	m: '%d minute ago',
 	mm: '%d minutes ago',
@@ -97,6 +104,16 @@ const relativeTimeLabels = {
 	hh: '%d hours ago',
 	d: '%d day ago',
 	dd: '%d days ago'
+};
+
+const futureRelativeTimeLabels = {
+	ss: 'Less than a minute',
+	m: '%d minute to go',
+	mm: '%d minutes to go',
+	h: '%d hour to go',
+	hh: '%d hours to go',
+	d: '%d day to go',
+	dd: '%d days to go'
 };
 
 const defaultOptions = (options: DateFormatOptions): DateFormatOptions => {
@@ -127,7 +144,7 @@ const getNamedRelativeFormat = (value: number, label: string, options: DateForma
 	return () => label;
 };
 
-const getConditionalRelativeFormat = (value: number, threshold: number, labelOne: string, labelMany, options?: DateFormatOptions): FormatMethod => {
+const getConditionalPastRelativeFormat = (value: number, threshold: number, labelOne: string, labelMany, options?: DateFormatOptions): FormatMethod => {
 	if (value <= threshold) {
 		if (labelOne && value <= 1) {
 			return getNamedRelativeFormat(1, labelOne, options);
@@ -137,12 +154,31 @@ const getConditionalRelativeFormat = (value: number, threshold: number, labelOne
 	return null;
 };
 
+const getConditionalFutureRelativeFormat = (value: number, threshold: number, labelOne: string, labelMany, options?: DateFormatOptions): FormatMethod => {
+	if (value !== 0 && value <= threshold) {
+		if (labelOne && value <= 1) {
+			return getNamedRelativeFormat(1, labelOne, options);
+		}
+		return getNamedRelativeFormat(value, labelMany, options);
+	}
+	return null;
+};
+
 const getRelativeFormat = (value: RelativeDate, options: DateFormatOptions): FormatMethod => {
+	const isPast = value.isPast;
 	value = value.abs();
-	return getConditionalRelativeFormat(value.seconds, relativeTimeThresholds.seconds, null, relativeTimeLabels.ss)
-		|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.minutes, relativeTimeThresholds.minutes, relativeTimeLabels.m, relativeTimeLabels.mm))
-		|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.hours, relativeTimeThresholds.hours, relativeTimeLabels.h, relativeTimeLabels.hh))
-		|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.days, relativeTimeThresholds.days, relativeTimeLabels.d, relativeTimeLabels.dd, options));
+	
+	if (isPast) {
+		return getConditionalPastRelativeFormat(value.seconds, pastRelativeTimeThresholds.seconds, null, pastRelativeTimeLabels.ss)
+			|| (options.allowRelativeInDistantPast && getConditionalPastRelativeFormat(value.minutes, pastRelativeTimeThresholds.minutes, pastRelativeTimeLabels.m, pastRelativeTimeLabels.mm))
+			|| (options.allowRelativeInDistantPast && getConditionalPastRelativeFormat(value.hours, pastRelativeTimeThresholds.hours, pastRelativeTimeLabels.h, pastRelativeTimeLabels.hh))
+			|| (options.allowRelativeInDistantPast && getConditionalPastRelativeFormat(value.days, pastRelativeTimeThresholds.days, pastRelativeTimeLabels.d, pastRelativeTimeLabels.dd, options));
+	} else {
+		return (options.allowRelativeInDistantPast && getConditionalFutureRelativeFormat(value.days, futureRelativeTimeThresholds.days, futureRelativeTimeLabels.d, futureRelativeTimeLabels.dd, options))
+			|| (options.allowRelativeInDistantPast && getConditionalFutureRelativeFormat(value.hours, futureRelativeTimeThresholds.hours, futureRelativeTimeLabels.h, futureRelativeTimeLabels.hh))
+			|| (options.allowRelativeInDistantPast && getConditionalFutureRelativeFormat(value.minutes, futureRelativeTimeThresholds.minutes, futureRelativeTimeLabels.m, futureRelativeTimeLabels.mm))
+			|| getConditionalFutureRelativeFormat(value.seconds, futureRelativeTimeThresholds.seconds, null, futureRelativeTimeLabels.ss);
+	}
 };
 
 const getAbsoluteFormatName = (value: RelativeDate): 'lastDay' | 'sameDay' | 'nextDay' | 'else' => {

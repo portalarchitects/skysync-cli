@@ -40,7 +40,7 @@ export class RelativeDate {
 	}
 
 	get isPast(): boolean {
-		return this._ms < 0;
+		return this._ms <= 0;
 	}
 
 	get isFuture(): boolean {
