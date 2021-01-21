@@ -15,13 +15,12 @@ export = {
 	},
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
-			try {
-				const downloader = new FileDownloader(client.httpClient, client.cluster);
-				let path = await downloader.download(undefined, argv.targetDirectory);
-				output.writeSuccess(`File saved to ${path}`);
-			} catch (err) {
-				output.writeFailure(err);
-			}
+			const downloader = new FileDownloader(client.httpClient, client.cluster);
+			let path = await downloader.download(undefined, argv.targetDirectory).then(() =>
+				output.writeSuccess(`File saved to ${path}`)
+			).catch(err =>
+				output.writeFailure(err)
+			);
 		});
 	}
 };
