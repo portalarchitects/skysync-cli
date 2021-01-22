@@ -38,7 +38,7 @@ export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
 export interface PolicyLocations {
 	count?: number;
 	error?: number;
-	platforms?: (StoragePlatform & {count?: number})[];
+	platforms?: (StoragePlatform & { count?: number })[];
 }
 
 export interface PolicyJob extends Job {
@@ -75,17 +75,17 @@ export interface PolicyAuditEntry extends IEntityIdentifier<number> {
 }
 
 export interface PolicyTrackingGroupRule extends IEntityIdentifier<string> {
-    justification?: string;
-    criteria?: MetadataCalculatedFilter;
+	justification?: string;
+	criteria?: MetadataCalculatedFilter;
 }
 
 export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPrioritizedEntity {
-    name?: string;
-    description?: string;
-    priority?: number;
-    risk?: ContentRiskLevel;
-    rules?: any[];
-    assignment_rules?: PolicyTrackingGroupRule[];
-    entity_types?: any[];
-    actions?: any[];
+	name?: string;
+	description?: string;
+	priority?: number;
+	risk?: ContentRiskLevel;
+	rules?: any[];
+	assignment_rules?: PolicyTrackingGroupRule[];
+	entity_types?: any[];
+	actions?: any[];
 }
