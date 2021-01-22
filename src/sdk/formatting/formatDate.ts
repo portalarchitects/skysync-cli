@@ -82,14 +82,14 @@ const absoluteFormatNoTime = {
 	lastDay: (): string => 'Yesterday'
 };
 
-const pastRelativeTimeThresholds = {
+const relativeTimeThresholds = {
 	seconds: 20,        // just now
 	minutes: 45,        // X minutes ago
 	hours: 18,           // X hours ago
 	days: 3,            // X days ago
 };
 
-const pastRelativeTimeLabels = {
+const relativeTimeLabels = {
 	ss: 'Just now',
 	m: '%d minute ago',
 	mm: '%d minutes ago',
@@ -127,7 +127,7 @@ const getNamedRelativeFormat = (value: number, label: string, options: DateForma
 	return () => label;
 };
 
-const getConditionalPastRelativeFormat = (value: number, threshold: number, labelOne: string, labelMany, options?: DateFormatOptions): FormatMethod => {
+const getConditionalRelativeFormat = (value: number, threshold: number, labelOne: string, labelMany, options?: DateFormatOptions): FormatMethod => {
 	if (value <= threshold) {
 		if (labelOne && value <= 1) {
 			return getNamedRelativeFormat(1, labelOne, options);
@@ -142,10 +142,10 @@ const getRelativeFormat = (value: RelativeDate, options: DateFormatOptions): For
 	value = value.abs();
 	
 	if (isPast) {
-		return getConditionalPastRelativeFormat(value.seconds, pastRelativeTimeThresholds.seconds, null, pastRelativeTimeLabels.ss)
-			|| (options.allowRelativeInDistantPast && getConditionalPastRelativeFormat(value.minutes, pastRelativeTimeThresholds.minutes, pastRelativeTimeLabels.m, pastRelativeTimeLabels.mm))
-			|| (options.allowRelativeInDistantPast && getConditionalPastRelativeFormat(value.hours, pastRelativeTimeThresholds.hours, pastRelativeTimeLabels.h, pastRelativeTimeLabels.hh))
-			|| (options.allowRelativeInDistantPast && getConditionalPastRelativeFormat(value.days, pastRelativeTimeThresholds.days, pastRelativeTimeLabels.d, pastRelativeTimeLabels.dd, options));
+		return getConditionalRelativeFormat(value.seconds, relativeTimeThresholds.seconds, null, relativeTimeLabels.ss)
+			|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.minutes, relativeTimeThresholds.minutes, relativeTimeLabels.m, relativeTimeLabels.mm))
+			|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.hours, relativeTimeThresholds.hours, relativeTimeLabels.h, relativeTimeLabels.hh))
+			|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.days, relativeTimeThresholds.days, relativeTimeLabels.d, relativeTimeLabels.dd, options));
 	} else {
 		return null;
 	}
