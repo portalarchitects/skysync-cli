@@ -48,14 +48,14 @@ describe('formatDate', () => {
 		});
 		
 		it('should format relative future dates', () => {
-			expect(formatDate(appendTimeZoneCode('2016-04-10 12:00:59'), {now, displayTime: false})).to.eql('Less than a minute');
-			expect(formatDate(appendTimeZoneCode('2016-04-10 12:01:00'), {now, displayTime: false})).to.eql('1 minute to go');
-			expect(formatDate(appendTimeZoneCode('2016-04-10 12:01:03'), {now, displayTime: false})).to.eql('1 minute to go');
-			expect(formatDate(appendTimeZoneCode('2016-04-10 12:05:30'), {now, displayTime: false})).to.eql('5 minutes to go');
-			expect(formatDate(appendTimeZoneCode('2016-04-10 13:00'), {now, displayTime: false})).to.eql('1 hour to go');
-			expect(formatDate(appendTimeZoneCode('2016-04-10 14:00'), {now, displayTime: false})).to.eql('2 hours to go');
-			expect(formatDate(appendTimeZoneCode('2016-04-11 14:45'), {now, displayTime: false})).to.eql('1 day to go');
-			expect(formatDate(appendTimeZoneCode('2016-04-12 15:06'), {now, displayTime: false})).to.eql('2 days to go');
+			expect(formatDate(appendTimeZoneCode('2016-04-10 12:00:59'), {now, displayTime: false})).to.eql('Today');
+			expect(formatDate(appendTimeZoneCode('2016-04-10 12:01:00'), {now, displayTime: false})).to.eql('Today');
+			expect(formatDate(appendTimeZoneCode('2016-04-10 12:01:03'), {now, displayTime: false})).to.eql('Today');
+			expect(formatDate(appendTimeZoneCode('2016-04-10 12:05:30'), {now, displayTime: false})).to.eql('Today');
+			expect(formatDate(appendTimeZoneCode('2016-04-10 13:00'), {now, displayTime: false})).to.eql('Today');
+			expect(formatDate(appendTimeZoneCode('2016-04-10 14:00'), {now, displayTime: false})).to.eql('Today');
+			expect(formatDate(appendTimeZoneCode('2016-04-11 14:45'), {now, displayTime: false})).to.eql('Tomorrow');
+			expect(formatDate(appendTimeZoneCode('2016-04-12 15:06'), {now, displayTime: false})).to.eql('Apr 12');
 			expect(formatDate(appendTimeZoneCode('2016-04-14 12:21'), {now, displayTime: false})).to.eql('Apr 14');
 			expect(formatDate(appendTimeZoneCode('2017-04-14 09:40'), {now, displayTime: false})).to.eql('Apr 14, 2017');
 		});
