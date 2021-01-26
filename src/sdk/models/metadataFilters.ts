@@ -38,7 +38,7 @@ export enum MetadataPropertyFilterOperator {
 	NotEmpty = 'Not Empty'
 }
 
-export interface MetadataComponentFilter { }
+export type MetadataComponentFilter = MetadataConjunctionFilter | MetadataPropertyFilter;
 
 export interface MetadataCalculatedFilter {
 	text: string;
