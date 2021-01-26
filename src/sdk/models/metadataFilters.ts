@@ -41,8 +41,8 @@ export enum MetadataPropertyFilterOperator {
 export type MetadataComponentFilter = MetadataConjunctionFilter | MetadataPropertyFilter;
 
 export interface MetadataCalculatedFilter {
-	text: string;
-	expression: MetadataComponentFilter;
+	text?: string;
+	expression?: MetadataComponentFilter;
 }
 
 export interface MetadataConjunctionFilter extends MetadataComponentFilter {
