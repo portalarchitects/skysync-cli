@@ -86,6 +86,6 @@ export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPriorit
 	risk?: ContentRiskLevel;
 	rules?: any[];
 	assignment_rules?: PolicyTrackingGroupRule[];
-	entity_types?: any[];
+	entity_types?: (EntityType & IPrioritizedEntity)[];
 	actions?: any[];
 }
