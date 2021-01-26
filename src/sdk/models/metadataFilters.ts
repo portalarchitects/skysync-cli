@@ -64,13 +64,13 @@ export interface MetadataScriptFilter extends MetadataComponentFilter {
 export interface MetadataComponentExpression { }
 
 export interface MetadataCalculatedExpression {
-	text: string;
-	expression: MetadataComponentExpression;
+	text?: string;
+	expression?: MetadataComponentExpression;
 }
 
 export interface MetadataFunctionExpression extends MetadataComponentExpression {
 	function: string;
-	args: MetadataComponentExpression[];
+	args?: MetadataComponentExpression[];
 }
 
 export interface MetadataPropertyExpression extends MetadataComponentExpression {
@@ -82,5 +82,5 @@ export interface MetadataScriptExpression extends MetadataComponentExpression {
 }
 
 export interface MetadataStaticExpression extends MetadataComponentExpression {
-	value: string;
+	value: any;
 }
