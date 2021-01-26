@@ -46,6 +46,19 @@ describe('formatDate', () => {
 			expect(formatDate(appendTimeZoneCode('2016-04-08 13:00'), {now, allowRelative: true, displayTime: false, allowRelativeInDistantPast: false})).to.eql('Apr 08');
 			expect(formatDate(appendTimeZoneCode('2016-04-06 13:00'), {now, allowRelative: true, displayTime: false, allowRelativeInDistantPast: false})).to.eql('Apr 06');
 		});
+		
+		it('should format relative future dates', () => {
+			expect(formatDate(appendTimeZoneCode('2016-04-10 12:00:59'), {now, displayTime: false})).to.eql('Today');
+			expect(formatDate(appendTimeZoneCode('2016-04-10 12:01:00'), {now, displayTime: false})).to.eql('Today');
+			expect(formatDate(appendTimeZoneCode('2016-04-10 12:01:03'), {now, displayTime: false})).to.eql('Today');
+			expect(formatDate(appendTimeZoneCode('2016-04-10 12:05:30'), {now, displayTime: false})).to.eql('Today');
+			expect(formatDate(appendTimeZoneCode('2016-04-10 13:00'), {now, displayTime: false})).to.eql('Today');
+			expect(formatDate(appendTimeZoneCode('2016-04-10 14:00'), {now, displayTime: false})).to.eql('Today');
+			expect(formatDate(appendTimeZoneCode('2016-04-11 14:45'), {now, displayTime: false})).to.eql('Tomorrow');
+			expect(formatDate(appendTimeZoneCode('2016-04-12 15:06'), {now, displayTime: false})).to.eql('Apr 12');
+			expect(formatDate(appendTimeZoneCode('2016-04-14 12:21'), {now, displayTime: false})).to.eql('Apr 14');
+			expect(formatDate(appendTimeZoneCode('2017-04-14 09:40'), {now, displayTime: false})).to.eql('Apr 14, 2017');
+		});
 	});
 
 	describe('absolute', () => {

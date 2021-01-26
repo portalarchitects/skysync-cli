@@ -138,7 +138,12 @@ const getConditionalRelativeFormat = (value: number, threshold: number, labelOne
 };
 
 const getRelativeFormat = (value: RelativeDate, options: DateFormatOptions): FormatMethod => {
+	if (value.isFuture) {
+		return null;
+	}
+	
 	value = value.abs();
+	
 	return getConditionalRelativeFormat(value.seconds, relativeTimeThresholds.seconds, null, relativeTimeLabels.ss)
 		|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.minutes, relativeTimeThresholds.minutes, relativeTimeLabels.m, relativeTimeLabels.mm))
 		|| (options.allowRelativeInDistantPast && getConditionalRelativeFormat(value.hours, relativeTimeThresholds.hours, relativeTimeLabels.h, relativeTimeLabels.hh))
