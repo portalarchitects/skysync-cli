@@ -82,7 +82,6 @@ export interface PolicyTrackingGroupRule extends IEntityIdentifier<string> {
 export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPrioritizedEntity {
 	name?: string;
 	description?: string;
-	priority?: number;
 	risk?: ContentRiskLevel;
 	assignment_rules?: PolicyTrackingGroupRule[];
 	entity_types?: (EntityType & IPrioritizedEntity)[];
