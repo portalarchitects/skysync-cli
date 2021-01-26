@@ -45,42 +45,34 @@ export interface MetadataCalculatedFilter {
 	expression?: MetadataComponentFilter;
 }
 
-export interface MetadataConjunctionFilter extends MetadataComponentFilter {
+export interface MetadataConjunctionFilter {
 	conjunction?: MetadataConjunctionOperator;
 	filters?: MetadataComponentFilter[];
 }
 
-export interface MetadataPropertyFilter extends MetadataComponentFilter {
+export interface MetadataPropertyFilter {
 	name?: string;
 	op?: MetadataPropertyFilterOperator;
 	value?: object;
 	select?: MetadataCalculatedExpression;
 }
 
-export interface MetadataScriptFilter extends MetadataComponentFilter {
-	script: string;
-}
-
-export interface MetadataComponentExpression { }
+export type MetadataComponentExpression = MetadataFunctionExpression | MetadataPropertyExpression | MetadataStaticExpression;
 
 export interface MetadataCalculatedExpression {
 	text?: string;
 	expression?: MetadataComponentExpression;
 }
 
-export interface MetadataFunctionExpression extends MetadataComponentExpression {
+export interface MetadataFunctionExpression {
 	function: string;
 	args?: MetadataComponentExpression[];
 }
 
-export interface MetadataPropertyExpression extends MetadataComponentExpression {
+export interface MetadataPropertyExpression {
 	name: string;
 }
 
-export interface MetadataScriptExpression extends MetadataComponentExpression {
-	script: string;
-}
-
-export interface MetadataStaticExpression extends MetadataComponentExpression {
+export interface MetadataStaticExpression {
 	value: any;
 }
