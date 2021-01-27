@@ -5,6 +5,7 @@ import { Job } from './jobs';
 import { TransferPath, TransferPlatformItem } from './transfers';
 import { AuditCategory } from './auditCategories';
 import { EntityType } from './entityTypes';
+import { MetadataCalculatedFilter } from './metadataFilters';
 
 export enum ContentRiskLevel {
 	None = 'none',
@@ -37,7 +38,7 @@ export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
 export interface PolicyLocations {
 	count?: number;
 	error?: number;
-	platforms?: (StoragePlatform & {count?: number})[];
+	platforms?: (StoragePlatform & { count?: number })[];
 }
 
 export interface PolicyJob extends Job {
@@ -73,7 +74,16 @@ export interface PolicyAuditEntry extends IEntityIdentifier<number> {
 	recorded_on?: number;
 }
 
+export interface PolicyTrackingGroupRule extends IEntityIdentifier<string> {
+	justification?: string;
+	criteria?: MetadataCalculatedFilter;
+}
+
 export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPrioritizedEntity {
 	name?: string;
+	description?: string;
 	risk?: ContentRiskLevel;
+	assignment_rules?: PolicyTrackingGroupRule[];
+	entity_types?: (EntityType & IPrioritizedEntity)[];
+	actions?: any[];
 }

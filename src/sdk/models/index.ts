@@ -13,6 +13,7 @@ export * from './groups';
 export * from './jobs';
 export * from './jobCategories';
 export * from './license';
+export * from './metadataFilters';
 export * from './notifications';
 export * from './permissions';
 export * from './personalDriveMappingJob';
