@@ -4,22 +4,22 @@ export enum MetadataConjunctionOperator {
 }
 
 export enum MetadataPropertyFilterOperator {
-	eq = 'Equals',
-	ne = 'Not Equal',
-	lt = 'Less Than',
-	le = 'Less Than Equal To',
-	gt = 'Greater Than',
-	ge = 'Greater Than Equal To',
-	starts_with = 'Starts With',
-	not_starts_with = 'Does Not Start With',
-	ends_with = 'Ends With',
-	not_ends_with = 'Does Not End With',
-	contains = 'Contains',
-	not_contains = 'Does Not Contain',
-	in = 'In',
-	not_in = 'Not In',
-	empty = 'Empty',
-	not_empty = 'Not Empty',
+	Equals = 'eq',
+	NotEqual = 'ne',
+	LessThan = 'lt',
+	LessThanEqualTo = 'le',
+	GreaterThan = 'gt',
+	GreaterThanEqualTo = 'ge',
+	StartsWith = 'starts_with',
+	DoesNotStartWith = 'not_starts_with',
+	EndsWith = 'ends_with',
+	DoesNotEndWith = 'not_ends_with',
+	Contains = 'contains',
+	DoesNotContain = 'not_contains',
+	In = 'in',
+	NotIn = 'not_in',
+	Empty = 'empty',
+	NotEmpty = 'not_empty',
 }
 
 export enum MetadataFunctionName {
@@ -27,18 +27,18 @@ export enum MetadataFunctionName {
 	Year = 'Year',
 	Month = 'Month',
 	Day = 'Day',
-	AddDays = 'Add Days',
-	AddMonths = 'Add Months',
-	AddYears = 'Add Years',
-	FormatDate = 'Format Date',
+	AddDays = 'AddDays',
+	AddMonths = 'AddMonths',
+	AddYears = 'AddYears',
+	FormatDate = 'FormatDate',
 	Concat = 'Concat',
 	Convert = 'Convert',
 	Contains = 'Contains',
-	StartsWith = 'Starts With',
-	EndsWith = 'Ends With',
-	GetExtension = 'Get Extension',
-	GetFileName = 'Get File Name',
-	GetFileNameWithoutExtension = 'Get File Name Without Extension'
+	StartsWith = 'StartsWith',
+	EndsWith = 'EndsWith',
+	GetExtension = 'GetExtension',
+	GetFileName = 'GetFileName',
+	GetFileNameWithoutExtension = 'GetFileNameWithoutExtension'
 }
 
 export type MetadataComponentFilter = MetadataConjunctionFilter | MetadataPropertyFilter;
