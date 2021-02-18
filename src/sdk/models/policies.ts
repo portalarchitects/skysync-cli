@@ -79,11 +79,23 @@ export interface PolicyTrackingGroupRule extends IEntityIdentifier<string> {
 	criteria?: MetadataCalculatedFilter;
 }
 
+export interface PolicyTrackingGroupActionConfiguration {
+	id?: string;
+	name?: string;
+	description?: string;
+}
+
+export interface PolicyTrackingGroupAction extends IEntityIdentifier<string> {
+	id?: string;
+	priority?: number;
+	action?: PolicyTrackingGroupActionConfiguration;
+}
+
 export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPrioritizedEntity {
 	name?: string;
 	description?: string;
 	risk?: ContentRiskLevel;
 	assignment_rules?: PolicyTrackingGroupRule[];
 	entity_types?: (EntityType & IPrioritizedEntity)[];
-	actions?: any[];
+	actions?: PolicyTrackingGroupAction[];
 }
