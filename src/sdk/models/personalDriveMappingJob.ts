@@ -1,3 +1,4 @@
+import { AccountMap } from './accountMaps';
 import { TransferJob } from './transfers';
 
 export enum PersonalDriveMappingJobConventionMatch {
@@ -19,6 +20,7 @@ export enum PersonalDriveMappingJobConventionUsers {
 }
 
 export interface PersonalDriveMappingConvention {
+	account_map?: AccountMap;
 	match?: PersonalDriveMappingJobConventionMatch;
 	include_matches?: boolean;
 	remove_invalid?: boolean;
