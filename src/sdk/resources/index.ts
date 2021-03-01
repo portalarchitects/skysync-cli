@@ -23,7 +23,6 @@ export * from './notifications';
 export * from './permissions';
 export * from './personalDrive';
 export * from './personalDriveMatches';
-export * from './personalDriveExceptions';
 export * from './policies';
 export * from './policyAuditCategories';
 export * from './policyCategories';
