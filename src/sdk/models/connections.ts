@@ -30,6 +30,8 @@ export interface PromptAttribute {
 	hint?: string;
 	required?: boolean;
 	value?: any;
+	help_text?: string;
+	show_default?: boolean;
 	options?: PromptAttributeOptionList;
 }
 
