@@ -30,6 +30,7 @@ export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
 	category?: Category;
 	locations?: PolicyLocations;
 	status?: PolicyStatus;
+	readonly?: boolean;
 	disabled?: boolean;
 	entity_types?: (EntityType & IPrioritizedEntity)[];
 	groups?: PolicyTrackingGroup[];
@@ -38,6 +39,7 @@ export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
 export interface PolicyLocations {
 	count?: number;
 	error?: number;
+	executions?: number;
 	platforms?: (StoragePlatform & { count?: number })[];
 }
 
