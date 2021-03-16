@@ -63,9 +63,43 @@ export interface PolicyItem extends TransferPlatformItem {
 	group?: PolicyTrackingGroup;
 }
 
+export enum PolicyAuditEvent {
+	None = 'none',
+	Trace = 'trace',
+	Verbose = 'debug',
+	Information = 'info',
+	Warning = 'warn',
+	Error = 'error',
+	TrackedExistingItem = 'audit_item',
+	ItemProcessed = 'audit_processed',
+	AssignedTrackingGroup = 'audit_group_assigned',
+	UnassignedTrackingGroup = 'audit_group_unassigned',
+	ActionExecuted = 'audit_action_executed',
+	ActionItemDeleted = 'audit_action_deleted',
+	TrackingReset = 'audit_reset',
+	NotDownloadableFailure = 'not_downloadable',
+	ActionSkipped = 'audit_action_skipped',
+	ActionAborted = 'audit_action_aborted',
+	MaxTextLimitWarning = 'limit_text',
+	TextExtractionUnsupported = 'text_unsupported',
+	UnknownFailure = 'fail',
+	ConnectivityFailure = 'no_connect',
+	AccessFailure = 'no_access',
+	PolicyFailure = 'policy_fail',
+	NotFoundFailure = 'not_found',
+	InvalidItem = 'invalid_item',
+	IoFailure = 'io_fail',
+	LicenseFailure = 'license_fail',
+	ItemLockedFailure = 'locked',
+	LimitFailure = 'limit',
+	ActionFailed = 'audit_action_failed',
+	MaxFileLimitFailure = 'limit_file'
+}
+
 export interface PolicyAuditEntry extends IEntityIdentifier<number> {
 	job_id?: string;
 	execution_id?: number;
+	event?: PolicyAuditEvent;
 	target?: PolicyItem;
 	bytes?: number;
 	version?: string;
