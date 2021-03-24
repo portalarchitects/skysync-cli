@@ -1,6 +1,12 @@
 import { AccountMap } from './accountMaps';
 import { TransferJob } from './transfers';
 
+export enum PersonalDriveMappingJobConventionUnmappedPolicy {
+	Ignore = 'ignore',
+	WarnAndSkip = 'warn',
+	Provision = 'add'
+}
+
 export enum PersonalDriveMappingJobConventionMatch {
 	Account = 'account',
 	Container = 'container',
