@@ -22,10 +22,8 @@ export const formatBytes = (num: number, options: ByteFormatOptions = null): str
 		num = 0;
 	}
 
-	const negative = num < 0;
-	if (negative) {
-		num = -num;
-	}
+	const sign = Math.sign(num);
+	num = Math.abs(num);
 
 	let e = Math.floor(Math.log(num) / unitBase);
 	if (e < 0) {
@@ -38,7 +36,7 @@ export const formatBytes = (num: number, options: ByteFormatOptions = null): str
 		num = num / Math.pow(2, e * 10);
 	}
 
-	let output = `${negative ? '-' : ''}${byteFormat.format(num)}`;
+	let output = byteFormat.format(sign * num);
 
 	const showAbbreviation = typeof(options && options.abbreviation) === 'boolean' ? options.abbreviation : true;
 	if (showAbbreviation) {

@@ -23,4 +23,16 @@ describe('formatNumber', () => {
 	it('can format with unit', () => {
 		expect(formatNumber(10, {unit: 'kg', separator: ''})).to.eql('10kg');
 	});
+
+	it('can format with abbreviation', () => {
+		const options = {
+			abbreviation: true,
+			separator: ''
+		};
+		expect(formatNumber(1000, options)).to.eql('1,000');
+		expect(formatNumber(10000, options)).to.eql('10,000');
+		expect(formatNumber(100000, options)).to.eql('100k');
+		expect(formatNumber(1000000, options)).to.eql('1m');
+		expect(formatNumber(10000000, options)).to.eql('10m');
+	});
 });

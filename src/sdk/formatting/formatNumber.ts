@@ -8,6 +8,7 @@ const numberFormatter = new Intl.NumberFormat('en', {
 
 export type NumberFormatOptions = {
 	separator?: string;
+	abbreviation?: boolean;
 	unit?: string;
 };
 
@@ -15,10 +16,25 @@ export const formatNumber = (number: number, options?: NumberFormatOptions): str
 	if (!Boolean(number) || isNaN(number)) {
 		number = 0;
 	}
-	
-	let output = numberFormatter.format(number);
-	if (options && options.unit) {
-		output = formatUnit(output, options.unit, options.separator);
+
+	const sign = Math.sign(number);
+	number = Math.abs(number);
+
+	let unit = options && options.unit;
+	const showAbbreviation = Boolean(options?.abbreviation);
+	if (showAbbreviation) {
+		if (number > 99999 && number < 1000000) {
+			unit = 'k';
+			number = (number / 1000);
+		} else if (number >= 1000000) {
+			unit = 'm';
+			number = (number / 1000000);
+		}
+	}
+
+	let output = numberFormatter.format(sign * number);
+	if (unit) {
+		output = formatUnit(output, unit, options?.separator);
 	}
 
 	return output;
