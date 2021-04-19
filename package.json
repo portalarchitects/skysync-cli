@@ -45,7 +45,7 @@
     "build": "npm run clean && npm run build:tsc && npm run build:webpack && npm run build:publish",
     "prepare": "npm run build",
     "lint": "eslint -c .eslintrc.js --ext .ts src",
-    "lint:fix": "eslint -c .eslintrc.js --ext .ts src --fix",
+    "lint:fix": "npm run lint -- --fix",
     "rebuild": "npm run clean && npm run build",
     "start": "node bin/skysync.js",
     "test": "cross-env TS_NODE_PROJECT=./src/tsconfig.json TIME_ZONE=Pacific/Chatham mocha --timeout 10000 --require ts-node/register src/**/*.test.ts && npm run lint",
