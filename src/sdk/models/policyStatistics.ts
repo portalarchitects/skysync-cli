@@ -22,9 +22,9 @@ export interface LocationStatistic extends LabelledStatistic, StatisticValue {
 }
 
 export enum RemediationStatus {
-	NotRemediated = "not_remediated",
-	Remediated = "remediated",
-	Mitigated = "mitigated"
+	NotRemediated = 'not_remediated',
+	Remediated = 'remediated',
+	Mitigated = 'mitigated'
 }
 
 export interface PolicyStatistic extends LabelledStatistic, StatisticValue {
