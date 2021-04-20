@@ -30,7 +30,6 @@ export enum RemediationStatus {
 export interface PolicyStatistic extends LabelledStatistic, StatisticValue {
 	[RemediationStatus.NotRemediated]?: StatisticValue;
 	[RemediationStatus.Remediated]?: StatisticValue;
-	[RemediationStatus.Mitigated]?: StatisticValue;
 }
 
 export type PolicyStatisticsTimeline = { 
