@@ -21,6 +21,12 @@ export interface StatisticValue {
 export interface LocationStatistic extends LabelledStatistic, StatisticValue {
 }
 
+export enum RemediationStatus {
+	NotRemediated = 'not_remediated',
+	Remediated = 'remediated',
+	Mitigated = 'mitigated'
+}
+
 export interface PolicyStatistic extends LabelledStatistic, StatisticValue {
 	not_remediated?: StatisticValue;
 	remediated?: StatisticValue;
