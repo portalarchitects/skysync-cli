@@ -251,10 +251,8 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		return new HttpError(message, statusCode, result && result.errors);
 	}
 
-	private executeApiRequest(path: string, params: any, options: any = {}, token: CancellationToken): Promise<any> {
-		const headers = params && params.headers;
+	private executeApiRequest(path: string, {headers, ...params}: any = {}, options: any = {}, token: CancellationToken): Promise<any> {
 		if (headers) {
-			delete params.headers;
 			options.headers = headers;
 		}
 
