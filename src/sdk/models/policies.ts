@@ -6,6 +6,7 @@ import { TransferPath, TransferPlatformItem } from './transfers';
 import { AuditCategory } from './auditCategories';
 import { EntityType } from './entityTypes';
 import { MetadataCalculatedFilter } from './metadataFilters';
+import {PolicyAssignmentStatus} from './policyStatistics';
 
 export enum ContentRiskLevel {
 	None = 'none',
@@ -61,6 +62,7 @@ export interface PolicyItem extends TransferPlatformItem {
 	root?: boolean;
 	type?: 'container' | 'item';
 	group?: PolicyTrackingGroup;
+	assignment_status?: PolicyAssignmentStatus;
 }
 
 export interface PolicyAuditEntry extends IEntityIdentifier<number> {
