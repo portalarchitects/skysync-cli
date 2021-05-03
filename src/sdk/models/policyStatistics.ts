@@ -27,6 +27,14 @@ export enum RemediationStatus {
 	Mitigated = 'mitigated'
 }
 
+export enum PolicyAssignmentStatus {
+	Pending = 'pending',
+	ActionNeeded = 'action-needed',
+	Failed = 'failed',
+	Processing = 'processing',
+	Complete = 'complete'
+}
+
 export interface PolicyStatistic extends LabelledStatistic, StatisticValue {
 	not_remediated?: StatisticValue;
 	remediated?: StatisticValue;
@@ -49,6 +57,7 @@ export interface PolicyStatistics extends IEntityIdentifier<string> {
 	by_age?: LabelledStatisticList<LocationStatistic>;
 	by_versions?: LabelledStatisticList<LocationStatistic>;
 	by_risk?: LabelledStatisticList<PolicyStatistic>;
+	by_assignment_status?: LabelledStatisticList<PolicyStatistic>;
 	by_group?: LabelledStatisticList<PolicyStatistic>;
 	by_audit_category?: LabelledStatisticList<LocationStatistic>;
 }
