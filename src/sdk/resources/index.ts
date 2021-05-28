@@ -9,6 +9,8 @@ export * from './contentCategories';
 export * from './conventionAudits';
 export * from './diagnostics';
 export * from './entityTypeCategories';
+export * from './entityTypeDictionaries';
+export * from './entityTypeDictionaryElements';
 export * from './entityTypes';
 export * from './extensions';
 export * from './groupMaps';

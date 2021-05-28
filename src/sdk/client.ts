@@ -12,6 +12,7 @@ import {
 	DiagnosticMetricsResource,
 	EntityTypesResource,
 	EntityTypeCategoriesResource,
+	EntityTypeDictionariesResource,
 	ExtensionsResource,
 	GroupMapsResource,
 	JobsResource,
@@ -255,5 +256,9 @@ export class SkySyncClient {
 
 	get entityTypeCategories(): EntityTypeCategoriesResource {
 		return new EntityTypeCategoriesResource(this._httpClient);
+	}
+
+	get entityTypeDictionaries(): EntityTypeDictionariesResource {
+		return new EntityTypeDictionariesResource(this._httpClient);
 	}
 }

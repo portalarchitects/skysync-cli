@@ -7,8 +7,19 @@ export interface EntityType extends IEntityIdentifier<string>, IAuditedEntity {
 	kind?: 'pattern' | 'block_list' | 'transform' | 'classifier' | string;
 	category?: Category;
 	threshold?: number;
+	keywords?: EntityTypeDictionary;
 	readonly?: boolean;
 	disabled?: boolean;
+}
+
+export interface EntityTypeDictionary extends IEntityIdentifier<string> {
+	name?: string;
+	description?: string;
+	readonly?: boolean;
+}
+
+export interface EntityTypeDictionaryElement {
+	element: string;
 }
 
 export type EntityTypePropertyValue = {
