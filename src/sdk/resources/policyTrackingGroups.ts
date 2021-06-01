@@ -9,7 +9,7 @@ export class PolicyTrackingGroupsResource extends PagedResource<PolicyTrackingGr
 	}
 	
 	usePolicy(policyId?): PolicyTrackingGroupsResource {
-		this.resourcePath = policyId ? `policies/${policyId}/groups` : 'policies/groups';
+		this.resourcePath = policyId ? `policies/${policyId}/tracking_groups` : 'policies/tracking_groups';
 		return this;
 	}
 }
