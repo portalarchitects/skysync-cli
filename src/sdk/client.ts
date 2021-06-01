@@ -44,7 +44,7 @@ import {
 	TransferReportStatisticsResource,
 	TransferSecurityMappingsResource,
 	UsersResource,
-	UserPreferencesResource,
+	UserPreferencesResource, PolicyTrackingGroupsResource,
 } from './resources';
 
 export class SkySyncClient {
@@ -247,6 +247,10 @@ export class SkySyncClient {
 
 	get policyStatistics(): PolicyStatisticsResource {
 		return new PolicyStatisticsResource(this._httpClient);
+	}
+
+	get policyTrackingGroups(): PolicyTrackingGroupsResource {
+		return new PolicyTrackingGroupsResource(this._httpClient);
 	}
 
 	get entityTypes(): EntityTypesResource {
