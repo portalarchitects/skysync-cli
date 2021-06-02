@@ -10,10 +10,10 @@ export enum ConfidenceLevel {
 	VeryStrong = 'very_strong'
 }
 export interface EntityTypeRegexPattern {
-    description: string;
-    pattern: string;
-    priority: number;
-    confidence: ConfidenceLevel;
+	description: string;
+	pattern: string;
+	priority: number;
+	confidence: ConfidenceLevel;
 }
 
 export interface EntityTypeKeyword {
