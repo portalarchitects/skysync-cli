@@ -44,7 +44,8 @@ import {
 	TransferReportStatisticsResource,
 	TransferSecurityMappingsResource,
 	UsersResource,
-	UserPreferencesResource, PolicyTrackingGroupsResource,
+	UserPreferencesResource,
+	PolicyTrackingGroupsResource,
 } from './resources';
 
 export class SkySyncClient {
