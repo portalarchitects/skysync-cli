@@ -3,13 +3,8 @@ import { PagedResource}  from './resource';
 import { PolicyTrackingGroup } from '../models';
 
 export class PolicyTrackingGroupsResource extends PagedResource<PolicyTrackingGroup> {
-	constructor(httpClient: IHttpClient, policyId?: string) {
+	constructor(httpClient: IHttpClient, policyId: string) {
 		super(httpClient, 'tracking_group');
-		this.usePolicy(policyId);
-	}
-	
-	usePolicy(policyId?): PolicyTrackingGroupsResource {
-		this.resourcePath = policyId ? `policies/${policyId}/tracking_groups` : 'policies/tracking_groups';
-		return this;
+		this.resourcePath = `policies/${policyId}/tracking_groups`;
 	}
 }

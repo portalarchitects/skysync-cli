@@ -2,10 +2,15 @@ import { IHttpClient } from '../http';
 import { getTypedResponse, PagedResource}  from './resource';
 import { Policy, PolicyEvaluationResult } from '../models';
 import { CancellationToken } from '../cancellation-token';
+import { PolicyTrackingGroupsResource } from './policyTrackingGroups';
 
 export class PoliciesResource extends PagedResource<Policy> {
 	constructor(httpClient: IHttpClient) {
 		super(httpClient, 'policy', 'policy', 'policies', 'policies', 'policies');
+	}
+
+	trackingGroups(policyId: string): PolicyTrackingGroupsResource {
+		return new PolicyTrackingGroupsResource(this.httpClient, policyId);
 	}
 
 	async import(body: FormData, params?: any, token?: CancellationToken): Promise<Policy[]> {
