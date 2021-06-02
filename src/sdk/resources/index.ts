@@ -29,6 +29,7 @@ export * from './policyCategories';
 export * from './policyAudits';
 export * from './policyItems';
 export * from './policyStatistics';
+export * from './policyTrackingGroups';
 export * from './profiles';
 export * from './reports';
 export * from './reportStatistics';
