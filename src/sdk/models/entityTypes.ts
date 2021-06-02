@@ -16,12 +16,6 @@ export interface EntityTypeRegexPattern {
 	confidence: ConfidenceLevel;
 }
 
-export interface EntityTypeKeyword {
-	description: string;
-	id: string;
-	name: string;
-	type: string;
-}
 export interface EntityType extends IEntityIdentifier<string>, IAuditedEntity {
 	name?: string;
 	description?: string;
@@ -31,8 +25,6 @@ export interface EntityType extends IEntityIdentifier<string>, IAuditedEntity {
 	readonly?: boolean;
 	disabled?: boolean;
 	patterns?: EntityTypeRegexPattern;
-	keywords?: EntityTypeKeyword;
-	validation?: string[];
 }
 
 export type EntityTypePropertyValue = {
