@@ -9,7 +9,6 @@ export interface EntityType extends IEntityIdentifier<string>, IAuditedEntity {
 	threshold?: number;
 	keywords?: EntityTypeDictionary;
 	readonly?: boolean;
-	elements?: EntityTypeDictionaryElement[];
 	disabled?: boolean;
 }
 
@@ -17,6 +16,7 @@ export interface EntityTypeDictionary extends IEntityIdentifier<string> {
 	name?: string;
 	description?: string;
 	readonly?: boolean;
+	elements?: EntityTypeDictionaryElement[];
 }
 
 export interface EntityTypeDictionaryElement {
