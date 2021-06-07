@@ -7,9 +7,19 @@ export interface EntityType extends IEntityIdentifier<string>, IAuditedEntity {
 	kind?: 'pattern' | 'block_list' | 'transform' | 'classifier' | string;
 	category?: Category;
 	threshold?: number;
-	keywords?: EntityTypeDictionary;
 	readonly?: boolean;
 	disabled?: boolean;
+}
+
+export interface BlockListEntityType extends EntityType {
+	kind: 'block_list';
+	keywords?: EntityTypeDictionary;
+}
+
+export interface PatternEntityType extends EntityType {
+	kind: 'pattern';
+	keywords?: EntityTypeDictionary;
+	patterns?: EntityTypeRegexPattern[];
 }
 
 export interface EntityTypeDictionary extends IEntityIdentifier<string> {
@@ -21,6 +31,22 @@ export interface EntityTypeDictionary extends IEntityIdentifier<string> {
 
 export interface EntityTypeDictionaryElement {
 	element: string;
+}
+
+export interface EntityTypeRegexPattern {
+	description: string;
+	pattern: string;
+	priority: number;
+	confidence: ConfidenceLevel;
+}
+
+export enum ConfidenceLevel {
+	None = 'none',
+	VeryWeak = 'very_weak',
+	Weak = 'weak',
+	Medium = 'medium',
+	Strong = 'strong',
+	VeryStrong = 'very_strong'
 }
 
 export type EntityTypePropertyValue = {
