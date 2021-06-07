@@ -1,9 +1,9 @@
 import { IHttpClient } from '../http';
 import { getTypedResponse, PagedResource } from './resource';
-import { EntityType, EntityTypeEvaluationResult } from '../models';
+import { BlockListEntityType, EntityType, EntityTypeEvaluationResult, PatternEntityType } from '../models';
 import { CancellationToken } from '../cancellation-token';
 
-export class EntityTypesResource extends PagedResource<EntityType> {
+export class EntityTypesResource extends PagedResource<EntityType | BlockListEntityType | PatternEntityType> {
 	constructor(httpClient: IHttpClient) {
 		super(httpClient, 'entity_type');
 	}
