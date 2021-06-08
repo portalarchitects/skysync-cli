@@ -57,6 +57,10 @@ export class FetchHttpClient extends HttpClient<any, any> {
 	protected getStatusCode(response: any): number {
 		return response.status;
 	}
+
+	protected getHeadersValue(headers: any, key: string): string {
+		return headers.get(key);
+	}
 	
 	async download(path: string, handler: (fileName: string, output: Readable) => Promise<any>, token?: CancellationToken) {
 		return await new Promise(async (resolve, reject) => {

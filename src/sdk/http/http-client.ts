@@ -228,6 +228,8 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	protected abstract executeJsonRequest(req: TRequest, callback: (err: any, response: TResponse, body: string) => void, token?: CancellationToken);
 
 	protected abstract getStatusCode(response: TResponse): number;
+	
+	protected abstract getHeadersValue(headers: any, key: string): string;
 
 	private getError(err, response: TResponse, body: string) {
 		if (err) {
@@ -283,8 +285,8 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 						return resolve(null);
 					}
 
-					const contentType = response.headers && response.headers.get('content-type');
-					const jsonResponse = contentType && contentType.indexOf('application/json') >= 0;
+					const contentType = response.headers && this.getHeadersValue(response.headers, 'content-type');
+					const jsonResponse = !contentType || contentType.indexOf('application/json') >= 0;
 					if (!body || body.length === 0) {
 						return resolve(jsonResponse ? {} : '');
 					}
@@ -353,7 +355,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	}
 	
 	protected parseContentDispositionHeader(headers: any): string {
-		let contentDisposition = headers.get('content-disposition');
+		let contentDisposition = this.getHeadersValue(headers, 'content-disposition');
 		if (!contentDisposition) {
 			return undefined;
 		}
