@@ -40,9 +40,12 @@
   "scripts": {
     "clean": "rimraf dist publish",
     "build:tsc": "tsc -p ./src",
+    "build:tsc-dev": "tsc -p ./src/tsconfig.development.json",
     "build:webpack": "webpack --config ./build/webpack.js",
     "build:publish": "rimraf dist/sdk && ncp ./publish ./dist && rimraf dist/.npmrc dist/package.json",
     "build": "npm run clean && npm run build:tsc && npm run build:webpack && npm run build:publish",
+    "build-dev": "cross-env NODE_ENV=development npm run clean && npm run build:tsc-dev && npm run build:webpack && npm run build:publish",
+    "skysync-cli-dbg": "node --inspect-brk ./bin/skysync.js",
     "prepare": "npm run build",
     "lint": "eslint -c .eslintrc.js --ext .ts src",
     "lint:fix": "npm run lint -- --fix",

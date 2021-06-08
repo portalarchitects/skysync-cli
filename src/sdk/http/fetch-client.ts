@@ -73,13 +73,12 @@ export class FetchHttpClient extends HttpClient<any, any> {
 				const response = await this.fetch(url, options);
 				let __this = this;
 				
-				response.on('response', function (response) {
-					if (response.statusCode >= 400) {
-						reject(new Error('The requested path could not be retrieved from the server.'));
-						return;
-					}
-					return resolve(handler(__this.parseContentDispositionHeader(response.headers), response));
-				});
+				if (response.status >= 400) {
+					reject(new Error('The requested path could not be retrieved from the server.'));
+					return;
+				}
+				return resolve(handler(__this.parseContentDispositionHeader(response.headers), response.body));
+				
 			} catch (e) {
 				reject(e);
 			}

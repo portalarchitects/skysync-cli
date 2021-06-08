@@ -68,6 +68,7 @@ export = {
 
 			if (argv.optionsInput) {
 				auditCategory = await readJsonInput();
+				auditCategory.name = argv.name;
 			}
 			auditCategory = await client.transferAuditCategories.add(auditCategory, {
 				fields: 'all'

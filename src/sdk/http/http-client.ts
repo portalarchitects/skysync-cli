@@ -283,7 +283,8 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 						return resolve(null);
 					}
 
-					const jsonResponse = !response.headers || !response.headers['content-type'] || response.headers['content-type'].indexOf('application/json') >= 0;
+					const contentType = response.headers && response.headers.get('content-type');
+					const jsonResponse = contentType && contentType.indexOf('application/json') >= 0;
 					if (!body || body.length === 0) {
 						return resolve(jsonResponse ? {} : '');
 					}
@@ -352,7 +353,7 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	}
 	
 	protected parseContentDispositionHeader(headers: any): string {
-		let contentDisposition = headers['content-disposition'];
+		let contentDisposition = headers.get('content-disposition');
 		if (!contentDisposition) {
 			return undefined;
 		}

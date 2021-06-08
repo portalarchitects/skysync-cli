@@ -25,7 +25,7 @@ console.log('Creating version ' + version);
 const includeDeps = ['querystring-es3'];
 
 module.exports = {
-	mode: 'production',
+	mode: process.env.NODE_ENV !== 'production' ? 'development' : 'production',
 	entry: {
 		sdk: path.resolve(__dirname, '../src/sdk/index.ts')
 	},
@@ -73,4 +73,5 @@ module.exports = {
 		{ 'querystring': 'querystring-es3' },
 		nodeExternals()
 	],
+	...(process.env.NODE_ENV !== 'production' ? { devtool: 'eval-source-map' } : undefined)
 };
