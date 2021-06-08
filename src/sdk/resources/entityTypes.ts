@@ -8,7 +8,7 @@ export class EntityTypesResource extends PagedResource<EntityType | BlockListEnt
 		super(httpClient, 'entity_type');
 	}
 
-	async import(body: FormData, params?: any, token?: CancellationToken): Promise<EntityType[]> {
+	async import(body: FormData, params?: any, token?: CancellationToken): Promise<(EntityType | BlockListEntityType | PatternEntityType)[]> {
 		const result = await this.httpClient.upload(this.resourcePath, null, body, params, token);
 		return getTypedResponse<EntityType[]>(result);
 	}
