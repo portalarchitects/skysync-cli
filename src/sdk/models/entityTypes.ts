@@ -11,6 +11,44 @@ export interface EntityType extends IEntityIdentifier<string>, IAuditedEntity {
 	disabled?: boolean;
 }
 
+export interface BlockListEntityType extends EntityType {
+	kind: 'block_list';
+	keywords?: EntityTypeDictionary;
+}
+
+export interface PatternEntityType extends EntityType {
+	kind: 'pattern';
+	keywords?: EntityTypeDictionary;
+	patterns?: EntityTypeRegexPattern[];
+}
+
+export interface EntityTypeDictionary extends IEntityIdentifier<string> {
+	name?: string;
+	description?: string;
+	readonly?: boolean;
+	elements?: EntityTypeDictionaryElement[];
+}
+
+export interface EntityTypeDictionaryElement {
+	element: string;
+}
+
+export interface EntityTypeRegexPattern {
+	description: string;
+	pattern: string;
+	priority: number;
+	confidence: ConfidenceLevel;
+}
+
+export enum ConfidenceLevel {
+	None = 'none',
+	VeryWeak = 'very_weak',
+	Weak = 'weak',
+	Medium = 'medium',
+	Strong = 'strong',
+	VeryStrong = 'very_strong'
+}
+
 export type EntityTypePropertyValue = {
 	value: any;
 	confidence?: number;
