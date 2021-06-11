@@ -264,6 +264,6 @@ export class SkySyncClient {
 	}
 	
 	get entityTypeValidators(): EntityTypeValidatorsResource {
-		return new EntityTypeDictionariesResource(this._httpClient);
+		return new EntityTypeValidatorsResource(this._httpClient);
 	}
 }
