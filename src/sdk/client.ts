@@ -46,6 +46,7 @@ import {
 	TransferSecurityMappingsResource,
 	UsersResource,
 	UserPreferencesResource,
+	EntityTypeValidatorsResource,
 } from './resources';
 
 export class SkySyncClient {
@@ -259,6 +260,10 @@ export class SkySyncClient {
 	}
 
 	get entityTypeDictionaries(): EntityTypeDictionariesResource {
+		return new EntityTypeDictionariesResource(this._httpClient);
+	}
+	
+	get entityTypeValidators(): EntityTypeValidatorsResource {
 		return new EntityTypeDictionariesResource(this._httpClient);
 	}
 }
