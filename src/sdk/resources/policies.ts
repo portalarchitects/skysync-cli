@@ -1,6 +1,6 @@
 import { IHttpClient } from '../http';
 import { getTypedResponse, PagedResource}  from './resource';
-import { Policy, PolicyEvaluationResult } from '../models';
+import { Policy, PolicyEvaluationResult, PropertySchema } from '../models';
 import { CancellationToken } from '../cancellation-token';
 import { PolicyTrackingGroupsResource } from './policyTrackingGroups';
 
@@ -11,6 +11,11 @@ export class PoliciesResource extends PagedResource<Policy> {
 
 	trackingGroups(policyId: string): PolicyTrackingGroupsResource {
 		return new PolicyTrackingGroupsResource(this.httpClient, policyId);
+	}
+
+	async schema(id: string, token?: CancellationToken): Promise<PropertySchema> {
+		const result = await this.httpClient.get(`${this.resourcePath}/${id}/schema`, null, token);
+		return getTypedResponse<PropertySchema>(result);
 	}
 
 	async import(body: FormData, params?: any, token?: CancellationToken): Promise<Policy[]> {
