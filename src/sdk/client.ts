@@ -13,6 +13,7 @@ import {
 	EntityTypesResource,
 	EntityTypeCategoriesResource,
 	EntityTypeDictionariesResource,
+	EntityTypeValidatorsResource,
 	ExtensionsResource,
 	GroupMapsResource,
 	JobsResource,
@@ -46,7 +47,6 @@ import {
 	TransferSecurityMappingsResource,
 	UsersResource,
 	UserPreferencesResource,
-	EntityTypeValidatorsResource,
 } from './resources';
 
 export class SkySyncClient {

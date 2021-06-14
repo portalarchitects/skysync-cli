@@ -20,6 +20,7 @@ export interface PatternEntityType extends EntityType {
 	kind: 'pattern';
 	keywords?: EntityTypeDictionary;
 	patterns?: EntityTypeRegexPattern[];
+	validation?: string[];
 }
 
 export interface EntityTypeDictionary extends IEntityIdentifier<string> {
