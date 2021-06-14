@@ -9,7 +9,7 @@ export class PolicyTrackingGroupsResource extends PagedResource<PolicyTrackingGr
 		this.resourcePath = `policies/${policyId}/tracking_groups`;
 	}
 
-	async clone(id: string, body?: any, params?: any, token?: CancellationToken): Promise<PolicyTrackingGroup> {
+	async clone(id: string, body?: PolicyTrackingGroup, params?: any, token?: CancellationToken): Promise<PolicyTrackingGroup> {
 		const group = await this.httpClient.post(`${this.resourcePath}/${id}/clone`, body, params, token);
 		return this.getSingle(group);
 	}
