@@ -14,7 +14,7 @@ export class PoliciesResource extends PagedResource<Policy> {
 	}
 
 	async schema(id: string, token?: CancellationToken): Promise<PropertySchema> {
-		const result = await this.httpClient.get(`${this.resourcePath}/${id}/schema`, null, token);
+		const result = await this.httpClient.get(`${this.resourcePath}/${id}/schema`, {}, token);
 		return getTypedResponse<PropertySchema>(result);
 	}
 
