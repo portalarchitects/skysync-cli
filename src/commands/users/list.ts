@@ -8,7 +8,7 @@ export = {
 	builder: yargs => {
 		yargs.options({
 			'status': {
-				desc: 'Retrieves users acording to the given status. Status can only be "active" or "disabled"',
+				desc: 'Retrieves users according to the given status. Status can only be "active" or "disabled"',
 				type: 'string',
 				group: 'Search',
 				default: undefined
