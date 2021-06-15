@@ -31,4 +31,3 @@ export * from './time';
 export * from './transfers';
 export * from './transferStatistics';
 export * from './users';
-export * from './validators';

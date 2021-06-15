@@ -68,3 +68,8 @@ export interface EntityTypeEvaluationResult {
 		[key: string]: EntityTypePropertyValues;
 	};
 }
+
+export interface EntityTypeValidator extends IEntityIdentifier<string> {
+	name?: string;
+	description?: string;
+}
