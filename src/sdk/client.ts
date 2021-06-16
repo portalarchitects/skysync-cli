@@ -13,6 +13,7 @@ import {
 	EntityTypesResource,
 	EntityTypeCategoriesResource,
 	EntityTypeDictionariesResource,
+	EntityTypeValidatorsResource,
 	ExtensionsResource,
 	GroupMapsResource,
 	JobsResource,
@@ -260,5 +261,9 @@ export class SkySyncClient {
 
 	get entityTypeDictionaries(): EntityTypeDictionariesResource {
 		return new EntityTypeDictionariesResource(this._httpClient);
+	}
+	
+	get entityTypeValidators(): EntityTypeValidatorsResource {
+		return new EntityTypeValidatorsResource(this._httpClient);
 	}
 }

@@ -12,6 +12,7 @@ export * from './entityTypeCategories';
 export * from './entityTypeDictionaries';
 export * from './entityTypeDictionaryElements';
 export * from './entityTypes';
+export * from './entityTypeValidators';
 export * from './extensions';
 export * from './groupMaps';
 export * from './groupMapExceptions';

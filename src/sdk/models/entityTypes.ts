@@ -20,6 +20,7 @@ export interface PatternEntityType extends EntityType {
 	kind: 'pattern';
 	keywords?: EntityTypeDictionary;
 	patterns?: EntityTypeRegexPattern[];
+	validation?: string[];
 }
 
 export interface EntityTypeDictionary extends IEntityIdentifier<string> {
@@ -66,4 +67,9 @@ export interface EntityTypeEvaluationResult {
 	properties?: {
 		[key: string]: EntityTypePropertyValues;
 	};
+}
+
+export interface EntityTypeValidator extends IEntityIdentifier<string> {
+	name?: string;
+	description?: string;
 }
