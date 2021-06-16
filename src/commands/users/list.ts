@@ -7,9 +7,9 @@ export = {
 	desc: 'List all users',
 	builder: yargs => {
 		yargs.options({
-			'active': {
-				desc: 'Only retrieve active users',
-				type: 'boolean',
+			'status': {
+				desc: 'Retrieves users according to the given status. Status can only be "active" or "disabled"',
+				type: 'string',
 				group: 'Search',
 				default: undefined
 			}, ...listArgumentsDefault
@@ -18,7 +18,7 @@ export = {
 	handler: argv => {
 		runCommand(argv, async (client, output) => {
 			const users = await client.users.list({
-				active: argv.active,
+				status: argv.status,
 				q: argv.search,
 				offset: argv.offset,
 				limit: argv.limit,
