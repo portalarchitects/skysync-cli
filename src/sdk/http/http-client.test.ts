@@ -70,4 +70,11 @@ describe('HttpClient', () => {
 			'X-Connect-As': 'foobar'
 		});
 	});
+
+	it('can handle null "params"', () => {
+		const httpClient = new TestHttpClient();
+		httpClient.get('connections/123', null);
+		const lastRequest = httpClient.executedRequests[0];
+		expect(lastRequest.url).to.eql('http://localhost:9090/v1/connections/123');
+	});
 });

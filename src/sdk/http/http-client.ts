@@ -251,12 +251,17 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 		return new HttpError(message, statusCode, result && result.errors);
 	}
 
-	private executeApiRequest(path: string, {headers, ...params}: any = {}, options: any = {}, token: CancellationToken): Promise<any> {
+	private executeApiRequest(path: string, params: any, options: any = {}, token: CancellationToken): Promise<any> {
+		let headers, requestParams;
+		if (params) {
+			({ headers, ...requestParams } = params);
+		}
+
 		if (headers) {
 			options.headers = headers;
 		}
 
-		const url = HttpClient.getUrl(path, this.apiUrl, params);
+		const url = HttpClient.getUrl(path, this.apiUrl, requestParams);
 		return new Promise(async (resolve, reject) => {
 			try {
 				if (this.isAuthRequired) {
