@@ -1,6 +1,6 @@
 import { IHttpClient } from '../http';
-import { PagedResource}  from './resource';
-import { PolicyTrackingGroup } from '../models';
+import { getTypedResponse, PagedResource}  from './resource';
+import { EntityTypeAssignment, PolicyTrackingGroup } from '../models';
 import { CancellationToken } from '../cancellation-token';
 
 export class PolicyTrackingGroupsResource extends PagedResource<PolicyTrackingGroup> {
@@ -12,5 +12,15 @@ export class PolicyTrackingGroupsResource extends PagedResource<PolicyTrackingGr
 	async clone(id: string, body?: PolicyTrackingGroup, params?: any, token?: CancellationToken): Promise<PolicyTrackingGroup> {
 		const group = await this.httpClient.post(`${this.resourcePath}/${id}/clone`, body, params, token);
 		return this.getSingle(group);
+	}
+
+	async addEntityAssignment(id: string, body: EntityTypeAssignment, params?: any, token?: CancellationToken): Promise<PolicyTrackingGroup> {
+		const entityTypeId = body.id;
+		const result = await this.httpClient.patch(`${this.resourcePath}/${id}/entity_types/${entityTypeId}`, body, params, token);
+		return getTypedResponse<PolicyTrackingGroup>(result);
+	}
+
+	async deleteEntityAssignment(id: string, entityTypeId: string, token?: CancellationToken): Promise<boolean> {
+		return await this.httpClient.delete(`${this.resourcePath}/${id}/entity_types/${entityTypeId}`, null, token);
 	}
 }

@@ -1,5 +1,6 @@
 import { IAuditedEntity, IEntityIdentifier } from './base';
 import { Category } from './categories';
+import { MetadataCalculatedFilter } from './metadataFilters';
 
 export interface EntityType extends IEntityIdentifier<string>, IAuditedEntity {
 	name?: string;
@@ -72,4 +73,16 @@ export interface EntityTypeEvaluationResult {
 export interface EntityTypeValidator extends IEntityIdentifier<string> {
 	name?: string;
 	description?: string;
+}
+
+export enum DetectionMode {
+	DetectValue = 'value',
+	DetectExistence = 'exists'
+}
+
+export interface EntityTypeAssignment extends EntityType {
+	priority?: number;
+	threshold?: number;
+	detection?: DetectionMode;
+	candidate?: MetadataCalculatedFilter;
 }

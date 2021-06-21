@@ -1,6 +1,6 @@
 import { IHttpClient } from '../http';
 import { getTypedResponse, PagedResource}  from './resource';
-import { Policy, PolicyEvaluationResult, PropertySchema } from '../models';
+import { EntityTypeAssignment, Policy, PolicyEvaluationResult, PropertySchema } from '../models';
 import { CancellationToken } from '../cancellation-token';
 import { PolicyTrackingGroupsResource } from './policyTrackingGroups';
 
@@ -21,6 +21,16 @@ export class PoliciesResource extends PagedResource<Policy> {
 	async import(body: FormData, params?: any, token?: CancellationToken): Promise<Policy[]> {
 		const result = await this.httpClient.upload(this.resourcePath, null, body, params, token);
 		return getTypedResponse<Policy[]>(result);
+	}
+
+	async addEntityAssignment(id: string, body: EntityTypeAssignment, params?: any, token?: CancellationToken): Promise<Policy> {
+		const entityTypeId = body.id;
+		const result = await this.httpClient.patch(`${this.resourcePath}/${id}/entity_types/${entityTypeId}`, body, params, token);
+		return getTypedResponse<Policy>(result);
+	}
+
+	async deleteEntityAssignment(id: string, entityTypeId: string, token?: CancellationToken): Promise<boolean> {
+		return await this.httpClient.delete(`${this.resourcePath}/${id}/entity_types/${entityTypeId}`, null, token);
 	}
 
 	async test(id: string, body: FormData, params?: any, token?: CancellationToken): Promise<PolicyEvaluationResult> {
