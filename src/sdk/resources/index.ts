@@ -27,6 +27,7 @@ export * from './permissions';
 export * from './personalDrive';
 export * from './personalDriveMatches';
 export * from './policies';
+export * from './policyActions';
 export * from './policyAuditCategories';
 export * from './policyCategories';
 export * from './policyAudits';
