@@ -23,7 +23,8 @@ export class PoliciesResource extends PagedResource<Policy> {
 		return getTypedResponse<Policy[]>(result);
 	}
 
-	async addEntityAssignment(id: string, entityTypeId: string, body: EntityTypeAssignment, params?: any, token?: CancellationToken): Promise<Policy> {
+	async addEntityAssignment(id: string, body: EntityTypeAssignment, params?: any, token?: CancellationToken): Promise<Policy> {
+		const entityTypeId = body.id;
 		const result = await this.httpClient.patch(`${this.resourcePath}/${id}/entity_types/${entityTypeId}`, body, params, token);
 		return getTypedResponse<Policy>(result);
 	}

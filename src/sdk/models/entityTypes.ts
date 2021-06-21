@@ -80,12 +80,7 @@ export enum DetectionMode {
 	DetectExistence = 'exists'
 }
 
-export interface EntityTypeAssignment extends IEntityIdentifier<string> {
-	kind?: string;
-	name?: string;
-	description?: string;
-	property_name?: string;
-	entity_type?: EntityType;
+export interface EntityTypeAssignment extends EntityType {
 	priority?: number;
 	threshold?: number;
 	detection?: DetectionMode;

@@ -14,7 +14,8 @@ export class PolicyTrackingGroupsResource extends PagedResource<PolicyTrackingGr
 		return this.getSingle(group);
 	}
 
-	async addEntityAssignment(id: string, entityTypeId: string, body: EntityTypeAssignment, params?: any, token?: CancellationToken): Promise<PolicyTrackingGroup> {
+	async addEntityAssignment(id: string, body: EntityTypeAssignment, params?: any, token?: CancellationToken): Promise<PolicyTrackingGroup> {
+		const entityTypeId = body.id;
 		const result = await this.httpClient.patch(`${this.resourcePath}/${id}/entity_types/${entityTypeId}`, body, params, token);
 		return getTypedResponse<PolicyTrackingGroup>(result);
 	}
