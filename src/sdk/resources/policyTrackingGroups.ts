@@ -14,10 +14,10 @@ export class PolicyTrackingGroupsResource extends PagedResource<PolicyTrackingGr
 		return this.getSingle(group);
 	}
 
-	async addEntityAssignment(id: string, body: EntityTypeAssignment, params?: any, token?: CancellationToken): Promise<PolicyTrackingGroup> {
+	async addEntityAssignment(id: string, body: EntityTypeAssignment, params?: any, token?: CancellationToken): Promise<EntityTypeAssignment> {
 		const entityTypeId = body.id;
-		const result = await this.httpClient.patch(`${this.resourcePath}/${id}/entity_types/${entityTypeId}`, body, params, token);
-		return getTypedResponse<PolicyTrackingGroup>(result);
+		const result = await this.httpClient.post(`${this.resourcePath}/${id}/entity_types/${entityTypeId}`, body, params, token);
+		return getTypedResponse<EntityTypeAssignment>(result);
 	}
 
 	async deleteEntityAssignment(id: string, entityTypeId: string, token?: CancellationToken): Promise<boolean> {
