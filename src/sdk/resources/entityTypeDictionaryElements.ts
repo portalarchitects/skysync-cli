@@ -8,7 +8,7 @@ export class EntityTypeDictionaryElementsResource extends PagedResource<EntityTy
 		super(httpClient, 'dictionary_element', 'dictionary_element', 'dictionary_elements', 'dictionary_elements', `entity_types/dictionaries/${dictionaryId}/words`);
 	}
 
-	async import(body: FormData, params?: any, token?: CancellationToken): Promise<void> {
-		await this.httpClient.upload(this.resourcePath, null, body, params, token);
+	import(body: FormData, params?: any, token?: CancellationToken): Promise<void> {
+		return this.httpClient.upload(this.resourcePath, null, body, params, token);
 	}
 }
