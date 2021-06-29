@@ -78,12 +78,6 @@ export interface PolicyAuditEntry extends IEntityIdentifier<number> {
 	recorded_on?: number;
 }
 
-export interface PolicyAction extends IEntityIdentifier<string> {
-	name?: string;
-	description?: string;
-	destructive?: boolean;
-}
-
 export interface PolicyTrackingGroupRule extends IEntityIdentifier<string> {
 	justification?: string;
 	criteria?: MetadataCalculatedFilter;
@@ -92,6 +86,11 @@ export interface PolicyTrackingGroupRule extends IEntityIdentifier<string> {
 export interface PolicyActionDescriptor extends IEntityIdentifier<string> {
 	name?: string;
 	description?: string;
+	destructive?: boolean;
+	exclusive?: boolean;
+	requires_existing?: boolean;
+	removes_item?: boolean;
+	prompt?: any;
 }
 
 export interface PolicyTrackingGroupActionConfiguration extends PolicyActionDescriptor {

@@ -26,7 +26,7 @@ import {
 	PermissionsResource,
 	PersonalDriveResource,
 	PoliciesResource,
-	PolicyActionsResource,
+	PolicyActionTypesResource,
 	PolicyAuditCategoriesResource,
 	PolicyCategoriesResource,
 	PolicyAuditsResource,
@@ -232,8 +232,8 @@ export class SkySyncClient {
 		return new PoliciesResource(this._httpClient);
 	}
 
-	get policyActions(): PolicyActionsResource {
-		return new PolicyActionsResource(this._httpClient);
+	get policyActions(): PolicyActionTypesResource {
+		return new PolicyActionTypesResource(this._httpClient);
 	}
 
 	get policyAuditCategories(): PolicyAuditCategoriesResource {
