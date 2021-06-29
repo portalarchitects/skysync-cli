@@ -83,9 +83,12 @@ export interface PolicyTrackingGroupRule extends IEntityIdentifier<string> {
 	criteria?: MetadataCalculatedFilter;
 }
 
-export interface PolicyActionDescriptor extends IEntityIdentifier<string> {
+interface PolicyActionBase extends IEntityIdentifier<string> {
 	name?: string;
 	description?: string;
+}
+
+export interface PolicyActionDescriptor extends PolicyActionBase {
 	destructive?: boolean;
 	exclusive?: boolean;
 	requires_existing?: boolean;
@@ -93,7 +96,7 @@ export interface PolicyActionDescriptor extends IEntityIdentifier<string> {
 	prompt?: any;
 }
 
-export interface PolicyTrackingGroupActionConfiguration extends PolicyActionDescriptor {
+export interface PolicyTrackingGroupActionConfiguration extends PolicyActionBase {
 	[name: string]: any;
 }
 
