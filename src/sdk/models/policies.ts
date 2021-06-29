@@ -83,17 +83,24 @@ export interface PolicyTrackingGroupRule extends IEntityIdentifier<string> {
 	criteria?: MetadataCalculatedFilter;
 }
 
-export interface PolicyActionDescriptor extends IEntityIdentifier<string> {
+interface PolicyActionBase extends IEntityIdentifier<string> {
 	name?: string;
 	description?: string;
 }
 
-export interface PolicyTrackingGroupActionConfiguration extends PolicyActionDescriptor {
+export interface PolicyActionDescriptor extends PolicyActionBase {
+	destructive?: boolean;
+	exclusive?: boolean;
+	requires_existing?: boolean;
+	removes_item?: boolean;
+	prompt?: any;
+}
+
+export interface PolicyTrackingGroupActionConfiguration extends PolicyActionBase {
 	[name: string]: any;
 }
 
-export interface PolicyTrackingGroupAction extends IEntityIdentifier<string> {
-	priority?: number;
+export interface PolicyTrackingGroupAction extends IEntityIdentifier<string>, IPrioritizedEntity {
 	action?: PolicyTrackingGroupActionConfiguration;
 }
 
