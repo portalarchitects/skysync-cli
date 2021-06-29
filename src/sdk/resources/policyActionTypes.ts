@@ -4,6 +4,6 @@ import { PolicyActionDescriptor } from '../models';
 
 export class PolicyActionTypesResource extends PagedResource<PolicyActionDescriptor> {
 	constructor(httpClient: IHttpClient) {
-		super(httpClient, 'action_type', 'action_type', 'action_types', 'action_types', 'policies/action_types');
+		super(httpClient, 'policy_action_type', 'policy_action_type', 'policy_action_types', 'policy_action_types', 'policies/action_types');
 	}
 }
