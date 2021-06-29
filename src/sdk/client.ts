@@ -232,7 +232,7 @@ export class SkySyncClient {
 		return new PoliciesResource(this._httpClient);
 	}
 
-	get policyActions(): PolicyActionTypesResource {
+	get policyActionTypes(): PolicyActionTypesResource {
 		return new PolicyActionTypesResource(this._httpClient);
 	}
 
