@@ -22,6 +22,10 @@ export class TestHttpClient extends HttpClient<any, any> implements IHttpClient 
 	
 	protected getStatusCode(response: any): number {
 		return response.statusCode;
+	}	
+
+	protected getHeadersValue(headers: any, key: string): string {
+		return headers[key];
 	}
 
 	protected executeJsonRequest(req: any, callback: (err: any, response?: any, body?: string) => void) {

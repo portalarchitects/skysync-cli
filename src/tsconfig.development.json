@@ -1,0 +1,11 @@
+{
+	"extends": "./tsconfig.options",
+	"exclude": [
+		"node_modules",
+		"sdk/http/test-client.ts",
+		"**/*.test.ts"
+	],
+	"compilerOptions": {
+		"sourceMap": true
+	}
+}
