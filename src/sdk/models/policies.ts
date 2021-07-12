@@ -25,6 +25,14 @@ export enum PolicyStatus {
 	NoIssues = 'no-issues'
 }
 
+export enum PolicyActionTypeID {
+	Approval = 'approval',
+	Delay = 'delay',
+	Delete = 'delete',
+	Move = 'move',
+	Remediate = 'remediate'
+}
+
 export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
 	name?: string;
 	description?: string;
