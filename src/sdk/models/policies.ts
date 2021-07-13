@@ -63,6 +63,7 @@ export interface PolicyItem extends TransferPlatformItem {
 	type?: 'container' | 'item';
 	group?: PolicyTrackingGroup;
 	assignment_status?: PolicyAssignmentStatus;
+	identified_by?: PolicyTrackingGroupRule;
 }
 
 export interface PolicyAuditEntry extends IEntityIdentifier<number> {
