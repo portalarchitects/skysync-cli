@@ -54,6 +54,7 @@ export interface PolicyJobOptions {
 }
 
 export interface PolicyItem extends TransferPlatformItem {
+	tracking_id: number;
 	parent_id?: number;
 	audit_category?: AuditCategory;
 	retried?: number;
@@ -64,6 +65,7 @@ export interface PolicyItem extends TransferPlatformItem {
 	group?: PolicyTrackingGroup;
 	assignment_status?: PolicyAssignmentStatus;
 	identified_by?: PolicyTrackingGroupRule;
+	job?: PolicyJobOptions;
 }
 
 export interface PolicyAuditEntry extends IEntityIdentifier<number> {
