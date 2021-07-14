@@ -54,7 +54,7 @@ export interface PolicyJobOptions {
 }
 
 export interface PolicyItem extends TransferPlatformItem {
-	tracking_id: number;
+	tracking_id?: number;
 	parent_id?: number;
 	audit_category?: AuditCategory;
 	retried?: number;
@@ -66,6 +66,7 @@ export interface PolicyItem extends TransferPlatformItem {
 	assignment_status?: PolicyAssignmentStatus;
 	identified_by?: PolicyTrackingGroupRule;
 	job?: PolicyJobOptions;
+	[action: string]: any;
 }
 
 export interface PolicyAuditEntry extends IEntityIdentifier<number> {
@@ -114,4 +115,14 @@ export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPriorit
 	assignment_rules?: PolicyTrackingGroupRule[];
 	entity_types?: (EntityType & IPrioritizedEntity)[];
 	actions?: PolicyTrackingGroupAction[];
+}
+
+export enum PolicyApprovalStatus {
+	Pending = 'pending',
+	Approved = 'approved',
+	Rejected = 'rejected'
+}
+
+export interface PolicyApprovalAction {
+	status: PolicyApprovalStatus;
 }
