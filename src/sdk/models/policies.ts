@@ -95,7 +95,7 @@ export interface PolicyTrackingGroupRule extends IEntityIdentifier<string> {
 	criteria?: MetadataCalculatedFilter;
 }
 
-interface PolicyActionBase extends IEntityIdentifier<string> {
+interface PolicyActionBase extends IEntityIdentifier<PolicyActionTypeID | string> {
 	name?: string;
 	description?: string;
 }
