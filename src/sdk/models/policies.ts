@@ -25,6 +25,14 @@ export enum PolicyStatus {
 	NoIssues = 'no-issues'
 }
 
+export enum PolicyActionTypeID {
+	Approval = 'approval',
+	Delay = 'delay',
+	Delete = 'delete',
+	Move = 'move',
+	Remediate = 'remediate'
+}
+
 export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
 	name?: string;
 	description?: string;
@@ -87,7 +95,7 @@ export interface PolicyTrackingGroupRule extends IEntityIdentifier<string> {
 	criteria?: MetadataCalculatedFilter;
 }
 
-interface PolicyActionBase extends IEntityIdentifier<string> {
+interface PolicyActionBase extends IEntityIdentifier<PolicyActionTypeID | string> {
 	name?: string;
 	description?: string;
 }
