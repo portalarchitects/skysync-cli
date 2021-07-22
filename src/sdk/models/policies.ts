@@ -90,7 +90,7 @@ export interface PolicyAuditEntry extends IEntityIdentifier<number> {
 	recorded_on?: number;
 }
 
-export interface PolicyTrackingGroupRule extends IEntityIdentifier<string> {
+export interface PolicyTrackingGroupRule extends IEntityIdentifier<string>, IPrioritizedEntity {
 	justification?: string;
 	criteria?: MetadataCalculatedFilter;
 }
