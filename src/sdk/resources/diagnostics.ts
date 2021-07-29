@@ -1,5 +1,5 @@
 import { IHttpClient } from '../http';
-import { getTypedResponse, BaseResource } from './resource';
+import { getTypedResponse, BaseResource, getPagedResponse } from './resource';
 import { DiagnosticMetric, DiagnosticFiddlerStatus } from '../models';
 import { CancellationToken } from '../cancellation-token';
 
@@ -19,12 +19,12 @@ export class DiagnosticsFiddlerResource extends BaseResource {
 		super(httpClient);
 	}
 
-	async getStatus(token?: CancellationToken): Promise<DiagnosticFiddlerStatus> {
+	async get(token?: CancellationToken): Promise<DiagnosticFiddlerStatus> {
 		const result = await this.httpClient.get('diagnostics/fiddler', token);
 		return getTypedResponse<DiagnosticFiddlerStatus>(result, 'fiddler');
 	}
 
-	async setStatus(status: boolean, token?: CancellationToken): Promise<DiagnosticFiddlerStatus> {
+	async post(status: boolean, token?: CancellationToken): Promise<DiagnosticFiddlerStatus> {
 		const body: DiagnosticFiddlerStatus = { status };
 		const result = await this.httpClient.post('diagnostics/fiddler', body, token);
 		return getTypedResponse<DiagnosticFiddlerStatus>(result, 'fiddler');
