@@ -14,7 +14,7 @@ export class DiagnosticMetricsResource extends BaseResource {
 	}
 }
 
-export class DiagnosticsFiddlerResource extends BaseResource {
+export class DiagnosticFiddlerResource extends BaseResource {
 	constructor(httpClient: IHttpClient) {
 		super(httpClient);
 	}
