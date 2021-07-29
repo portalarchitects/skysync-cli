@@ -1,5 +1,5 @@
 import { IHttpClient } from '../http';
-import { getTypedResponse, BaseResource, getPagedResponse } from './resource';
+import { getTypedResponse, BaseResource } from './resource';
 import { DiagnosticMetric, DiagnosticFiddlerStatus } from '../models';
 import { CancellationToken } from '../cancellation-token';
 
