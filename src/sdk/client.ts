@@ -7,6 +7,7 @@ import {
 	ConnectionAccountsResource,
 	ConnectionGroupsResource,
 	ConnectionItemsResource,
+	ConnectionStatsResource,
 	ContentCategoriesResource,
 	ConventionAuditsResource,
 	DiagnosticMetricsResource,
@@ -98,6 +99,10 @@ export class SkySyncClient {
 
 	get connectionGroups(): ConnectionGroupsResource {
 		return new ConnectionGroupsResource(this._httpClient);
+	}
+
+	get connectionStats(): ConnectionStatsResource {
+		return new ConnectionStatsResource(this._httpClient);
 	}
 
 	get diagnosticMetrics(): DiagnosticMetricsResource {
