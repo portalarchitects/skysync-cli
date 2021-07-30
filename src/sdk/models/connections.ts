@@ -160,5 +160,5 @@ export interface ItemStats {
 		containers: {
 			count: number;
 		};
-	}
+	};
 }
