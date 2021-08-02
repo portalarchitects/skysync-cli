@@ -150,3 +150,15 @@ export interface PlatformItem extends IHaveLinks<PlatformItemHierarchyLinks> {
 	checkout_by?: Account;
 	[name: string]: any;
 }
+
+export interface ItemStats {
+	item_stats: {
+		items: {
+			count: number;
+			bytes: number;
+		};
+		containers: {
+			count: number;
+		};
+	};
+}

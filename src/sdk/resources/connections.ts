@@ -7,7 +7,8 @@ import {
 	Group,
 	PlatformItem,
 	PlatformItemHierarchyLinks,
-	ConnectionAuthorizePrompt
+	ConnectionAuthorizePrompt,
+	ItemStats
 } from '../models';
 import { CancellationToken } from '../cancellation-token';
 
@@ -99,6 +100,20 @@ export class ConnectionItemsResource extends BaseResource {
 
 	byParent(parent: {links: PlatformItemHierarchyLinks}, params?: any, token?: CancellationToken): Promise<PagedResult<PlatformItem>> {
 		return this.byHref(parent.links.items.href, params, (result, items) => getPagedResponse(result, items), token);
+	}
+}
+
+export class ConnectionStatsResource extends BaseResource {
+	constructor(httpClient: IHttpClient) {
+		super(httpClient);
+	}
+
+	async get(connection: string, params?: any, token?: CancellationToken): Promise<ItemStats> {
+		return this.httpClient.get(`connections/${connection}/stats`, params, token);
+	}
+
+	async downloadCsv(connection: string, params?: any, token?: CancellationToken): Promise<string> {
+		return this.httpClient.get(`connections/${connection}/stats.csv`, params, token);
 	}
 }
 
