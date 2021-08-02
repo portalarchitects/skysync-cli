@@ -3,3 +3,8 @@ export interface DiagnosticMetric  {
 	value: string;
 	type: string;
 }
+
+export interface DiagnosticFiddlerStatus {
+	status: boolean;
+	port?: number;
+}

@@ -10,6 +10,7 @@ import {
 	ContentCategoriesResource,
 	ConventionAuditsResource,
 	DiagnosticMetricsResource,
+	DiagnosticFiddlerResource,
 	EntityTypesResource,
 	EntityTypeCategoriesResource,
 	EntityTypeDictionariesResource,
@@ -102,6 +103,10 @@ export class SkySyncClient {
 
 	get diagnosticMetrics(): DiagnosticMetricsResource {
 		return new DiagnosticMetricsResource(this._httpClient);
+	}
+
+	get diagnosticsFiddler(): DiagnosticFiddlerResource {
+		return new DiagnosticFiddlerResource(this._httpClient);
 	}
 	
 	get groups(): OwnershipGroupsResource {

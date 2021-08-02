@@ -1,5 +1,5 @@
 import { OutputFormatter } from '../../../util/formatter';
-import { IHttpClient, IDownloadFileProvider, getTypedResponse } from '../../../sdk';
+import { IHttpClient, IDownloadFileProvider, getTypedResponse, DiagnosticFiddlerStatus } from '../../../sdk';
 import { FileDownloader } from '../../../util/file-downloader';
 
 const outputFormat = {
@@ -17,20 +17,15 @@ const outputFormat = {
 	]
 };
 
-interface FiddlerStatus {
-	status?: boolean;
-	port?: number;
-}
-
-export const getStatus = (httpClient: IHttpClient): Promise<FiddlerStatus> => {
+export const getStatus = (httpClient: IHttpClient): Promise<DiagnosticFiddlerStatus> => {
 	return getFiddlerResponse(httpClient.get('diagnostics/fiddler'));
 };
 
-export const changeStatus = (httpClient: IHttpClient, enable: boolean): Promise<FiddlerStatus> => {
+export const changeStatus = (httpClient: IHttpClient, enable: boolean): Promise<DiagnosticFiddlerStatus> => {
 	return getFiddlerResponse(httpClient.post('diagnostics/fiddler', {status: enable}));
 };
 
-export const installCerts = (httpClient: IHttpClient, trustRoot: boolean = false): Promise<FiddlerStatus> => {
+export const installCerts = (httpClient: IHttpClient, trustRoot: boolean = false): Promise<DiagnosticFiddlerStatus> => {
 	return getFiddlerResponse(httpClient.post(`diagnostics/fiddler/certificates?trust=${trustRoot ? '1' : '0'}`, null));
 };
 
@@ -49,11 +44,11 @@ export const downloadTraces = (httpClient: IHttpClient, outputDirectory: string,
 	return downloader.download(null, outputDirectory);
 };
 
-export const deleteTraces = (httpClient: IHttpClient): Promise<FiddlerStatus> => {
+export const deleteTraces = (httpClient: IHttpClient): Promise<DiagnosticFiddlerStatus> => {
 	return getFiddlerResponse(httpClient.delete('diagnostics/fiddler/traces'));
 };
 
-export const writeStatus = (status: FiddlerStatus, output: OutputFormatter) => {
+export const writeStatus = (status: DiagnosticFiddlerStatus, output: OutputFormatter) => {
 	if (!Boolean(status)) {
 		output.writeFailure('Fiddler is not available on this node.');
 	} else {
@@ -61,7 +56,7 @@ export const writeStatus = (status: FiddlerStatus, output: OutputFormatter) => {
 	}
 };
 
-const getFiddlerResponse = async (response: Promise<any>): Promise<FiddlerStatus> => {
+const getFiddlerResponse = async (response: Promise<any>): Promise<DiagnosticFiddlerStatus> => {
 	try {
 		const result = await response;
 		return getTypedResponse(result, 'fiddler');
