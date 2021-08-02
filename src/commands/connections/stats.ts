@@ -19,7 +19,7 @@ const outputFormat = {
 
 export = {
 	command: 'stats <id>',
-	desc: 'Get connection folder statitics',
+	desc: 'Get connection folder statistics',
 	builder: yargs => {
 		yargs.options({
 			'path': {
