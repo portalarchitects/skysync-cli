@@ -13,8 +13,7 @@ export enum ContentRiskLevel {
 	Low = 'low',
 	Medium = 'medium',
 	High = 'high',
-	Critical = 'critical',
-	Extreme = 'extreme'
+	Critical = 'critical'
 }
 
 export enum PolicyStatus {
