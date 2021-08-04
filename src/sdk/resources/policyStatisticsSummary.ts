@@ -9,7 +9,7 @@ export class PolicyStatisticsSummaryResource extends BaseResource {
 	}
 
 	async get(params?: any, token?: CancellationToken): Promise<PoliciesStatisticsSummary> {
-		const result = await this.httpClient.get(`policies/stats/summary`, this.mergeDefaultParams(params), token);
+		const result = await this.httpClient.get("policies/stats/summary", this.mergeDefaultParams(params), token);
 		return getTypedResponse<PoliciesStatisticsSummary>(result);
 	}
 }
