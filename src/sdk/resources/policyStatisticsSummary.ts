@@ -5,11 +5,11 @@ import { CancellationToken } from '../cancellation-token';
 
 export class PolicyStatisticsSummaryResource extends PagedResource<PoliciesStatisticsSummary> {
 	constructor(httpClient: IHttpClient) {
-		super(httpClient, 'statistics_summary');
+		super(httpClient, 'statistics_summary', null, null, 'policies/stats/summary');
 	}
 
 	async get(params?: any, token?: CancellationToken): Promise<PoliciesStatisticsSummary> {
-		const result = await this.httpClient.get('policies/stats/summary', this.mergeDefaultParams(params), token);
+		const result = await this.httpClient.get(this.resourcePath, this.mergeDefaultParams(params), token);
 		return getTypedResponse<PoliciesStatisticsSummary>(result);
 	}
 }
