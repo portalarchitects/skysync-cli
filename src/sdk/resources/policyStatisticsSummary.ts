@@ -1,11 +1,11 @@
 import { PoliciesStatisticsSummary } from '../models';
 import { IHttpClient } from '../http';
-import { getTypedResponse, BaseResource } from './resource';
+import { getTypedResponse, PagedResource } from './resource';
 import { CancellationToken } from '../cancellation-token';
 
-export class PolicyStatisticsSummaryResource extends BaseResource {
+export class PolicyStatisticsSummaryResource extends PagedResource<PoliciesStatisticsSummary> {
 	constructor(httpClient: IHttpClient) {
-		super(httpClient);
+		super(httpClient, 'statistics_summary');
 	}
 
 	async get(params?: any, token?: CancellationToken): Promise<PoliciesStatisticsSummary> {
