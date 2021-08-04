@@ -40,7 +40,7 @@ export interface PolicyStatistic extends LabelledStatistic, StatisticValue {
 	remediated?: StatisticValue;
 }
 
-export type PolicyStatisticsTimeline = { 
+export type PolicyStatisticsTimeline = {
 	timestamp?: number;
 	stats?: LabelledStatisticList<PolicyStatistic>;
 }[];
@@ -60,4 +60,15 @@ export interface PolicyStatistics extends IEntityIdentifier<string> {
 	by_assignment_status?: LabelledStatisticList<PolicyStatistic>;
 	by_group?: LabelledStatisticList<PolicyStatistic>;
 	by_audit_category?: LabelledStatisticList<LocationStatistic>;
+}
+
+export interface PolicySummaryByRisk {
+	bytes: number;
+	files: number;
+	name: string;
+	order: number;
+}
+
+export interface PoliciesStatisticsSummary {
+	policies_by_risk?: PolicySummaryByRisk[];
 }
