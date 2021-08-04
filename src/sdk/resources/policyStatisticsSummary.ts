@@ -5,7 +5,8 @@ import { CancellationToken } from '../cancellation-token';
 
 export class PolicyStatisticsSummaryResource extends PagedResource<PoliciesStatisticsSummary> {
 	constructor(httpClient: IHttpClient) {
-		super(httpClient, 'statistics_summary', null, null, 'policies/stats/summary');
+		const name = 'policy_statistics_summary';
+		super(httpClient, name, null, name, null, 'policies/stats/summary');
 	}
 
 	async get(params?: any, token?: CancellationToken): Promise<PoliciesStatisticsSummary> {
