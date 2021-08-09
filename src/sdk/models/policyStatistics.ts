@@ -1,4 +1,5 @@
 import { IEntityIdentifier } from './base';
+import { Policy } from './policies';
 
 export interface LabelledStatistic {
 	name?: string;
@@ -38,6 +39,7 @@ export enum PolicyAssignmentStatus {
 export interface PolicyStatistic extends LabelledStatistic, StatisticValue {
 	not_remediated?: StatisticValue;
 	remediated?: StatisticValue;
+	policy?: Policy;
 }
 
 export type PolicyStatisticsTimeline = {
@@ -62,13 +64,6 @@ export interface PolicyStatistics extends IEntityIdentifier<string> {
 	by_audit_category?: LabelledStatisticList<LocationStatistic>;
 }
 
-export interface PolicySummaryByRisk {
-	bytes: number;
-	files: number;
-	name: string;
-	order: number;
-}
-
 export interface PoliciesStatisticsSummary {
-	policies_by_risk?: PolicySummaryByRisk[];
+	policies_by_risk?: PolicyStatistic[];
 }
