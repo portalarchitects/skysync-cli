@@ -74,6 +74,12 @@ export interface PolicyItem extends TransferPlatformItem {
 	identified_by?: PolicyTrackingGroupRule;
 	job?: PolicyJobOptions;
 	[action: string]: any;
+	match_confidence?: number;
+}
+
+export interface PolicyItemMatchConfidence {
+	entity_type?: EntityType;
+	match_confidence?: number;
 }
 
 export interface PolicyAuditEntry extends IEntityIdentifier<number> {
