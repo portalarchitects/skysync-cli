@@ -12,8 +12,8 @@ export class PolicyItemsResource extends PagedResource<PolicyItem> {
 		return this.httpClient.get(`${this.resourcePath}.csv`, params, token);
 	}
 
-	async matchConfidences(tracking_id: number, token?: CancellationToken): Promise<PolicyItemMatchConfidence[]> {
-		const result = await this.httpClient.get(`${this.resourcePath}/${tracking_id}/match_confidences`, null, token);
+	async matchConfidences(tracking_id: number, params?: any, token?: CancellationToken): Promise<PolicyItemMatchConfidence[]> {
+		const result = await this.httpClient.get(`${this.resourcePath}/${tracking_id}/match_confidences`, params, token);
 		return getTypedResponse<PolicyItemMatchConfidence[]>(result, 'item');
 	}
 }
