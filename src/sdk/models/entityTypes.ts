@@ -73,6 +73,7 @@ export interface EntityTypeEvaluationResult {
 export interface EntityTypeValidator extends IEntityIdentifier<string> {
 	name?: string;
 	description?: string;
+	prompt?: any;
 }
 
 export enum DetectionMode {
