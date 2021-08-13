@@ -22,6 +22,11 @@ export = {
 	desc: 'Get connection folder statistics',
 	builder: yargs => {
 		yargs.options({
+			'connectAs': {
+				desc: 'Account to impersonate',
+				type: 'string',
+				group: 'Connections'
+			},
 			'path': {
 				default: undefined,
 				description: 'Path to folder, root is default',
@@ -30,7 +35,13 @@ export = {
 			},
 			'ignoreShared': {
 				default: true,
-				description: 'Exclude shared folders',
+				description: 'Exclude shared items',
+				type: 'boolean',
+				group: 'Connections'
+			},
+			'ignoreHidden': {
+				default: true,
+				description: 'Exclude hidden items',
 				type: 'boolean',
 				group: 'Connections'
 			},
@@ -47,11 +58,19 @@ export = {
 			const params: any = {
 				fields: ['all']
 			};
-			if (argv.path) {
+			if (argv.connectAs !== undefined) {
+				params.headers = {
+					'X-Connect-As': argv.connectAs
+				};
+			}
+			if (argv.path !== undefined) {
 				params.path = argv.path;
 			}
-			if (argv.ignoreShared) {
-				params.ignoreShared = argv.ignoreShared;
+			if (argv.ignoreShared !== undefined) {
+				params.ignoreShared = argv.ignoreShared ? 1 : 0;
+			}
+			if (argv.ignoreHidden !== undefined) {
+				params.ignoreHidden = argv.ignoreHidden ? 1 : 0;
 			}
 
 			if (argv.csv) {
