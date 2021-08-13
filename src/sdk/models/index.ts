@@ -4,6 +4,7 @@ export * from './base';
 export * from './categories';
 export * from './connections';
 export * from './conventions';
+export * from './dataSourceStatistics';
 export * from './diagnostics';
 export * from './entityTypes';
 export * from './extensions';
