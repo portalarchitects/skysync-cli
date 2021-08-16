@@ -27,25 +27,25 @@ export = {
 	builder: yargs => {
 		yargs.options({
 			'connectAs': {
-				desc: 'Account to impersonate',
+				desc: 'Account email to impersonate',
 				type: 'string',
 				group: 'Connections'
 			},
 			'path': {
 				default: undefined,
-				description: 'Path to folder, root is default',
+				desc: 'Path to folder, root is default',
 				type: 'string',
 				group: 'Connections'
 			},
 			'ignoreShared': {
 				default: true,
-				description: 'Exclude shared items',
+				desc: 'Exclude shared folders',
 				type: 'boolean',
 				group: 'Connections'
 			},
 			'ignoreHidden': {
 				default: true,
-				description: 'Exclude hidden items',
+				desc: 'Exclude hidden folders',
 				type: 'boolean',
 				group: 'Connections'
 			},
