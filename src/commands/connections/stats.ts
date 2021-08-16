@@ -17,6 +17,10 @@ const outputFormat = {
 	]
 };
 
+function isEmpty(str: string) : boolean {
+	return (!str || str.length === 0 );
+}
+
 export = {
 	command: 'stats <id>',
 	desc: 'Get connection folder statistics',
@@ -58,12 +62,12 @@ export = {
 			const params: any = {
 				fields: ['all']
 			};
-			if (argv.connectAs !== undefined) {
+			if (!isEmpty(argv.connectAs)) {
 				params.headers = {
 					'X-Connect-As': argv.connectAs
 				};
 			}
-			if (argv.path !== undefined) {
+			if (!isEmpty(argv.path)) {
 				params.path = argv.path;
 			}
 			if (argv.ignoreShared !== undefined) {
