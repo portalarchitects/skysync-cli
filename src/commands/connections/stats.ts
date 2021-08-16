@@ -17,20 +17,35 @@ const outputFormat = {
 	]
 };
 
+function isEmpty(str: string) : boolean {
+	return (!str || str.length === 0 );
+}
+
 export = {
 	command: 'stats <id>',
 	desc: 'Get connection folder statistics',
 	builder: yargs => {
 		yargs.options({
+			'connectAs': {
+				desc: 'Account email to impersonate',
+				type: 'string',
+				group: 'Connections'
+			},
 			'path': {
 				default: undefined,
-				description: 'Path to folder, root is default',
+				desc: 'Path to folder, root is default',
 				type: 'string',
 				group: 'Connections'
 			},
 			'ignoreShared': {
 				default: true,
-				description: 'Exclude shared folders',
+				desc: 'Exclude shared folders',
+				type: 'boolean',
+				group: 'Connections'
+			},
+			'ignoreHidden': {
+				default: true,
+				desc: 'Exclude hidden folders',
 				type: 'boolean',
 				group: 'Connections'
 			},
@@ -47,11 +62,19 @@ export = {
 			const params: any = {
 				fields: ['all']
 			};
-			if (argv.path) {
+			if (!isEmpty(argv.connectAs)) {
+				params.headers = {
+					'X-Connect-As': argv.connectAs
+				};
+			}
+			if (!isEmpty(argv.path)) {
 				params.path = argv.path;
 			}
-			if (argv.ignoreShared) {
-				params.ignoreShared = argv.ignoreShared;
+			if (argv.ignoreShared !== undefined) {
+				params.ignoreShared = argv.ignoreShared ? 1 : 0;
+			}
+			if (argv.ignoreHidden !== undefined) {
+				params.ignoreHidden = argv.ignoreHidden ? 1 : 0;
 			}
 
 			if (argv.csv) {
