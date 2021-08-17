@@ -4,8 +4,13 @@ import { LabelledStatistic, LabelledStatisticList } from './policyStatistics';
 
 export interface DataSourceStatistic extends LabelledStatistic {
 	total_items?: number;
+	total_bytes?: number;
 	items_resolved?: number;
-	total_cost?: number;
+	bytes_resolved?: number;
+	items_classified?: number;
+	bytes_classified?: number;
+	total_cost_exposure?: number;
+	total_cost_savings?: number;
 }
 
 export type DataSourceStatisticTimeline = {
