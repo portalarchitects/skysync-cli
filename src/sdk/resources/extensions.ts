@@ -36,9 +36,13 @@ export class ExtensionsResource extends Resource<Extension> implements IDownload
 		return this.getSingle(result);
 	}
 
-	async configure(id: string, values: any, params?: any, token?: CancellationToken): Promise<Extension> {
+	async updateConfiguration(id: string, values: any, params?: any, token?: CancellationToken): Promise<Extension> {
 		const response = await this.httpClient.patch(`${this.resourcePath}/${id}/configure`, values, this.mergeDefaultParams(params), token);
 		return getTypedResponse<Connection>(response);
+	}
+
+	async getConfiguration(id: string, params?: any, token?: CancellationToken): Promise<{}> {
+		return await this.httpClient.get(`${this.resourcePath}/${id}/configure`, this.mergeDefaultParams(params), token);
 	}
 
 	delete(id: any, params?: any, token?: CancellationToken): Promise<boolean> {
