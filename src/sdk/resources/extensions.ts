@@ -5,10 +5,9 @@ import {
 	PagedResult,
 	getPagedResponse,
 	getEditRequest,
-	IDownloadFileProvider,
-	getTypedResponse
+	IDownloadFileProvider
 } from './resource';
-import {Connection, Extension} from '../models';
+import {Extension} from '../models';
 
 export class ExtensionsResource extends Resource<Extension> implements IDownloadFileProvider {
 	constructor(httpClient: IHttpClient) {
