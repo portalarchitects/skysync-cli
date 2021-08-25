@@ -5,10 +5,9 @@ import {
 	PagedResult,
 	getPagedResponse,
 	getEditRequest,
-	IDownloadFileProvider,
-	getTypedResponse
+	IDownloadFileProvider
 } from './resource';
-import {Connection, Extension} from '../models';
+import {Extension} from '../models';
 
 export class ExtensionsResource extends Resource<Extension> implements IDownloadFileProvider {
 	constructor(httpClient: IHttpClient) {
@@ -36,9 +35,12 @@ export class ExtensionsResource extends Resource<Extension> implements IDownload
 		return this.getSingle(result);
 	}
 
-	async configure(id: string, values: any, params?: any, token?: CancellationToken): Promise<Extension> {
-		const response = await this.httpClient.patch(`${this.resourcePath}/${id}/configure`, values, this.mergeDefaultParams(params), token);
-		return getTypedResponse<Connection>(response);
+	updateConfiguration(id: string, values: any, params?: any, token?: CancellationToken): Promise<{}> {
+		return this.httpClient.patch(`${this.resourcePath}/${id}/configure`, values, this.mergeDefaultParams(params), token);
+	}
+
+	getConfiguration(id: string, params?: any, token?: CancellationToken): Promise<{}> {
+		return this.httpClient.get(`${this.resourcePath}/${id}/configure`, this.mergeDefaultParams(params), token);
 	}
 
 	delete(id: any, params?: any, token?: CancellationToken): Promise<boolean> {
