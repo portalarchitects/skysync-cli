@@ -10,6 +10,8 @@ import {
 	ConnectionStatsResource,
 	ContentCategoriesResource,
 	ConventionAuditsResource,
+	DataSourceStatisticsResource,
+	DataSourceSummaryStatisticsResource,
 	DiagnosticMetricsResource,
 	DiagnosticFiddlerResource,
 	EntityTypesResource,
@@ -269,6 +271,14 @@ export class SkySyncClient {
 
 	get policiesStatisticsSummary(): PoliciesStatisticsSummaryResource {
 		return new PoliciesStatisticsSummaryResource(this._httpClient);
+	}
+
+	get dataSourceStatistics(): DataSourceStatisticsResource {
+		return new DataSourceStatisticsResource(this._httpClient);
+	}
+
+	get dataSourceSummaryStatistics(): DataSourceSummaryStatisticsResource {
+		return new DataSourceSummaryStatisticsResource(this._httpClient);
 	}
 
 	get entityTypes(): EntityTypesResource {

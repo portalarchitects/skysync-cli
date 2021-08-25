@@ -7,6 +7,8 @@ export * from './configuration';
 export * from './connections';
 export * from './contentCategories';
 export * from './conventionAudits';
+export * from './dataSourceStatistics';
+export * from './dataSourceSummaryStatistics';
 export * from './diagnostics';
 export * from './entityTypeCategories';
 export * from './entityTypeDictionaries';
