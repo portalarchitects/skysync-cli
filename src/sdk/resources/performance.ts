@@ -1,5 +1,5 @@
 import { IHttpClient } from '../http';
-import { BaseResource } from './resource';
+import { getTypedResponse, BaseResource } from './resource';
 import { CancellationToken } from '../cancellation-token';
 import { Performance } from '../models';
 
@@ -9,10 +9,12 @@ export class PerformanceResource extends BaseResource {
 	}
 
 	async get(token?: CancellationToken): Promise<Performance> {
-		return await this.httpClient.get('performance/configuration', token);
+		const result = await this.httpClient.get('performance/configuration', token);
+        return getTypedResponse<Performance>(result, 'item');
 	}
     
 	async post(performance: Performance, token?: CancellationToken): Promise<Performance> {
-		return await this.httpClient.post('performance/configuration', performance, token);
+		const result =  await this.httpClient.post('performance/configuration', performance, token);
+        return getTypedResponse<Performance>(result, 'item');
 	}
 }
