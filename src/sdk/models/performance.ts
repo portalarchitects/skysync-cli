@@ -1,8 +1,8 @@
 export interface ParallelWrites {
-    requested?: number;
-    max?: number;
+	requested?: number;
+	max?: number;
 }
 
 export interface Performance {
-    parallel_writes?: ParallelWrites;
+	parallel_writes?: ParallelWrites;
 }

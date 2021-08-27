@@ -4,7 +4,7 @@ import { CancellationToken } from '../cancellation-token';
 import { Performance } from '../models';
 
 export class PerformanceResource extends BaseResource {
-    constructor(httpClient: IHttpClient) {
+	constructor(httpClient: IHttpClient) {
 		super(httpClient);
 	}
 
