@@ -25,6 +25,7 @@ export * from './jobCategories';
 export * from './jobExecutions';
 export * from './license';
 export * from './notifications';
+export * from './performance';
 export * from './permissions';
 export * from './personalDrive';
 export * from './personalDriveMatches';
