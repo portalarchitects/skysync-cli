@@ -6,6 +6,7 @@ import {
 	PagedResult,
 	consumePagedResult
 } from './resource';
+import { DiagnosticLoggingResource } from './diagnostics';
 
 describe('PagedResource', () => {
 	const client = new TestHttpClient();
@@ -318,6 +319,29 @@ describe('PagedResource', () => {
 			});
 
 			expect(actualResponses).to.eql(expectedResponses);
+		});
+	});
+});
+
+describe('LoggingResource', () => {
+	const client = new TestHttpClient();
+	const objectUnderTest = new DiagnosticLoggingResource(client);
+
+	describe('get', () => {
+		it('should return typed response', async () => {
+			const expectedResponse = {
+				level: 'trace',
+				retention_days: 10
+			};
+
+			client.addPendingResponse({
+				statusCode: 200,
+				body: JSON.stringify({
+					type: 'logging',
+					logging: expectedResponse
+				})
+			});
+			expect(await objectUnderTest.get()).to.eql(expectedResponse);
 		});
 	});
 });
