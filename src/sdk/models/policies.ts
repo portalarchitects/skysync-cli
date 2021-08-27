@@ -128,6 +128,7 @@ export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPriorit
 	assignment_rules?: PolicyTrackingGroupRule[];
 	entity_types?: (EntityType & IPrioritizedEntity)[];
 	actions?: PolicyTrackingGroupAction[];
+	cost?: number;
 }
 
 export enum PolicyApprovalStatus {
