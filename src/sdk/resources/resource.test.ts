@@ -7,6 +7,7 @@ import {
 	consumePagedResult
 } from './resource';
 import { PerformanceResource } from './performance';
+import { DiagnosticLoggingResource } from './diagnostics';
 
 describe('PagedResource', () => {
 	const client = new TestHttpClient();
@@ -341,6 +342,29 @@ describe('PerformanceResource', () => {
 				body: JSON.stringify({
 					type: 'performance',
 					performance: expectedResponse
+				})
+			});
+			expect(await objectUnderTest.get()).to.eql(expectedResponse);
+		});
+	});
+});
+
+describe('LoggingResource', () => {
+	const client = new TestHttpClient();
+	const objectUnderTest = new DiagnosticLoggingResource(client);
+
+	describe('get', () => {
+		it('should return typed response', async () => {
+			const expectedResponse = {
+				level: 'trace',
+				retention_days: 10
+			};
+
+			client.addPendingResponse({
+				statusCode: 200,
+				body: JSON.stringify({
+					type: 'logging',
+					logging: expectedResponse
 				})
 			});
 			expect(await objectUnderTest.get()).to.eql(expectedResponse);
