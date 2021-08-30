@@ -12,8 +12,9 @@ import {
 	ConventionAuditsResource,
 	DataSourceStatisticsResource,
 	DataSourceSummaryStatisticsResource,
-	DiagnosticMetricsResource,
 	DiagnosticFiddlerResource,
+	DiagnosticLoggingResource,
+	DiagnosticMetricsResource,
 	EntityTypesResource,
 	EntityTypeCategoriesResource,
 	EntityTypeDictionariesResource,
@@ -110,14 +111,18 @@ export class SkySyncClient {
 		return new ConnectionStatsResource(this._httpClient);
 	}
 
+	get diagnosticsFiddler(): DiagnosticFiddlerResource {
+		return new DiagnosticFiddlerResource(this._httpClient);
+	}
+
+	get diagnosticsLogging(): DiagnosticLoggingResource {
+		return new DiagnosticLoggingResource(this._httpClient);
+	}
+
 	get diagnosticMetrics(): DiagnosticMetricsResource {
 		return new DiagnosticMetricsResource(this._httpClient);
 	}
 
-	get diagnosticsFiddler(): DiagnosticFiddlerResource {
-		return new DiagnosticFiddlerResource(this._httpClient);
-	}
-	
 	get groups(): OwnershipGroupsResource {
 		return new OwnershipGroupsResource(this._httpClient);
 	}
