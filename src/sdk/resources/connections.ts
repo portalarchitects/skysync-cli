@@ -84,9 +84,9 @@ export class ConnectionItemsResource extends BaseResource {
 		let result;
 		const paramList = this.mergeDefaultParams(params);
 		if(canPost && this.httpClient.shouldPost(href, paramList)) {
-			var parameters = {}, body = {};
+			let parameters = {}, body = '';
 			for (const param in paramList) {
-				if (param == "token") {
+				if (param === 'token') {
 					body = paramList[param];
 				} else {
 					parameters[param] = paramList[param];
