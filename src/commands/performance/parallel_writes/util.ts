@@ -3,7 +3,7 @@ import { OutputFormatter } from '../../../util/formatter';
 
 const outputFormat = {
 	table: [
-        {
+		{
 			header: 'Requested Parallel Writes',
 			property: 'parallel_writes.requested',
 		},
@@ -19,5 +19,5 @@ const outputFormat = {
 };
 
 export const writeConfiguration = (config: Performance, output: OutputFormatter) => {
-    output.writeItem(config, outputFormat);
-}
+	output.writeItem(config, outputFormat);
+};
