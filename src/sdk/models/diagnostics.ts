@@ -11,5 +11,5 @@ export interface DiagnosticFiddlerStatus {
 
 export interface DiagnosticLoggingStatus {
 	level: string;
-	retention_days: number; // readonly - added to prevent changing value on backend
+	retention_days?: number;
 }
