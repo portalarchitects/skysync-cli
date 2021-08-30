@@ -10,11 +10,11 @@ export class PerformanceResource extends BaseResource {
 
 	async get(token?: CancellationToken): Promise<Performance> {
 		const result = await this.httpClient.get('performance/configuration', token);
-		return getTypedResponse<Performance>(result, 'item');
+		return getTypedResponse<Performance>(result, 'performance');
 	}
     
 	async post(performance: Performance, token?: CancellationToken): Promise<Performance> {
 		const result =  await this.httpClient.post('performance/configuration', performance, token);
-		return getTypedResponse<Performance>(result, 'item');
+		return getTypedResponse<Performance>(result, 'performance');
 	}
 }
