@@ -18,6 +18,7 @@ export * from './metadataFilters';
 export * from './metadataSchema';
 export * from './notifications';
 export * from './permissions';
+export * from './performance';
 export * from './personalDriveMappingJob';
 export * from './policies';
 export * from './policyStatistics';

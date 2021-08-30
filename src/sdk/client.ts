@@ -27,6 +27,7 @@ import {
 	LicenseResource,
 	NotificationsResource,
 	OwnershipGroupsResource,
+	PerformanceResource,
 	PermissionsResource,
 	PersonalDriveResource,
 	PoliciesResource,
@@ -167,6 +168,10 @@ export class SkySyncClient {
 
 	get transferStatistics(): TransferJobStatisticsResource {
 		return new TransferJobStatisticsResource(this._httpClient);
+	}
+
+	get performance(): PerformanceResource {
+		return new PerformanceResource(this._httpClient);
 	}
 
 	get permissions(): PermissionsResource {

@@ -6,6 +6,7 @@ import {
 	PagedResult,
 	consumePagedResult
 } from './resource';
+import { PerformanceResource } from './performance';
 
 describe('PagedResource', () => {
 	const client = new TestHttpClient();
@@ -318,6 +319,31 @@ describe('PagedResource', () => {
 			});
 
 			expect(actualResponses).to.eql(expectedResponses);
+		});
+	});
+});
+
+describe('PerformanceResource', () => {
+	const client = new TestHttpClient();
+	const objectUnderTest = new PerformanceResource(client);
+
+	describe('get', () => {
+		it('should return typed response', async () => {
+			const expectedResponse = {
+				parallel_writes: {
+					requested: 3,
+					max: 12
+				}
+			};
+
+			client.addPendingResponse({
+				statusCode: 200,
+				body: JSON.stringify({
+					type: 'performance',
+					performance: expectedResponse
+				})
+			});
+			expect(await objectUnderTest.get()).to.eql(expectedResponse);
 		});
 	});
 });
