@@ -35,7 +35,7 @@ export = {
 			};
 
 			if (!performance.parallel_writes.requested && !performance.parallel_writes.max) {
-				throw exception()
+				throw exception();
 			}
 
 			writeConfiguration(await client.performance.post(performance), output);
