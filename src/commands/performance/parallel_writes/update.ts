@@ -1,7 +1,6 @@
 import { runCommand } from '../../../util/command';
 import { writeConfiguration } from './util';
 import { Performance } from './../../../sdk';
-import { exception } from 'console';
 
 export = {
 	command: 'update',
@@ -33,10 +32,6 @@ export = {
 					max: argv.max
 				} 
 			};
-
-			if (!performance.parallel_writes.requested && !performance.parallel_writes.max) {
-				throw exception();
-			}
 
 			writeConfiguration(await client.performance.post(performance), output);
 		});
