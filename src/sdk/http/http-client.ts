@@ -19,6 +19,8 @@ export interface IAuthorizationToken {
 export interface IHttpClient {
 	isLoggedIn: boolean;
 
+	shouldPost(path: string, params: any): boolean;
+
 	authenticate(): Promise<any>;
 
 	logout(): Promise<any>;
@@ -146,6 +148,10 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 
 	get isLoggedIn(): boolean {
 		return !this.isAuthRequired || Boolean(this.accessToken);
+	}
+
+	shouldPost(path: string, params: any): boolean {
+		return HttpClient.getUrl(path, this.apiUrl, params).length > 2000;
 	}
 
 	async authenticate(): Promise<any> {
