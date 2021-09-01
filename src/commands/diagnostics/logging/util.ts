@@ -1,14 +1,5 @@
-import { DiagnosticLoggingStatus } from '../../../sdk';
+import { DiagnosticLoggingStatus, LoggingLevel } from '../../../sdk';
 import { OutputFormatter } from '../../../util/formatter';
-
-export enum LoggingLevel {
-	Trace = 'trace',
-	Debug = 'debug',
-	Info = 'info',
-	Warn = 'warn',
-	Error = 'error',
-	Fatal = 'fatal'
-};
 
 export const getLevels = (enumObject: typeof LoggingLevel) : string[] => {
 	let levels = [];

@@ -1,6 +1,6 @@
 import { runCommand } from '../../../util/command';
-import { LoggingLevel, getLevels, writeConfiguration } from './util';
-import { DiagnosticLoggingStatus } from './../../../sdk';
+import { getLevels, writeConfiguration } from './util';
+import { DiagnosticLoggingStatus, LoggingLevel } from './../../../sdk';
 
 export = {
 	command: 'update',
