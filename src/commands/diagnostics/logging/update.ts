@@ -1,6 +1,6 @@
 import { runCommand } from '../../../util/command';
-import { getLevels, writeConfiguration } from './util';
-import { DiagnosticLoggingStatus, LoggingLevel } from './../../../sdk';
+import { writeConfiguration } from './util';
+import { DiagnosticLoggingStatus, getLogLevels } from './../../../sdk';
 
 export = {
 	command: 'update',
@@ -11,7 +11,7 @@ export = {
 				alias: 'l',
 				desc: 'Set the level of detail for application logs',
 				type: 'string',
-				choices: getLevels(LoggingLevel)
+				choices: getLogLevels()
 			},
 			'retention': {
 				alias: 'r',
