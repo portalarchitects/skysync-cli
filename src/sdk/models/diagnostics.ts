@@ -14,7 +14,7 @@ export interface DiagnosticLoggingStatus {
 	retention_days?: number;
 }
 
-export enum LoggingLevel {
+enum LoggingLevel {
 	Trace = 'trace',
 	Debug = 'debug',
 	Info = 'info',

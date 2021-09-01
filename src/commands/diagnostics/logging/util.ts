@@ -1,15 +1,5 @@
-import { DiagnosticLoggingStatus, LoggingLevel } from '../../../sdk';
+import { DiagnosticLoggingStatus } from '../../../sdk';
 import { OutputFormatter } from '../../../util/formatter';
-
-export const getLevels = (enumObject: typeof LoggingLevel) : string[] => {
-	let levels = [];
-	for (let key in enumObject) {
-		if ({}.hasOwnProperty.call(enumObject, key)) {
-			levels.push(enumObject[key]);
-		}
-	}
-	return levels;
-};
 
 const outputFormat = {
 	table: [
