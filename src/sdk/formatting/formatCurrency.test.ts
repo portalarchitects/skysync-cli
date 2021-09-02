@@ -25,4 +25,15 @@ describe('formatCurrency', () => {
 		expect(formatCurrency(1042758.2426345, 'de-DE', 'EUR')).to.eql('1.042.758,24\xa0€');
 		expect(formatCurrency(1042758.2426345, 'ja-JP', 'JPY')).to.eql('￥1,042,758');
 	});
+
+	it('can format whole units only', () => {
+		expect(formatCurrency(1042758.2426345, 'de-DE', 'EUR')).to.eql('1.042.758,24\xa0€');
+		expect(formatCurrency(1042758.2426345, 'ja-JP', 'JPY')).to.eql('￥1,042,758');
+	});
+
+	it('can format whole units only', () => {
+		expect(formatCurrency(1042758.2426345, 'en', 'USD', true)).to.eql('$1,042,758');
+		expect(formatCurrency(1042758.25, 'en', 'USD', true)).to.eql('$1,042,758');
+		expect(formatCurrency(1042758.2, 'en', 'USD', true)).to.eql('$1,042,758');
+	});
 });
