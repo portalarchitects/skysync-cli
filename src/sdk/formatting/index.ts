@@ -1,4 +1,5 @@
 import { formatBytes } from './formatBytes';
+import { formatCurrency } from './formatCurrency';
 import { formatNumber } from './formatNumber';
 import { formatDate } from './formatDate';
 import { formatTime } from './formatTime';
@@ -16,6 +17,7 @@ export { RelativeDate } from './RelativeDate';
 
 export const DataFormatter = {
 	formatBytes,
+	formatCurrency,
 	formatNumber,
 	formatDate,
 	formatTime,
