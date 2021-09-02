@@ -44,17 +44,8 @@ describe('formatCurrency', () => {
 	});
 
 	it('can format whole units only', () => {
-		expect(formatCurrency(1042758.2426345, {
-			locale: 'en',
-			currency: 'USD'
-		}, true)).to.eql('$1,042,758');
-		expect(formatCurrency(1042758.25, {
-			locale: 'en',
-			currency: 'USD'
-		}, true)).to.eql('$1,042,758');
-		expect(formatCurrency(1042758.2, {
-			locale: 'en',
-			currency: 'USD'
-		}, true)).to.eql('$1,042,758');
+		expect(formatCurrency(1042758.2426345, {wholeUnitsOnly : true })).to.eql('$1,042,758');
+		expect(formatCurrency(1042758.25, {wholeUnitsOnly : true })).to.eql('$1,042,758');
+		expect(formatCurrency(1042758.2, {wholeUnitsOnly : true })).to.eql('$1,042,758');
 	});
 });
