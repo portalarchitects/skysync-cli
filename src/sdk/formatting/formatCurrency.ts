@@ -4,10 +4,10 @@ export type CurrencyFormatOptions = {
 	currency?: string;
 };
 
-export const formatCurrency = (number: number, options?: CurrencyFormatOptions, wholeUnitsOnly: boolean = false): string => {
-	const formatter = new Intl.NumberFormat(options?.locale ?? 'en', {
+export const formatCurrency = (number: number, options: CurrencyFormatOptions = { locale: 'en', currency: 'USD' }, wholeUnitsOnly: boolean = false): string => {
+	const formatter = new Intl.NumberFormat(options.locale, {
 		style: 'currency',
-		currency: options?.currency ?? 'USD',
+		currency: options.currency,
 		minimumFractionDigits: wholeUnitsOnly ? 0 : undefined,
 		maximumFractionDigits: wholeUnitsOnly ? 0 : undefined
 	});
