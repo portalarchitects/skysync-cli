@@ -12,7 +12,7 @@ export type NumberFormatOptions = {
 	unit?: string;
 };
 
-export const formatNumber = (number: number, options?: NumberFormatOptions, formatter: Intl.NumberFormat = numberFormatter): string => {
+export const formatNumber = (number: number, options?: NumberFormatOptions): string => {
 	if (!Boolean(number) || isNaN(number)) {
 		number = 0;
 	}
@@ -32,7 +32,7 @@ export const formatNumber = (number: number, options?: NumberFormatOptions, form
 		}
 	}
 
-	let output = formatter.format(sign * number);
+	let output = numberFormatter.format(sign * number);
 	if (unit) {
 		output = formatUnit(output, unit, options?.separator);
 	}
