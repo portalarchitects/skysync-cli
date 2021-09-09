@@ -80,10 +80,10 @@ export class ConnectionItemsResource extends BaseResource {
 		super(httpClient);
 	}
 
-	private async byHref<T>(href: string, params: any, parse: (result: any, items: PlatformItem[]) => T, canPost: boolean, token?: CancellationToken): Promise<T> {
+	private async byHref<T>(href: string, params: any, parse: (result: any, items: PlatformItem[]) => T, token?: CancellationToken): Promise<T> {
 		let result;
 		const paramList = this.mergeDefaultParams(params);
-		if(canPost && this.httpClient.shouldPost(href, paramList)) {
+		if(this.httpClient.shouldPost(href, paramList)) {
 			let parameters = {}, body = '';
 			for (const param in paramList) {
 				if (param === 'token') {
@@ -101,19 +101,19 @@ export class ConnectionItemsResource extends BaseResource {
 	}
 
 	list(connection: string, {id, ...params}: any = {}, token?: CancellationToken): Promise<PlatformItem[]> {
-		return this.byHref(`connections/${connection}/items${id && `/${id}` || ''}`, params, (_, items) => items, false, token);
+		return this.byHref(`connections/${connection}/items${id && `/${id}` || ''}`, params, (_, items) => items, token);
 	}
 
 	page(connection: string, {id, ...params}: any = {}, token?: CancellationToken): Promise<PagedResult<PlatformItem>> {
-		return this.byHref(`connections/${connection}/items${id && `/${id}` || ''}`, params, (result, items) => getPagedResponse(result, items), false, token);
+		return this.byHref(`connections/${connection}/items${id && `/${id}` || ''}`, params, (result, items) => getPagedResponse(result, items), token);
 	}
 
 	byRoot(connection: string, params?: any, token?: CancellationToken): Promise<PagedResult<PlatformItem>> {
-		return this.byHref(`connections/${connection}/items`, params, (result, items) => getPagedResponse(result, items), true, token);
+		return this.byHref(`connections/${connection}/items`, params, (result, items) => getPagedResponse(result, items), token);
 	}
 
 	byParent(parent: {links: PlatformItemHierarchyLinks}, params?: any, token?: CancellationToken): Promise<PagedResult<PlatformItem>> {
-		return this.byHref(parent.links.items.href, params, (result, items) => getPagedResponse(result, items), true, token);
+		return this.byHref(parent.links.items.href, params, (result, items) => getPagedResponse(result, items), token);
 	}
 }
 
