@@ -49,6 +49,7 @@ export interface PolicyLocations {
 	error?: number;
 	executions?: number;
 	platforms?: (StoragePlatform & { count?: number })[];
+	action_needed_item_count?: number;
 }
 
 export interface PolicyJob extends Job {
