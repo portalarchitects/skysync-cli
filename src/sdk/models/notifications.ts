@@ -30,3 +30,11 @@ export interface NotificationPolicy extends IEntityIdentifier<string> {
 	handler?: string;
 	notification_types: string[];
 }
+
+export interface SmtpConfiguration {
+	from_address?: string;
+	host?: string;
+	password?: string;
+	port?: number;
+	username?: string;
+}
