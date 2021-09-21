@@ -44,7 +44,8 @@ export class NotificationsResource extends PagedResource<NotificationPolicy> {
 		return getTypedResponse<NotificationType[]>(result);
 	}
 
-	getSmtpConfiguration(token?: CancellationToken): Promise<SmtpConfiguration> {
-		return this.httpClient.get(`${this.resourcePath}/email/configure`, token);
+	async getSmtpConfiguration(token?: CancellationToken): Promise<SmtpConfiguration> {
+		const result = this.httpClient.get(`${this.resourcePath}/email/configure`, token);
+		return getTypedResponse<SmtpConfiguration>(result);
 	}
 }
