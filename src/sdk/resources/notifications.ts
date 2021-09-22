@@ -4,7 +4,8 @@ import {
 	NotificationType,
 	NotificationTypeCategory,
 	NotificationHandler,
-	NotificationPolicy
+	NotificationPolicy,
+	SmtpConfiguration
 } from '../models';
 import { CancellationToken } from '../cancellation-token';
 
@@ -41,5 +42,10 @@ export class NotificationsResource extends PagedResource<NotificationPolicy> {
 	async types(params?: any, token?: CancellationToken): Promise<NotificationType[]> {
 		const result = await this.httpClient.get(`${this.resourcePath}/types`, this.mergeDefaultParams(params), token);
 		return getTypedResponse<NotificationType[]>(result);
+	}
+
+	async getSmtpConfiguration(token?: CancellationToken): Promise<SmtpConfiguration> {
+		const result = await this.httpClient.get(`${this.resourcePath}/handlers/email/configure`, token);
+		return getTypedResponse<SmtpConfiguration>(result);
 	}
 }
