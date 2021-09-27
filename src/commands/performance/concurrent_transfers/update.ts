@@ -12,7 +12,7 @@ export = {
 				desc: 'Current number of transfers that will operate in parallel.',
 				type: 'number'
 			},
-            'max': {
+			'max': {
 				alias: 'm',
 				desc: 'Maximum number of transfers that will operate in parallel.',
 				type: 'number'
