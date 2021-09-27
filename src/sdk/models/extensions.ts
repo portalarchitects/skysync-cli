@@ -6,4 +6,5 @@ export interface Extension extends IEntityIdentifier<string> {
 	version?: string;
 	disabled?: boolean;
 	configuration?: PromptAttribute[] | PromptAttributes;
+	url?: string;
 }
