@@ -78,7 +78,8 @@ export interface EntityTypeValidator extends IEntityIdentifier<string> {
 
 export enum DetectionMode {
 	DetectValue = 'value',
-	DetectExistence = 'exists'
+	DetectExistence = 'exists',
+	DetectFrequency = 'frequency'
 }
 
 export interface EntityTypeAssignment extends EntityType {
