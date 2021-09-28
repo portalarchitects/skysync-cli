@@ -5,4 +5,6 @@ export interface ParallelWrites {
 
 export interface Performance {
 	parallel_writes?: ParallelWrites;
+	concurrent_transfers?: number;
+	max_concurrent_transfers?: number;
 }
