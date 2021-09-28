@@ -95,6 +95,8 @@ export interface TransferOptions {
 	item_inspection_policy?: ItemInspectionPolicy;
 	item_inspection_policy_next?: ItemInspectionPolicy;
 	rendition?: RenditionSelectionMethod;
+	segment_truncate: boolean;
+	encode_invalid_characters: boolean;
 }
 
 export interface TransferItem extends IEntityIdentifier<number> {
