@@ -94,6 +94,7 @@ export interface PolicyAuditEntry extends IEntityIdentifier<number> {
 	type?: string;
 	message?: string;
 	recorded_on?: number;
+	previous_name?: string;
 }
 
 export interface PolicyTrackingGroupRule extends IEntityIdentifier<string>, IPrioritizedEntity {
