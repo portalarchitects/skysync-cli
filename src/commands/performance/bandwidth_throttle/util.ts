@@ -35,7 +35,7 @@ export const windowTransform = (val: any) => {
 	return Object.keys(val).map(name => {
 		const window = val[name];
 		return `[${window.bytes_per_second} [${window.days}] ${DataFormatter.formatTime(window.start_time)} ${DataFormatter.formatTime(window.end_time)}] ` ;
-	})
+	});
 };
 
 export const writeConfiguration = (config: Performance, output: OutputFormatter) => {
