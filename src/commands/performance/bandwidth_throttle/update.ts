@@ -10,12 +10,12 @@ export = {
 			'upload': {
 				alias: 'u',
 				desc: 'The throttle options for uploads.',
-				type: 'ThrottleOption'
+				type: 'string'
 			},
 			'download': {
 				alias: 'd',
 				desc: 'The throttle options for downloads.',
-				type: 'ThrottleOption'
+				type: 'string'
 			}
 		}).check(argv => {
 			if (argv.hasOwnProperty('upload') || argv.hasOwnProperty('download')) {
@@ -28,12 +28,11 @@ export = {
 		runCommand(argv, async (client, output) => {
 			const performance: Performance = {};
 			if (argv.hasOwnProperty('upload')) {
-				performance.upload = argv.upload;
+				performance.upload = JSON.parse(argv.upload);
 			}
 			if (argv.hasOwnProperty('download')) {
-				performance.upload = argv.download;
-			}
-
+				performance.download = JSON.parse(argv.download);
+			}	
 			writeConfiguration(await client.performance.post(performance), output);
 		});
 	}
