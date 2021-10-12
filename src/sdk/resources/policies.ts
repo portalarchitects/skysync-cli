@@ -38,6 +38,11 @@ export class PoliciesResource extends PagedResource<Policy> {
 		return getTypedResponse<PolicyEvaluationResult>(result);
 	}
 
+	async testByTrackingID(id: string, trackingID: number, params?: any, token?: CancellationToken): Promise<PolicyEvaluationResult> {
+		const result = await this.httpClient.get(`${this.resourcePath}/${id}/test/${trackingID}`, params, token);
+		return getTypedResponse<PolicyEvaluationResult>(result);
+	}
+
 	async testAll(body: FormData, params?: any, token?: CancellationToken): Promise<PolicyEvaluationResult[]> {
 		const result = await this.httpClient.upload(`${this.resourcePath}/test`, null, body, params, token);
 		return getTypedResponse<PolicyEvaluationResult[]>(result);
