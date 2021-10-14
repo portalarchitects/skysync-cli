@@ -14,7 +14,7 @@ export = {
 				type: 'string'
 			},
 			'upload-file': {
-				alias: 'u-file',
+				alias: 'uf',
 				desc: 'The options JSON file',
 				type: 'string'
 			},
@@ -24,7 +24,7 @@ export = {
 				type: 'string'
 			},
 			'download-file': {
-				alias: 'd-file',
+				alias: 'df',
 				desc: 'The options JSON file',
 				type: 'string'
 			}
