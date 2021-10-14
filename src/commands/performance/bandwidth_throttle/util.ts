@@ -8,6 +8,10 @@ const outputFormat = {
 			property: 'upload.bytes_per_second',
 		},
 		{
+			header: 'Upload Disabled',
+			property: 'upload.disabled'
+		},
+		{
 			header: 'Upload Windows',
 			property: 'upload.window',
 			transform: val => windowTransform(val)
@@ -15,6 +19,10 @@ const outputFormat = {
 		{
 			header: 'Download Byte Per Second',
 			property: 'download.bytes_per_second',
+		},
+		{
+			header: 'Download Disabled',
+			property: 'download.disabled'
 		},
 		{
 			header: 'Download Windows',
