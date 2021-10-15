@@ -37,10 +37,10 @@ describe('PagedResource', () => {
 			});
 			expect(await objectUnderTest.list()).to.eql(expectedResponses);
 		});
-		
+
 		it('should append additional parameters', async () => {
 			await objectUnderTest.list({ active: true });
-			
+
 			client.expectLastRequest({
 				url: 'v1/connections?active=true',
 				method: 'GET'
@@ -71,7 +71,7 @@ describe('PagedResource', () => {
 			});
 			expect(await objectUnderTest.get('123')).to.eql(expectedResponse);
 		});
-		
+
 		it('should merge default parameters', async () => {
 			const resource = new PagedResource(client, 'connection');
 			resource.defaultParams = {
@@ -79,29 +79,29 @@ describe('PagedResource', () => {
 			};
 
 			await resource.get('123');
-			
+
 			client.expectLastRequest({
 				url: 'v1/connections/123?limit=10',
 				method: 'GET'
 			});
 
 			await resource.get('123', { active: true });
-			
+
 			client.expectLastRequest({
 				url: 'v1/connections/123?limit=10&active=true',
 				method: 'GET'
 			});
 		});
-		
+
 		it('should append additional parameters', async () => {
 			await objectUnderTest.get('123', { active: true });
-			
+
 			client.expectLastRequest({
 				url: 'v1/connections/123?active=true',
 				method: 'GET'
 			});
 		});
-		
+
 		it('additional parameters should override defaults', async () => {
 			const resource = new PagedResource(client, 'connection');
 			resource.defaultParams = {
@@ -109,14 +109,14 @@ describe('PagedResource', () => {
 			};
 
 			await resource.get('123');
-			
+
 			client.expectLastRequest({
 				url: 'v1/connections/123?limit=10',
 				method: 'GET'
 			});
 
 			await resource.get('123', { limit: 20 });
-			
+
 			client.expectLastRequest({
 				url: 'v1/connections/123?limit=20',
 				method: 'GET'
@@ -125,9 +125,9 @@ describe('PagedResource', () => {
 	});
 
 	const editOperations = {
-		add: {method: 'POST', url: 'v1/connections'},
-		update: {method: 'PUT', id: '123', url: 'v1/connections/123'},
-		patch: {method: 'PATCH', id: '123', url: 'v1/connections/123'},
+		add: { method: 'POST', url: 'v1/connections' },
+		update: { method: 'PUT', id: '123', url: 'v1/connections/123' },
+		patch: { method: 'PATCH', id: '123', url: 'v1/connections/123' },
 	};
 	Object.keys(editOperations).forEach(op => {
 		describe(op, () => {
@@ -144,7 +144,7 @@ describe('PagedResource', () => {
 
 				it(`can ${method} empty body with id`, async () => {
 					await objectUnderTest[op](id);
-		
+
 					client.expectLastRequest({
 						url,
 						method
@@ -154,14 +154,14 @@ describe('PagedResource', () => {
 
 			it(`should ${method} body`, async () => {
 				await objectUnderTest[op](payload);
-	
+
 				client.expectLastRequest({
 					url,
 					method,
 					body
 				});
 			});
-	
+
 			it('should return typed response', async () => {
 				client.addPendingResponse({
 					statusCode: 200,
@@ -172,10 +172,10 @@ describe('PagedResource', () => {
 				});
 				expect(await objectUnderTest[op](payload)).to.eql(payload);
 			});
-	
+
 			it('should append additional parameters', async () => {
 				await objectUnderTest[op](payload, { active: true });
-				
+
 				client.expectLastRequest({
 					url: `${url}?active=true`,
 					method,
@@ -196,7 +196,7 @@ describe('PagedResource', () => {
 		});
 
 		it('should DELETE by parameter.id', async () => {
-			await objectUnderTest.delete({id: '123'});
+			await objectUnderTest.delete({ id: '123' });
 
 			client.expectLastRequest({
 				url: 'v1/connections/123',
@@ -216,9 +216,9 @@ describe('PagedResource', () => {
 		it('should return true on success', async () => {
 			expect(await objectUnderTest.delete('123')).to.be(true);
 		});
-		
+
 		it('should return false when not found', async () => {
-			client.addPendingResponse({statusCode: 404});
+			client.addPendingResponse({ statusCode: 404 });
 			expect(await objectUnderTest.delete('123')).to.be(false);
 		});
 	});
@@ -245,9 +245,9 @@ describe('PagedResource', () => {
 		it('should return true on success', async () => {
 			expect(await objectUnderTest.deleteAll()).to.be(true);
 		});
-		
+
 		it('should return false when not found', async () => {
-			client.addPendingResponse({statusCode: 404});
+			client.addPendingResponse({ statusCode: 404 });
 			expect(await objectUnderTest.deleteAll()).to.be(false);
 		});
 	});
@@ -271,7 +271,7 @@ describe('PagedResource', () => {
 						links: {
 							next: {
 								// eslint:disable-next-line:no-http-string
-								href: 'http://localhost:9090/v1/jobs?offset=12&limit=6&sort=name+ASC&fields=count%2Cid%2Cname%2Cprevious_execution.start_time%2Cstatus', 
+								href: 'http://localhost:9090/v1/jobs?offset=12&limit=6&sort=name+ASC&fields=count%2Cid%2Cname%2Cprevious_execution.start_time%2Cstatus',
 							},
 							prev: {
 								// eslint:disable-next-line:no-http-string
@@ -298,7 +298,7 @@ describe('PagedResource', () => {
 			expect(result.previous.limit).to.eql(6);
 			expect(result.previous.sort).to.eql('name ASC');
 			expect(result.previous.fields).to.eql('count,id,name,previous_execution.start_time,status');
-			
+
 			expect(result.items).to.eql(expectedResponses);
 		});
 
@@ -348,6 +348,62 @@ describe('PerformanceResource', () => {
 		});
 	});
 });
+
+describe('PerformanceResource', () => {
+	const client = new TestHttpClient();
+	const objectUnderTest = new PerformanceResource(client);
+
+	describe('get', () => {
+		it('should return typed response', async () => {
+			const expectedResponse = {
+				upload: {
+					bytes_per_second: 555777,
+					disabled: false,
+					window: [
+						{
+							bytes_per_second: 222444,
+							days: ['monday', 'wednesday', 'friday', 'saturday'],
+							start_time: { hr: 2, min: 2, sec: 2, ms: 0 },
+							end_time: { hr: 10, min: 10, sec: 10, ms: 0 }
+						},
+						{
+							bytes_per_second: 333555,
+							days: ['monday', 'wednesday'],
+							start_time: { hr: 3, min: 3, sec: 3, ms: 0 }
+						}
+					]
+				},
+				download: {
+					bytes_per_second: 888999,
+					disabled: false,
+					window: [
+						{
+							bytes_per_second: 222444,
+							days: ['monday', 'wednesday', 'friday', 'saturday'],
+							start_time: { hr: 12, min: 12, sec: 12, ms: 0 },
+							end_time: { hr: 20, min: 20, sec: 20, ms: 0 }
+						},
+						{
+							bytes_per_second: 444555,
+							days: ['monday', 'wednesday'],
+							start_time: { hr: 13, min: 13, sec: 13, ms: 0 }
+						}
+					]
+				}
+			};
+
+			client.addPendingResponse({
+				statusCode: 200,
+				body: JSON.stringify({
+					type: 'performance',
+					performance: expectedResponse
+				})
+			});
+			expect(await objectUnderTest.get()).to.eql(expectedResponse);
+		});
+	});
+});
+
 
 describe('LoggingResource', () => {
 	const client = new TestHttpClient();
