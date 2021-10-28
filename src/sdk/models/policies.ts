@@ -111,6 +111,7 @@ export interface PolicyActionDescriptor extends PolicyActionBase {
 	destructive?: boolean;
 	exclusive?: boolean;
 	requires_existing?: boolean;
+	requires_location?:boolean;
 	removes_item?: boolean;
 	prompt?: any;
 }
