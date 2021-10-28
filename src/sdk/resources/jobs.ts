@@ -28,10 +28,6 @@ export class JobsResource extends PagedResource<Job> {
 		return this.changeStatus(id, 'resume', params, token);
 	}
 
-	resumeMultiple(params?: any, token?: CancellationToken): Promise<any> {
-		return this.changeStatusMultiple('resume', params, token);
-	}
-
 	cancel(id: string, params?: any, token?: CancellationToken): Promise<Job> {
 		return this.changeStatus(id, 'cancel', params, token);
 	}
