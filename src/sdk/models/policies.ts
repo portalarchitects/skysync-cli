@@ -1,5 +1,5 @@
 import { IEntityIdentifier, IAuditedEntity, IPrioritizedEntity } from './base';
-import { StoragePlatform } from './connections';
+import { PromptAttributes, StoragePlatform } from './connections';
 import { Category } from './categories';
 import { Job } from './jobs';
 import { TransferPath, TransferPlatformItem } from './transfers';
@@ -121,6 +121,7 @@ export interface PolicyTrackingGroupActionConfiguration extends PolicyActionBase
 }
 
 export interface PolicyTrackingGroupAction extends IEntityIdentifier<string>, IPrioritizedEntity {
+	optional?: boolean;
 	action?: PolicyTrackingGroupActionConfiguration;
 }
 
@@ -132,6 +133,23 @@ export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPriorit
 	entity_types?: EntityTypeAssignment[];
 	actions?: PolicyTrackingGroupAction[];
 	cost?: number;
+}
+
+export interface PolicyLocationAction {
+	action_id: string;
+	action?: PolicyTrackingGroupActionConfiguration;
+}
+
+export interface LocationActionsByTrackingGroup {
+	[trackingGroupID: string]: PolicyLocationAction[];
+}
+
+export interface TrackingGroupLocationActions {
+	actions_by_tracking_group: LocationActionsByTrackingGroup;
+}
+
+export interface ConfigurationPrompt {
+	attributes?: PromptAttributes;
 }
 
 export enum PolicyApprovalStatus {
