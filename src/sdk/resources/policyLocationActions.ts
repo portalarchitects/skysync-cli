@@ -9,7 +9,7 @@ export class PolicyLocationActionsResource extends BaseResource {
 	}
 
 	private getResourcePath(policyId: string, locationId: string): string {
-		return `policies/${policyId}/locations${locationId}/actions`;
+		return `policies/${policyId}/locations/${locationId}/actions`;
 	}
 
 	private getResourcePathSingle(policyId: string, locationId: string, trackingGroupActionId: string): string {
