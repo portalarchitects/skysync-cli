@@ -137,6 +137,7 @@ export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPriorit
 
 export interface PolicyLocationAction {
 	action_id: string;
+	skipped?: boolean;
 	action?: PolicyTrackingGroupActionConfiguration;
 }
 
