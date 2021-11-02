@@ -1,6 +1,6 @@
 import { IHttpClient } from '../http';
 import { getTypedResponse, BaseResource}  from './resource';
-import { ConfigurationPrompt, PolicyLocationAction, TrackingGroupLocationActions } from '../models';
+import { PolicyLocationAction, PromptAttributes, TrackingGroupLocationActions } from '../models';
 import { CancellationToken } from '../cancellation-token';
 
 export class PolicyLocationActionsResource extends BaseResource {
@@ -21,9 +21,8 @@ export class PolicyLocationActionsResource extends BaseResource {
 		return getTypedResponse<TrackingGroupLocationActions>(actions);
 	}
 
-	async getConfigurationPrompt(policyId: string, locationId: string, trackingGroupActionId: string, params?: any, token?: CancellationToken): Promise<ConfigurationPrompt> {
-		const prompt = await this.httpClient.get(this.getResourcePathSingle(policyId, locationId, trackingGroupActionId), params, token);
-		return getTypedResponse<ConfigurationPrompt>(prompt);
+	async getConfigurationPrompt(policyId: string, locationId: string, trackingGroupActionId: string, params?: any, token?: CancellationToken): Promise<{ config_attributes: PromptAttributes }> {
+		return this.httpClient.get(this.getResourcePathSingle(policyId, locationId, trackingGroupActionId), params, token);
 	}
 
 	async add(policyId: string, locationId: string, trackingGroupActionId: string, body: PolicyLocationAction, params?: any, token?: CancellationToken): Promise<PolicyLocationAction> {
