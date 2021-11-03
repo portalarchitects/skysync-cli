@@ -85,6 +85,6 @@ export enum DetectionMode {
 export interface EntityTypeAssignment extends EntityType {
 	priority?: number;
 	threshold?: number;
-	detection?: DetectionMode;
+	detection?: DetectionMode[];
 	candidate?: MetadataCalculatedFilter;
 }
