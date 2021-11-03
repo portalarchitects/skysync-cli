@@ -4,7 +4,7 @@ import { Category } from './categories';
 import { Job } from './jobs';
 import { TransferPath, TransferPlatformItem } from './transfers';
 import { AuditCategory } from './auditCategories';
-import { EntityType } from './entityTypes';
+import {EntityType, EntityTypeAssignment} from './entityTypes';
 import { MetadataCalculatedFilter } from './metadataFilters';
 import {PolicyAssignmentStatus} from './policyStatistics';
 
@@ -40,7 +40,7 @@ export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
 	status?: PolicyStatus;
 	readonly?: boolean;
 	disabled?: boolean;
-	entity_types?: (EntityType & IPrioritizedEntity)[];
+	entity_types?: EntityTypeAssignment[];
 	groups?: PolicyTrackingGroup[];
 }
 
@@ -129,7 +129,7 @@ export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPriorit
 	description?: string;
 	risk?: ContentRiskLevel;
 	assignment_rules?: PolicyTrackingGroupRule[];
-	entity_types?: (EntityType & IPrioritizedEntity)[];
+	entity_types?: EntityTypeAssignment[];
 	actions?: PolicyTrackingGroupAction[];
 	cost?: number;
 }
