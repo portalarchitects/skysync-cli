@@ -4,9 +4,9 @@ import { Category } from './categories';
 import { Job } from './jobs';
 import { TransferPath, TransferPlatformItem } from './transfers';
 import { AuditCategory } from './auditCategories';
-import {EntityType, EntityTypeAssignment} from './entityTypes';
+import { EntityType, EntityTypeAssignment } from './entityTypes';
 import { MetadataCalculatedFilter } from './metadataFilters';
-import {PolicyAssignmentStatus} from './policyStatistics';
+import { PolicyAssignmentStatus } from './policyStatistics';
 
 export enum ContentRiskLevel {
 	None = 'none',
