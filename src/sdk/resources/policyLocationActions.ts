@@ -21,7 +21,7 @@ export class PolicyLocationActionsResource extends BaseResource {
 		return getTypedResponse<TrackingGroupLocationActions>(actions);
 	}
 
-	async getConfigurationPrompt(policyId: string, locationId: string, trackingGroupActionId: string, params?: any, token?: CancellationToken): Promise<{ config_attributes: PromptAttributes }> {
+	getConfigurationPrompt(policyId: string, locationId: string, trackingGroupActionId: string, params?: any, token?: CancellationToken): Promise<{ config_attributes: PromptAttributes }> {
 		return this.httpClient.get(this.getResourcePathSingle(policyId, locationId, trackingGroupActionId), params, token);
 	}
 
@@ -35,7 +35,7 @@ export class PolicyLocationActionsResource extends BaseResource {
 		return getTypedResponse<PolicyLocationAction>(result);
 	}
 
-	async delete(policyId: string, locationId: string, trackingGroupActionId: string, token?: CancellationToken): Promise<boolean> {
-		return await this.httpClient.delete(this.getResourcePathSingle(policyId, locationId, trackingGroupActionId), null, token);
+	delete(policyId: string, locationId: string, trackingGroupActionId: string, token?: CancellationToken): Promise<boolean> {
+		return this.httpClient.delete(this.getResourcePathSingle(policyId, locationId, trackingGroupActionId), null, token);
 	}
 }
