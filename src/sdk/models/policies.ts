@@ -32,6 +32,12 @@ export enum PolicyActionTypeID {
 	Remediate = 'remediate'
 }
 
+export enum LocationActionConfigurationStatus {
+	None = 'none',
+	FullyConfigured = 'configured',
+	NeedsConfiguration = 'needs_configuration'
+}
+
 export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
 	name?: string;
 	description?: string;
