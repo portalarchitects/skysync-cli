@@ -50,6 +50,7 @@ export interface PolicyLocations {
 	executions?: number;
 	platforms?: (StoragePlatform & { count?: number })[];
 	action_needed_item_count?: number;
+	pending_configuration?: number;
 }
 
 export interface PolicyJob extends Job {
@@ -59,6 +60,12 @@ export interface PolicyJob extends Job {
 export interface PolicyJobOptions {
 	source: TransferPath;
 	policies?: (Policy & IPrioritizedEntity)[];
+	actions?: LocationActions;
+}
+
+export interface LocationActions {
+	count?: number;
+	pending_configuration?: number;
 }
 
 export interface PolicyItem extends TransferPlatformItem {
