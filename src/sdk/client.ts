@@ -37,6 +37,7 @@ import {
 	PolicyCategoriesResource,
 	PolicyAuditsResource,
 	PolicyItemsResource,
+	PolicyLocationActionsResource,
 	PolicyStatisticsResource,
 	PoliciesStatisticsSummaryResource,
 	ProfilesResource,
@@ -273,6 +274,10 @@ export class SkySyncClient {
 
 	get policyItems(): PolicyItemsResource {
 		return new PolicyItemsResource(this._httpClient);
+	}
+
+	get policyLocationActions(): PolicyLocationActionsResource {
+		return new PolicyLocationActionsResource(this._httpClient);
 	}
 
 	get policyStatistics(): PolicyStatisticsResource {
