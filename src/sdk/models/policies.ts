@@ -34,7 +34,7 @@ export enum PolicyActionTypeID {
 
 export enum LocationActionConfigurationStatus {
 	None = 'none',
-	FullyConfigured = 'configured',
+	FullyConfigured = 'fully_configured',
 	NeedsConfiguration = 'needs_configuration'
 }
 
