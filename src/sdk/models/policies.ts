@@ -130,6 +130,7 @@ export interface PolicyTrackingGroupActionConfiguration extends PolicyActionBase
 export interface PolicyTrackingGroupAction extends IEntityIdentifier<string>, IPrioritizedEntity {
 	optional?: boolean;
 	action?: PolicyTrackingGroupActionConfiguration;
+	requires_location?: boolean;
 }
 
 export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPrioritizedEntity {
