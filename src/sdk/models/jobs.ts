@@ -110,6 +110,7 @@ export interface Job extends IEntityIdentifier<string>, IAuditedEntity {
 	execution: JobExecution;
 	retention?: RetentionOptions;
 	disabled?: boolean;
+	trigger_state?: string;
 }
 
 export interface JobExecutionFileStatistics {
