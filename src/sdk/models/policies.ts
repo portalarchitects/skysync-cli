@@ -133,10 +133,17 @@ export interface PolicyTrackingGroupActionConfiguration extends PolicyActionBase
 	[name: string]: any;
 }
 
+export interface RequiredLocationActionStatistics {
+	locations?: number;
+	pending_configuration?: number;
+	skipped_configuration?: number;
+}
+
 export interface PolicyTrackingGroupAction extends IEntityIdentifier<string>, IPrioritizedEntity {
 	optional?: boolean;
 	action?: PolicyTrackingGroupActionConfiguration;
 	requires_location?: boolean;
+	location_statistics?: RequiredLocationActionStatistics;
 }
 
 export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPrioritizedEntity {
@@ -147,6 +154,7 @@ export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPriorit
 	entity_types?: EntityTypeAssignment[];
 	actions?: PolicyTrackingGroupAction[];
 	cost?: number;
+	location_statistics?: RequiredLocationActionStatistics;
 }
 
 export interface PolicyLocationAction {
