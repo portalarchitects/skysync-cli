@@ -19,7 +19,7 @@ export class PoliciesResource extends PagedResource<Policy> {
 	}
 
 	async import(body: FormData, params?: any, token?: CancellationToken): Promise<Policy[]> {
-		const result = await this.httpClient.upload(this.resourcePath, null, body, params, token);
+		const result = await this.httpClient.upload(this.resourcePath, body, params, token);
 		return getTypedResponse<Policy[]>(result);
 	}
 
@@ -34,7 +34,7 @@ export class PoliciesResource extends PagedResource<Policy> {
 	}
 
 	async test(id: string, body: FormData, params?: any, token?: CancellationToken): Promise<PolicyEvaluationResult> {
-		const result = await this.httpClient.upload(`${this.resourcePath}/${id}/test`, null, body, params, token);
+		const result = await this.httpClient.upload(`${this.resourcePath}/${id}/test`, body, params, token);
 		return getTypedResponse<PolicyEvaluationResult>(result);
 	}
 
@@ -44,7 +44,7 @@ export class PoliciesResource extends PagedResource<Policy> {
 	}
 
 	async testAll(body: FormData, params?: any, token?: CancellationToken): Promise<PolicyEvaluationResult[]> {
-		const result = await this.httpClient.upload(`${this.resourcePath}/test`, null, body, params, token);
+		const result = await this.httpClient.upload(`${this.resourcePath}/test`, body, params, token);
 		return getTypedResponse<PolicyEvaluationResult[]>(result);
 	}
 }

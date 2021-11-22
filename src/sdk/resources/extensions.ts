@@ -24,8 +24,8 @@ export class ExtensionsResource extends Resource<Extension> implements IDownload
 		return getPagedResponse<Extension>(result, items);
 	}
 
-	async add(body: Buffer | any, params?: any, token?: CancellationToken): Promise<Extension> {
-		const result = await this.httpClient.upload(this.resourcePath, 'extension.nupkg', body, this.mergeDefaultParams(params), token);
+	async add(body: FormData, params?: any, token?: CancellationToken): Promise<Extension> {
+		const result = await this.httpClient.upload(this.resourcePath, body, this.mergeDefaultParams(params), token);
 		return this.getSingle(result);
 	}
 

@@ -8,6 +8,6 @@ export class PersonalDriveMatchesResource extends PagedResource<Account> {
 	}
 
 	import(body: FormData, params?: any, token?: CancellationToken): Promise<boolean> {
-		return this.httpClient.upload(this.resourcePath, null, body, params, token);
+		return this.httpClient.upload(this.resourcePath, body, params, token);
 	}
 }

@@ -14,7 +14,7 @@ export class EntityTypeDictionariesResource extends PagedResource<EntityTypeDict
 	}
 
 	async import(body: FormData, params?: any, token?: CancellationToken): Promise<EntityTypeDictionary[]> {
-		const result = await this.httpClient.upload(this.resourcePath, null, body, params, token);
+		const result = await this.httpClient.upload(this.resourcePath, body, params, token);
 		return getTypedResponse<EntityTypeDictionary[]>(result);
 	}
 }
