@@ -31,7 +31,7 @@ export interface IHttpClient {
 
 	download(path: string, handler: (fileName: string, output: Readable) => Promise<any>, token?: CancellationToken): Promise<any>;
 
-	upload(path: string, name: string, body: Buffer | FormData, params?: any, token?: CancellationToken): Promise<any>;
+	upload(path: string, formData: FormData, params?: any, token?: CancellationToken): Promise<any>;
 
 	post(path: string, body: any, params?: any, token?: CancellationToken): Promise<any>;
 
@@ -333,22 +333,10 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 
 	abstract download(path: string, handler: (fileName: string, output: Readable) => Promise<any>, token?: CancellationToken);
 
-	upload(path: string, name: string, body: Buffer | FormData, params?: any, token?: CancellationToken): Promise<any> {
+	upload(path: string, formData: FormData, params?: any, token?: CancellationToken): Promise<any> {
 		const options = {
 			method: 'POST',
-			...(body instanceof FormData && {
-				body: body
-			} || {
-				formData : {
-					file: {
-						value: body,
-						options: {
-							filename: name,
-							contentType: 'application/octet-stream'
-						}
-					}
-				}
-			})
+			body: formData
 		};
 
 		return this.executeApiRequest(path, params, options, token);
