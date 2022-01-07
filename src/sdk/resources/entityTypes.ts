@@ -27,4 +27,9 @@ export class EntityTypesResource extends PagedResource<EntityType | BlockListEnt
 		const result = await this.httpClient.upload(`${this.resourcePath}/test`, body, params, token);
 		return getTypedResponse<EntityTypeEvaluationResult[]>(result);
 	}
+
+	async clone(id: string, body: EntityType, params?: any, token?: CancellationToken): Promise<EntityType> {
+		const result = await this.httpClient.post(`${this.resourcePath}/${id}/clone`, body, params, token);
+		return this.getSingle(result);
+	}
 }
