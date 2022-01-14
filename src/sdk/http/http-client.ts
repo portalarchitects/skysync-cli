@@ -166,14 +166,12 @@ export abstract class HttpClient<TRequest, TResponse> implements IHttpClient {
 	async logout(): Promise<void> {
 		return await new Promise<void>(resolve => {
 			if (this.isLoggedIn) {
-				const revokeTokens: string = [this.token.accessToken, this.token.refreshToken].filter(Boolean).join(',');
 				this.executeJsonRequest(<any>{
 					url: HttpClient.getUrl('connect/logout', this.baseAddress),
 					method: 'GET',
 					headers: {
 						'Authorization': `Bearer ${this.token.accessToken}`,
-						'Accept': 'application/json',
-						'Revoke-Tokens': revokeTokens
+						'Accept': 'application/json'
 					}
 				}, resolve);
 			} else {
