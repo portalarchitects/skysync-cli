@@ -1,6 +1,7 @@
 import { IHttpClient } from '../http';
 import { PagedResource } from './resource';
 import { PersonalDriveMatchesResource } from './personalDriveMatches';
+import { Account } from '../models';
 
 export class PersonalDriveResource extends PagedResource<Account> {
 	constructor(httpClient: IHttpClient) {
