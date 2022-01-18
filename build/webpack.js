@@ -63,7 +63,10 @@ module.exports = {
 						return result;
 					}, {})
 			},
-			packageJsonPath
+			{
+				sourcePackageFilenames: [packageJsonPath],
+				excludeDependencies: ['node-fetch']
+			}
 		),
 		new CopyPlugin({
 			patterns: [{ from: __dirname + '/.npmrc' }]
