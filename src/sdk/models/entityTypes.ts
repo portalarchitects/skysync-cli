@@ -1,8 +1,12 @@
-import { IAuditedEntity, IEntityIdentifier } from './base';
+import { IAuditedEntity, IEntityIdentifier, IHaveLinks, ILinks, Link } from './base';
 import { Category } from './categories';
 import { MetadataCalculatedFilter } from './metadataFilters';
 
-export interface EntityType extends IEntityIdentifier<string>, IAuditedEntity {
+export interface EntityTypeLinks extends ILinks {
+	clone?: Link;
+}
+
+export interface EntityType extends IEntityIdentifier<string>, IAuditedEntity, IHaveLinks<EntityTypeLinks> {
 	name?: string;
 	description?: string;
 	kind?: 'pattern' | 'block_list' | 'transform' | 'classifier' | string;
