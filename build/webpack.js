@@ -37,7 +37,6 @@ module.exports = {
 	resolve: {
 		extensions: ['.ts', '.js', '.json'],
 		fallback: {
-			'node-fetch': false,
 			'querystring': 'querystring-es3'
 		}
 	},
@@ -64,8 +63,7 @@ module.exports = {
 					}, {})
 			},
 			{
-				sourcePackageFilenames: [packageJsonPath],
-				excludeDependencies: ['node-fetch']
+				sourcePackageFilenames: [packageJsonPath]
 			}
 		),
 		new CopyPlugin({
