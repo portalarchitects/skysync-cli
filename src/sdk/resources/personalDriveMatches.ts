@@ -1,6 +1,7 @@
 import { IHttpClient } from '../http';
 import { PagedResource } from './resource';
 import { CancellationToken } from '../cancellation-token';
+import { Account } from '../models';
 
 export class PersonalDriveMatchesResource extends PagedResource<Account> {
 	constructor(httpClient: IHttpClient, jobId: string) {

@@ -37,7 +37,6 @@ module.exports = {
 	resolve: {
 		extensions: ['.ts', '.js', '.json'],
 		fallback: {
-			'node-fetch': false,
 			'querystring': 'querystring-es3'
 		}
 	},
@@ -63,7 +62,9 @@ module.exports = {
 						return result;
 					}, {})
 			},
-			packageJsonPath
+			{
+				sourcePackageFilenames: [packageJsonPath]
+			}
 		),
 		new CopyPlugin({
 			patterns: [{ from: __dirname + '/.npmrc' }]
