@@ -33,8 +33,8 @@ export class PoliciesResource extends PagedResource<Policy> {
 		return this.httpClient.delete(`${this.resourcePath}/${id}/entity_types/${entityTypeId}`, null, token);
 	}
 
-	removeDataSource(id: string, dataSourceId: string, token?: CancellationToken): Promise<boolean> {
-		return this.httpClient.delete(`${this.resourcePath}/${id}/data_sources/${dataSourceId}`, null, token);
+	unassignLocation(id: string, locationId: string, token?: CancellationToken): Promise<boolean> {
+		return this.httpClient.delete(`${this.resourcePath}/${id}/locations/${locationId}`, null, token);
 	}
 
 	async test(id: string, body: FormData, params?: any, token?: CancellationToken): Promise<PolicyEvaluationResult> {
