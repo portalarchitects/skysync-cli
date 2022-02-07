@@ -33,7 +33,7 @@ export class PoliciesResource extends PagedResource<Policy> {
 		return this.httpClient.delete(`${this.resourcePath}/${id}/entity_types/${entityTypeId}`, null, token);
 	}
 
-	unassignLocation(id: string, locationId: string, token?: CancellationToken): Promise<boolean> {
+	unassignPolicy(id: string, locationId: string, token?: CancellationToken): Promise<boolean> {
 		return this.httpClient.delete(`${this.resourcePath}/${id}/locations/${locationId}`, null, token);
 	}
 
