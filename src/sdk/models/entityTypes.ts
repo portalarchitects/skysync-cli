@@ -4,6 +4,7 @@ import { MetadataCalculatedFilter } from './metadataFilters';
 
 export interface EntityTypeLinks extends ILinks {
 	clone?: Link;
+	deleteNotInUse?: Link;
 }
 
 export interface EntityType extends IEntityIdentifier<string>, IAuditedEntity, IHaveLinks<EntityTypeLinks> {
