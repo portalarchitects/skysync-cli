@@ -29,8 +29,12 @@ export class PoliciesResource extends PagedResource<Policy> {
 		return getTypedResponse<EntityTypeAssignment>(result);
 	}
 
-	async deleteEntityAssignment(id: string, entityTypeId: string, token?: CancellationToken): Promise<boolean> {
-		return await this.httpClient.delete(`${this.resourcePath}/${id}/entity_types/${entityTypeId}`, null, token);
+	deleteEntityAssignment(id: string, entityTypeId: string, token?: CancellationToken): Promise<boolean> {
+		return this.httpClient.delete(`${this.resourcePath}/${id}/entity_types/${entityTypeId}`, null, token);
+	}
+
+	unassignPolicy(id: string, locationId: string, token?: CancellationToken): Promise<boolean> {
+		return this.httpClient.delete(`${this.resourcePath}/${id}/locations/${locationId}`, null, token);
 	}
 
 	async test(id: string, body: FormData, params?: any, token?: CancellationToken): Promise<PolicyEvaluationResult> {
