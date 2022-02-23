@@ -58,6 +58,7 @@ export interface MetadataPropertyFilter {
 	op?: MetadataPropertyFilterOperator;
 	value?: object;
 	select?: MetadataCalculatedExpression;
+	threshold?: number;
 }
 
 export type MetadataComponentExpression = MetadataFunctionExpression | MetadataPropertyExpression | MetadataStaticExpression;
