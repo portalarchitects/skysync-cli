@@ -44,6 +44,7 @@ export enum JobExecutionStatus {
 }
 
 export enum JobResetType {
+	InspectFlagged = 'inspect_flagged',
 	InspectFiltered = 'inspect_filtered',
 	InspectShared = 'inspect_shared',
 	InspectAll = 'inspect_all',
