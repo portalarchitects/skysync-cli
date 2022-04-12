@@ -25,6 +25,7 @@ export interface BlockListEntityType extends EntityType {
 export interface PatternEntityType extends EntityType {
 	kind: 'pattern';
 	keywords?: EntityTypeDictionary;
+	negative_keywords?: EntityTypeDictionary;
 	patterns?: EntityTypeRegexPattern[];
 	validation?: string[];
 }
