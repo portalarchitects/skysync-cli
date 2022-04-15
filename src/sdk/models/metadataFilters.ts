@@ -10,6 +10,7 @@ export enum MetadataPropertyFilterOperator {
 	LessThanEqualTo = 'le',
 	GreaterThan = 'gt',
 	GreaterThanEqualTo = 'ge',
+	OlderThan = 'older_than',
 	StartsWith = 'starts_with',
 	DoesNotStartWith = 'not_starts_with',
 	EndsWith = 'ends_with',
