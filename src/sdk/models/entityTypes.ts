@@ -61,6 +61,7 @@ export type EntityTypePropertyValue = {
 	value: any;
 	confidence?: number;
 	keyword?: boolean;
+	negative_keyword?: boolean;
 	valid?: boolean;
 	original_confidence?: number;
 } | any;
