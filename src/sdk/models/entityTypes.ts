@@ -25,6 +25,7 @@ export interface BlockListEntityType extends EntityType {
 export interface PatternEntityType extends EntityType {
 	kind: 'pattern';
 	keywords?: EntityTypeDictionary;
+	negative_keywords?: EntityTypeDictionary;
 	patterns?: EntityTypeRegexPattern[];
 	validation?: string[];
 }
@@ -60,6 +61,7 @@ export type EntityTypePropertyValue = {
 	value: any;
 	confidence?: number;
 	keyword?: boolean;
+	negative_keyword?: boolean;
 	valid?: boolean;
 	original_confidence?: number;
 } | any;
