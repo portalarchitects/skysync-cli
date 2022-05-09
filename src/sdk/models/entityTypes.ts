@@ -35,6 +35,12 @@ export interface EntityTypeDictionary extends IEntityIdentifier<string> {
 	description?: string;
 	readonly?: boolean;
 	elements?: EntityTypeDictionaryElement[];
+	search_options?: EntityTypeDictionarySearchOptions;
+}
+
+export interface EntityTypeDictionarySearchOptions {
+	backward?: number;
+	forward?: number;
 }
 
 export interface EntityTypeDictionaryElement {
