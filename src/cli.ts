@@ -20,7 +20,7 @@ const cli = new Liftoff({
 
 export function run() {
 	cli.prepare({}, function (env) {
-        	cli.execute(env, function (env) { 
+		cli.execute(env, function (env) { 
 			const configPath = env.configPath;
 			if (configPath) {
 				yargs.config(JSON.parse(fs.readFileSync(configPath, 'utf-8')));
