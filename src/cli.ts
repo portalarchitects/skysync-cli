@@ -19,69 +19,71 @@ const cli = new Liftoff({
 });
 
 export function run() {
-	cli.launch({}, function(env) {
-		const configPath = env.configPath;
-		if (configPath) {
-			yargs.config(JSON.parse(fs.readFileSync(configPath, 'utf-8')));
-		}
+	cli.prepare({}, function (env) {
+        	cli.execute(env, function (env) { 
+			const configPath = env.configPath;
+			if (configPath) {
+				yargs.config(JSON.parse(fs.readFileSync(configPath, 'utf-8')));
+			}
 
-		return yargs
-			.env('SKYSYNC')
-			.config()
-			.version(mypackage.version)
-			.help()
-			.usage('Usage: ' + cli.name + ' [command]')
-			.options({
-				'output-json': {
-					alias: 'json',
-					desc: 'Output results as JSON',
-					type: 'boolean',
-					global: true,
-					group: 'Advanced'
-				},
+			return yargs
+				.env('SKYSYNC')
+				.config()
+				.version(mypackage.version)
+				.help()
+				.usage('Usage: ' + cli.name + ' [command]')
+				.options({
+					'output-json': {
+						alias: 'json',
+						desc: 'Output results as JSON',
+						type: 'boolean',
+						global: true,
+						group: 'Advanced'
+					},
 
-				'server': {
-					desc: 'The SkySync server URI',
-					type: 'string',
-					global: true,
-					group: 'Connection'
-				},
+					'server': {
+						desc: 'The SkySync server URI',
+						type: 'string',
+						global: true,
+						group: 'Connection'
+					},
 
-				'username': {
-					alias: 'user',
-					desc: 'The username',
-					default: 'admin',
-					type: 'string',
-					global: true,
-					group: 'Connection'
-				},
+					'username': {
+						alias: 'user',
+						desc: 'The username',
+						default: 'admin',
+						type: 'string',
+						global: true,
+						group: 'Connection'
+					},
 
-				'password': {
-					type: 'string',
-					desc: 'The password',
-					global: true,
-					group: 'Connection'
-				},
+					'password': {
+						type: 'string',
+						desc: 'The password',
+						global: true,
+						group: 'Connection'
+					},
 
-				'site': {
-					type: 'string',
-					desc: 'The remote site context',
-					global: true,
-					group: 'Connection'
-				}
-			})
-			.commandDir('./commands')
-			.group([
-				'config',
-				'help',
-				'version',
-			], 'Advanced')
-			.global([
-				'Advanced',
-				'Connection'
-			])
-			.demandCommand(1, 'You must provide a command')
-			// .strict()
-			.argv;
+					'site': {
+						type: 'string',
+						desc: 'The remote site context',
+						global: true,
+						group: 'Connection'
+					}
+				})
+				.commandDir('./commands')
+				.group([
+					'config',
+					'help',
+					'version',
+				], 'Advanced')
+				.global([
+					'Advanced',
+					'Connection'
+				])
+				.demandCommand(1, 'You must provide a command')
+				// .strict()
+				.argv;
+		});
 	});
 }
