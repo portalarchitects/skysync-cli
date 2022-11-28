@@ -13,14 +13,14 @@ export class PolicyLocationRulesResource extends BaseResource {
 		return `policies/${policyId}/locations/${locationId}/rule_placeholders`;
 	}
 
-	async getRules(policyId: string, locationId: string, params?: any, token?: CancellationToken): Promise<TrackingGroupLocationRules> {
-		const actions = await this.httpClient.get(this.getResourcePath(policyId, locationId), params, token);
-		return getTypedResponse<TrackingGroupLocationRules>(actions);
+	async getRules(policyId: string, locationId: string, params?: any, token?: CancellationToken): Promise<TrackingGroupLocationRules[]> {
+		const rules = await this.httpClient.get(this.getResourcePath(policyId, locationId), params, token);
+		return getTypedResponse<TrackingGroupLocationRules[]>(rules);
 	}
 
-	async update(policyId: string, locationId: string, body: PolicyLocationRule[], params?: any, token?: CancellationToken): Promise<PolicyLocationRule> {
+	async update(policyId: string, locationId: string, body: PolicyLocationRule[], params?: any, token?: CancellationToken): Promise<PolicyLocationRule[]> {
 		const result = await this.httpClient.post(this.getResourcePath(policyId, locationId), body, params, token);
-		return getTypedResponse<PolicyLocationRule>(result);
+		return getTypedResponse<PolicyLocationRule[]>(result);
 	}
 }
 
