@@ -19,7 +19,7 @@ export class PolicyLocationRulesResource extends BaseResource {
 	}
 
 	async update(policyId: string, locationId: string, body: PolicyLocationRule[], params?: any, token?: CancellationToken): Promise<PolicyLocationRule> {
-		const result = await this.httpClient.patch(this.getResourcePath(policyId, locationId), body, params, token);
+		const result = await this.httpClient.post(this.getResourcePath(policyId, locationId), body, params, token);
 		return getTypedResponse<PolicyLocationRule>(result);
 	}
 }
