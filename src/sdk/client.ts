@@ -56,6 +56,7 @@ import {
 	TransferSecurityMappingsResource,
 	UsersResource,
 	UserPreferencesResource,
+	PolicyLocationRulesResource,
 } from './resources';
 
 export class SkySyncClient {
