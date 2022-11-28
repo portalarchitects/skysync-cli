@@ -113,6 +113,7 @@ export interface PolicyAuditEntry extends IEntityIdentifier<number> {
 export interface PolicyTrackingGroupRule extends IEntityIdentifier<string>, IPrioritizedEntity {
 	justification?: string;
 	criteria?: MetadataCalculatedFilter;
+	optional?: boolean;
 }
 
 interface PolicyActionBase extends IEntityIdentifier<PolicyActionTypeID | string> {
