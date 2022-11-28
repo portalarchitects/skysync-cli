@@ -87,11 +87,11 @@ export class SkySyncClient {
 	get httpClient(): IHttpClient {
 		return this._httpClient;
 	}
-	
+
 	get configuration(): ConfigurationResource {
 		return new ConfigurationResource(this._httpClient);
 	}
-	
+
 	get connections(): ConnectionsResource {
 		return new ConnectionsResource(this._httpClient);
 	}
@@ -183,7 +183,7 @@ export class SkySyncClient {
 	get permissions(): PermissionsResource {
 		return new PermissionsResource(this._httpClient);
 	}
-	
+
 	get personalDrive(): PersonalDriveResource {
 		return new PersonalDriveResource(this._httpClient);
 	}
@@ -203,7 +203,7 @@ export class SkySyncClient {
 	get storagePlatforms(): StoragePlatformsResource {
 		return new StoragePlatformsResource(this._httpClient);
 	}
-	
+
 	get templates(): TemplatesResource {
 		return new TemplatesResource(this._httpClient);
 	}
@@ -235,7 +235,7 @@ export class SkySyncClient {
 	get reportStatistics(): TransferReportStatisticsResource {
 		return new TransferReportStatisticsResource(this._httpClient);
 	}
-	
+
 	get accountMaps(): AccountMapsResource {
 		return new AccountMapsResource(this._httpClient);
 	}
@@ -280,6 +280,10 @@ export class SkySyncClient {
 		return new PolicyLocationActionsResource(this._httpClient);
 	}
 
+	get policyLocationRules(): PolicyLocationRulesResource {
+		return new PolicyLocationRulesResource(this._httpClient);
+	}
+
 	get policyStatistics(): PolicyStatisticsResource {
 		return new PolicyStatisticsResource(this._httpClient);
 	}
@@ -307,7 +311,7 @@ export class SkySyncClient {
 	get entityTypeDictionaries(): EntityTypeDictionariesResource {
 		return new EntityTypeDictionariesResource(this._httpClient);
 	}
-	
+
 	get entityTypeValidators(): EntityTypeValidatorsResource {
 		return new EntityTypeValidatorsResource(this._httpClient);
 	}

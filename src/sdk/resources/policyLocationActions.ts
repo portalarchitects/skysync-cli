@@ -1,7 +1,45 @@
 import { IHttpClient } from '../http';
 import { getTypedResponse, BaseResource}  from './resource';
-import { PolicyLocationAction, PromptAttributes, TrackingGroupLocationActions } from '../models';
+import { PolicyLocationAction, PolicyLocationRule, PromptAttributes, TrackingGroupLocationActions, TrackingGroupLocationRules } from '../models';
 import { CancellationToken } from '../cancellation-token';
+
+// TODO: move and maybe rename (placeholders)?
+export class PolicyLocationRulesResource extends BaseResource {
+	constructor(httpClient: IHttpClient) {
+		super(httpClient);
+	}
+
+	private getResourcePath(policyId: string, locationId: string): string {
+		return `policies/${policyId}/locations/${locationId}/rule_placeholders`;
+	}
+
+	// private getResourcePathSingle(policyId: string, locationId: string, trackingGroupRuleId: string): string {
+	// 	return `${this.getResourcePath(policyId, locationId)}/${trackingGroupRuleId}`;
+	// }
+
+	async getRules(policyId: string, locationId: string, params?: any, token?: CancellationToken): Promise<TrackingGroupLocationRules> {
+		const actions = await this.httpClient.get(this.getResourcePath(policyId, locationId), params, token);
+		return getTypedResponse<TrackingGroupLocationRules>(actions);
+	}
+
+	// getConfigurationPrompt(policyId: string, locationId: string, trackingGroupRuleId: string, params?: any, token?: CancellationToken): Promise<{ config_attributes: PromptAttributes }> {
+	// 	return this.httpClient.get(this.getResourcePathSingle(policyId, locationId, trackingGroupRuleId), params, token);
+	// }
+
+	// async add(policyId: string, locationId: string, trackingGroupRuleId: string, body: PolicyLocationRule, params?: any, token?: CancellationToken): Promise<PolicyLocationRule> {
+	// 	const result = await this.httpClient.post(this.getResourcePathSingle(policyId, locationId, trackingGroupRuleId), body, params, token);
+	// 	return getTypedResponse<PolicyLocationRule>(result);
+	// }
+
+	async update(policyId: string, locationId: string, body: PolicyLocationRule, params?: any, token?: CancellationToken): Promise<PolicyLocationRule> {
+		const result = await this.httpClient.patch(this.getResourcePath(policyId, locationId), body, params, token);
+		return getTypedResponse<PolicyLocationRule>(result);
+	}
+
+	// delete(policyId: string, locationId: string, trackingGroupRuleId: string, token?: CancellationToken): Promise<boolean> {
+	// 	return this.httpClient.delete(this.getResourcePathSingle(policyId, locationId, trackingGroupRuleId), null, token);
+	// }
+}
 
 export class PolicyLocationActionsResource extends BaseResource {
 	constructor(httpClient: IHttpClient) {
