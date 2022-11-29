@@ -18,9 +18,9 @@ export class PolicyLocationRulesResource extends BaseResource {
 		return getTypedResponse<TrackingGroupLocationRules[]>(rules);
 	}
 
-	async update(policyId: string, locationId: string, body: PolicyLocationRule[], params?: any, token?: CancellationToken): Promise<PolicyLocationRule[]> {
+	async update(policyId: string, locationId: string, body: PolicyLocationRule[], params?: any, token?: CancellationToken): Promise<boolean> {
 		const result = await this.httpClient.post(this.getResourcePath(policyId, locationId), body, params, token);
-		return getTypedResponse<PolicyLocationRule[]>(result);
+		return getTypedResponse<boolean>(result);
 	}
 }
 
