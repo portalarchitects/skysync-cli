@@ -36,6 +36,7 @@ export * from './policyCategories';
 export * from './policyAudits';
 export * from './policyItems';
 export * from './policyLocationActions';
+export * from './policyLocationRules';
 export * from './policyStatistics';
 export * from './policyStatisticsSummary';
 export * from './policyTrackingGroups';

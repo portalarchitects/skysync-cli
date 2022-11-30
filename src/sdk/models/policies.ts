@@ -113,6 +113,7 @@ export interface PolicyAuditEntry extends IEntityIdentifier<number> {
 export interface PolicyTrackingGroupRule extends IEntityIdentifier<string>, IPrioritizedEntity {
 	justification?: string;
 	criteria?: MetadataCalculatedFilter;
+	optional?: boolean;
 }
 
 interface PolicyActionBase extends IEntityIdentifier<PolicyActionTypeID | string> {
@@ -155,6 +156,7 @@ export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPriorit
 	actions?: PolicyTrackingGroupAction[];
 	cost?: number;
 	location_statistics?: RequiredLocationActionStatistics;
+	has_location_criteria?: boolean;
 }
 
 export interface PolicyLocationAction {
@@ -163,12 +165,26 @@ export interface PolicyLocationAction {
 	action?: PolicyTrackingGroupActionConfiguration;
 }
 
+export interface PolicyLocationRule {
+	id: string;
+	skipped?: boolean;
+	value?: string;
+}
+
 export interface LocationActionsByTrackingGroup {
+	[trackingGroupID: string]: PolicyLocationAction[];
+}
+
+export interface LocationRulesByTrackingGroup {
 	[trackingGroupID: string]: PolicyLocationAction[];
 }
 
 export interface TrackingGroupLocationActions {
 	actions_by_tracking_group: LocationActionsByTrackingGroup;
+}
+
+export interface TrackingGroupLocationRules {
+	placeholders_by_tracking_group: LocationRulesByTrackingGroup;
 }
 
 export interface ConfigurationPrompt {
