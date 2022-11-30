@@ -19,8 +19,8 @@ export class PolicyLocationRulesResource extends BaseResource {
 	}
 
 	async update(policyId: string, locationId: string, body: PolicyLocationRule[], params?: any, token?: CancellationToken): Promise<boolean> {
-		const result = await this.httpClient.post(this.getResourcePath(policyId, locationId), body, params, token);
-		return getTypedResponse<boolean>(result);
+		const response = await this.httpClient.post(this.getResourcePath(policyId, locationId), body, params, token);
+		return response?.status === 200;
 	}
 }
 
