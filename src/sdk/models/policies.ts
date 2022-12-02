@@ -56,7 +56,7 @@ export interface PolicyLocations {
 	executions?: number;
 	platforms?: (StoragePlatform & { count?: number })[];
 	action_needed_item_count?: number;
-	pending_configuration?: number;
+	num_pending_configuration?: number;
 }
 
 export interface PolicyJob extends Job {
@@ -66,12 +66,11 @@ export interface PolicyJob extends Job {
 export interface PolicyJobOptions {
 	source: TransferPath;
 	policies?: (Policy & IPrioritizedEntity)[];
-	actions?: LocationActions;
+	configuration?: LocationConfiguration;
 }
 
-export interface LocationActions {
-	count?: number;
-	pending_configuration?: number;
+export interface LocationConfiguration {
+	is_pending?: boolean;
 }
 
 export interface PolicyItem extends TransferPlatformItem {
@@ -134,17 +133,17 @@ export interface PolicyTrackingGroupActionConfiguration extends PolicyActionBase
 	[name: string]: any;
 }
 
-export interface RequiredLocationActionStatistics {
+export interface RequiredLocationConfigurationStatistics {
 	locations?: number;
-	pending_configuration?: number;
-	skipped_configuration?: number;
+	num_pending_configuration?: number;
+	num_skipped_configuration?: number;
 }
 
 export interface PolicyTrackingGroupAction extends IEntityIdentifier<string>, IPrioritizedEntity {
 	optional?: boolean;
 	action?: PolicyTrackingGroupActionConfiguration;
 	requires_location?: boolean;
-	location_statistics?: RequiredLocationActionStatistics;
+	location_statistics?: RequiredLocationConfigurationStatistics;
 }
 
 export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPrioritizedEntity {
@@ -155,7 +154,7 @@ export interface PolicyTrackingGroup extends IEntityIdentifier<string>, IPriorit
 	entity_types?: EntityTypeAssignment[];
 	actions?: PolicyTrackingGroupAction[];
 	cost?: number;
-	location_statistics?: RequiredLocationActionStatistics;
+	location_statistics?: RequiredLocationConfigurationStatistics;
 	has_location_criteria?: boolean;
 }
 
