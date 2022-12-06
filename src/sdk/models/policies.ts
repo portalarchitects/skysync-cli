@@ -32,7 +32,7 @@ export enum PolicyActionTypeID {
 	Remediate = 'remediate'
 }
 
-export enum LocationActionConfigurationStatus {
+export enum LocationConfigurationStatus {
 	None = 'none',
 	FullyConfigured = 'fully_configured',
 	NeedsConfiguration = 'needs_configuration'
