@@ -5,22 +5,19 @@ declare const window: any;
 declare const WorkerGlobalScope: any;
 declare const global: any;
 
-function getFetch(): {fetch: FetchApi; formDataType: any; usingNodeFetch: boolean} {
+function getFetch(): {fetch: FetchApi; formDataType: any } {
 	return (function(g: any) {
 		let f = g?.fetch;
 		let formDataType = g?.FormData;
-		let usingNodeFetch = false;
 		if (f) {
 			f = f.bind(g);
 		} else {
 			f = module.require('node-fetch');
 			formDataType = module.require('form-data');
-			usingNodeFetch = true;
 		}
 		return {
 			fetch: f,
-			formDataType,
-			usingNodeFetch
+			formDataType
 		};
 	})((typeof window !== 'undefined'
 		? window
@@ -31,11 +28,6 @@ function getFetch(): {fetch: FetchApi; formDataType: any; usingNodeFetch: boolea
 }
 
 export function createHttpClient(baseAddress?: string, token?: IAuthorizationToken, site?: string): IHttpClient {
-	const { fetch, formDataType, usingNodeFetch } = getFetch();
-	if (!usingNodeFetch) {
-		baseAddress = '/';
-	} else {
-		baseAddress = baseAddress || 'http://localhost:9090/';
-	}
-	return new FetchHttpClient(fetch, formDataType, baseAddress, token, site);
+	const { fetch, formDataType } = getFetch();
+	return new FetchHttpClient(fetch, formDataType, baseAddress || 'http://localhost:9090/', token, site);
 }
