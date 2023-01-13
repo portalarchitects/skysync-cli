@@ -5,11 +5,11 @@ declare const window: any;
 declare const WorkerGlobalScope: any;
 declare const global: any;
 
-function getFetch(): {fetch: FetchApi; formDataType: any; usingNodeFetch: boolean} {
+function getFetch(): {fetch: FetchApi; formDataType: any; usingNodeFetch: boolean } {
 	return (function(g: any) {
 		let f = g?.fetch;
 		let formDataType = g?.FormData;
-		let usingNodeFetch = false;
+		let usingNodeFetch = !Boolean(g?.window);
 		if (f) {
 			f = f.bind(g);
 		} else {
