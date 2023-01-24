@@ -53,6 +53,7 @@ export interface Policy extends IEntityIdentifier<string>, IAuditedEntity {
 export interface PolicyLocations {
 	count?: number;
 	error?: number;
+	running?: number;
 	executions?: number;
 	platforms?: (StoragePlatform & { count?: number })[];
 	action_needed_item_count?: number;
