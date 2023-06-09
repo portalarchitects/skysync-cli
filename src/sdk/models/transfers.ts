@@ -49,10 +49,16 @@ export interface TransferTarget {
 	path?: string;
 }
 
+export interface SizeEstimate {
+	bytes?: number;
+	count?: number;
+}
+
 export interface TransferPath {
 	connection?: Connection;
 	impersonate_as?: Account;
 	target?: TransferTarget;
+	size_estimate?: SizeEstimate;
 }
 
 export enum ConflictResolutionPolicy {
