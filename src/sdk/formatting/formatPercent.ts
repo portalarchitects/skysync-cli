@@ -3,9 +3,30 @@ const percentFormatter = new Intl.NumberFormat('en', {
 	maximumFractionDigits: 1
 });
 
-export const formatPercent = (number: number): string => {
-	if (isNaN(number) || typeof(number) === 'undefined' || number === null) {
+const integerPercentFormatter = new Intl.NumberFormat('en', {
+	style: 'percent',
+	maximumFractionDigits: 0,
+});
+
+export type PercentFormatOptions = {
+	showIntegerPercent?: boolean;
+};
+
+const getPercentFormatter = (
+	options?: PercentFormatOptions
+): Intl.NumberFormat => {
+	return options && Boolean(options.showIntegerPercent)
+		? integerPercentFormatter
+		: percentFormatter;
+};
+
+export const formatPercent = (
+	number?: number | null,
+	options?: PercentFormatOptions | undefined
+): string | null => {
+	if (number === undefined || number === null || isNaN(number)) {
 		return null;
 	}
-	return percentFormatter.format(number);
+
+	return getPercentFormatter(options).format(number);
 };
