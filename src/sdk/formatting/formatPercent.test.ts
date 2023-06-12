@@ -27,4 +27,22 @@ describe('formatPercent', () => {
 		expect(formatPercent(undefined)).to.eql(null);
 		expect(formatPercent(<any>'test')).to.eql(null);
 	});
+
+	it('can restrict decimals to 0 places', () => {
+		expect(formatPercent(0.2426345, { showIntegerPercent: true })).eql(
+			'24%'
+		);
+	});
+
+	it('should restrict decimals to 1 place when showIntegerPercent is false', () => {
+		expect(formatPercent(0.2426345, { showIntegerPercent: false })).eql(
+			'24.3%'
+		);
+	});
+
+	it('should restrict decimals to 1 place when showIntegerPercent is undefined', () => {
+		expect(formatPercent(0.2426345, { showIntegerPercent: undefined })).eql(
+			'24.3%'
+		);
+	});
 });
