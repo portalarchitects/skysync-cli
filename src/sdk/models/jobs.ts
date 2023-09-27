@@ -51,7 +51,8 @@ export enum JobResetType {
 	Permissions = 'permissions',
 	Soft = 'soft',
 	Hard = 'hard',
-	Full = 'full'
+	Full = 'full',
+	LinkRemediation = 'link_remediation',
 }
 
 export enum ItemInspectionPolicy {
