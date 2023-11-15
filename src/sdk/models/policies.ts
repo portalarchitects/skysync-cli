@@ -1,7 +1,7 @@
 import { IEntityIdentifier, IAuditedEntity, IPrioritizedEntity } from './base';
 import { PromptAttributes, StoragePlatform } from './connections';
 import { Category } from './categories';
-import { Job } from './jobs';
+import { Job, JobSchedule } from './jobs';
 import { TransferPath, TransferPlatformItem } from './transfers';
 import { AuditCategory } from './auditCategories';
 import { EntityType, EntityTypeAssignment } from './entityTypes';
@@ -68,6 +68,7 @@ export interface PolicyJobOptions {
 	source: TransferPath;
 	policies?: (Policy & IPrioritizedEntity)[];
 	configuration?: LocationConfiguration;
+	schedule?: JobSchedule;
 }
 
 export interface LocationConfiguration {
