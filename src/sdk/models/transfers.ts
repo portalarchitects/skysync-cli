@@ -153,6 +153,7 @@ export interface TransferAuditEntry extends IEntityIdentifier<number> {
 }
 
 export interface TransferItemEmbeddedLink {
+	count?: number;
 	link?: string;
 	remediated_link?: string;
 	remediated_on?: number;
