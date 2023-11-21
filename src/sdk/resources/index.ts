@@ -50,6 +50,7 @@ export * from './sites';
 export * from './templates';
 export * from './transferAudits';
 export * from './transferItems';
+export * from './transferItemEmbeddedLinks';
 export * from './transferFolders';
 export * from './transferSecurityMappings';
 export * from './transferPermissions';

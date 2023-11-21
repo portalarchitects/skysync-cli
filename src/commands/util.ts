@@ -7,8 +7,7 @@ export const listArgumentsSearch = {
 	}
 };
 
-export const listArgumentsDefault = {
-	...listArgumentsSearch,
+export const listArgumentsPaging = {
 	'offset': {
 		default: 0,
 		desc: 'Search offset',
@@ -22,6 +21,11 @@ export const listArgumentsDefault = {
 		type: 'number',
 		group: 'Search'
 	}
+};
+
+export const listArgumentsDefault = {
+	...listArgumentsSearch,
+	...listArgumentsPaging
 };
 
 export function formatTotalCount(totalCount): any {

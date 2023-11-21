@@ -49,6 +49,7 @@ import {
 	TransferAuditsResource,
 	TransferFoldersResource,
 	TransferItemsResource,
+	TransferItemEmbeddedLinksResource,
 	TransferJobStatisticsResource,
 	TransferPermissionsResource,
 	TransferReportsResource,
@@ -151,6 +152,10 @@ export class SkySyncClient {
 
 	get transferItems(): TransferItemsResource {
 		return new TransferItemsResource(this._httpClient);
+	}
+
+	get transferItemEmbeddedLinks(): TransferItemEmbeddedLinksResource {
+		return new TransferItemEmbeddedLinksResource(this._httpClient);
 	}
 
 	get conventionAudits(): ConventionAuditsResource {

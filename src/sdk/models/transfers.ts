@@ -117,6 +117,7 @@ export interface TransferItem extends IEntityIdentifier<number> {
 	transferred_on?: number;
 	root?: boolean;
 	type?: 'container' | 'item';
+	link_remediation_status?: TransferItemLinkRemediationStatus;
 }
 
 export interface TransferPlatformItem extends IEntityIdentifier<string> {
@@ -149,6 +150,33 @@ export interface TransferAuditEntry extends IEntityIdentifier<number> {
 	type?: string;
 	message?: string;
 	recorded_on?: number;
+}
+
+export interface TransferItemEmbeddedLink {
+	count?: number;
+	link?: string;
+	remediated_link?: string;
+	remediated_on?: number;
+	remediation_status?: EmbeddedLinkRemediationStatus; 
+	target?: TransferItem; // The tracked item the link was detected in
+	linked_item?: TransferItem; // The tracked item the link points to, if any
+}
+
+export enum TransferItemLinkRemediationStatus {
+	NothingToRemediate = 'nothing_to_remediate',
+	RemediationNeeded = 'remediation_needed',
+	Complete = 'complete',
+	Retry = 'retry',
+	Failed = 'failed'
+}
+
+export enum EmbeddedLinkRemediationStatus {
+	None = 'none',
+	Remediated = 'remediated',
+	Ignored = 'ignored',
+	Unsupported = 'unsupported',
+	Failed = 'failed',
+	Retry = 'retry'
 }
 
 export interface TransferSecurityMapping extends IEntityIdentifier<string> {
