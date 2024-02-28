@@ -16,4 +16,12 @@ export class PolicyItemsResource extends PagedResource<PolicyItem> {
 		const result = await this.httpClient.get(`${this.resourcePath}/${tracking_id}/match_confidences`, params, token);
 		return getTypedResponse<PolicyItemMatchConfidence[]>(result, 'item');
 	}
+
+	retryMultiple(params?: any, token?: CancellationToken): Promise<void> {
+		return this.modifyMultiple(this.mergeParams(params, {retry: true}), token);
+	}
+
+	private async modifyMultiple(params: any, token?: CancellationToken): Promise<void> {
+		await this.httpClient.patch(`${this.resourcePath}/status`, undefined, params, token);
+	}
 }
