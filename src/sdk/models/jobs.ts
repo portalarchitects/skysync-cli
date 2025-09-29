@@ -11,6 +11,7 @@ export enum JobScheduleMode {
 export enum JobStatus {
 	AwaitingUser = 'awaiting-user',
 	Cancelled = 'cancel',
+	Cancelling = 'cancelling',
 	Complete = 'complete',
 	Deleted = 'deleted',
 	Failed = 'failed',
