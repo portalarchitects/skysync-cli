@@ -20,10 +20,9 @@ steps:
           cd publish
           BASE_VERSION=$(node -p "require('./package.json').version")
           BUILD_VERSION="${BASE_VERSION}.$(Build.BuildId)"
-          echo "Setting npm version to $BUILD_VERSION"
-
+          echo "Setting npm version to $BUILD_VERSION
           npm version "$BUILD_VERSION" --no-git-tag-version
-  displayName: 'Set version with build ID'
+      displayName: 'Set version with build ID'
 
 
     - task: Npm@1
