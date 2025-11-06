@@ -17,11 +17,15 @@ steps:
       displayName: 'Test'
 
     - script: |
-          cd publish
-          BASE_VERSION=$(node -p "require('./package.json').version")
-          BUILD_VERSION="${BASE_VERSION}.$(Build.BuildId)"
-          echo "Setting npm version to $BUILD_VERSION
-          npm version "$BUILD_VERSION" --no-git-tag-version
+         set -e
+         cd publish
+         BASE_VERSION=$(node -p "require('./package.json').version")
+         echo "Base version from package.json: $BASE_VERSION"
+         BUILD_ID=$BUILD_BUILDID
+         echo "Build ID: $BUILD_ID"
+         BUILD_VERSION="${BASE_VERSION}-${BUILD_ID}"
+         echo "Setting npm version to $BUILD_VERSION"
+         npm version "$BUILD_VERSION" --no-git-tag-version
       displayName: 'Set version with build ID'
 
 
