@@ -31,7 +31,7 @@ steps:
 
     - task: Npm@1
       inputs:
-          command: publish --tag latest
+          command: publish
           workingDir: publish
           publishRegistry: useFeed
           publishFeed: '9ee3b1ba-43b7-4d43-b1b1-b0e328eb5ecd/6b2c6d4b-eda7-4403-8cbe-c1b220843328'
