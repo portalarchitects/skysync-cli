@@ -41,4 +41,5 @@ export interface License {
 	used?: LicenseUsage;
 	expires_on?: number;
 	expired?: boolean;
+	failures?: string[];
 }
