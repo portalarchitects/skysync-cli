@@ -158,6 +158,7 @@ export interface TransferItemEmbeddedLink {
 	remediated_link?: string;
 	remediated_on?: number;
 	remediation_status?: EmbeddedLinkRemediationStatus;
+	remediation_status_reason?: EmbeddedLinkRemediationStatusReason;
 	target?: TransferItem; // The tracked item the link was detected in
 	linked_item?: TransferItem; // The tracked item the link points to, if any
 }
