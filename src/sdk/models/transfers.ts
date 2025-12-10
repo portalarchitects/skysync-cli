@@ -157,7 +157,8 @@ export interface TransferItemEmbeddedLink {
 	link?: string;
 	remediated_link?: string;
 	remediated_on?: number;
-	remediation_status?: EmbeddedLinkRemediationStatus; 
+	remediation_status?: EmbeddedLinkRemediationStatus;
+	remediation_status_reason?: EmbeddedLinkRemediationStatusReason;
 	target?: TransferItem; // The tracked item the link was detected in
 	linked_item?: TransferItem; // The tracked item the link points to, if any
 }
@@ -177,6 +178,16 @@ export enum EmbeddedLinkRemediationStatus {
 	Unsupported = 'unsupported',
 	Failed = 'failed',
 	Retry = 'retry'
+}
+
+export enum EmbeddedLinkRemediationStatusReason {
+	None = 'none',
+	Unknown = 'unknown',
+	FailedToParseIdentifier = 'failed_to_parse_identifier',
+	FailedToResolveUrl = 'failed_to_resolve_url',
+	FailedToMatchItem = 'failed_to_match_item',
+	InvalidSourceItem = 'invalid_source_item',
+	InvalidDestinationItem = 'invalid_destination_item'
 }
 
 export interface TransferSecurityMapping extends IEntityIdentifier<string> {
