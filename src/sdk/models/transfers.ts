@@ -183,7 +183,7 @@ export enum EmbeddedLinkRemediationStatus {
 export enum EmbeddedLinkRemediationStatusReason {
 	None = 'none',
 	Unknown = 'unknown',
-	FailedToResolvePath = 'failed_to_resolve_path',
+	FailedToParseIdentifier = 'failed_to_parse_identifier',
 	FailedToResolveUrl = 'failed_to_resolve_url',
 	FailedToMatchItem = 'failed_to_match_item',
 	InvalidSourceItem = 'invalid_source_item',
