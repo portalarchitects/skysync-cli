@@ -18,11 +18,13 @@ type FormatMethod = (date: Date) => string;
 const absoluteFormats = {
 	time: getDateFormat({
 		hour: '2-digit',
-		minute: '2-digit'
+		minute: '2-digit',
+		hour12: true
 	}),
 	timeWithZone: getDateFormat({
 		hour: '2-digit',
 		minute: '2-digit',
+		hour12: true,
 		timeZoneName: 'short'
 	}),
 	short: getDateFormat({
@@ -39,13 +41,15 @@ const absoluteFormats = {
 		day: '2-digit',
 		month: 'short',
 		hour: 'numeric',
-		minute: '2-digit'
+		minute: '2-digit',
+		hour12: true
 	}),
 	fullSameYear: getDateFormat({
 		day: '2-digit',
 		month: 'short',
 		hour: 'numeric',
-		minute: '2-digit'
+		minute: '2-digit',
+		hour12: true
 	}),
 	fullWithZone: getDateFormat({
 		year: 'numeric',
@@ -53,6 +57,7 @@ const absoluteFormats = {
 		month: 'short',
 		hour: 'numeric',
 		minute: '2-digit',
+		hour12: true,
 		timeZoneName: 'short'
 	}),
 	fullWithZoneSameYear: getDateFormat({
@@ -60,6 +65,7 @@ const absoluteFormats = {
 		month: 'short',
 		hour: 'numeric',
 		minute: '2-digit',
+		hour12: true,
 		timeZoneName: 'short'
 	}),
 };

@@ -4,12 +4,14 @@ import { trimPrecedingZero } from './trimPrecedingZero';
 
 const timeFormat = getDateFormat({
 	hour: '2-digit',
-	minute: '2-digit'
+	minute: '2-digit',
+	hour12: true
 });
 
 const timeZoneFormat = getDateFormat({
 	hour: '2-digit',
 	minute: '2-digit',
+	hour12: true,
 	timeZoneName: 'short'
 });
 
